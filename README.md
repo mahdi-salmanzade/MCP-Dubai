@@ -223,16 +223,18 @@ The auth scaffolding is in place (graceful credential degradation, token caching
 
 ### Upstream Status
 
-Some government endpoints have deployed bot protection (Cloudflare) since v0.1.0 released. These tools return a structured `success: false` with `error.status` of `upstream_blocked` instead of crashing. The rest of the package (85 of 90 tools) is unaffected.
+Some government endpoints have deployed bot protection (Cloudflare) since v0.1.0 released. These tools return a structured `success: false` with `error.status` of `upstream_blocked` instead of crashing. The rest of the package is unaffected.
 
 | Tool | Endpoint | Status as of 2026-04-13 |
 |---|---|---|
+| `cbuae_exchange_rates` | `centralbank.ae` Exchange endpoint | ✅ Working (scraper updated in v0.1.2 for the new Arabic three-cell DOM) |
 | `cbuae_base_rate` | `centralbank.ae` InterestRate endpoint | 🔶 Cloudflare-blocked |
-| `cbuae_exchange_rates` | `centralbank.ae` Exchange endpoint | 🟡 Reachable, HTML shape changed (returns `parse_error` until scraper is updated) |
 | `fcsc_search_dataset` | `opendata.fcsc.gov.ae` CKAN | 🔶 Cloudflare-blocked |
 | `fcsc_get_dataset` | `opendata.fcsc.gov.ae` CKAN | 🔶 Cloudflare-blocked |
 | `fcsc_list_organizations` | `opendata.fcsc.gov.ae` CKAN | 🔶 Cloudflare-blocked |
 | `fca_trade_stats` | `opendata.fcsc.gov.ae` CKAN | 🔶 Cloudflare-blocked (delegates to fcsc_search_dataset) |
+
+`cbuae_exchange_rates` rows now include `currency` (English), `currency_ar` (Arabic as returned by CBUAE), `iso_code` (ISO 4217), and `rate_aed`. Unknown currencies pass through with `iso_code: null` and `currency: null` so new CBUAE entries are never silently dropped.
 
 Clients should check `result["success"]` and read `result["error"]["status"]` / `result["error"]["reason"]` for a user-facing message. We track these endpoints and will restore data access when the upstream blocks are lifted or alternative sources are wired up.
 
