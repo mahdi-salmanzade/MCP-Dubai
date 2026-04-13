@@ -121,6 +121,48 @@ class TestCbuaeBaseRateTool:
         assert result["base_rate_percent"] == pytest.approx(3.476)
 
 
+class TestCbuaeUpstreamFailures:
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_exchange_rates_empty_parse_returns_parse_error(self) -> None:
+        """Zero parsed rows should surface as success=false, not silent empty."""
+        respx.get(constants.EXCHANGE_RATES_TODAY).mock(
+            return_value=Response(200, text="<html><body>no table here</body></html>")
+        )
+
+        result = await tools.cbuae_exchange_rates()
+
+        assert result["success"] is False
+        assert result["error"]["status"] == "parse_error"
+        assert "verify_at" in result["error"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_exchange_rates_cloudflare_block_returns_structured_error(self) -> None:
+        """A Cloudflare 403 should surface as success=false upstream_blocked."""
+        respx.get(constants.EXCHANGE_RATES_TODAY).mock(
+            return_value=Response(403, text="<html>Just a moment...</html>")
+        )
+
+        result = await tools.cbuae_exchange_rates()
+
+        assert result["success"] is False
+        assert result["error"]["status"] == "upstream_blocked"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_base_rate_cloudflare_block_returns_structured_error(self) -> None:
+        """cbuae_base_rate must not crash on Cloudflare 403."""
+        respx.get(constants.KEY_INTEREST_RATE).mock(
+            return_value=Response(403, text="<html>Just a moment...</html>")
+        )
+
+        result = await tools.cbuae_base_rate()
+
+        assert result["success"] is False
+        assert result["error"]["status"] == "upstream_blocked"
+
+
 class TestDiscovery:
     def test_tools_registered(self) -> None:
         import importlib

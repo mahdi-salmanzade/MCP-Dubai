@@ -24,6 +24,10 @@ from mcp_dubai._shared.discovery import (
     get_tool_discovery,
     reset_tool_discovery,
 )
+from mcp_dubai._shared.errors import (
+    cloudflare_blocked_response,
+    upstream_error_response,
+)
 from mcp_dubai._shared.http_client import (
     HttpClient,
     HttpClientError,
@@ -57,6 +61,9 @@ __all__ = [
     "KNOWLEDGE_DATE",
     "UAE_ICAO_CODES",
     "UAE_TIMEZONE",
+    # errors
+    "cloudflare_blocked_response",
+    "upstream_error_response",
     # discovery
     "TIER_BIZ",
     "TIER_DUBAI_PULSE",

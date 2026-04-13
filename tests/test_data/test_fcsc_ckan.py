@@ -179,6 +179,56 @@ class TestFcaTradeStats:
         assert params["q"] == "2025"
 
 
+class TestFcscUpstreamFailures:
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_search_dataset_403_returns_structured_error(self) -> None:
+        respx.get(constants.PACKAGE_SEARCH).mock(
+            return_value=Response(403, text="Just a moment...")
+        )
+
+        result = await tools.fcsc_search_dataset(query="test")
+
+        assert result["success"] is False
+        assert result["error"]["status"] == "upstream_blocked"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_get_dataset_403_returns_structured_error(self) -> None:
+        respx.get(constants.PACKAGE_SHOW).mock(
+            return_value=Response(403, text="Just a moment...")
+        )
+
+        result = await tools.fcsc_get_dataset("some-id")
+
+        assert result["success"] is False
+        assert result["error"]["status"] == "upstream_blocked"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_list_organizations_403_returns_structured_error(self) -> None:
+        respx.get(constants.ORGANIZATION_LIST).mock(
+            return_value=Response(403, text="Just a moment...")
+        )
+
+        result = await tools.fcsc_list_organizations()
+
+        assert result["success"] is False
+        assert result["error"]["status"] == "upstream_blocked"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_fca_trade_stats_403_inherits_error_handling(self) -> None:
+        respx.get(constants.PACKAGE_SEARCH).mock(
+            return_value=Response(403, text="Just a moment...")
+        )
+
+        result = await tools.fca_trade_stats()
+
+        assert result["success"] is False
+        assert result["error"]["status"] == "upstream_blocked"
+
+
 class TestDiscovery:
     def test_tools_registered(self) -> None:
         import importlib

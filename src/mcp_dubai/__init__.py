@@ -21,7 +21,7 @@ Usage:
 See README.md for the full tool catalogue and Dubai Pulse credential setup.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __author__ = "Mahdi Salmanzade"
 
 from mcp_dubai.server import mcp

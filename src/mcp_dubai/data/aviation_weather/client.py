@@ -23,6 +23,8 @@ class AviationWeatherClient:
         }
         async with HttpClient() as client:
             response = await client.get(constants.METAR_ENDPOINT, params=params)
+        if response.status_code == 204 or not response.content:
+            return []
         payload = response.json()
         if isinstance(payload, list):
             return [dict(item) for item in payload if isinstance(item, dict)]
@@ -36,6 +38,8 @@ class AviationWeatherClient:
         }
         async with HttpClient() as client:
             response = await client.get(constants.TAF_ENDPOINT, params=params)
+        if response.status_code == 204 or not response.content:
+            return []
         payload = response.json()
         if isinstance(payload, list):
             return [dict(item) for item in payload if isinstance(item, dict)]

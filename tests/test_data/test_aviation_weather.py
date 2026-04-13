@@ -77,6 +77,39 @@ class TestWeatherUaeIcao:
 
     @pytest.mark.asyncio
     @respx.mock
+    async def test_handles_204_empty_response(self) -> None:
+        """HTTP 204 from aviationweather.gov returns no metar, not a crash."""
+        respx.get(constants.METAR_ENDPOINT).mock(
+            return_value=Response(204, content=b"")
+        )
+        respx.get(constants.TAF_ENDPOINT).mock(
+            return_value=Response(204, content=b"")
+        )
+
+        result = await tools.weather_uae_icao(icao="OMDB", include_taf=True)
+
+        assert result["icao"] == "OMDB"
+        assert result["metar"] is None
+        assert result["taf"] is None
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_handles_empty_body_without_204(self) -> None:
+        """A 200 with empty body is treated the same as 204."""
+        respx.get(constants.METAR_ENDPOINT).mock(
+            return_value=Response(200, content=b"")
+        )
+        respx.get(constants.TAF_ENDPOINT).mock(
+            return_value=Response(200, content=b"")
+        )
+
+        result = await tools.weather_uae_icao(icao="OMDB", include_taf=True)
+
+        assert result["metar"] is None
+        assert result["taf"] is None
+
+    @pytest.mark.asyncio
+    @respx.mock
     async def test_icao_normalization(self) -> None:
         respx.get(constants.METAR_ENDPOINT).mock(
             return_value=Response(200, json=_metar_payload("OMDB"))

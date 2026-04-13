@@ -2,8 +2,14 @@
 
 from __future__ import annotations
 
+import httpx
+
+from mcp_dubai._shared.errors import upstream_error_response
+from mcp_dubai._shared.http_client import HttpClientError
 from mcp_dubai.data.fcsc_ckan import constants
 from mcp_dubai.data.fcsc_ckan.client import FcscCkanClient
+
+FCSC_VERIFY_URL = "https://opendata.fcsc.gov.ae"
 
 
 async def fcsc_search_dataset(
@@ -30,12 +36,15 @@ async def fcsc_search_dataset(
         raise ValueError(f"start must be >= 0, got {start}")
 
     client = FcscCkanClient()
-    result = await client.package_search(
-        query=query,
-        rows=rows,
-        start=start,
-        organization=organization,
-    )
+    try:
+        result = await client.package_search(
+            query=query,
+            rows=rows,
+            start=start,
+            organization=organization,
+        )
+    except (HttpClientError, httpx.HTTPError) as exc:
+        return upstream_error_response(exc, verify_at=FCSC_VERIFY_URL)
     return {
         "count": result.get("count", 0),
         "rows": rows,
@@ -58,7 +67,10 @@ async def fcsc_get_dataset(dataset_id: str) -> dict[str, object]:
         raise ValueError("dataset_id must not be empty")
 
     client = FcscCkanClient()
-    return await client.package_show(dataset_id)
+    try:
+        return await client.package_show(dataset_id)
+    except (HttpClientError, httpx.HTTPError) as exc:
+        return upstream_error_response(exc, verify_at=FCSC_VERIFY_URL)
 
 
 async def fcsc_list_organizations() -> dict[str, object]:
@@ -68,7 +80,10 @@ async def fcsc_list_organizations() -> dict[str, object]:
     Useful for finding the right org slug to filter `fcsc_search_dataset`.
     """
     client = FcscCkanClient()
-    orgs = await client.organization_list()
+    try:
+        orgs = await client.organization_list()
+    except (HttpClientError, httpx.HTTPError) as exc:
+        return upstream_error_response(exc, verify_at=FCSC_VERIFY_URL)
     return {"count": len(orgs), "organizations": orgs}
 
 
