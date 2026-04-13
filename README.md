@@ -242,6 +242,8 @@ Clients should check `result["success"]` and read `result["error"]["status"]` / 
 
 ## ⚙️ Configuration
 
+**Zero keys required to run 81 of 90 tools.** For the full walkthrough of every environment variable, where to get each credential, and step-by-step setup for Dubai Pulse, WAQI, and Calendarific, see **[CREDENTIALS.md](./CREDENTIALS.md)**.
+
 | Env Var | Required | Default | Unlocks |
 |---|---|---|---|
 | `MCP_DUBAI_PULSE_CLIENT_ID` | Tier 1 only | `None` | Tier 1 Dubai Pulse OAuth tools (when shipped) |
