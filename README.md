@@ -13,12 +13,12 @@
 [![Made in Dubai](https://img.shields.io/badge/Made%20in-Dubai-red.svg)](#)
 [![Status: Alpha](https://img.shields.io/badge/status-alpha-orange.svg)](#-roadmap)
 [![Knowledge Updated](https://img.shields.io/badge/knowledge_updated-April_2026-blue)](#-knowledge-freshness)
-[![Tests](https://img.shields.io/badge/tests-340_passing-brightgreen.svg)](#)
+[![Tests](https://img.shields.io/badge/tests-369_passing-brightgreen.svg)](#)
 [![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen.svg)](#)
 
 **Connect AI agents (Claude, GPT, Cursor, Copilot) to Dubai and UAE public APIs and curated business setup knowledge.**
 
-🔧 **87 tools** · 🏛️ **28 features** · 📚 **17 verified knowledge domains** · ✅ **9 anonymous APIs** · 💼 **15 business advisor tools** · 🤖 **2 agent skills**
+🔧 **90 tools** · 🏛️ **28 features** · 📚 **17 verified knowledge domains** · ✅ **9 anonymous APIs** · 💼 **15 business advisor tools** · 🤖 **2 agent skills**
 
 [Quick Start](#-quick-start) · [Tool Catalogue](#-tool-catalogue) · [Knowledge Freshness](#-knowledge-freshness) · [Architecture](#%EF%B8%8F-architecture) · [Roadmap](#-roadmap) · [Contributing](#-contributing)
 
@@ -169,7 +169,7 @@ claude mcp add dubai -- uvx mcp-dubai
 |---|---|---|
 | `al_adhan` | `prayer_times_for`, `prayer_times_calendar`, `qibla_direction`, `hijri_to_gregorian`, `gregorian_to_hijri` | Prayer times for any UAE city or coords, Qibla compass bearing, Hijri/Gregorian conversion. Method 8 (Gulf Region) is the default; method 16 (Dubai experimental) matches Dubai mosque announcements. |
 | `quran_cloud` | `quran_surah`, `quran_ayah`, `quran_juz`, `quran_search` | Full Quran text and translations. Multiple editions (Arabic Uthmani, Sahih International English, Urdu, etc.). |
-| `cbuae` | `cbuae_exchange_rates`, `cbuae_base_rate` | Central Bank of UAE exchange rates against AED for ~75 currencies (today or historical), plus the current CBUAE base rate. Sourced from the undocumented Umbraco endpoints, no auth. |
+| `cbuae` | `cbuae_exchange_rates`, `cbuae_base_rate` | Central Bank of UAE exchange rates against AED for 76 currencies (today or historical), bilingual rows with ISO 4217 codes. Sourced from the undocumented Umbraco endpoints, no auth. |
 | `fcsc_ckan` | `fcsc_search_dataset`, `fcsc_get_dataset`, `fcsc_list_organizations`, `fca_trade_stats` | Anonymous read against the UAE federal open data CKAN portal. Includes a convenience wrapper for Federal Customs Authority trade statistics (the easiest no-auth path for UAE trade data). |
 | `khda` | `khda_search_school`, `khda_list_curricula`, `khda_list_areas` | Search Dubai private schools by name, area, curriculum, KHDA inspection rating, or fee ceiling. Backed by a curated snapshot of well-known schools; full XLSX refresh script in roadmap. |
 | `aviation_weather` | `weather_uae_icao`, `weather_uae_all` | METAR (current observation) and TAF (forecast) for the 6 UAE international airports (OMDB Dubai International, OMDW Al Maktoum, OMSJ Sharjah, OMAA Abu Dhabi, OMAL Al Ain, OMRK RAK). The standard substitute for the missing NCM public API. |
