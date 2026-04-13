@@ -195,9 +195,7 @@ class TestFcscUpstreamFailures:
     @pytest.mark.asyncio
     @respx.mock
     async def test_get_dataset_403_returns_structured_error(self) -> None:
-        respx.get(constants.PACKAGE_SHOW).mock(
-            return_value=Response(403, text="Just a moment...")
-        )
+        respx.get(constants.PACKAGE_SHOW).mock(return_value=Response(403, text="Just a moment..."))
 
         result = await tools.fcsc_get_dataset("some-id")
 

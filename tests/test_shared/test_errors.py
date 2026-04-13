@@ -40,9 +40,7 @@ class TestUpstreamErrorResponse:
         assert result["error"]["status"] == "upstream_blocked"
 
     def test_cloudflare_page_maps_to_upstream_blocked(self) -> None:
-        err = HttpClientError(
-            "HTTP 403 from upstream: Just a moment...", status_code=403
-        )
+        err = HttpClientError("HTTP 403 from upstream: Just a moment...", status_code=403)
         result = upstream_error_response(err)
         assert result["error"]["status"] == "upstream_blocked"
 
