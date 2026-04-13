@@ -1,0 +1,326 @@
+{
+  "domain": "visas",
+  "knowledge_date": "2026-04-13",
+  "volatility": "high",
+  "verify_at": "https://u.ae/en/information-and-services/visa-and-emirates-id",
+  "source_brief_section": "6.3",
+  "disclaimer": "Visa thresholds change frequently in the UAE. Verify the current ICP rules before applying. Recent changes captured: Golden Visa specialized-talent salary tightened to AED 30,000 basic monthly verified over 24 months. Federal health insurance mandate kicked in January 2025. Visa stickers discontinued since 2022 (residency is digitally tied to Emirates ID).",
+  "currency": "AED",
+  "visas": [
+    {
+      "id": "tourist_30",
+      "name": "Tourist Visa (30 days)",
+      "duration_label": "30 days",
+      "duration_days": 30,
+      "track": "tourist",
+      "best_for": [
+        "scoping trips",
+        "short business visits"
+      ],
+      "eligibility": [
+        "Most nationalities require visa pre-arrival",
+        "Visa-on-arrival nationalities exempt"
+      ],
+      "cost_aed_min": 350,
+      "cost_aed_max": 700,
+      "documents": [
+        "passport (6+ months validity)",
+        "return ticket",
+        "hotel confirmation"
+      ],
+      "process": "Online via ICP/GDRFA portal, hotel sponsor, or airline.",
+      "source_urls": [
+        "https://icp.gov.ae"
+      ]
+    },
+    {
+      "id": "tourist_60",
+      "name": "Tourist Visa (60 days)",
+      "duration_label": "60 days",
+      "duration_days": 60,
+      "track": "tourist",
+      "best_for": [
+        "longer scoping trips",
+        "extended family visits"
+      ],
+      "cost_aed_min": 700,
+      "cost_aed_max": 1200,
+      "documents": [
+        "passport",
+        "return ticket",
+        "accommodation proof"
+      ],
+      "source_urls": [
+        "https://icp.gov.ae"
+      ]
+    },
+    {
+      "id": "investor_partner",
+      "name": "Investor / Partner Visa",
+      "duration_label": "2 years",
+      "duration_years": 2,
+      "track": "founder",
+      "best_for": [
+        "anyone with a UAE trade license"
+      ],
+      "eligibility": [
+        "Active UAE trade license",
+        "Either mainland (DET) or free zone",
+        "Sponsor is the founder's own company"
+      ],
+      "cost_aed_min": 5000,
+      "cost_aed_max": 8000,
+      "process_steps": [
+        "Trade license issued",
+        "Establishment Card / Immigration Card",
+        "Entry permit",
+        "Status change (or exit and re-enter)",
+        "Medical fitness test",
+        "Emirates ID biometrics",
+        "Residence visa stamping (now digital, no sticker since 2022)"
+      ],
+      "timeline_weeks_min": 2,
+      "timeline_weeks_max": 6,
+      "documents": [
+        "passport",
+        "trade license",
+        "MOA",
+        "share certificate",
+        "photo"
+      ],
+      "source_urls": [
+        "https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas"
+      ]
+    },
+    {
+      "id": "employment",
+      "name": "Employment Visa",
+      "duration_label": "2 years",
+      "duration_years": 2,
+      "track": "employee",
+      "best_for": [
+        "salaried role with a UAE employer"
+      ],
+      "eligibility": [
+        "Valid job offer from UAE-registered employer",
+        "Employer holds an active MOHRE quota or free zone equivalent"
+      ],
+      "cost_aed_min": 0,
+      "cost_aed_max": 0,
+      "cost_notes": "Employer pays.",
+      "process_steps": [
+        "Offer letter signed",
+        "MOHRE work permit issued",
+        "Entry permit",
+        "Medical, EID, residence stamping"
+      ],
+      "timeline_weeks_min": 2,
+      "timeline_weeks_max": 6,
+      "documents": [
+        "passport",
+        "attested degree",
+        "employer offer letter"
+      ],
+      "source_urls": [
+        "https://www.mohre.gov.ae"
+      ]
+    },
+    {
+      "id": "golden_specialized_talent",
+      "name": "Golden Visa (Specialized Talent)",
+      "duration_label": "10 years",
+      "duration_years": 10,
+      "track": "golden",
+      "category": "specialized_talent",
+      "best_for": [
+        "scientists",
+        "doctors",
+        "engineers",
+        "specialists in priority fields"
+      ],
+      "eligibility": [
+        "AED 30,000 minimum BASIC monthly salary, verified for the prior 24 months (tightened in early 2026)",
+        "Recognised qualification in the relevant field",
+        "Specialised in a priority field (medicine, engineering, scientific research, AI, etc.)"
+      ],
+      "cost_aed_min": 2800,
+      "cost_aed_max": 9500,
+      "cost_notes": "Plus dependent visa fees.",
+      "process": "Apply via ICP portal or Amer / GDRFA Dubai. Self-sponsored, no employer needed.",
+      "source_urls": [
+        "https://icp.gov.ae/en/golden-residency"
+      ]
+    },
+    {
+      "id": "golden_investor_real_estate",
+      "name": "Golden Visa (Real Estate Investor)",
+      "duration_label": "10 years",
+      "duration_years": 10,
+      "track": "golden",
+      "category": "real_estate_investor",
+      "best_for": [
+        "property investors with AED 2M+ in UAE real estate"
+      ],
+      "eligibility": [
+        "Property worth AED 2 million or more (single or combined)",
+        "Property must be paid off (or substantial equity in mortgaged property)",
+        "Property in approved areas"
+      ],
+      "cost_aed_min": 3800,
+      "cost_aed_max": 9500,
+      "source_urls": [
+        "https://icp.gov.ae/en/golden-residency"
+      ]
+    },
+    {
+      "id": "golden_entrepreneur",
+      "name": "Golden Visa (Entrepreneur)",
+      "duration_label": "10 years",
+      "duration_years": 10,
+      "track": "golden",
+      "category": "entrepreneur",
+      "best_for": [
+        "founders with technical or future fields project"
+      ],
+      "eligibility": [
+        "Project worth at least AED 500,000",
+        "Technical or future-fields project (approved by relevant authority)",
+        "Approval from accredited business incubator OR Ministry of Economy"
+      ],
+      "cost_aed_min": 2800,
+      "cost_aed_max": 5000,
+      "source_urls": [
+        "https://icp.gov.ae/en/golden-residency"
+      ]
+    },
+    {
+      "id": "green_skilled_employee",
+      "name": "Green Visa (Skilled Employee)",
+      "duration_label": "5 years",
+      "duration_years": 5,
+      "track": "green",
+      "category": "skilled_employee",
+      "best_for": [
+        "skilled employees with a valid MOHRE work permit"
+      ],
+      "eligibility": [
+        "Valid MOHRE work permit",
+        "MOHRE skill level 1, 2, or 3",
+        "Bachelor's degree or equivalent",
+        "AED 15,000 minimum monthly salary"
+      ],
+      "cost_aed_min": 4000,
+      "cost_aed_max": 6000,
+      "process": "Self-sponsored after obtaining a qualifying employment record.",
+      "source_urls": [
+        "https://icp.gov.ae/en/green-residency/"
+      ]
+    },
+    {
+      "id": "green_freelancer",
+      "name": "Green Visa (Freelancer / Self-Employed)",
+      "duration_label": "5 years",
+      "duration_years": 5,
+      "track": "green",
+      "category": "freelancer",
+      "best_for": [
+        "freelancers and self-employed professionals"
+      ],
+      "eligibility": [
+        "Freelance / self-employed permit from MOHRE",
+        "Bachelor's degree or specialized diploma",
+        "AED 360,000 cumulative income over the prior two years OR proof of financial solvency for the residency duration"
+      ],
+      "cost_aed_min": 4000,
+      "cost_aed_max": 6000,
+      "process": "Self-sponsored. Requires MOHRE freelance permit first.",
+      "source_urls": [
+        "https://icp.gov.ae/en/green-residency/"
+      ]
+    },
+    {
+      "id": "freelance_permit",
+      "name": "Freelance Permit (TECOM / GoFreelance)",
+      "duration_label": "1 to 2 years",
+      "duration_years": 2,
+      "track": "freelancer",
+      "best_for": [
+        "solo professionals in tech, media, education, design"
+      ],
+      "eligibility": [
+        "Recognised qualification or portfolio in a permitted activity",
+        "Application via TECOM, GoFreelance, or other free zone freelance program"
+      ],
+      "cost_aed_min": 7500,
+      "cost_aed_max": 20000,
+      "documents": [
+        "passport",
+        "qualification proof",
+        "CV / portfolio",
+        "NOC if employed elsewhere"
+      ],
+      "source_urls": [
+        "https://www.gofreelance.ae"
+      ]
+    },
+    {
+      "id": "virtual_working",
+      "name": "Virtual Working Programme",
+      "duration_label": "1 year",
+      "duration_years": 1,
+      "track": "remote_worker",
+      "best_for": [
+        "remote employees of foreign companies who want UAE residency"
+      ],
+      "eligibility": [
+        "Employment contract with a foreign (non-UAE) employer",
+        "USD 3,500 minimum monthly salary",
+        "Health insurance valid in the UAE"
+      ],
+      "cost_aed_min": 0,
+      "cost_aed_max": 0,
+      "source_urls": [
+        "https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/virtual-working-programme"
+      ]
+    },
+    {
+      "id": "retirement",
+      "name": "Retirement Visa",
+      "duration_label": "5 years",
+      "duration_years": 5,
+      "track": "retirement",
+      "best_for": [
+        "age 55 and older with assets or income"
+      ],
+      "eligibility": [
+        "Age 55 or older",
+        "AED 1 million property OR savings, OR AED 20,000 monthly income"
+      ],
+      "source_urls": [
+        "https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/retirement-visa"
+      ]
+    },
+    {
+      "id": "family_dependent",
+      "name": "Family / Dependent Visa",
+      "duration_label": "Linked to sponsor",
+      "track": "family",
+      "best_for": [
+        "spouse and children of UAE residents"
+      ],
+      "eligibility": [
+        "Sponsor (the UAE resident) holds a valid residence visa",
+        "Sponsor minimum salary AED 4,000 plus housing OR AED 5,000 all-in",
+        "Attested marriage and birth certificates"
+      ],
+      "cost_aed_min": 5000,
+      "cost_aed_max": 7500,
+      "cost_notes": "Per dependent.",
+      "timeline_weeks_min": 2,
+      "timeline_weeks_max": 4,
+      "source_urls": [
+        "https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/residence-visa-for-family-members"
+      ]
+    }
+  ]
+}

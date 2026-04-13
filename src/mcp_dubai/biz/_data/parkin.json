@@ -1,0 +1,132 @@
+{
+  "domain": "parkin",
+  "knowledge_date": "2026-04-13",
+  "volatility": "medium",
+  "verify_at": "https://parkin.ae",
+  "source_brief_section": "6.10c",
+  "disclaimer": "Parkin tariffs and Nol fares change. Verify with parkin.ae and rta.ae before quoting figures. CRITICAL: 'Mawaqif' is Abu Dhabi, not Dubai. Dubai paid parking is operated by Parkin Company PJSC.",
+  "currency": "AED",
+  "operator": {
+    "name": "Parkin Company PJSC",
+    "ticker": "DFM:PARKIN",
+    "spun_out_of": "RTA",
+    "spun_out_in": "December 2023",
+    "concession_years": 49,
+    "url": "https://parkin.ae"
+  },
+  "naming_correction": {
+    "wrong": "Mawaqif",
+    "wrong_belongs_to": "Abu Dhabi",
+    "right": "Parkin (or Dubai Parking)",
+    "explanation": "Mawaqif is the Abu Dhabi parking system. Dubai paid parking is run by Parkin Company PJSC. Use 'Parkin' or 'Dubai parking' in tools, never 'Mawaqif'."
+  },
+  "tariffs": {
+    "live_since": "2025-04-04",
+    "type": "variable",
+    "premium_peak_aed_per_hour": 6,
+    "standard_peak_aed_per_hour": 4,
+    "off_peak_aed_per_hour_min": 2,
+    "off_peak_aed_per_hour_max": 4,
+    "peak_windows": [
+      {"start": "08:00", "end": "10:00"},
+      {"start": "16:00", "end": "20:00"}
+    ],
+    "free_periods": [
+      "Sundays (all day)",
+      "Public holidays (all day)",
+      "Daily 22:00 to 08:00"
+    ]
+  },
+  "zones": {
+    "confirmed": ["A", "B", "C", "D", "E", "F"],
+    "unverified": ["G", "H", "I", "J", "K"],
+    "unverified_note": "Zone letters G through K appear in third-party sources but need first-party confirmation from parkin.ae."
+  },
+  "mparking": {
+    "sms_shortcode": "7275",
+    "sms_meaning": "PARK",
+    "format": "<plate> <zone> <hours>",
+    "example": "Send 'A12345 A1 2' to 7275 for 2 hours in zone A1 with plate A12345.",
+    "note": "The 'P2335' code that appears in older guides is NOT a system-wide code."
+  },
+  "datasets_status": {
+    "rta_parking_rates_open": "OBSOLETE per the publisher. Predates the April 2025 variable tariff and cannot be trusted as a current rate source.",
+    "useful_legacy": [
+      {
+        "slug": "rta_number_of_parking_spaces_per_zone-open",
+        "purpose": "Capacity per zone"
+      },
+      {
+        "slug": "rta_parking_inspector_path-open",
+        "purpose": "KML, updated March 2025"
+      }
+    ],
+    "real_time_availability": "No public real-time availability API. Parkin holds it internally."
+  },
+  "rta_fares": {
+    "as_of": "2025",
+    "silver_nol": {
+      "1_zone_aed": 3,
+      "2_zone_aed": 5,
+      "3_plus_zone_aed": 7.5
+    },
+    "daily_caps_aed": {
+      "silver_blue": 14,
+      "gold": 20,
+      "gold_daily_pass": 40
+    },
+    "transfer_window_minutes": 30,
+    "transfer_note": "30-minute multi-modal transfer rule applies (metro to bus, bus to tram, etc.).",
+    "unlimited_passes_regular_aed": {
+      "7_day": 110,
+      "30_day": 350,
+      "90_day": 1050,
+      "365_day": 4100
+    },
+    "gold_class_multiplier": 2.0,
+    "fare_calculator_api": false,
+    "gtfs_fares_status": "rta_gtfs-open feed may include fare_attributes.txt and fare_rules.txt. UNVERIFIED. Download the 7z to confirm."
+  },
+  "nol_cards": [
+    {
+      "type": "Red (paper)",
+      "card_cost_aed": 2,
+      "credit_aed": 0,
+      "best_for": "Tourists, occasional users"
+    },
+    {
+      "type": "Silver",
+      "card_cost_aed": 25,
+      "credit_aed": 19,
+      "best_for": "Regular commuter, default choice"
+    },
+    {
+      "type": "Gold",
+      "card_cost_aed": 25,
+      "credit_aed": 19,
+      "best_for": "Premium Gold Class metro and bus seating"
+    },
+    {
+      "type": "Blue (personalized)",
+      "card_cost_aed": 70,
+      "credit_aed": 20,
+      "best_for": "Registered, replaceable if lost, supports concessionary fares"
+    },
+    {
+      "type": "Blue (PoD - People of Determination)",
+      "card_cost_aed": 0,
+      "credit_aed": 0,
+      "best_for": "People of Determination, free"
+    }
+  ],
+  "nol_api_status": {
+    "balance_check_api": false,
+    "top_up_api": false,
+    "balance_check_alternatives": [
+      "BAL SMS to 511",
+      "RTA Dubai mobile app",
+      "nol.rta.ae web portal"
+    ],
+    "dubai_pulse_nol_dataset": "None published"
+  }
+}

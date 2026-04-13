@@ -1,0 +1,611 @@
+{
+  "domain": "free_zones",
+  "knowledge_date": "2026-04-13",
+  "volatility": "high",
+  "verify_at": "https://www.dubaichamber.com/en/digital",
+  "source_brief_section": "6.2",
+  "disclaimer": "Free zone pricing is indicative and changes annually. Verify with the official free zone website before quoting figures to a founder.",
+  "currency": "AED",
+  "renewal_note": "Renewal cost is roughly equal to or slightly less than first-year setup. The myth that renewal is 20-30% higher is incorrect. Cost compounding over time comes from facility rent escalation and 2-to-3-year visa renewal cycles.",
+  "free_zones": [
+    {
+      "id": "ifza",
+      "name": "IFZA",
+      "full_name": "International Free Zone Authority",
+      "location": "Dubai Silicon Oasis",
+      "sector": "general",
+      "tags": [
+        "tech",
+        "trading",
+        "consulting",
+        "holding",
+        "ecommerce"
+      ],
+      "license": {
+        "initial_aed": 12900,
+        "renewal_aed": 12500,
+        "currency": "AED",
+        "as_of": "2025-Q4"
+      },
+      "office": {
+        "options": [
+          "virtual",
+          "flexi",
+          "private"
+        ],
+        "virtual_allowed": true,
+        "physical_required": false
+      },
+      "visas": {
+        "min": 0,
+        "max": 6,
+        "tiers_described": "Packages from 0 (zero-visa) up to 6 visas. Tiered by package level."
+      },
+      "banking": {
+        "acceptance": "moderate",
+        "tag": "founder_report",
+        "notes": "Single-source consultancy report (July 2025) cites approximately 68% banking delays for IFZA setups. Treat as a prior, not a fact."
+      },
+      "restrictions": [],
+      "best_for": [
+        "solo tech founder",
+        "consultancy",
+        "holding company"
+      ],
+      "website": "https://ifza.com",
+      "source_urls": [
+        "https://ifza.com/business-setup-cost-in-dubai/"
+      ]
+    },
+    {
+      "id": "meydan",
+      "name": "Meydan Free Zone",
+      "full_name": "Meydan Free Zone",
+      "location": "Meydan, Nad Al Sheba",
+      "sector": "general",
+      "tags": [
+        "tech",
+        "consulting",
+        "ecommerce",
+        "marketing"
+      ],
+      "license": {
+        "initial_aed": 12500,
+        "renewal_aed": 12500,
+        "currency": "AED",
+        "as_of": "2025-Q4"
+      },
+      "office": {
+        "options": [
+          "virtual",
+          "flexi"
+        ],
+        "virtual_allowed": true,
+        "physical_required": false
+      },
+      "visas": {
+        "min": 0,
+        "max": 3,
+        "tiers_described": "Packages from 0 to 3 visas, scaled by tier."
+      },
+      "banking": {
+        "acceptance": "difficult",
+        "tag": "founder_report",
+        "notes": "Most-cited problem zone for bank rejections. Meydan runs an in-house bank-assistance desk to mitigate. Use it before submitting applications to multiple banks."
+      },
+      "restrictions": [],
+      "best_for": [
+        "budget-constrained solo founder",
+        "marketing-led setup"
+      ],
+      "website": "https://www.meydanfz.ae",
+      "source_urls": []
+    },
+    {
+      "id": "dubai_south",
+      "name": "Dubai South",
+      "full_name": "Dubai South (DWC)",
+      "location": "Al Maktoum International Airport area",
+      "sector": "logistics_aviation",
+      "tags": [
+        "aviation",
+        "logistics",
+        "trading",
+        "ecommerce"
+      ],
+      "license": {
+        "initial_aed": 10000,
+        "renewal_aed": 10000,
+        "currency": "AED",
+        "as_of": "2025-Q4",
+        "notes": "License from approximately AED 10,000. General Trading variant from approximately AED 20,000."
+      },
+      "office": {
+        "options": [
+          "flexi",
+          "private"
+        ],
+        "virtual_allowed": false,
+        "physical_required": true
+      },
+      "visas": {
+        "min": 1,
+        "max": 6
+      },
+      "banking": {
+        "acceptance": "moderate",
+        "tag": "founder_report",
+        "notes": "Solid aviation/logistics positioning helps with bank acceptance for sector-aligned activities."
+      },
+      "restrictions": [],
+      "best_for": [
+        "aviation",
+        "logistics",
+        "near-airport operations"
+      ],
+      "website": "https://www.dubaisouth.ae",
+      "source_urls": []
+    },
+    {
+      "id": "dafza",
+      "name": "DAFZA",
+      "full_name": "Dubai Airport Free Zone Authority",
+      "location": "Adjacent to Dubai International Airport (DXB)",
+      "sector": "trade_logistics",
+      "tags": [
+        "trading",
+        "logistics",
+        "tech",
+        "premium"
+      ],
+      "license": {
+        "initial_aed": 15020,
+        "renewal_aed": 15020,
+        "currency": "AED",
+        "as_of": "2025-Q4"
+      },
+      "office": {
+        "options": [
+          "flexi",
+          "private"
+        ],
+        "virtual_allowed": false,
+        "physical_required": true
+      },
+      "visas": {
+        "min": 1,
+        "max": 6
+      },
+      "banking": {
+        "acceptance": "easy",
+        "tag": "founder_report",
+        "notes": "Premium location and DAFZA brand carry weight with most banks."
+      },
+      "restrictions": [],
+      "best_for": [
+        "trade",
+        "logistics",
+        "premium positioning"
+      ],
+      "website": "https://www.dafza.ae",
+      "source_urls": []
+    },
+    {
+      "id": "dso_dtec",
+      "name": "DSO / Dtec",
+      "full_name": "Dubai Silicon Oasis with Dtec coworking and incubation",
+      "location": "Dubai Silicon Oasis",
+      "sector": "tech",
+      "tags": [
+        "tech",
+        "iot",
+        "deep_tech",
+        "coworking"
+      ],
+      "license": {
+        "initial_aed": 0,
+        "renewal_aed": 0,
+        "currency": "AED",
+        "as_of": "2025-Q4",
+        "notes": "Cost varies by Dtec membership tier and license package. Use Dtec's own pricing page for an exact quote."
+      },
+      "office": {
+        "options": [
+          "coworking",
+          "private"
+        ],
+        "virtual_allowed": false,
+        "physical_required": true
+      },
+      "visas": {
+        "min": 1,
+        "max": 6
+      },
+      "banking": {
+        "acceptance": "moderate",
+        "tag": "founder_report",
+        "notes": "Tech-focused brand helps with sector-aligned banks."
+      },
+      "restrictions": [],
+      "best_for": [
+        "tech",
+        "iot",
+        "early-stage with coworking + incubation"
+      ],
+      "website": "https://dtec.ae",
+      "source_urls": []
+    },
+    {
+      "id": "tecom",
+      "name": "TECOM (DIC, DMC, DKP)",
+      "full_name": "Dubai Internet City, Dubai Media City, Dubai Knowledge Park",
+      "location": "Sheikh Zayed Road, Knowledge Village area",
+      "sector": "tech_media_education",
+      "tags": [
+        "tech",
+        "media",
+        "education",
+        "knowledge"
+      ],
+      "license": {
+        "initial_aed": 0,
+        "renewal_aed": 0,
+        "currency": "AED",
+        "as_of": "2025-Q4",
+        "notes": "Pricing varies by sub-cluster (DIC vs DMC vs DKP) and package tier. Get a quote directly from TECOM."
+      },
+      "office": {
+        "options": [
+          "coworking",
+          "private"
+        ],
+        "virtual_allowed": false,
+        "physical_required": true
+      },
+      "visas": {
+        "min": 1,
+        "max": 6
+      },
+      "banking": {
+        "acceptance": "easy",
+        "tag": "founder_report",
+        "notes": "Established tech and media zones; banks are familiar with TECOM tenants."
+      },
+      "restrictions": [],
+      "best_for": [
+        "established tech",
+        "media production",
+        "education",
+        "training institutes"
+      ],
+      "website": "https://tecom.ae",
+      "source_urls": []
+    },
+    {
+      "id": "dmcc",
+      "name": "DMCC",
+      "full_name": "Dubai Multi Commodities Centre",
+      "location": "Jumeirah Lakes Towers",
+      "sector": "commodities_services",
+      "tags": [
+        "commodities",
+        "trading",
+        "consulting",
+        "premium"
+      ],
+      "license": {
+        "initial_aed": 35484,
+        "renewal_aed": 30000,
+        "currency": "AED",
+        "as_of": "2025-Q4",
+        "notes": "Basic license approximately AED 35,484 in year one. Per-visa fees are charged on top, so a 3-visa setup is materially higher than the headline figure."
+      },
+      "office": {
+        "options": [
+          "flexi",
+          "private"
+        ],
+        "virtual_allowed": false,
+        "physical_required": true,
+        "notes": "Flexi-desk minimum. Private office unlocks higher visa quota."
+      },
+      "visas": {
+        "min": 1,
+        "max": 999,
+        "tiers_described": "Visa quota scales with office size. No hard cap for large offices."
+      },
+      "banking": {
+        "acceptance": "easy",
+        "tag": "founder_report",
+        "notes": "Most-awarded free zone globally. Almost all UAE banks are comfortable with DMCC entities. On the DUL fast-track participant list."
+      },
+      "restrictions": [],
+      "best_for": [
+        "commodities trading",
+        "professional services",
+        "premium positioning",
+        "DUL fast-track"
+      ],
+      "website": "https://www.dmcc.ae",
+      "source_urls": []
+    },
+    {
+      "id": "difc_innovation",
+      "name": "DIFC Innovation Licence",
+      "full_name": "Dubai International Financial Centre, Innovation Licence",
+      "location": "DIFC",
+      "sector": "fintech_tech",
+      "tags": [
+        "fintech",
+        "ai",
+        "data_analytics",
+        "rd",
+        "advisory"
+      ],
+      "license": {
+        "initial_aed": 5510,
+        "initial_usd": 1500,
+        "renewal_aed": 44070,
+        "renewal_usd": 12000,
+        "currency": "USD",
+        "as_of": "2026-04-13",
+        "subsidy_notes": "USD 1,500 applies to years 1 and 2. Subsidised pricing extends up to 5 years for some cohorts. Standard pricing thereafter is approximately USD 12,000 per year."
+      },
+      "office": {
+        "options": [
+          "flexi",
+          "private"
+        ],
+        "virtual_allowed": false,
+        "physical_required": true,
+        "notes": "DIFC physical presence is mandatory. Flexi-desk minimum. No virtual-only setup."
+      },
+      "visas": {
+        "min": 0,
+        "max": 4,
+        "tiers_described": "Up to 4 visas on a flexi-desk. More requires a private office in DIFC."
+      },
+      "banking": {
+        "acceptance": "easy",
+        "tag": "official",
+        "notes": "DIFC brand carries significant weight with most banks. Common law jurisdiction is a banking advantage."
+      },
+      "restrictions": [
+        "No regulated financial services (DFSA licence required separately)",
+        "No virtual asset or crypto exchanges",
+        "No physical goods trading",
+        "No regulated insurance"
+      ],
+      "best_for": [
+        "fintech tooling",
+        "ai/data startups",
+        "advisory firms",
+        "rd entities"
+      ],
+      "website": "https://www.difc.com/business/establish-a-business/innovation-licence",
+      "source_urls": [
+        "https://www.difc.com/business/establish-a-business/innovation-licence"
+      ]
+    },
+    {
+      "id": "difc_full",
+      "name": "DIFC (full Financial Services)",
+      "full_name": "Dubai International Financial Centre, regulated financial services",
+      "location": "DIFC",
+      "sector": "regulated_financial_services",
+      "tags": [
+        "banking",
+        "asset_management",
+        "insurance",
+        "regulated"
+      ],
+      "license": {
+        "initial_aed": 0,
+        "renewal_aed": 0,
+        "currency": "USD",
+        "as_of": "2026-04-13",
+        "notes": "Pricing depends on DFSA category and is materially higher than the Innovation Licence. Get a direct quote from DIFC."
+      },
+      "office": {
+        "options": [
+          "private"
+        ],
+        "virtual_allowed": false,
+        "physical_required": true
+      },
+      "visas": {
+        "min": 1,
+        "max": 999,
+        "tiers_described": "Scales with office size."
+      },
+      "banking": {
+        "acceptance": "easy",
+        "tag": "official"
+      },
+      "restrictions": [
+        "Requires DFSA authorisation"
+      ],
+      "best_for": [
+        "banks",
+        "asset managers",
+        "insurers",
+        "regulated fintech"
+      ],
+      "website": "https://www.difc.com",
+      "source_urls": []
+    },
+    {
+      "id": "jafza",
+      "name": "JAFZA",
+      "full_name": "Jebel Ali Free Zone",
+      "location": "Jebel Ali",
+      "sector": "industrial_trading",
+      "tags": [
+        "industrial",
+        "logistics",
+        "trading",
+        "manufacturing"
+      ],
+      "license": {
+        "initial_aed": 0,
+        "renewal_aed": 0,
+        "currency": "AED",
+        "as_of": "2025-Q4",
+        "notes": "Pricing varies by activity and warehouse footprint. Get a quote directly from JAFZA."
+      },
+      "office": {
+        "options": [
+          "private",
+          "warehouse"
+        ],
+        "virtual_allowed": false,
+        "physical_required": true,
+        "notes": "JAFZA explicitly prohibits pure virtual offices. Founders looking for cheap-no-office should look at IFZA or Meydan instead."
+      },
+      "visas": {
+        "min": 1,
+        "max": 999
+      },
+      "banking": {
+        "acceptance": "easy",
+        "tag": "founder_report",
+        "notes": "Largest free zone in MENA. On the DUL fast-track participant list. Banks are very comfortable with JAFZA entities."
+      },
+      "restrictions": [],
+      "best_for": [
+        "industrial",
+        "manufacturing",
+        "warehousing",
+        "import-export at scale"
+      ],
+      "website": "https://www.jafza.ae",
+      "source_urls": []
+    },
+    {
+      "id": "dhcc",
+      "name": "DHCC",
+      "full_name": "Dubai Healthcare City",
+      "location": "Oud Metha",
+      "sector": "healthcare",
+      "tags": [
+        "healthcare",
+        "clinic",
+        "hospital",
+        "medical",
+        "pharmacy"
+      ],
+      "license": {
+        "initial_aed": 0,
+        "renewal_aed": 0,
+        "currency": "AED",
+        "as_of": "2025-Q4",
+        "notes": "Healthcare licenses are sector-specific. Pricing varies. Get a quote directly from DHCC."
+      },
+      "office": {
+        "options": [
+          "coworking",
+          "private",
+          "clinic"
+        ],
+        "virtual_allowed": false,
+        "physical_required": true
+      },
+      "visas": {
+        "min": 1,
+        "max": 999
+      },
+      "banking": {
+        "acceptance": "moderate",
+        "tag": "founder_report",
+        "notes": "Sector-specific. Healthcare banks are comfortable; generalist banks may want extra documentation."
+      },
+      "restrictions": [
+        "Healthcare activities only"
+      ],
+      "best_for": [
+        "clinics",
+        "hospitals",
+        "medical services",
+        "healthcare tech"
+      ],
+      "website": "https://www.dhcc.ae",
+      "source_urls": []
+    },
+    {
+      "id": "dpc_dsc",
+      "name": "DPC / DSC",
+      "full_name": "Dubai Production City and Dubai Studio City",
+      "location": "Dubailand area",
+      "sector": "production_studio",
+      "tags": [
+        "film",
+        "tv",
+        "broadcast",
+        "media_production"
+      ],
+      "license": {
+        "initial_aed": 0,
+        "renewal_aed": 0,
+        "currency": "AED",
+        "as_of": "2025-Q4",
+        "notes": "Pricing varies by activity. Get a quote directly. Flagged as unverified in the research."
+      },
+      "office": {
+        "options": [
+          "coworking",
+          "private",
+          "studio"
+        ],
+        "virtual_allowed": false,
+        "physical_required": true
+      },
+      "visas": {
+        "min": 1,
+        "max": 999
+      },
+      "banking": {
+        "acceptance": "moderate",
+        "tag": "founder_report"
+      },
+      "restrictions": [],
+      "best_for": [
+        "film production",
+        "broadcast",
+        "media studios"
+      ],
+      "website": "https://www.dpc.ae",
+      "source_urls": []
+    }
+  ],
+  "offshore": [
+    {
+      "id": "jafza_offshore",
+      "name": "JAFZA Offshore",
+      "location": "Jebel Ali",
+      "setup_cost_aed_min": 17000,
+      "setup_cost_aed_max": 30000,
+      "currency": "AED",
+      "as_of": "2025-Q4",
+      "best_for": [
+        "asset holding",
+        "international structuring",
+        "Dubai-domiciled offshore"
+      ],
+      "website": "https://www.jafza.ae"
+    },
+    {
+      "id": "rak_icc",
+      "name": "RAK ICC",
+      "location": "Ras Al Khaimah",
+      "setup_cost_usd": 3000,
+      "currency": "USD",
+      "as_of": "2025-Q4",
+      "best_for": [
+        "most popular UAE offshore",
+        "asset holding",
+        "international structuring"
+      ],
+      "website": "https://www.rakicc.com"
+    }
+  ]
+}

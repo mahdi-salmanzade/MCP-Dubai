@@ -1,0 +1,135 @@
+[project]
+name = "mcp-dubai"
+version = "0.1.0"
+description = "MCP server for Dubai and UAE public APIs and business knowledge"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Mahdi Salmanzade", email = "info@mindzone.tech" },
+]
+maintainers = [
+    { name = "Mahdi Salmanzade", email = "info@mindzone.tech" },
+]
+requires-python = ">=3.11"
+keywords = [
+    "mcp",
+    "model-context-protocol",
+    "dubai",
+    "uae",
+    "fastmcp",
+    "claude",
+    "openai",
+    "ai",
+    "llm",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "fastmcp>=2.2.0",
+    "httpx>=0.27.0",
+    "pydantic>=2.6.0",
+    "tenacity>=8.2.0",
+    "python-dateutil>=2.8.0",
+    "rank-bm25>=0.2.2",
+    "lxml>=5.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.1.0",
+    "respx>=0.21.0",
+    "ruff>=0.4.0",
+    "mypy>=1.10.0",
+]
+data = [
+    "openpyxl>=3.1.0",
+    "polars>=0.20.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/mahdi-salmanzade/MCP-Dubai"
+Repository = "https://github.com/mahdi-salmanzade/MCP-Dubai"
+Issues = "https://github.com/mahdi-salmanzade/MCP-Dubai/issues"
+
+[project.scripts]
+mcp-dubai = "mcp_dubai.__main__:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_dubai"]
+# JSON data files under src/mcp_dubai/biz/_data are picked up automatically
+# because they live inside the package directory. importlib.resources handles
+# them at runtime via mcp_dubai.biz._data.loader.
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/mcp_dubai",
+    "README.md",
+    "DISCLAIMER.md",
+    "LICENSE",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "N",
+    "W",
+    "UP",
+    "B",
+    "C4",
+    "SIM",
+    "RUF",
+]
+ignore = [
+    "E501",
+    "RUF022",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["B011", "N802"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_ignores = true
+disallow_untyped_decorators = false
+
+[[tool.mypy.overrides]]
+module = [
+    "rank_bm25.*",
+    "fastmcp.*",
+    "lxml.*",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--cov=src/mcp_dubai",
+    "--cov-report=term-missing",
+]

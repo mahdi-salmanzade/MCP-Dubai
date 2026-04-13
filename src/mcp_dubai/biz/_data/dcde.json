@@ -1,0 +1,134 @@
+{
+  "domain": "dcde",
+  "knowledge_date": "2026-04-13",
+  "volatility": "medium",
+  "verify_at": "https://www.dubaichamberdigital.com",
+  "source_brief_section": "6.9",
+  "disclaimer": "DCDE program names, application windows, and prize amounts change frequently. Verify with the chamber before applying.",
+  "chamber": {
+    "full_name": "Dubai Chamber of Digital Economy",
+    "short_name": "DCDE",
+    "parent": "Dubai Chambers (one of three: Commerce, International, Digital)",
+    "established": "2021 (post-restructuring)",
+    "chairman": "H.E. Omar Sultan Al Olama",
+    "executive_vp": "Saeed Al Gergawi",
+    "url": "https://www.dubaichamberdigital.com",
+    "contact": {
+      "email": "DubaiDigital@dubaichamber.com",
+      "whatsapp": "+971 800 242 6237"
+    }
+  },
+  "membership": {
+    "standalone_membership": false,
+    "summary": "DCDE has no standalone membership scheme as of April 2026. Founders engage via specific programs (Dubai Founders HQ, Antler, FRWRDx, Create Apps).",
+    "dubai_chamber_of_commerce_separate": {
+      "mandatory_for": "Mainland commercial license holders (DET commercial activity)",
+      "annual_fee_aed_min": 700,
+      "annual_fee_aed_max": 2200,
+      "url": "https://www.dubaichamber.com"
+    }
+  },
+  "programs": [
+    {
+      "id": "dubai_founders_hq",
+      "name": "Dubai Founders HQ",
+      "operator": "DCDE + DET joint",
+      "launched": "October 2025",
+      "type": "phygital_platform",
+      "description": "Phygital (physical + digital) platform connecting Dubai founders to ecosystem resources, mentorship, and government services.",
+      "url": "https://www.dubaichamberdigital.com"
+    },
+    {
+      "id": "antler_residency",
+      "name": "Antler Founder Residency",
+      "operator": "DCDE + Antler",
+      "type": "founder_residency",
+      "target": "600+ founders",
+      "applications_open": "February 2026",
+      "description": "Founder residency program in partnership with Antler. Focus on early-stage tech founders ready to build their next venture.",
+      "url": "https://www.antler.co"
+    },
+    {
+      "id": "frwrdx",
+      "name": "FRWRDx",
+      "operator": "DCDE",
+      "type": "accelerator",
+      "duration_weeks": 14,
+      "description": "14-week accelerator program for selected digital economy startups."
+    },
+    {
+      "id": "unicorn_30",
+      "name": "Unicorn 30 Programme",
+      "operator": "DCDE",
+      "type": "scale_up",
+      "description": "Programme to identify and support 30 future unicorns from Dubai's tech ecosystem."
+    },
+    {
+      "id": "create_apps_championship",
+      "name": "Create Apps Championship",
+      "operator": "DCDE",
+      "type": "global_competition",
+      "current_cycle": "Third cycle (Oct 2025 to May 2026)",
+      "prize_pool_usd": 720000,
+      "categories": [
+        "Best Youth App",
+        "Most Innovative App",
+        "Most Impactful App",
+        "Longevity App"
+      ],
+      "winner_prize_usd_per_category": 150000,
+      "key_dates": {
+        "semi_finals": "13 April 2026",
+        "grand_finale": "11 May 2026 at Museum of the Future"
+      },
+      "url": "https://createapps.ae",
+      "notes": "See createapps feature for full details."
+    },
+    {
+      "id": "canva_partnership",
+      "name": "Canva Partnership",
+      "operator": "DCDE + Canva",
+      "type": "sme_enablement",
+      "target": "250,000 SMEs over 5 years",
+      "description": "Free or discounted Canva access for Dubai SMEs as part of the DCDE digital enablement initiative."
+    }
+  ],
+  "knowledge_hub": {
+    "url": "https://www.dubaichamberdigital.com/en/knowledge-hub/",
+    "confirmed_pdfs": [
+      {
+        "title": "Dubai Startup Guide 2025",
+        "type": "PDF guide",
+        "year": 2025
+      },
+      {
+        "title": "Scaling From Dubai",
+        "type": "PDF guide"
+      },
+      {
+        "title": "Entrepreneur's Guide 2023",
+        "type": "PDF guide",
+        "year": 2023
+      },
+      {
+        "title": "The Entrepreneur's AI Playbook",
+        "type": "PDF guide",
+        "pages_approx": 52,
+        "launched": "July 2025"
+      }
+    ],
+    "claimed_total_reports": 8,
+    "verified_count": 4,
+    "url_pattern": "/documents/<groupId>/0/<name>.pdf/<UUID>"
+  },
+  "impact_2025": {
+    "digital_startups_supported": 1690,
+    "yoy_change_pct": 39.7,
+    "global_firms_pct": 75,
+    "ai_pct": 15,
+    "fintech_pct": 12,
+    "events_count": 36,
+    "international_roadshows": 17,
+    "source": "DCDE January 2026 press release"
+  }
+}

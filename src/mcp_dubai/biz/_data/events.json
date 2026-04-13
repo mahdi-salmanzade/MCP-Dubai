@@ -1,0 +1,96 @@
+{
+  "domain": "events",
+  "knowledge_date": "2026-04-13",
+  "volatility": "high",
+  "verify_at": "https://expandnorthstar.com",
+  "source_brief_section": "6.10",
+  "disclaimer": "Event dates, venues, and pitch competition formats change. Verify with the event organiser before booking flights.",
+  "events": [
+    {
+      "id": "expand_north_star_2026",
+      "name": "Expand North Star 2026",
+      "edition": 11,
+      "type": "tech_startup_event",
+      "tagline": "World's largest tech startup event",
+      "operator": "DWTC / Kaoun International + Dubai Chamber of Digital Economy",
+      "dates": {
+        "start": "2026-12-08",
+        "end": "2026-12-10"
+      },
+      "venue": "Dubai Exhibition Centre at Expo City Dubai",
+      "co_located_with": "GITEX Global 2026",
+      "url": "https://expandnorthstar.com",
+      "supernova_format": {
+        "name": "Supernova 0X",
+        "tracks": ["Pre-Seed", "Seed", "Series A"],
+        "prize_pool_usd": 200000
+      },
+      "applications": {
+        "open": "2026-05-01",
+        "close": "2026-11-02"
+      },
+      "brand_history": [
+        "GITEX Future Stars (2016)",
+        "North Star Dubai (2021)",
+        "Expand North Star (2024)"
+      ],
+      "previous_edition_2025": {
+        "edition": 10,
+        "dates": "12 to 15 October 2025",
+        "venue": "Dubai Harbour",
+        "stats": {
+          "startups_approx": 2000,
+          "investors_approx": 1200,
+          "unicorns": 40,
+          "speakers": 350
+        },
+        "supernova_winner": "AIM Intelligence (South Korea), USD 100K"
+      }
+    },
+    {
+      "id": "gitex_global_2026",
+      "name": "GITEX Global 2026",
+      "type": "tech_conference",
+      "tagline": "World's largest tech and AI event",
+      "operator": "DWTC / Kaoun International",
+      "venue": "Dubai Exhibition Centre at Expo City Dubai",
+      "co_located_with": "Expand North Star 2026",
+      "notes": "Moved from Dubai World Trade Centre to Expo City Dubai for the 2026 edition.",
+      "url": "https://www.gitex.com"
+    },
+    {
+      "id": "step_conference",
+      "name": "Step Conference",
+      "type": "regional_tech_conference",
+      "location": "Dubai",
+      "url": "https://www.stepconference.com",
+      "notes": "Annual MENA tech conference with founder, investor, and creator tracks."
+    },
+    {
+      "id": "dubai_ai_week",
+      "name": "Dubai AI Week",
+      "type": "ai_focused",
+      "location": "Dubai",
+      "operator": "Dubai Future Foundation"
+    },
+    {
+      "id": "aim_congress_2026",
+      "name": "AIM Congress 2026",
+      "type": "investment_summit",
+      "tagline": "Annual Investment Meeting",
+      "dates": {
+        "start": "2026-09-07",
+        "end": "2026-09-09"
+      },
+      "url": "https://www.aimcongress.com"
+    },
+    {
+      "id": "world_government_summit",
+      "name": "World Government Summit",
+      "type": "government_summit",
+      "location": "Madinat Jumeirah",
+      "frequency": "annual",
+      "url": "https://www.worldgovernmentsummit.org"
+    }
+  ]
+}

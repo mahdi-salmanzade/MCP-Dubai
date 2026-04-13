@@ -1,0 +1,85 @@
+{
+  "domain": "ip_trademark",
+  "knowledge_date": "2026-04-13",
+  "volatility": "medium",
+  "verify_at": "https://moet.gov.ae",
+  "source_brief_section": "6.10d",
+  "disclaimer": "IP fees and processes change. Cabinet Resolution 102 of 2025 introduced new fees effective 14 November 2025. Verify with MOET before filing.",
+  "currency": "AED",
+  "authority": {
+    "name": "Ministry of Economy and Tourism",
+    "short_name": "MOET",
+    "rebranded_from": "Ministry of Economy",
+    "rebranded_in": "2025",
+    "old_url": "https://moec.gov.ae",
+    "old_url_status": "301-redirects to moet.gov.ae",
+    "url": "https://moet.gov.ae",
+    "warning": "MOCCAE is Climate Change, NOT IP. The IP authority is MOET. Frequently confused."
+  },
+  "trademark": {
+    "search": {
+      "free_basic_search": true,
+      "free_search_url": "https://moet.gov.ae",
+      "paid_formal_inquiry_aed": 350,
+      "paid_inquiry_login": "UAE Pass required"
+    },
+    "registration": {
+      "fee_range_aed_min": 6700,
+      "fee_range_aed_max": 12000,
+      "fee_range_notes": "End-to-end (filing + publication + registration)",
+      "timeline_months_min": 8,
+      "timeline_months_max": 12,
+      "process_steps": [
+        "Trademark search (basic free, paid formal at AED 350)",
+        "Application filing on MOET portal",
+        "Examination by MOET (8 to 12 weeks)",
+        "Publication in Official Gazette",
+        "Opposition period (60 days)",
+        "Registration certificate issued"
+      ]
+    },
+    "cabinet_resolution_102_2025": {
+      "effective_from": "2025-11-14",
+      "summary": "New fee schedule for trademark services.",
+      "key_fees_aed": {
+        "expedited_one_day_examination": 2250,
+        "appeal": 5000
+      },
+      "sme_discount_pct": 50,
+      "sme_discount_notes": "50% discount on most fees for qualifying SMEs."
+    },
+    "wipo_madrid": {
+      "uae_member": true,
+      "acceded_on": "2021-12-28",
+      "summary": "UAE acceded to the Madrid Protocol on 28 December 2021. Third GCC country after Oman and Bahrain.",
+      "founder_relevance": "Founders can use international trademark filing via WIPO Madrid System once they have a UAE base mark."
+    }
+  },
+  "patent": {
+    "uae_patent": {
+      "url": "https://moet.gov.ae",
+      "notes": "Less common than trademark in the founder context."
+    },
+    "gcc_patent": {
+      "name": "GCC Patent Office",
+      "url": "https://www.gccpo.org",
+      "notes": "Single application covers all 6 GCC member states."
+    }
+  },
+  "copyright": {
+    "registration_required": false,
+    "berne_convention": true,
+    "notes": "UAE is a Berne Convention signatory. Registration is not required for copyright protection but is possible for evidentiary purposes via MOET."
+  },
+  "api_status": {
+    "trademark_search_api": false,
+    "patent_search_api": false,
+    "copyright_register_api": false,
+    "wipo_global_brand_database": {
+      "url": "https://www3.wipo.int/branddb/en/",
+      "type": "html_only",
+      "notes": "WIPO Global Brand Database is HTML, no public REST API."
+    }
+  },
+  "recommended_approach": "Ship reference tools with canonical URLs and the fee schedule. Build a calculator for the SME discount. Do not promise programmatic trademark search."
+}

@@ -1,0 +1,294 @@
+{
+  "domain": "banking",
+  "knowledge_date": "2026-04-13",
+  "volatility": "medium",
+  "verify_at": "https://www.centralbank.ae",
+  "source_brief_section": "6.5",
+  "disclaimer": "Bank onboarding rules and minimum balances change. Founder reports for rejection rates are NOT official statistics. None of the listed banks officially welcome crypto/VARA-licensed entities as of April 2026.",
+  "currency": "AED",
+  "process_summary": {
+    "typical_timeline_weeks_min": 1,
+    "typical_timeline_weeks_max": 16,
+    "fastest_path": "Wio Business: 1 to 3 days for clean profiles",
+    "slowest_path": "International banks (HSBC, StanChart, Citi): 6 to 16 weeks for SME accounts",
+    "common_rejection_reasons": [
+      "Free zone bias (Meydan in particular)",
+      "Single non-resident shareholder",
+      "Crypto, forex, or other high-risk industry exposure",
+      "No UAE address proof",
+      "Sole shareholder structure (banks prefer 2+)",
+      "Activity code mismatched with intended business model"
+    ],
+    "documents_required": [
+      "Trade license",
+      "MOA (memorandum of association)",
+      "Share certificate",
+      "Shareholder passports + Emirates ID",
+      "Address proof",
+      "Business plan",
+      "Source of funds documentation",
+      "Tax residency certificate (sometimes)"
+    ]
+  },
+  "dul": {
+    "name": "Dubai Unified Licence",
+    "description": "Unifies the trade license, Chamber registration, and Establishment Card into one record. Shares data with banks via a government-sanctioned feed. Cuts bank account onboarding to approximately 5 days for compatible setups.",
+    "as_of": "2026-04",
+    "participating_banks": [
+      "Emirates NBD",
+      "Emirates Islamic",
+      "Mashreq",
+      "CBD",
+      "FAB",
+      "Emirates Development Bank",
+      "ruya"
+    ],
+    "non_participating_banks": [
+      "Wio",
+      "Zand",
+      "HSBC",
+      "Standard Chartered",
+      "Citi",
+      "RAKBANK",
+      "ADCB",
+      "ADIB"
+    ],
+    "participating_free_zones": [
+      "DMCC",
+      "JAFZA",
+      "IFZA"
+    ],
+    "source_urls": []
+  },
+  "banks": [
+    {
+      "id": "wio",
+      "name": "Wio Business",
+      "type": "digital",
+      "ownership": "ADQ-backed",
+      "onboarding_speed_label": "1 to 3 days",
+      "onboarding_days_min": 1,
+      "onboarding_days_max": 3,
+      "min_balance_aed": 0,
+      "monthly_fee_aed": 0,
+      "crypto_friendly": false,
+      "free_zones_supported": "Most free zones, app-first",
+      "tier": "digital",
+      "tag": "founder_report",
+      "notes": "Best for solo founders with clean profiles. App-only, no physical branches. Not on the DUL fast-track participant list as of April 2026."
+    },
+    {
+      "id": "mashreq_neobiz",
+      "name": "Mashreq NEOBiz",
+      "type": "digital",
+      "ownership": "Mashreq",
+      "onboarding_speed_label": "1 to 2 weeks",
+      "onboarding_days_min": 7,
+      "onboarding_days_max": 14,
+      "min_balance_aed": 25000,
+      "monthly_fee_aed": 0,
+      "crypto_friendly": false,
+      "free_zones_supported": "Wide coverage; integrated with mainland setup",
+      "tier": "digital",
+      "tag": "founder_report",
+      "notes": "Digital arm of Mashreq. Often integrated with mainland setup flows. Mashreq parent is on the DUL participant list."
+    },
+    {
+      "id": "zand",
+      "name": "Zand",
+      "type": "digital",
+      "onboarding_speed_label": "1 to 2 weeks",
+      "onboarding_days_min": 7,
+      "onboarding_days_max": 14,
+      "min_balance_aed": 0,
+      "monthly_fee_aed": 0,
+      "crypto_friendly": false,
+      "tier": "digital",
+      "tag": "founder_report",
+      "notes": "Newer digital bank. Smaller customer base, less coverage in founder forums. Not on DUL list."
+    },
+    {
+      "id": "ruya",
+      "name": "ruya",
+      "type": "digital_islamic",
+      "onboarding_speed_label": "1 to 2 weeks",
+      "onboarding_days_min": 7,
+      "onboarding_days_max": 14,
+      "min_balance_aed": 0,
+      "monthly_fee_aed": 0,
+      "crypto_friendly": false,
+      "tier": "digital",
+      "tag": "founder_report",
+      "notes": "Digital Islamic bank. On the DUL fast-track participant list."
+    },
+    {
+      "id": "emirates_nbd",
+      "name": "Emirates NBD",
+      "type": "traditional",
+      "onboarding_speed_label": "3 to 6 weeks",
+      "onboarding_days_min": 21,
+      "onboarding_days_max": 42,
+      "min_balance_aed": 100000,
+      "monthly_fee_aed": 0,
+      "crypto_friendly": false,
+      "tier": "traditional",
+      "tag": "founder_report",
+      "notes": "Largest UAE bank by branch network. Comfortable with most setups but slower onboarding than digital. On the DUL fast-track participant list."
+    },
+    {
+      "id": "rakbank",
+      "name": "RAKBANK",
+      "type": "traditional",
+      "onboarding_speed_label": "2 to 4 weeks",
+      "onboarding_days_min": 14,
+      "onboarding_days_max": 28,
+      "min_balance_aed": 50000,
+      "monthly_fee_aed": 0,
+      "crypto_friendly": false,
+      "tier": "traditional",
+      "tag": "founder_report",
+      "notes": "Most SME-friendly traditional bank by reputation. Not on DUL participant list."
+    },
+    {
+      "id": "cbd",
+      "name": "CBD",
+      "full_name": "Commercial Bank of Dubai",
+      "type": "traditional",
+      "onboarding_speed_label": "2 to 4 weeks",
+      "onboarding_days_min": 14,
+      "onboarding_days_max": 28,
+      "min_balance_aed": 50000,
+      "crypto_friendly": false,
+      "tier": "traditional",
+      "tag": "founder_report",
+      "notes": "On the DUL fast-track participant list."
+    },
+    {
+      "id": "adcb",
+      "name": "ADCB",
+      "full_name": "Abu Dhabi Commercial Bank",
+      "type": "traditional",
+      "onboarding_speed_label": "3 to 6 weeks",
+      "onboarding_days_min": 21,
+      "onboarding_days_max": 42,
+      "min_balance_aed": 50000,
+      "crypto_friendly": false,
+      "tier": "traditional",
+      "tag": "founder_report",
+      "notes": "Traditional. Not on DUL participant list."
+    },
+    {
+      "id": "fab",
+      "name": "FAB",
+      "full_name": "First Abu Dhabi Bank",
+      "type": "traditional",
+      "onboarding_speed_label": "3 to 6 weeks",
+      "onboarding_days_min": 21,
+      "onboarding_days_max": 42,
+      "min_balance_aed": 100000,
+      "crypto_friendly": false,
+      "tier": "traditional",
+      "tag": "founder_report",
+      "notes": "Largest UAE bank by assets. On the DUL fast-track participant list."
+    },
+    {
+      "id": "adib",
+      "name": "ADIB",
+      "full_name": "Abu Dhabi Islamic Bank",
+      "type": "traditional_islamic",
+      "onboarding_speed_label": "3 to 6 weeks",
+      "onboarding_days_min": 21,
+      "onboarding_days_max": 42,
+      "crypto_friendly": false,
+      "tier": "traditional",
+      "tag": "founder_report",
+      "notes": "Traditional Islamic bank. Not on DUL participant list."
+    },
+    {
+      "id": "hsbc",
+      "name": "HSBC UAE",
+      "type": "international",
+      "onboarding_speed_label": "6 to 12+ weeks",
+      "onboarding_days_min": 42,
+      "onboarding_days_max": 84,
+      "min_balance_aed": 100000,
+      "crypto_friendly": false,
+      "tier": "international",
+      "tag": "founder_report",
+      "notes": "International, slowest onboarding, highest minimums. Not on DUL list."
+    },
+    {
+      "id": "standard_chartered",
+      "name": "Standard Chartered UAE",
+      "type": "international",
+      "onboarding_speed_label": "6 to 16 weeks",
+      "onboarding_days_min": 42,
+      "onboarding_days_max": 112,
+      "min_balance_aed": 200000,
+      "crypto_friendly": false,
+      "tier": "international",
+      "tag": "founder_report",
+      "notes": "International, very strict KYC. SME tier unconfirmed (no public schedule). Not on DUL list."
+    },
+    {
+      "id": "citi",
+      "name": "Citi UAE",
+      "type": "international",
+      "onboarding_speed_label": "6 to 16 weeks",
+      "onboarding_days_min": 42,
+      "onboarding_days_max": 112,
+      "min_balance_aed": 250000,
+      "crypto_friendly": false,
+      "tier": "international",
+      "tag": "founder_report",
+      "notes": "Effectively corporate-only. No real SME tier. Not on DUL list."
+    },
+    {
+      "id": "liv",
+      "name": "Liv",
+      "type": "digital_retail",
+      "ownership": "Emirates NBD",
+      "onboarding_speed_label": "n/a for business",
+      "min_balance_aed": 0,
+      "crypto_friendly": false,
+      "tier": "digital",
+      "tag": "founder_report",
+      "notes": "Liv is retail-only. Business banking goes through ENBD parent. Listed here for disambiguation."
+    }
+  ],
+  "payment_gateways": [
+    {
+      "name": "Stripe",
+      "live_in_uae_since": "2023-04",
+      "notes": "Live in UAE since April 2023."
+    },
+    {
+      "name": "Checkout.com",
+      "notes": "Headquartered in Dubai."
+    },
+    {
+      "name": "Network International (N-Genius)"
+    },
+    {
+      "name": "Telr"
+    },
+    {
+      "name": "PayTabs"
+    },
+    {
+      "name": "Tap Payments"
+    },
+    {
+      "name": "Amazon Payment Services"
+    },
+    {
+      "name": "MyFatoorah"
+    },
+    {
+      "name": "Adyen"
+    },
+    {
+      "name": "2Checkout"
+    }
+  ]
+}

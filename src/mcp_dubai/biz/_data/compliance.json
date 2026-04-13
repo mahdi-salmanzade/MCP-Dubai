@@ -1,0 +1,148 @@
+{
+  "domain": "compliance",
+  "knowledge_date": "2026-04-13",
+  "volatility": "stable",
+  "verify_at": "https://www.fiu.gov.ae",
+  "source_brief_section": "6.6",
+  "disclaimer": "Compliance frameworks (ESR repealed, AML, UBO, PDPL) are stable but enforcement guidance changes. Always check the regulator portal before filing.",
+  "esr": {
+    "name": "Economic Substance Regulations",
+    "status": "DEAD for periods after 2022-12-31",
+    "repeal_law": "Cabinet Resolution 98 of 2024",
+    "applies_to_periods": "2019-01-01 to 2022-12-31",
+    "historical_penalties": "Refundable per Cabinet Resolution 98 of 2024",
+    "warning": "Do NOT file ESR returns for current periods. The 9 Relevant Activities only matter for historical filings.",
+    "relevant_activities": [
+      "Banking",
+      "Insurance",
+      "Investment fund management",
+      "Lease-finance",
+      "Headquarters",
+      "Shipping",
+      "Holding company",
+      "Intellectual property",
+      "Distribution and service centre"
+    ],
+    "source_urls": [
+      "https://mof.gov.ae"
+    ]
+  },
+  "aml_cft": {
+    "name": "Anti-Money Laundering and Counter-Financing of Terrorism",
+    "law": "Federal Decree-Law 20 of 2018",
+    "implementing_regulation": "Cabinet Decision 10 of 2019",
+    "regulator": "UAE Financial Intelligence Unit (FIU)",
+    "portal": "goAML",
+    "portal_url": "https://www.fiu.gov.ae",
+    "applies_to": "DNFBPs (Designated Non-Financial Businesses and Professions)",
+    "dnfbp_categories": [
+      {
+        "category": "Real estate brokers",
+        "registration_required": true,
+        "notes": "Must register on goAML, file Suspicious Transaction Reports (STRs)."
+      },
+      {
+        "category": "Dealers in precious metals and stones",
+        "registration_required": true,
+        "notes": "Cash transactions above AED 55,000 require reporting."
+      },
+      {
+        "category": "Auditors",
+        "registration_required": true,
+        "notes": "Must register on goAML and conduct EDD on clients."
+      },
+      {
+        "category": "Corporate service providers",
+        "registration_required": true,
+        "notes": "Setup firms, PRO agencies, registered agents."
+      },
+      {
+        "category": "Trust and company service providers",
+        "registration_required": true
+      },
+      {
+        "category": "Lawyers, notaries, and legal professionals",
+        "registration_required": true,
+        "notes": "When acting on behalf of clients in financial transactions."
+      }
+    ],
+    "fines_aed": {
+      "minimum": 50000,
+      "maximum": 1000000
+    },
+    "vara_separate": "Crypto / virtual asset businesses fall under VARA Law 4 of 2022, V2.0 Rulebook effective 19 June 2025. Travel Rule applies. Monero and Zcash are banned.",
+    "source_urls": [
+      "https://www.fiu.gov.ae",
+      "https://www.vara.ae"
+    ]
+  },
+  "ubo": {
+    "name": "Ultimate Beneficial Owner",
+    "law": "Cabinet Decision 58 of 2020",
+    "applies_to": "All UAE companies (mainland and most free zones)",
+    "threshold_pct": 25,
+    "threshold_notes": "Direct or indirect ownership of 25% or more, or control by other means, triggers UBO disclosure.",
+    "filing_requirement": "Maintain a UBO register internally and file with the licensing authority.",
+    "update_window_days": 15,
+    "update_window_notes": "Any change in UBO must be reported within 15 days.",
+    "max_fine_aed": 1000000,
+    "exemptions": [
+      "Companies wholly owned by federal or local UAE government",
+      "Companies in financial free zones (DIFC, ADGM) with separate UBO regimes"
+    ],
+    "filing_with": [
+      "DET (mainland)",
+      "Free zone authority (most free zones)",
+      "DIFC Registrar (DIFC, separate framework)",
+      "ADGM Registrar (ADGM, separate framework)"
+    ],
+    "source_urls": [
+      "https://www.economy.gov.ae"
+    ]
+  },
+  "pdpl": {
+    "uae_federal": {
+      "name": "UAE Personal Data Protection Law",
+      "law": "Federal Decree-Law 45 of 2021",
+      "in_force_since": "2022-01-02",
+      "applies_to": "Most UAE entities processing personal data, with some exemptions",
+      "key_principles": [
+        "Lawfulness, fairness, transparency",
+        "Purpose limitation",
+        "Data minimization",
+        "Accuracy",
+        "Storage limitation",
+        "Integrity and confidentiality",
+        "Accountability"
+      ],
+      "rights": [
+        "Right to access",
+        "Right to rectification",
+        "Right to erasure",
+        "Right to restrict processing",
+        "Right to data portability",
+        "Right to object"
+      ],
+      "regulator": "UAE Data Office",
+      "regulator_url": "https://www.dataoffice.gov.ae",
+      "exemptions": "Personal data processed by individuals for personal use, security/intelligence agencies, judicial data, certain health data."
+    },
+    "difc_dpl": {
+      "name": "DIFC Data Protection Law",
+      "law": "DIFC Law 5 of 2020",
+      "in_force_since": "2020-07-01",
+      "applies_to": "Entities established in or operating from DIFC",
+      "regulator": "DIFC Commissioner of Data Protection",
+      "regulator_url": "https://www.difc.com/business/laws-and-regulations/data-protection",
+      "notes": "GDPR-aligned. Adequacy with EU recognized."
+    },
+    "adgm_dpr": {
+      "name": "ADGM Data Protection Regulations",
+      "year": 2021,
+      "applies_to": "Entities established in or operating from ADGM",
+      "max_fine_usd": 28000000,
+      "regulator": "ADGM Office of Data Protection",
+      "notes": "GDPR-aligned."
+    }
+  }
+}

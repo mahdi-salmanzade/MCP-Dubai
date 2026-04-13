@@ -1,0 +1,193 @@
+{
+  "domain": "gov_portals",
+  "knowledge_date": "2026-04-13",
+  "volatility": "stable",
+  "verify_at": "https://u.ae",
+  "source_brief_section": "6.8",
+  "disclaimer": "Government portals are stable but feature sets and login flows change. Always check the portal directly. UAE Pass is required for almost all government e-services.",
+  "portals": [
+    {
+      "id": "uae_pass",
+      "name": "UAE Pass",
+      "url": "https://uaepass.ae",
+      "type": "national_digital_identity",
+      "operator": "Federal",
+      "what_it_does": "National digital identity for all UAE residents and visitors. Used to log into 6,000+ government services, sign documents digitally, and access UAE Pass-integrated private apps.",
+      "registration": "Free. Download the UAE Pass app, scan Emirates ID, take selfie. Verify in person at a kiosk or via UAE Pass agent for full verification level.",
+      "verification_levels": [
+        "Basic (mobile only)",
+        "Verified (in-person verification, full access)"
+      ],
+      "developer_api": true,
+      "developer_docs": "https://docs.uaepass.ae",
+      "auth_protocol": "OAuth 2.0 / OpenID Connect",
+      "sdks": [
+        "iOS",
+        "Android",
+        "Web (JavaScript)"
+      ],
+      "key_features": [
+        "Digital signing of government and private documents",
+        "Single sign-on across 6,000+ services",
+        "eSeal API for legal entities",
+        "Biometric verification"
+      ],
+      "founder_relevance": "Required for almost every government service. Register on day one. Verify to the highest level immediately.",
+      "source_urls": [
+        "https://docs.uaepass.ae"
+      ]
+    },
+    {
+      "id": "basher",
+      "name": "Basher",
+      "url": "https://basher.ae",
+      "type": "unified_business_setup",
+      "operator": "Federal (Ministry of Economy)",
+      "what_it_does": "UAE-wide unified business setup portal. Promises 15-minute company registration. Integrates with multiple emirates and free zones.",
+      "developer_api": false,
+      "developer_api_notes": "No public developer API. Web portal only.",
+      "founder_relevance": "Useful for fast mainland setup in some emirates, but Dubai mainland is better served by Invest in Dubai.",
+      "source_urls": []
+    },
+    {
+      "id": "invest_in_dubai",
+      "name": "Invest in Dubai",
+      "url": "https://invest.dubai.ae",
+      "app_url": "https://app.invest.dubai.ae",
+      "type": "dubai_mainland_setup",
+      "operator": "DET (Department of Economy and Tourism)",
+      "what_it_does": "One-stop business setup portal for Dubai Mainland. Trade name search, activity lookup, license issuance, payment.",
+      "developer_api": false,
+      "founder_relevance": "The recommended path for any Dubai mainland setup. Trade name reservation is instant.",
+      "key_pages": [
+        "Trade name search",
+        "Activity lookup",
+        "License application"
+      ]
+    },
+    {
+      "id": "det_eservices",
+      "name": "DET eServices",
+      "url": "https://eservices.dubaided.gov.ae",
+      "type": "dubai_mainland_legacy",
+      "operator": "DET",
+      "what_it_does": "Legacy parallel DET portal. Some services not yet on Invest in Dubai still live here.",
+      "developer_api": false,
+      "founder_relevance": "Use Invest in Dubai by default. Fall back to this for specific legacy services."
+    },
+    {
+      "id": "emaratax",
+      "name": "EmaraTax",
+      "url": "https://eservices.tax.gov.ae",
+      "type": "tax_filing",
+      "operator": "FTA (Federal Tax Authority)",
+      "what_it_does": "VAT and Corporate Tax registration, return filing, payments, refunds.",
+      "developer_api": false,
+      "founder_relevance": "Mandatory for any VAT-registered or CT-registered business. Use UAE Pass to log in.",
+      "filings_supported": [
+        "VAT registration and de-registration",
+        "VAT return filing",
+        "Corporate Tax registration",
+        "Corporate Tax return filing",
+        "Excise Tax",
+        "Refund applications"
+      ]
+    },
+    {
+      "id": "mohre",
+      "name": "MOHRE eServices",
+      "url": "https://www.mohre.gov.ae",
+      "type": "labour",
+      "operator": "Ministry of Human Resources and Emiratisation",
+      "what_it_does": "Work permits, labour disputes, employment contracts, WPS (Wages Protection System), Tas'heel work permit processing.",
+      "developer_api": false,
+      "founder_relevance": "Required for any UAE-registered employer. WPS is mandatory for all salaried employees.",
+      "key_services": [
+        "Work permit application and renewal",
+        "Tas'heel processing",
+        "Employment contract registration",
+        "Labour dispute filing",
+        "Sahel mobile app for workers (Note: Sahel here is UAE app, NOT Kuwait)",
+        "Nafis Emiratisation portal integration"
+      ]
+    },
+    {
+      "id": "gdrfa_dubai",
+      "name": "GDRFA Smart Services (Dubai)",
+      "url": "https://www.gdrfad.gov.ae",
+      "type": "immigration",
+      "operator": "General Directorate of Residency and Foreigners Affairs (Dubai)",
+      "what_it_does": "Visas, residency, entry permits, smart gate, passport renewal, family sponsorship.",
+      "developer_api": false,
+      "founder_relevance": "Use this for Dubai-issued residency. ICP Smart Services is the federal alternative for other emirates."
+    },
+    {
+      "id": "icp",
+      "name": "ICP Smart Services",
+      "url": "https://icp.gov.ae",
+      "type": "federal_immigration",
+      "operator": "Federal Authority for Identity, Citizenship, Customs and Port Security",
+      "what_it_does": "UAE-wide ID, citizenship, visa, residency services. Federal portal.",
+      "developer_api": false,
+      "founder_relevance": "Used for federal Golden Visa applications, Emirates ID, and non-Dubai residencies."
+    },
+    {
+      "id": "u_ae",
+      "name": "u.ae",
+      "url": "https://u.ae",
+      "type": "federal_information_hub",
+      "operator": "Federal",
+      "what_it_does": "Federal government information hub. Service catalogue, federal news, sector-specific guides. Link-out to actual service portals.",
+      "developer_api": false,
+      "founder_relevance": "Best starting point for any UAE-wide service question. Authoritative source for visa rules and federal labour law."
+    },
+    {
+      "id": "dubai_now",
+      "name": "Dubai Now",
+      "url": "https://dubainow.dubai.gov.ae",
+      "type": "mobile_aggregator",
+      "operator": "Dubai Government / Digital Dubai",
+      "what_it_does": "Mobile app aggregating 130+ Dubai government services. DEWA bills, RTA fines, Salik recharge, visa renewal, court cases.",
+      "developer_api": false,
+      "founder_relevance": "Useful day-to-day app for residents. Not a B2B integration target."
+    },
+    {
+      "id": "dubai_rest",
+      "name": "Dubai REST (DLD)",
+      "url": "https://dubailand.gov.ae",
+      "type": "real_estate_app",
+      "operator": "DLD",
+      "what_it_does": "Real estate transactions, broker info, Ejari status check, RERA-approved sales agreements.",
+      "developer_api": false,
+      "developer_api_notes": "DLD operates a separate paid API Gateway (~AED 31,500/yr per product). Dubai REST app is consumer-only."
+    },
+    {
+      "id": "developer_dubai",
+      "name": "Dubai Developer Portal (iPaaS)",
+      "url": "https://developer.dubai.gov.ae",
+      "type": "developer_marketplace",
+      "operator": "Dubai Digital Authority",
+      "what_it_does": "Dubai government developer marketplace. Catalogue of APIs from various Dubai entities.",
+      "developer_api_notes": "Catalog loads via JavaScript so the contents could not be enumerated programmatically. Existence confirmed, contents unverified.",
+      "founder_relevance": "Worth checking for entity-specific APIs not listed elsewhere."
+    },
+    {
+      "id": "api_government_ae",
+      "name": "UAE Federal API Marketplace",
+      "url": "https://api.government.ae",
+      "type": "federal_api_marketplace",
+      "operator": "Federal",
+      "developer_api_notes": "Existence confirmed but catalog loads dynamically. Hosts MOHAP drug registry and other federal APIs."
+    }
+  ],
+  "disambiguation": [
+    {
+      "name": "Sahel app",
+      "issue": "Sahel is a Kuwait government app. The UAE has no production app called 'Sahel' as of April 2026. Do not invent a UAE Sahel."
+    },
+    {
+      "name": "SmartPass",
+      "issue": "SmartPass is the legacy federal predecessor to UAE Pass. It is no longer the active federal authentication product. Steer all developers and founders to UAE Pass instead."
+    }
+  ]
+}

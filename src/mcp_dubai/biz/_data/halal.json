@@ -1,0 +1,70 @@
+{
+  "domain": "halal",
+  "knowledge_date": "2026-04-13",
+  "volatility": "stable",
+  "verify_at": "https://qc.moiat.gov.ae/en/open-data/halal",
+  "source_brief_section": "6.10e",
+  "disclaimer": "Halal certification rules and accredited body lists change. Verify with MOIAT directly before quoting figures.",
+  "currency": "AED",
+  "authority": {
+    "name": "Ministry of Industry and Advanced Technology",
+    "short_name": "MOIAT",
+    "absorbed": "ESMA (Emirates Authority for Standardization and Metrology) was absorbed into MOIAT in 2020. The halal scheme moved with it.",
+    "url": "https://moiat.gov.ae",
+    "open_data_url": "https://qc.moiat.gov.ae/en/open-data/halal",
+    "warning": "ESMA is no longer an active authority. Do not refer founders to ESMA for halal certification."
+  },
+  "standards": [
+    {
+      "id": "uae_s_gso_2055_1",
+      "code": "UAE.S GSO 2055-1",
+      "scope": "General requirements for halal food"
+    },
+    {
+      "id": "uae_s_gso_2055_2",
+      "code": "UAE.S GSO 2055-2",
+      "scope": "Halal slaughter of permitted animals"
+    },
+    {
+      "id": "uae_s_gso_2055_4",
+      "code": "UAE.S GSO 2055-4",
+      "scope": "Other halal product standards"
+    },
+    {
+      "id": "uae_s_993",
+      "code": "UAE.S 993",
+      "scope": "Slaughter requirements"
+    }
+  ],
+  "governing_law": "Cabinet Resolution 10 of 2014",
+  "halal_mark": {
+    "name": "UAE Halal Mark",
+    "type": "single_unified",
+    "notes": "Single UAE Halal Mark used across all halal-certified products. Issued by MOIAT-accredited bodies."
+  },
+  "products_requiring_certification": [
+    "Food (meat, dairy, processed foods, beverages)",
+    "Cosmetics",
+    "Pharmaceuticals",
+    "Clothing (in some cases)",
+    "Slaughtered animals"
+  ],
+  "certification_bodies": {
+    "directory_url": "https://qc.moiat.gov.ae/en/open-data/halal",
+    "type": "html_only",
+    "directories_published": [
+      "Registered Halal Certification Bodies (HCBs)",
+      "Approved Accreditation Bodies",
+      "Approved slaughterhouses"
+    ],
+    "api_status": "No public API. HTML directory only. No product-level lookup."
+  },
+  "hcb_registration": {
+    "fee_per_domain_aed": 1000,
+    "certificate_fee_aed": 1000,
+    "total_aed": 2000,
+    "timeline_working_days": 10,
+    "notes": "Fees for Halal Certification Bodies registering with MOIAT."
+  },
+  "recommended_approach": "Curated reference data plus a scheduled scrape of the HCB directory. No real-time API exists. Do not promise product-level certification lookup."
+}

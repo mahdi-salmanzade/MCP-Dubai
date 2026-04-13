@@ -1,0 +1,120 @@
+{
+  "domain": "createapps",
+  "knowledge_date": "2026-04-13",
+  "volatility": "medium",
+  "verify_at": "https://createapps.ae",
+  "source_brief_section": "6.11",
+  "disclaimer": "Championship dates, prize pools, and category lists change between cycles. Verify with createapps.ae before applying.",
+  "currency": "USD",
+  "initiative": {
+    "name": "Create Apps in Dubai",
+    "operator": "Dubai Chamber of Digital Economy (DCDE)",
+    "launched_by": "Crown Prince Sheikh Hamdan bin Mohammed",
+    "launched_on": "2023-03-29",
+    "url": "https://createapps.ae",
+    "url_languages": ["en", "ar"],
+    "track_record": {
+      "applications_total": 5800,
+      "apps_launched": 55,
+      "since": 2023
+    }
+  },
+  "programs": [
+    {
+      "id": "championship",
+      "name": "Create Apps Championship",
+      "type": "global_competition",
+      "current_cycle": {
+        "number": 3,
+        "starts": "2025-10",
+        "ends": "2026-05"
+      },
+      "prize_pool_usd": 720000,
+      "categories": [
+        {
+          "id": "best_youth",
+          "name": "Best Youth App",
+          "winner_prize_usd": 150000
+        },
+        {
+          "id": "most_innovative",
+          "name": "Most Innovative App",
+          "winner_prize_usd": 150000
+        },
+        {
+          "id": "most_impactful",
+          "name": "Most Impactful App",
+          "winner_prize_usd": 150000
+        },
+        {
+          "id": "longevity",
+          "name": "Longevity App",
+          "winner_prize_usd": 150000
+        }
+      ],
+      "key_dates_2026": {
+        "semi_finals": "2026-04-13",
+        "grand_finale": "2026-05-11",
+        "grand_finale_venue": "Museum of the Future"
+      },
+      "previous_cycle_2025": {
+        "submissions": 4710,
+        "countries": 132,
+        "finalists": 12,
+        "winners": [
+          {"name": "Boom", "category": "logistics, also Dubai App of the Year"},
+          {"name": "BieBite", "category": "youth"},
+          {"name": "Rimal Game", "category": "gaming"},
+          {"name": "Brainy", "category": "innovative"}
+        ]
+      }
+    },
+    {
+      "id": "emirati_training_academy",
+      "name": "Emirati Training Academy",
+      "type": "free_training",
+      "duration_weeks": 6,
+      "tracks": ["Android", "iOS"],
+      "audience": "UAE nationals",
+      "delivered_with": "Udacity",
+      "certificate_cosigned_by": [
+        "Sebastian Thrun (Udacity)",
+        "Saeed Al Gergawi (DCDE VP)"
+      ],
+      "last_public_cycle": "Ended December 2024",
+      "current_status": "Status of post-2024 cycles unconfirmed."
+    },
+    {
+      "id": "learning_lab",
+      "name": "Learning Lab",
+      "type": "content_hub",
+      "content": [
+        "AI playbook",
+        "No-code guides"
+      ],
+      "physical_facility": "Referenced but location not detailed."
+    }
+  ],
+  "submission_guide": {
+    "audience": ["Mobile app developers worldwide", "UAE nationals (training academy)"],
+    "evaluation_criteria": [
+      "Innovation and originality",
+      "User experience and design",
+      "Impact on users and community",
+      "Technical execution",
+      "Longevity and growth potential"
+    ],
+    "application_url": "https://createapps.ae/en/registration",
+    "tip": "Cycle 3 grand finale is 11 May 2026 at Museum of the Future. Submission window for cycle 3 closed in late 2025; check createapps.ae for the next cycle window."
+  },
+  "contact": {
+    "email": "via createapps.ae contact form (Cloudflare-obfuscated)",
+    "social": "@DxbChamberDigi (parent DCDE)"
+  },
+  "api_status": {
+    "public_api": false,
+    "rss": false,
+    "sitemap": "https://createapps.ae/sitemap.xml",
+    "notes": "Liferay-style sitemap with 13 per-layout sub-sitemaps. No public REST API or RSS feed."
+  }
+}

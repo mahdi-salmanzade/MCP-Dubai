@@ -1,0 +1,407 @@
+{
+  "domain": "funding",
+  "knowledge_date": "2026-04-13",
+  "volatility": "high",
+  "verify_at": "https://hub71.com",
+  "source_brief_section": "6.7",
+  "disclaimer": "Cohort dates, ticket sizes, and active VC strategies change frequently. Verify each program directly before applying.",
+  "currency": "AED",
+  "accelerators": [
+    {
+      "id": "in5",
+      "name": "in5",
+      "operator": "TECOM Group",
+      "location": "Dubai",
+      "sub_programs": [
+        "in5 Tech",
+        "in5 Media",
+        "in5 Design"
+      ],
+      "tier": "free_office_visa",
+      "cost_aed": 0,
+      "benefits": [
+        "Free office and meeting space",
+        "Free trade license",
+        "Free visa allocation",
+        "Mentorship",
+        "Investor introductions",
+        "Discounts on TECOM services"
+      ],
+      "best_for": [
+        "tech",
+        "media",
+        "design",
+        "early-stage"
+      ],
+      "application_url": "https://www.in5.ae",
+      "notes": "Default Dubai accelerator for tech, media, and design founders. Cohort-based, application is competitive.",
+      "source_urls": []
+    },
+    {
+      "id": "hub71",
+      "name": "Hub71",
+      "operator": "Mubadala / ADQ / ADGM",
+      "location": "Abu Dhabi",
+      "tier": "premium_cohort",
+      "benefits": [
+        "Free housing for selected startups",
+        "Free office space",
+        "Health insurance",
+        "Access to Mubadala / ADQ network",
+        "Investor matchmaking"
+      ],
+      "best_for": [
+        "growth-stage tech",
+        "fintech",
+        "AI",
+        "cleantech"
+      ],
+      "application_url": "https://hub71.com",
+      "current_cohort": "Cohort 20 applications close 2 August 2026, programme starts February 2027.",
+      "notes": "Tier-1 program in the UAE for tech founders. Highly competitive.",
+      "source_urls": [
+        "https://hub71.com"
+      ]
+    },
+    {
+      "id": "difc_innovation_hub",
+      "name": "DIFC Innovation Hub",
+      "operator": "Dubai International Financial Centre",
+      "location": "DIFC",
+      "tier": "fintech_specialist",
+      "sub_programs": [
+        "DIFC FinTech Hive"
+      ],
+      "benefits": [
+        "DIFC Innovation Licence at subsidised rate",
+        "Access to DFSA",
+        "Cohort-based mentorship",
+        "Investor day"
+      ],
+      "best_for": [
+        "fintech",
+        "regtech",
+        "insurtech",
+        "wealthtech"
+      ],
+      "application_url": "https://www.difc.com/business/innovation-hub",
+      "notes": "The fintech path. DIFC FinTech Hive is the original cohort program, still running."
+    },
+    {
+      "id": "dtec",
+      "name": "Dtec",
+      "operator": "Dubai Silicon Oasis",
+      "location": "Dubai Silicon Oasis",
+      "tier": "coworking_incubation",
+      "benefits": [
+        "Coworking space",
+        "DSO free zone licence options",
+        "Mentorship",
+        "Community events"
+      ],
+      "best_for": [
+        "bootstrapped tech",
+        "early-stage",
+        "deep tech"
+      ],
+      "application_url": "https://dtec.ae"
+    },
+    {
+      "id": "dfa",
+      "name": "Dubai Future Accelerators",
+      "operator": "Dubai Future Foundation",
+      "location": "Dubai",
+      "tier": "government_challenge",
+      "benefits": [
+        "Government partner matching",
+        "POC funding",
+        "Pilot deployment with Dubai entities"
+      ],
+      "best_for": [
+        "growth-stage",
+        "govtech",
+        "smart city"
+      ],
+      "application_url": "https://www.dubaifuture.ae",
+      "notes": "Cohort-based partnership program with Dubai government entities."
+    },
+    {
+      "id": "area_2071",
+      "name": "Area 2071",
+      "operator": "Dubai Future Foundation",
+      "location": "Emirates Towers",
+      "tier": "ecosystem_hub",
+      "best_for": [
+        "future tech",
+        "AI",
+        "blockchain",
+        "space"
+      ],
+      "application_url": "https://area2071.ae"
+    },
+    {
+      "id": "astrolabs",
+      "name": "AstroLabs",
+      "operator": "Private",
+      "location": "DMCC",
+      "tier": "paid_accelerator",
+      "best_for": [
+        "scale-ups expanding to MENA",
+        "Saudi market entry"
+      ],
+      "notes": "Paid accelerator with strong workspace and Saudi expansion track. NOT free."
+    },
+    {
+      "id": "sheraa",
+      "name": "Sheraa S3",
+      "operator": "Sharjah Entrepreneurship Center",
+      "location": "Sharjah",
+      "tier": "regional_alternative",
+      "best_for": [
+        "early-stage",
+        "cohort-based"
+      ],
+      "application_url": "https://sheraa.ae"
+    }
+  ],
+  "vcs": [
+    {
+      "id": "beco_capital",
+      "name": "BECO Capital",
+      "stage_focus": [
+        "Seed",
+        "Series A"
+      ],
+      "ticket_aed_min": 1000000,
+      "ticket_aed_max": 20000000,
+      "sectors": [
+        "fintech",
+        "marketplace",
+        "saas",
+        "consumer"
+      ],
+      "geo": [
+        "MENA"
+      ],
+      "notable_portfolio": [
+        "Property Finder",
+        "Careem",
+        "Kitopi"
+      ],
+      "url": "https://www.becocapital.com"
+    },
+    {
+      "id": "wamda_capital",
+      "name": "Wamda Capital",
+      "stage_focus": [
+        "Seed",
+        "Series A"
+      ],
+      "ticket_aed_min": 1000000,
+      "ticket_aed_max": 15000000,
+      "sectors": [
+        "mena tech",
+        "saas",
+        "marketplace"
+      ],
+      "geo": [
+        "MENA"
+      ],
+      "url": "https://www.wamda.com/wamdacapital"
+    },
+    {
+      "id": "mevp",
+      "name": "MEVP (Middle East Venture Partners)",
+      "stage_focus": [
+        "Seed",
+        "Series A",
+        "Series B"
+      ],
+      "ticket_aed_min": 2000000,
+      "ticket_aed_max": 50000000,
+      "sectors": [
+        "fintech",
+        "marketplace",
+        "saas"
+      ],
+      "geo": [
+        "MENA"
+      ],
+      "url": "https://www.mevp.com"
+    },
+    {
+      "id": "shorooq",
+      "name": "Shorooq Partners",
+      "stage_focus": [
+        "Seed",
+        "Series A"
+      ],
+      "sectors": [
+        "fintech",
+        "platforms",
+        "saas"
+      ],
+      "geo": [
+        "MENA"
+      ],
+      "url": "https://www.shorooq.io"
+    },
+    {
+      "id": "global_ventures",
+      "name": "Global Ventures",
+      "stage_focus": [
+        "Seed",
+        "Series A",
+        "Series B"
+      ],
+      "sectors": [
+        "healthtech",
+        "fintech",
+        "edtech",
+        "logistics"
+      ],
+      "geo": [
+        "MENA",
+        "Africa"
+      ],
+      "url": "https://www.global.vc"
+    },
+    {
+      "id": "cotu",
+      "name": "COTU Ventures",
+      "stage_focus": [
+        "Pre-seed",
+        "Seed"
+      ],
+      "sectors": [
+        "MENA tech"
+      ],
+      "geo": [
+        "MENA"
+      ],
+      "notes": "Early-stage, founder-friendly."
+    },
+    {
+      "id": "500_global_mena",
+      "name": "500 Global MENA",
+      "stage_focus": [
+        "Pre-seed",
+        "Seed"
+      ],
+      "sectors": [
+        "fintech",
+        "saas",
+        "marketplace"
+      ],
+      "geo": [
+        "MENA"
+      ],
+      "url": "https://500.co"
+    },
+    {
+      "id": "mubadala_capital",
+      "name": "Mubadala Capital",
+      "stage_focus": [
+        "Series B+"
+      ],
+      "ticket_aed_min": 50000000,
+      "sectors": [
+        "growth equity",
+        "tech",
+        "infrastructure"
+      ],
+      "geo": [
+        "Global"
+      ],
+      "url": "https://www.mubadalacapital.ae"
+    },
+    {
+      "id": "venturesouq",
+      "name": "VentureSouq",
+      "stage_focus": [
+        "Pre-seed",
+        "Seed"
+      ],
+      "sectors": [
+        "fintech",
+        "saas",
+        "consumer"
+      ],
+      "geo": [
+        "MENA"
+      ],
+      "url": "https://venturesouq.com"
+    },
+    {
+      "id": "nuwa_capital",
+      "name": "Nuwa Capital",
+      "stage_focus": [
+        "Seed",
+        "Series A"
+      ],
+      "geo": [
+        "MENA"
+      ],
+      "url": "https://nuwacapital.com"
+    },
+    {
+      "id": "raed_ventures",
+      "name": "RAED Ventures",
+      "stage_focus": [
+        "Seed",
+        "Series A"
+      ],
+      "geo": [
+        "MENA"
+      ],
+      "url": "https://www.raed.vc"
+    }
+  ],
+  "vcs_excluded_with_reason": [
+    {
+      "name": "Cypress Growth Capital",
+      "reason": "Dallas-based royalty firm focused on US Southwest software. NOT a MENA VC. Frequently misattributed."
+    },
+    {
+      "name": "Techstars Dubai",
+      "reason": "Status uncertain post-2024 Techstars rationalization. Verify before quoting."
+    }
+  ],
+  "grants": [
+    {
+      "id": "mbrif",
+      "name": "Mohammed Bin Rashid Innovation Fund (MBRIF)",
+      "type": "guarantee_loan",
+      "amount_aed_max": 2000000,
+      "amount_notes": "Up to AED 2,000,000 in interest-free loans (per third-party sources, brief originally cited AED 5,000,000 which is unverified). Verify directly with MBRIF.",
+      "eligibility": "UAE-based innovative SMEs",
+      "url": "https://www.mbrif.ae",
+      "warning": "AED 5M figure from the brief is unverified."
+    },
+    {
+      "id": "dfdf",
+      "name": "Dubai Future District Fund",
+      "type": "venture_fund",
+      "fund_size_aed": 1000000000,
+      "commitments_aed": 6055000000,
+      "portfolio_count": 190,
+      "portfolio_notes": "Backs early-stage and growth tech, plus fund-of-funds commitments to MENA VCs.",
+      "url": "https://www.dfdf.ae"
+    },
+    {
+      "id": "dubai_sme",
+      "name": "Dubai SME (Mohammed Bin Rashid Establishment for SME Development)",
+      "type": "support_programs",
+      "url": "https://www.sme.ae",
+      "notes": "Programs for Emirati-owned SMEs. Includes Hamdan Innovation Incubator and various sector-specific tracks."
+    },
+    {
+      "id": "khalifa_fund",
+      "name": "Khalifa Fund for Enterprise Development",
+      "type": "loan_grant",
+      "location": "Abu Dhabi",
+      "url": "https://www.khalifafund.ae",
+      "notes": "Abu Dhabi-based but some programs UAE-wide for Emirati entrepreneurs."
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel in-progress runs of the same workflow on the same branch.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+          cache-dependency-path: pyproject.toml
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev,data]"
+
+      - name: Lint with ruff
+        run: ruff check src tests
+
+      - name: Format check with ruff
+        run: ruff format --check src tests
+
+      - name: Type check with mypy (strict)
+        run: mypy src
+
+      - name: Run pytest
+        run: pytest --cov=src/mcp_dubai --cov-report=xml --cov-report=term
+
+      - name: Em-dash sweep
+        shell: bash
+        run: |
+          # Hard project rule: no em dashes (U+2014) or en dashes (U+2013)
+          # anywhere in the shipped source tree. The rule is documented in
+          # CONTRIBUTING.md and the PR template, which are exempted because
+          # they document the rule itself.
+          if grep -RIn $'[\u2014\u2013]' src tests pyproject.toml README.md DISCLAIMER.md Makefile .env.example 2>/dev/null; then
+            echo "::error::Em dash or en dash found in shipped files. Use a hyphen, colon, or two sentences."
+            exit 1
+          fi
+          echo "OK: no em or en dashes in shipped files."
+
+      - name: Smoke test (server boots)
+        run: |
+          python -c "from mcp_dubai.server import mcp, list_features; print('server:', mcp.name); print('features:', len(list_features()))"
+
+      - name: Upload coverage to Codecov
+        if: matrix.python-version == '3.12'
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage.xml
+          fail_ci_if_error: false
+        continue-on-error: true
+
+  build:
+    name: Build wheel + sdist
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+
+      - name: Build distributions
+        run: python -m build
+
+      - name: Check distributions with twine
+        run: twine check dist/*
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 7

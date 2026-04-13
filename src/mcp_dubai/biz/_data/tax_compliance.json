@@ -1,0 +1,138 @@
+{
+  "domain": "tax_compliance",
+  "knowledge_date": "2026-04-13",
+  "volatility": "high",
+  "verify_at": "https://tax.gov.ae",
+  "source_brief_section": "6.4",
+  "disclaimer": "UAE corporate tax rules changed materially in 2025/2026 (MD 229/2025 updated QFZP, FTA late-registration penalty waiver in April 2025, Pillar Two DMTT effective January 2025, sweetened drinks tiered excise from January 2026). Always verify against the FTA portal before quoting figures.",
+  "currency": "AED",
+  "corporate_tax": {
+    "law": "Federal Decree-Law 47 of 2022",
+    "effective_from": "2023-06-01",
+    "thresholds": {
+      "tax_free_band_aed": 375000,
+      "standard_rate_pct": 9,
+      "rate_at_or_below_threshold_pct": 0
+    },
+    "qfzp": {
+      "name": "Qualifying Free Zone Person",
+      "summary": "Eligible free zone persons get 0% on Qualifying Income and 9% on the rest.",
+      "current_rules_source": "Ministerial Decision 229 of 2025",
+      "replaced": "Ministerial Decision 265 of 2023",
+      "saas_qualifying": false,
+      "saas_note": "SaaS is NOT a Qualifying Activity. Most free zone SaaS revenue gets 9%, not 0%. This is critical for setup_advisor recommendations.",
+      "de_minimis": "Lower of 5% of revenue or AED 5,000,000",
+      "source_urls": [
+        "https://mof.gov.ae/wp-content/uploads/2025/09/EN-Ministerial-Decision-No.-229-of-2025-Regarding-Qualifying-Activities-and-Excluded-Activities.pdf"
+      ]
+    },
+    "small_business_relief": {
+      "name": "Small Business Relief",
+      "law": "Ministerial Decision 73 of 2023",
+      "revenue_threshold_aed": 3000000,
+      "available_through_periods_ending": "2026-12-31",
+      "summary": "Revenue under AED 3M qualifies for full relief through tax periods ending 31 December 2026."
+    },
+    "registration": {
+      "deadline_law": "FTA Decision 3 of 2024",
+      "late_registration_penalty_aed": 10000,
+      "waiver_announcement": "April 2025: penalty waived if first return is filed within 7 months of the end of the tax period."
+    },
+    "filing": {
+      "deadline_months_after_period_end": 9,
+      "portal": "EmaraTax (https://eservices.tax.gov.ae)"
+    },
+    "transfer_pricing": {
+      "tp_disclosure_thresholds_aed": [40000000, 4000000, 500000],
+      "local_master_file_threshold_aed": 200000000,
+      "mne_group_threshold_aed": 3150000000
+    },
+    "pillar_two_dmtt": {
+      "name": "Domestic Minimum Top-up Tax",
+      "rate_pct": 15,
+      "applies_to": "MNE groups with consolidated revenue at or above EUR 750 million",
+      "effective_from": "2025-01-01"
+    }
+  },
+  "vat": {
+    "law": "Federal Decree-Law 8 of 2017 (and amendments)",
+    "rate_pct": 5,
+    "mandatory_registration_threshold_aed": 375000,
+    "voluntary_registration_threshold_aed": 187500,
+    "filing_frequency": {
+      "quarterly_under_aed_revenue": 150000000,
+      "monthly_at_or_above_aed_revenue": 150000000
+    },
+    "filing_deadline_day_of_month": 28
+  },
+  "esr": {
+    "name": "Economic Substance Regulations",
+    "status": "DEAD for periods after 2022-12-31",
+    "repeal_law": "Cabinet Resolution 98 of 2024",
+    "applies_to_periods": "2019-01-01 to 2022-12-31",
+    "historical_penalties": "Refundable per Cabinet Resolution 98 of 2024",
+    "warning": "Do NOT promise ESR filing tools for current periods. The 9 Relevant Activities only matter for historical filings.",
+    "relevant_activities": [
+      "Banking",
+      "Insurance",
+      "Investment fund management",
+      "Lease-finance",
+      "Headquarters",
+      "Shipping",
+      "Holding company",
+      "Intellectual property",
+      "Distribution and service centre"
+    ]
+  },
+  "aml_cft": {
+    "law": "Federal Decree-Law 20 of 2018",
+    "regulator": "UAE Financial Intelligence Unit (FIU)",
+    "portal": "goAML",
+    "dnfbp_categories": [
+      "Real estate brokers",
+      "Dealers in precious metals and stones",
+      "Auditors",
+      "Corporate service providers"
+    ],
+    "vara": {
+      "name": "Virtual Assets Regulatory Authority of Dubai",
+      "law": "Law 4 of 2022",
+      "v2_rulebook_effective": "2025-06-19",
+      "monero_zcash_status": "banned",
+      "applies_to": "Virtual asset service providers operating in Dubai (excluding DIFC)"
+    }
+  },
+  "ubo": {
+    "name": "Ultimate Beneficial Owner",
+    "law": "Cabinet Decision 58 of 2020",
+    "threshold_pct": 25,
+    "update_window_days": 15,
+    "max_fine_aed": 1000000,
+    "summary": "All UAE companies must maintain a UBO register and file with their licensing authority. 25% threshold for direct or indirect ownership."
+  },
+  "data_protection": {
+    "uae_pdpl": {
+      "name": "UAE Personal Data Protection Law",
+      "law": "Federal Decree-Law 45 of 2021",
+      "in_force_since": "2022-01-02"
+    },
+    "difc_dpl": {
+      "name": "DIFC Data Protection Law",
+      "law": "DIFC Law 5 of 2020"
+    },
+    "adgm_dpr": {
+      "name": "ADGM Data Protection Regulations",
+      "year": 2021,
+      "max_fine_usd": 28000000
+    }
+  },
+  "excise": {
+    "law": "Federal Decree-Law 7 of 2017",
+    "categories": ["Tobacco", "Sugary drinks", "Energy drinks", "Sweetened drinks"],
+    "sweetened_drinks_volumetric": {
+      "effective_from": "2026-01-01",
+      "law": "Cabinet Decision 197 of 2025",
+      "rates_aed_per_litre": [0.79, 1.09]
+    }
+  }
+}

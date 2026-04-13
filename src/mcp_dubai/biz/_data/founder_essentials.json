@@ -1,0 +1,203 @@
+{
+  "domain": "founder_essentials",
+  "knowledge_date": "2026-04-13",
+  "volatility": "medium",
+  "verify_at": "https://www.mofa.gov.ae/en/services/attestation",
+  "source_brief_section": "6.10b",
+  "disclaimer": "Document attestation, PRO, translation, and Chamber fees change. Verify before quoting. CRITICAL: the UAE is NOT a Hague Apostille member as of April 2026. Foreign documents still require the full 5-step legalization chain.",
+  "currency": "AED",
+  "attestation": {
+    "uae_apostille_member": false,
+    "apostille_correction_note": "The claim that the UAE acceded to the Hague Apostille Convention on 7 June 2024 is FALSE. Verified against the HCCH official status table for Convention #12 and multiple legal firms. MOFAIC continues to require the full legalization chain for foreign documents.",
+    "legalization_chain": [
+      {
+        "step": 1,
+        "name": "Home country notary public"
+      },
+      {
+        "step": 2,
+        "name": "Home country Ministry of Foreign Affairs (or State Department)"
+      },
+      {
+        "step": 3,
+        "name": "UAE Embassy in the home country"
+      },
+      {
+        "step": 4,
+        "name": "UAE MOFAIC in Dubai or Abu Dhabi"
+      },
+      {
+        "step": 5,
+        "name": "Translation into Arabic by an MOJ-licensed sworn translator (if destination is a UAE court, RERA, or government counter)"
+      }
+    ],
+    "fees": {
+      "personal_document_aed": 150,
+      "commercial_document_aed": 2000
+    },
+    "documents_typically_attested": [
+      "Degree certificate",
+      "Marriage certificate",
+      "Birth certificate",
+      "Power of attorney",
+      "Foreign trade license (for branch setup)",
+      "Foreign criminal record / good conduct certificate"
+    ],
+    "timeline_weeks_min": 1,
+    "timeline_weeks_max": 4,
+    "portals": [
+      "https://www.mofa.gov.ae/en/services/attestation",
+      "https://mofaic.gov.ae"
+    ],
+    "source_urls": [
+      "https://www.hcch.net/en/instruments/conventions/status-table/?cid=41"
+    ]
+  },
+  "pro_services": {
+    "what_a_pro_does": [
+      "License renewals",
+      "Visa processing (entry permit, status change, stamping)",
+      "Tas'heel work permits",
+      "Immigration paperwork",
+      "Emirates ID applications",
+      "Medical fitness arrangements",
+      "Document attestation",
+      "Court translation pickups",
+      "Tenancy contract registration"
+    ],
+    "when_you_need_one": "Mainland licenses with 3+ visas typically have an in-house PRO. Smaller setups outsource to PRO firms.",
+    "per_transaction_aed_min": 200,
+    "per_transaction_aed_max": 4000,
+    "monthly_retainer_aed_min": 1500,
+    "monthly_retainer_aed_max": 8000,
+    "pro_vs_setup_consultant_vs_csp": "PRO handles operational paperwork after incorporation. Setup consultant handles incorporation itself. Corporate services provider does both plus accounting and compliance.",
+    "source_urls": []
+  },
+  "legal_translation": {
+    "mandatory_for": [
+      "Documents submitted in Arabic to UAE courts",
+      "Documents submitted to MOFA, RERA, or government counters",
+      "Trade name reservation",
+      "MOA",
+      "Court filings",
+      "Contract execution",
+      "Tenancy contracts",
+      "Foreign degrees"
+    ],
+    "approved_translators_only": true,
+    "registry": "Ministry of Justice MOJ-licensed sworn translators",
+    "registry_url": "https://www.moj.gov.ae/en/translators.aspx",
+    "price_per_page_aed_min": 50,
+    "price_per_page_aed_max": 150,
+    "same_day_uplift_pct_min": 25,
+    "same_day_uplift_pct_max": 50,
+    "source_urls": []
+  },
+  "chamber_of_commerce": {
+    "name": "Dubai Chamber of Commerce",
+    "mandatory_for": "Mainland commercial license holders (DET commercial activity)",
+    "annual_fee_aed_min": 700,
+    "annual_fee_aed_max": 2200,
+    "fee_notes": "Tier from AED 700 floor to AED 2,200 top (banks and foreign branches at the top).",
+    "certificate_of_origin": {
+      "fee_aed": 100,
+      "turnaround": "approximately 2 hours",
+      "required_for": "Most non-GCC exports"
+    },
+    "three_chambers_post_2021": [
+      "Dubai Chamber of Commerce",
+      "Dubai International Chamber",
+      "Dubai Chamber of Digital Economy (DCDE)"
+    ],
+    "default_chamber_for_mainland_commercial": "Commerce",
+    "portal": "https://www.dubaichamber.com",
+    "source_urls": [
+      "https://www.dubaichambers.com/en/issuing-a-certificate-of-origin"
+    ]
+  },
+  "timelines": {
+    "trade_name_reservation": "Instant via app.invest.dubai.ae",
+    "det_initial_approval_days_min": 1,
+    "det_initial_approval_days_max": 3,
+    "mainland_setup_weeks_min": 2,
+    "mainland_setup_weeks_max": 4,
+    "free_zone_setup_days_min": 5,
+    "free_zone_setup_weeks_max": 3,
+    "bank_account_weeks_min": 1,
+    "bank_account_weeks_max": 16,
+    "investor_visa_to_eid_weeks_min": 2,
+    "investor_visa_to_eid_weeks_max": 6,
+    "spouse_family_visa_weeks_min": 2,
+    "spouse_family_visa_weeks_max": 4,
+    "mofa_attestation_weeks_min": 1,
+    "mofa_attestation_weeks_max": 4
+  },
+  "common_mistakes": [
+    {
+      "id": "wrong_activity_code",
+      "title": "Choosing the wrong activity code",
+      "impact": "Limits banking, invoicing, and hiring downstream. Cannot be changed without a full license amendment.",
+      "fix": "Look up DET activity list on app.invest.dubai.ae before applying. If unsure, choose a broader activity that covers your intended business."
+    },
+    {
+      "id": "cheapest_fz_no_bank_check",
+      "title": "Picking the cheapest free zone without checking bank acceptance",
+      "impact": "Meydan and IFZA are cheap to set up but have documented bank account difficulties. You may save AED 5,000 on the license and lose 8 weeks on banking.",
+      "fix": "Cross-reference the free zone choice with the bank you intend to use. Use Meydan's in-house bank assistance desk if you must use Meydan."
+    },
+    {
+      "id": "free_zone_mainland_invoice",
+      "title": "Forgetting that free zone companies cannot freely invoice mainland UAE B2C",
+      "impact": "Many founders set up in a free zone for the cheap license, then discover they cannot directly bill UAE consumers without a local distributor or dual license.",
+      "fix": "If you need to invoice mainland UAE B2C, choose mainland (DET) or use a free zone with dual-license capability."
+    },
+    {
+      "id": "underbudget_pro_translation",
+      "title": "Underestimating the AED 5,000 to 15,000 in PRO and translation fees",
+      "impact": "These costs are not in the headline license price and often surprise first-time founders.",
+      "fix": "Budget AED 5,000 to 15,000 on top of the license cost for PRO services, MOFA attestation, and legal translation."
+    },
+    {
+      "id": "bank_delay_unbudgeted",
+      "title": "Not budgeting for the 1 to 16 week bank account delay",
+      "impact": "Founders cannot operate, pay employees, or process payments without a bank account.",
+      "fix": "Apply to 2 or 3 banks in parallel. Consider Wio for fast onboarding while traditional banks process."
+    },
+    {
+      "id": "single_shareholder",
+      "title": "Using a single-shareholder structure when banks prefer 2+",
+      "impact": "Banks scrutinise sole-shareholder setups more heavily and reject them more often.",
+      "fix": "If feasible, add a co-founder or family member as a 2% to 10% shareholder to soften the bank profile."
+    },
+    {
+      "id": "no_ejari_before_visa",
+      "title": "Not getting Ejari before applying for visa quota",
+      "impact": "Ejari is a precondition for visa quota in mainland setups. Delays the entire visa pipeline.",
+      "fix": "Sign and register Ejari first, then start the visa application chain."
+    },
+    {
+      "id": "high_risk_industry",
+      "title": "Choosing a high-risk industry without preparation",
+      "impact": "Crypto, forex, jewelry, used cars, money service businesses face heavy KYC and frequent rejection.",
+      "fix": "Prepare extensive source-of-funds documentation, choose a free zone aligned with your industry, and consider VARA licensing for crypto."
+    },
+    {
+      "id": "license_lapse",
+      "title": "Letting the license lapse",
+      "impact": "AED 5,000 one-time reactivation fine, AED 250 per month ongoing penalty, plus immigration consequences for sponsored visas.",
+      "fix": "Set a calendar reminder 60 days before renewal."
+    },
+    {
+      "id": "no_uae_pass",
+      "title": "Trying to operate without UAE Pass in 2025/2026",
+      "impact": "UAE Pass is required for almost every government e-service. Operating without it forces you to use slow physical channels.",
+      "fix": "Register for UAE Pass on day one. Verify to the highest level (full verification with Emirates ID + biometrics)."
+    },
+    {
+      "id": "wrong_chamber",
+      "title": "Mixing up the three Dubai Chambers",
+      "impact": "Joining the wrong chamber wastes the membership fee and provides irrelevant services.",
+      "fix": "Mainland commercial license holders join Dubai Chamber of Commerce by default. International trade focus joins Dubai International Chamber. Tech/digital startups engage with DCDE through programs (no standalone membership)."
+    }
+  ]
+}
