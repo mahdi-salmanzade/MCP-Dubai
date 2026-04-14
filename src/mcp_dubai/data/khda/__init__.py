@@ -10,9 +10,8 @@ Source: https://web.khda.gov.ae/en/Resources/KHDA-data-statistics
 Brief section: 5.4
 
 Implementation note: v0 ships a small curated snapshot of well-known Dubai
-schools so the tool is useful out of the box. The full ~200-school dataset
-is loaded from the XLSX by `scripts/refresh_khda.py` (not yet implemented),
-which writes to `src/mcp_dubai/data/khda/snapshot.py`.
+schools so the tool is useful out of the box. Contributions to expand the
+snapshot from the live KHDA XLSX are welcome (see CONTRIBUTING.md).
 """
 
 from __future__ import annotations

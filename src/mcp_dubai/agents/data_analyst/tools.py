@@ -104,8 +104,8 @@ PLAN_TEMPLATES: dict[str, list[dict[str, Any]]] = {
     ],
     "compliance_checkup": [
         {
-            "tool": "esr_check",
-            "purpose": "Confirm ESR is no longer required",
+            "tool": "esr_status",
+            "purpose": "Confirm ESR is no longer required (DEAD post-2022)",
             "args_template": {},
         },
         {

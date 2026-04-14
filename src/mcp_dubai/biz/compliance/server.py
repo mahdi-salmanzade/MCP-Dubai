@@ -11,18 +11,6 @@ mcp: FastMCP = FastMCP("compliance")
 
 
 @mcp.tool
-async def esr_check() -> dict[str, object]:
-    """
-    Check the current status of UAE Economic Substance Regulations.
-
-    ESR is DEAD for periods after 31 December 2022 per Cabinet Resolution
-    98 of 2024. This tool gives a clear answer to the still-common
-    "do I need to file ESR?" question.
-    """
-    return await tools.esr_check()
-
-
-@mcp.tool
 async def aml_requirements(business_category: str = "general") -> dict[str, object]:
     """
     Return AML/CFT requirements for a business category.
@@ -59,13 +47,6 @@ async def pdpl_compliance(jurisdiction: str = "uae_federal") -> dict[str, object
 
 
 _TOOLS: list[ToolMeta] = [
-    ToolMeta(
-        name="esr_check",
-        description="Check whether you need to file UAE ESR (spoiler: not for periods after Dec 2022).",
-        feature="compliance",
-        tier=TIER_BIZ,
-        tags=["esr", "economic substance", "repealed", "filing", "compliance"],
-    ),
     ToolMeta(
         name="aml_requirements",
         description="UAE AML/CFT requirements for DNFBPs (real estate, precious metals, auditors, CSPs, lawyers).",

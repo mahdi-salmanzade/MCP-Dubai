@@ -18,7 +18,7 @@
 
 **Connect AI agents (Claude, GPT, Cursor, Copilot) to Dubai and UAE public APIs and curated business setup knowledge.**
 
-🔧 **90 tools** · 🏛️ **28 features** · 📚 **17 verified knowledge domains** · ✅ **9 anonymous APIs** · 💼 **15 business advisor tools** · 🤖 **2 agent skills**
+🔧 **90 tools** · 🏛️ **29 features** · 📚 **17 verified knowledge domains** · ✅ **9 anonymous APIs** · 💼 **51 business advisor tools** · 🤖 **2 agent skills**
 
 [Quick Start](#-quick-start) · [Tool Catalogue](#-tool-catalogue) · [Knowledge Freshness](#-knowledge-freshness) · [Architecture](#%EF%B8%8F-architecture) · [Roadmap](#-roadmap) · [Contributing](#-contributing)
 
@@ -161,7 +161,7 @@ claude mcp add dubai -- uvx mcp-dubai
 
 ## 🧰 Tool Catalogue
 
-**51 tools across 15 features.** All Tier 0 features ship today and work without any credentials. Tier 2 business knowledge tools are also live. Tier 1 (Dubai Pulse OAuth) features are scaffolded and ship after credentials are obtained. Use `recommend_tools(query)` to find the right tool for any natural-language question.
+**90 tools across 29 features.** All Tier 0 features ship today and work without any credentials. Tier 2 business knowledge and agent-skill tools are also live. Tier 1 (Dubai Pulse OAuth) DLD and RTA feature wrappers ship with graceful credential-missing fallbacks. Use `recommend_tools(query)` to find the right tool for any natural-language question.
 
 ### ✅ Tier 0: anonymous APIs (no auth, ship today)
 
@@ -187,18 +187,42 @@ claude mcp add dubai -- uvx mcp-dubai
 | `banking` | `list_banks`, `bank_details`, `bank_recommendation`, `dul_eligibility` | 14-bank matrix (Wio, Mashreq NEOBiz, Zand, ruya, Emirates NBD, RAKBANK, ADCB, FAB, CBD, ADIB, HSBC, StanChart, Citi, Liv) on onboarding speed, minimum balance, and crypto stance. Plus DUL (Dubai Unified Licence) fast-track eligibility check listing the 7 participating banks and 3 participating free zones. |
 | `founder_essentials` | `attestation_guide`, `pro_services_estimate`, `legal_translation_estimate`, `chamber_of_commerce_info`, `setup_timeline_estimate`, `common_founder_mistakes` | The boring stuff that breaks setups. Full 5-step UAE legalization chain (UAE is NOT a Hague Apostille member, despite what some sources claim), PRO service cost estimator, MOJ legal translation calculator, Dubai Chamber of Commerce membership and CoO fees, realistic 1-to-16-week banking timelines, and the 11 most common founder mistakes with impact and fix for each. |
 | `tax_compliance` | `corporate_tax_estimate`, `vat_filing_calendar`, `qfzp_check`, `esr_status` | UAE Corporate Tax (Federal Decree-Law 47 of 2022, 9% above AED 375,000), VAT (5%), QFZP (Qualifying Free Zone Person under Ministerial Decision 229 of 2025, with the explicit SaaS-not-qualifying warning), and ESR status (DEAD for periods after Dec 2022 per Cabinet Resolution 98 of 2024). |
+| `compliance` | `aml_requirements`, `ubo_filing_guide`, `pdpl_compliance` | UAE AML/CFT obligations with DNFBP detection (real estate, precious metals, auditors, CSPs, lawyers, notaries) routing to goAML. UBO filing rules (Cabinet Decision 58/2020, 25% threshold, 15-day update window). PDPL data protection compliance for UAE federal, DIFC DPL, and ADGM DPR. |
+| `funding` | `accelerator_search`, `vc_list`, `grant_programs` | Accelerator program search filtered by sector, free/paid, and location. Active UAE VC list. Grant programs including Mohammed bin Rashid Innovation Fund and Khalifa Fund. |
+| `gov_portals` | `portal_guide` | Cross-linked guide to UAE government portals (MOHRE, ICP, FTA, EmaraTax, GDRFA, Dubai Now, TAS HEEL, Tamm, Tawjeeh) with what each does and which service sits where. |
+| `dcde` | `dcde_programs`, `chamber_membership` | Dubai Chamber of Digital Economy programs (Dubai Unified Licence fast-track, DIIC, Techstars Dubai) and chamber membership benefits and fees. |
+| `events` | `startup_events`, `gitex_info`, `ens_calendar` | Active Dubai startup events calendar, GITEX Global and GITEX Future Stars specifics, and the Emirates Nature Society quarterly event rotation. |
+| `parkin` | `parking_zones`, `nol_card_guide` | Dubai Parkin zone tariffs (A, B, C, D, E, F, Mall of Emirates, Dubai Mall) and the Nol Card system (Silver, Gold, Personal) with cap rules and RTA coverage. |
+| `ip_trademark` | `trademark_registration`, `ip_protection` | UAE trademark registration process via MOIAT (MOE migration complete), classes, timeline, and the three protection routes for software and brand IP. |
+| `halal` | `halal_certification`, `moiat_requirements` | Halal certification process via ESMA/UAE.S Halal National Mark, MOIAT import requirements for food, beverages, cosmetics, and pharmaceuticals. |
+| `createapps` | `createapps_championship`, `submission_guide` | Dubai Create Apps Championship entry rules, prize structure, timeline, and a submission-ready step-by-step guide. |
+
+### 🤖 Tier 2 agent skills
+
+| Feature | Tools | What it does |
+|---|---|---|
+| `arabic_writer` | `list_honorifics`, `addressee_block`, `business_letter_template`, `list_salutations` | Bilingual Arabic/English business letter templates with correct UAE honorifics (HH, HE, HRH, Sheikh, Sheikha), addressee blocks, salutations, and closings. Useful when writing to government entities and senior family. |
+| `data_analyst` | `plan_query`, `list_plan_categories`, `synthesize_report`, `analyze_setup_decision` | Cross-tool planning and Markdown report synthesis. Hands back a sequenced plan (founder_setup, market_research, compliance_checkup, relocation) that the LLM executes step by step, then renders the results as a structured report. |
 
 ### 🧠 Tier 3: meta-tools
 
 | Tool | What it does |
 |---|---|
-| `recommend_tools(query, top_k=5)` | BM25-powered tool discovery. Pass a natural-language query, get a ranked list of the most relevant tools so the LLM does not have to scan all 51 at once. |
+| `recommend_tools(query, top_k=5)` | BM25-powered tool discovery. Pass a natural-language query, get a ranked list of the most relevant tools so the LLM does not have to scan all 90 at once. |
 | `list_features()` | List every registered feature with its tier, auth requirement, and tool count. |
 | `get_knowledge_status()` | Read the freshness registry. Returns every registered business knowledge domain with its `knowledge_date`, `volatility`, `verify_at` URL, and disclaimer. |
+| `about()` | Return the package version, knowledge date, live tool count, and repo URL. Useful for clients that want to confirm which version is running without scanning the full catalogue. |
 
-### 🔐 Tier 1: Dubai Pulse OAuth (planned)
+### 🔐 Tier 1: Dubai Pulse OAuth
 
-The auth scaffolding is in place (graceful credential degradation, token caching, env-overridable base URL for the data.dubai migration). The actual feature wrappers ship once the maintainer obtains Dubai Pulse credentials. Planned: `dld` (real estate), `rta` (transport + GTFS), `dha` (health facilities), `dewa`, `dtcm`, `det` (business activities), `dm_food`, `dm_permits`, `dubai_customs`, `dubai_airports` (FIDS).
+Feature wrappers for `dld` (real estate) and `rta` (transport) ship today with the graceful credential-missing pattern: tools return a structured `success: false` with setup instructions until you set `MCP_DUBAI_PULSE_CLIENT_ID` and `MCP_DUBAI_PULSE_CLIENT_SECRET`. See [CREDENTIALS.md](./CREDENTIALS.md) for the full walkthrough.
+
+| Feature | Tools | What it does |
+|---|---|---|
+| `dld` | `dld_search_transactions`, `dld_search_rent_contracts`, `dld_lookup_broker` | Dubai Land Department real estate sale transactions, Ejari rent contracts, and RERA broker lookup. |
+| `rta` (Pulse) | `rta_search_metro_stations`, `rta_search_bus_routes`, `rta_salik_tariff` | RTA metro stations (red and green lines), bus routes, and the Salik toll tariff. The `rta_gtfs_static_url` tool is open-data and needs no credentials. |
+
+More Dubai Pulse feature wrappers (DHA health, DEWA, DTCM, DET, Dubai Municipality, Dubai Customs, Dubai Airports) are on the roadmap once specific datasets are requested.
 
 ---
 

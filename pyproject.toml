@@ -1,6 +1,6 @@
 [project]
 name = "mcp-dubai"
-version = "0.1.2"
+version = "0.1.3"
 description = "MCP server for Dubai and UAE public APIs and business knowledge"
 readme = "README.md"
 license = { text = "MIT" }

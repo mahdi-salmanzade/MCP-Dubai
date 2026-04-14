@@ -139,6 +139,33 @@ class TestEsrStatus:
         assert isinstance(data, dict)
         assert "DEAD" in data["status"]
 
+    def test_esr_queries_route_to_single_surviving_tool(self) -> None:
+        """After the esr_check removal there must be exactly one ESR tool and
+        discovery must surface it for the common natural-language phrasings."""
+        import importlib
+
+        from mcp_dubai._shared.discovery import get_tool_discovery
+        from mcp_dubai.biz.compliance import server as compliance_server
+        from mcp_dubai.biz.tax_compliance import server as tax_server
+
+        importlib.reload(compliance_server)
+        importlib.reload(tax_server)
+
+        disc = get_tool_discovery()
+        all_esr = [m for m in disc.list_all() if "esr" in m.name.lower()]
+        assert [m.name for m in all_esr] == ["esr_status"]
+
+        for query in (
+            "do i need to file ESR",
+            "economic substance regulations",
+            "is ESR still required",
+        ):
+            results = disc.recommend(query, top_k=3)
+            assert results, f"no recommendations for {query!r}"
+            assert results[0].name == "esr_status", (
+                f"query {query!r} did not route to esr_status; top was {results[0].name}"
+            )
+
 
 class TestKnowledge:
     @pytest.mark.asyncio

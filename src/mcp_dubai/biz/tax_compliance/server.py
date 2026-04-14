@@ -145,16 +145,25 @@ _TOOLS: list[ToolMeta] = [
     ),
     ToolMeta(
         name="esr_status",
-        description="Current status of UAE Economic Substance Regulations (DEAD post-2022).",
+        description=(
+            "Check UAE Economic Substance Regulations status. ESR is DEAD "
+            "for periods after 31 Dec 2022 per Cabinet Resolution 98/2024, "
+            "historical penalties are refundable."
+        ),
         feature="tax_compliance",
         tier=TIER_BIZ,
         tags=[
             "esr",
+            "esr check",
             "economic substance",
+            "economic substance regulations",
+            "filing",
+            "do i need to file esr",
             "repealed",
             "dead",
             "cabinet resolution 98",
             "refundable",
+            "compliance",
         ],
     ),
 ]

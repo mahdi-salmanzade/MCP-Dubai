@@ -1,13 +1,14 @@
 """
 Curated KHDA Dubai private schools snapshot.
 
-This is a hand-curated subset for v0. Replaced by full dataset when
-`scripts/refresh_khda.py` is run against the live KHDA XLSX.
+Hand-curated subset of well-known Dubai schools for fast lookup. Expand
+coverage by appending to SCHOOLS from the live KHDA XLSX at the source
+URL below (contributions welcome).
 
 Each rating uses KHDA's published categories:
 "Outstanding" > "Very Good" > "Good" > "Acceptable" > "Weak" > "Very Weak"
 
-Knowledge date: 2026-04-12.
+Knowledge date: 2026-04-14.
 Source: https://web.khda.gov.ae/en/Resources/KHDA-data-statistics
 """
 

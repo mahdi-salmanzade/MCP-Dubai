@@ -33,7 +33,7 @@ class TestPlanQuery:
         steps = data["steps"]
         assert isinstance(steps, list)
         tools_called = {s["tool"] for s in steps}
-        assert "esr_check" in tools_called
+        assert "esr_status" in tools_called
         assert "ubo_filing_guide" in tools_called
 
     @pytest.mark.asyncio

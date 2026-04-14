@@ -11,10 +11,12 @@ This guide covers the dev setup, the conventions every feature follows, and the 
 The most useful contributions right now:
 
 1. **Refresh stale curated knowledge.** Each `biz/*` feature reads a JSON file in `src/mcp_dubai/biz/_data/` with a `knowledge_date` and `verify_at` URL. UAE tax rules, visa thresholds, and free zone pricing change frequently. If you spot something stale, file a PR with the corrected data, the new `knowledge_date`, and a link to the official source.
-2. **Ship the deferred Tier 2 features.** The roadmap lists 9 deferred biz features (`compliance`, `funding`, `gov_portals`, `dcde`, `events`, `parkin`, `ip_trademark`, `halal`, `createapps`). They all follow the same pattern as the existing 6: a curated JSON file + a thin `tools.py` + `server.py` with `KNOWLEDGE` constant + tests.
-3. **Wire up Tier 1 Dubai Pulse features** once you have credentials. The auth scaffolding lives in `src/mcp_dubai/_shared/auth.py` and the graceful-degradation contract is visible in the existing `air_quality` feature: tools must call `availability()` and fail soft with a structured error rather than crashing when credentials are missing.
-4. **Improve `recommend_tools` BM25 quality** by tuning tags. Current quirk: in small sub-corpora, length normalization can favour shorter tools when queries collide on common tokens.
-5. **Add features beyond Dubai.** Sharjah, Abu Dhabi, and federal UAE data could live in this same server.
+2. **Standardize tool response envelopes.** `biz/*` tools use `ToolResponse.ok / .fail`. `data/*` tools still return raw dicts on the happy path and only wrap failures. Converging everything on `ToolResponse` would let clients check `result["success"]` uniformly across all 91 tools. Start with one feature, follow the DLD pattern, update the feature's tests, and open the PR.
+3. **Upstream health monitoring.** We have a manual Upstream Status table in the README. A light `upstream_status()` meta-tool that probes each external endpoint and surfaces current live/blocked/parse_error state would turn that table into running code and catch regressions the moment they land in production.
+4. **Arabic-first discovery.** `recommend_tools` currently runs BM25 over English tags only. Queries like "ما هو قانون حماية البيانات في دبي" do not route well. Adding Arabic tags to existing `ToolMeta` entries and normalizing Arabic input would unlock the bilingual audience the project is designed for.
+5. **New Dubai Pulse features.** `dld` and `rta` Tier 1 wrappers ship today. The next batches to request are DHA (health facilities), DEWA (utilities), DTCM (tourism stats), DET (business activities), Dubai Municipality (food safety, permits), Dubai Customs, and Dubai Airports (FIDS). See `src/mcp_dubai/_shared/auth.py` and `src/mcp_dubai/data/dld/tools.py` for the credential-missing contract that every new feature must follow.
+6. **Improve `recommend_tools` BM25 quality** by tuning tags. Current quirk: in small sub-corpora, length normalization can favour shorter tools when queries collide on common tokens.
+7. **Add features beyond Dubai.** Sharjah, Abu Dhabi, and federal UAE data could live in this same server.
 
 ---
 
@@ -235,7 +237,7 @@ Files are loaded via `mcp_dubai.biz._data.loader.load_data_file(name)` which use
 
 Before opening a PR, run `make check` and confirm:
 
-- [ ] All gates pass: `ruff check`, `mypy --strict`, `pytest` (currently 258 tests, 92% coverage).
+- [ ] All gates pass: `ruff check`, `ruff format --check`, `mypy --strict`, `pytest` (currently 369+ tests, 90% coverage).
 - [ ] No em dashes (`—`) or en dashes (`–`) anywhere in the diff.
 - [ ] If you added a new feature, it follows the feature folder layout (constants, schemas/client if needed, tools, server, tests).
 - [ ] If you added a `biz/*` feature, it has a curated JSON file in `_data/` with the standard envelope, a per-domain `KNOWLEDGE` constant, and a call to `register_domain_knowledge`.

@@ -9,13 +9,26 @@ project-wide freshness stamp surfaced through `get_knowledge_status()`.
 from __future__ import annotations
 
 import os
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as _pkg_version
 from zoneinfo import ZoneInfo
+
+
+def _read_package_version() -> str:
+    """Read the installed package version, falling back to a dev tag."""
+    try:
+        return _pkg_version("mcp-dubai")
+    except PackageNotFoundError:
+        return "0.0.0+dev"
+
+
+PACKAGE_VERSION: str = _read_package_version()
 
 # ----------------------------------------------------------------------------
 # Project freshness
 # ----------------------------------------------------------------------------
 # Bumped when the curated business knowledge files are re-verified.
-KNOWLEDGE_DATE: str = "2026-04-12"
+KNOWLEDGE_DATE: str = "2026-04-14"
 
 
 # ----------------------------------------------------------------------------
@@ -79,4 +92,6 @@ UAE_ICAO_CODES: tuple[str, ...] = (
 # ----------------------------------------------------------------------------
 HTTP_DEFAULT_TIMEOUT_SECONDS: float = float(os.getenv("MCP_DUBAI_HTTP_TIMEOUT", "30.0"))
 HTTP_DEFAULT_MAX_RETRIES: int = int(os.getenv("MCP_DUBAI_HTTP_MAX_RETRIES", "3"))
-HTTP_USER_AGENT: str = "mcp-dubai/0.1.0 (+https://github.com/mahdi-salmanzade/MCP-Dubai)"
+HTTP_USER_AGENT: str = (
+    f"mcp-dubai/{PACKAGE_VERSION} (+https://github.com/mahdi-salmanzade/MCP-Dubai)"
+)

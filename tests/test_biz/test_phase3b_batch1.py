@@ -11,14 +11,6 @@ from mcp_dubai.biz.gov_portals import tools as gov_portals_tools
 
 class TestCompliance:
     @pytest.mark.asyncio
-    async def test_esr_check_returns_dead_status(self) -> None:
-        result = await compliance_tools.esr_check()
-        data = result["data"]
-        assert isinstance(data, dict)
-        assert data["active_for_current_periods"] is False
-        assert "DEAD" in str(data["status"])
-
-    @pytest.mark.asyncio
     async def test_aml_real_estate_is_dnfbp(self) -> None:
         result = await compliance_tools.aml_requirements(business_category="real_estate")
         data = result["data"]

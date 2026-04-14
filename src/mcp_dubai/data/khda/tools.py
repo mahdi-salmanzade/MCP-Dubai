@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 
+from mcp_dubai._shared.constants import KNOWLEDGE_DATE
 from mcp_dubai.data.khda.snapshot import SCHOOLS, VALID_RATINGS
-
-KNOWLEDGE_DATE = "2026-04-12"
 
 
 async def khda_search_school(
@@ -51,9 +50,9 @@ async def khda_search_school(
         "knowledge_date": KNOWLEDGE_DATE,
         "source": "KHDA curated snapshot, ~17 schools",
         "note": (
-            "v0 ships a curated subset for fast lookup. Run "
-            "scripts/refresh_khda.py against the live KHDA XLSX to load the "
-            "full ~200-school dataset."
+            "Curated subset of well-known Dubai schools for fast lookup. "
+            "Contributions to expand coverage from the live KHDA XLSX at "
+            "https://web.khda.gov.ae/en/Resources/KHDA-data-statistics are welcome."
         ),
     }
 

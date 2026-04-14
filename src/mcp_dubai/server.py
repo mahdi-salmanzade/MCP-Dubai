@@ -28,6 +28,7 @@ from mcp_dubai._shared import (
     get_knowledge_registry,
     get_tool_discovery,
 )
+from mcp_dubai._shared.constants import PACKAGE_VERSION
 
 logger = logging.getLogger(__name__)
 
@@ -239,4 +240,24 @@ def get_knowledge_status() -> dict[str, object]:
             }
             for name, meta in sorted(domains.items())
         },
+    }
+
+
+@mcp.tool
+async def about() -> dict[str, object]:
+    """
+    Return MCP-Dubai version, knowledge date, repo URL, and live tool count.
+
+    Useful for clients that want to confirm which version of the package is
+    running and when the curated knowledge was last verified, without
+    having to scan the full tool catalogue.
+    """
+    tool_list = await mcp.list_tools()
+    return {
+        "package": "mcp-dubai",
+        "version": PACKAGE_VERSION,
+        "knowledge_date": KNOWLEDGE_DATE,
+        "total_tools": len(tool_list),
+        "repo": "https://github.com/mahdi-salmanzade/MCP-Dubai",
+        "pypi": "https://pypi.org/project/mcp-dubai/",
     }

@@ -29,33 +29,6 @@ VALID_DNFBP_CATEGORIES = {
 }
 
 
-async def esr_check() -> dict[str, object]:
-    """
-    Check the current status of UAE Economic Substance Regulations.
-
-    ESR is DEAD for periods after 31 December 2022 per Cabinet Resolution
-    98 of 2024. This tool exists to give a clear answer to the still-common
-    "do I need to file ESR?" question.
-    """
-    esr = _block("esr")
-    return (
-        ToolResponse[dict[str, object]]
-        .ok(
-            {
-                "status": esr.get("status"),
-                "active_for_current_periods": False,
-                "warning": esr.get("warning"),
-                "applies_to_periods": esr.get("applies_to_periods"),
-                "repeal_law": esr.get("repeal_law"),
-                "historical_penalties": esr.get("historical_penalties"),
-                "relevant_activities": esr.get("relevant_activities", []),
-            },
-            knowledge=KNOWLEDGE,
-        )
-        .model_dump()
-    )
-
-
 async def aml_requirements(
     business_category: str = "general",
 ) -> dict[str, object]:
