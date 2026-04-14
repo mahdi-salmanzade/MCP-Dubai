@@ -28,6 +28,19 @@ from mcp_dubai._shared.errors import (
     cloudflare_blocked_response,
     upstream_error_response,
 )
+from mcp_dubai._shared.health import (
+    UpstreamRegistry,
+    UpstreamState,
+    get_upstream_registry,
+    register_upstream,
+    reset_upstream_registry,
+)
+from mcp_dubai._shared.health import (
+    mark_failure as mark_upstream_failure,
+)
+from mcp_dubai._shared.health import (
+    mark_success as mark_upstream_success,
+)
 from mcp_dubai._shared.http_client import (
     HttpClient,
     HttpClientError,
@@ -64,6 +77,14 @@ __all__ = [
     # errors
     "cloudflare_blocked_response",
     "upstream_error_response",
+    # health
+    "UpstreamRegistry",
+    "UpstreamState",
+    "get_upstream_registry",
+    "mark_upstream_failure",
+    "mark_upstream_success",
+    "register_upstream",
+    "reset_upstream_registry",
     # discovery
     "TIER_BIZ",
     "TIER_DUBAI_PULSE",

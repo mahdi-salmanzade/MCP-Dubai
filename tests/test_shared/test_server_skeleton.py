@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from mcp_dubai.server import (
     get_knowledge_status,
+    get_upstream_status,
     list_features,
     mcp,
     recommend_tools,
@@ -42,6 +43,19 @@ class TestMetaTools:
         assert result["total_domains"] == 0
         assert result["domains"] == {}
 
+    def test_get_upstream_status_returns_bootstrapped_envelope(self) -> None:
+        from mcp_dubai._shared.health import reset_upstream_registry
+
+        reset_upstream_registry()
+        result = get_upstream_status()
+        assert isinstance(result, dict)
+        assert "upstreams" in result
+        assert "summary" in result
+        names = {u["name"] for u in result["upstreams"]}
+        assert {"al_adhan", "cbuae_exchange", "cbuae_base_rate", "fcsc_ckan"}.issubset(names)
+        summary = result["summary"]
+        assert summary["total"] == len(result["upstreams"])
+
     def test_knowledge_status_reflects_registered_domains(self) -> None:
         from mcp_dubai._shared.knowledge import register_domain_knowledge
         from mcp_dubai._shared.schemas import KnowledgeMetadata
@@ -79,7 +93,7 @@ class TestMetaToolDiscoveryRegistration:
 
         importlib.reload(root_server)
 
-    def test_all_four_meta_tools_are_registered(self) -> None:
+    def test_all_five_meta_tools_are_registered(self) -> None:
         from mcp_dubai._shared.discovery import TIER_META, get_tool_discovery
 
         self._reload_server()
@@ -89,6 +103,7 @@ class TestMetaToolDiscoveryRegistration:
             "list_features",
             "get_knowledge_status",
             "about",
+            "get_upstream_status",
         }
         for meta in registered.values():
             assert meta.tier == TIER_META
@@ -107,6 +122,8 @@ class TestMetaToolDiscoveryRegistration:
             "how fresh is the knowledge": "get_knowledge_status",
             "when was this verified": "get_knowledge_status",
             "which version am i running": "about",
+            "which endpoints are down": "get_upstream_status",
+            "upstream health": "get_upstream_status",
         }
         for query, expected in cases.items():
             results = disc.recommend(query, top_k=3)

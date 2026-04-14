@@ -27,6 +27,7 @@ from mcp_dubai._shared import (
     ToolMeta,
     get_knowledge_registry,
     get_tool_discovery,
+    get_upstream_registry,
 )
 from mcp_dubai._shared.constants import PACKAGE_VERSION
 from mcp_dubai._shared.discovery import TIER_META
@@ -264,11 +265,38 @@ async def about() -> dict[str, object]:
     }
 
 
+@mcp.tool
+def get_upstream_status() -> dict[str, object]:
+    """
+    Return the current health of every registered upstream endpoint.
+
+    Reads from the passive health registry in `_shared/health.py`. Each
+    upstream entry reports `status` (working, blocked, degraded,
+    credentials_missing, static, unknown), the endpoint host, whether
+    it requires auth, the last success and last failure timestamps, and
+    the latest reason string if the upstream is not working.
+
+    This tool never probes endpoints proactively. Status is derived from
+    what happened during normal tool calls in this process, plus static
+    state declared at bootstrap (known Cloudflare blocks, credential
+    availability, and features that ship without any upstream call).
+
+    LLM agents should call this before attempting Tier 1 (Dubai Pulse)
+    or FCSC work, to avoid asking the server for data it cannot fetch.
+    """
+    registry = get_upstream_registry()
+    return {
+        "upstreams": registry.snapshot(),
+        "summary": registry.summary(),
+    }
+
+
 # ----------------------------------------------------------------------------
-# Register the four root meta tools in ToolDiscovery so BM25 can surface
-# them for navigational queries like "what tools are available" or "how
-# fresh is the knowledge". Without this registration these tools exist as
-# FastMCP tools but are invisible to `recommend_tools`.
+# Register the root meta tools in ToolDiscovery so BM25 can surface them
+# for navigational queries like "what tools are available", "how fresh is
+# the knowledge", "which endpoints are down". Without this registration
+# the meta tools exist as FastMCP tools but are invisible to
+# `recommend_tools`.
 # ----------------------------------------------------------------------------
 _META_TOOLS: list[ToolMeta] = [
     ToolMeta(
@@ -351,6 +379,28 @@ _META_TOOLS: list[ToolMeta] = [
             "info",
             "metadata",
             "server info",
+        ],
+    ),
+    ToolMeta(
+        name="get_upstream_status",
+        description=(
+            "Return the live health of every registered upstream endpoint "
+            "so LLM agents know which tools will work before calling them."
+        ),
+        feature="meta",
+        tier=TIER_META,
+        tags=[
+            "upstream",
+            "upstream status",
+            "health",
+            "endpoint health",
+            "which endpoints are down",
+            "is this working",
+            "cloudflare",
+            "blocked",
+            "credentials missing",
+            "availability",
+            "status check",
         ],
     ),
 ]

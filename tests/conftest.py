@@ -19,6 +19,7 @@ import pytest
 
 from mcp_dubai._shared.auth import reset_dubai_pulse_auth
 from mcp_dubai._shared.discovery import reset_tool_discovery
+from mcp_dubai._shared.health import reset_upstream_registry
 from mcp_dubai._shared.knowledge import reset_knowledge_registry
 
 
@@ -28,15 +29,17 @@ def reset_singletons() -> Iterator[None]:
     Reset all module-level singletons before AND after every test.
 
     Auto-used so individual tests do not have to remember the import gymnastics.
-    Covers DubaiPulseAuth, ToolDiscovery, and KnowledgeRegistry.
+    Covers DubaiPulseAuth, ToolDiscovery, KnowledgeRegistry, and UpstreamRegistry.
     """
     reset_dubai_pulse_auth()
     reset_tool_discovery()
     reset_knowledge_registry()
+    reset_upstream_registry()
     yield
     reset_dubai_pulse_auth()
     reset_tool_discovery()
     reset_knowledge_registry()
+    reset_upstream_registry()
 
 
 @pytest.fixture
