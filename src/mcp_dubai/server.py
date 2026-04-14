@@ -29,6 +29,7 @@ from mcp_dubai._shared import (
     get_tool_discovery,
 )
 from mcp_dubai._shared.constants import PACKAGE_VERSION
+from mcp_dubai._shared.discovery import TIER_META
 
 logger = logging.getLogger(__name__)
 
@@ -261,3 +262,97 @@ async def about() -> dict[str, object]:
         "repo": "https://github.com/mahdi-salmanzade/MCP-Dubai",
         "pypi": "https://pypi.org/project/mcp-dubai/",
     }
+
+
+# ----------------------------------------------------------------------------
+# Register the four root meta tools in ToolDiscovery so BM25 can surface
+# them for navigational queries like "what tools are available" or "how
+# fresh is the knowledge". Without this registration these tools exist as
+# FastMCP tools but are invisible to `recommend_tools`.
+# ----------------------------------------------------------------------------
+_META_TOOLS: list[ToolMeta] = [
+    ToolMeta(
+        name="recommend_tools",
+        description=(
+            "BM25-ranked tool discovery. Pass a natural-language query to "
+            "find the most relevant MCP-Dubai tools without having to scan "
+            "the full catalogue."
+        ),
+        feature="meta",
+        tier=TIER_META,
+        tags=[
+            "recommend",
+            "search",
+            "find tool",
+            "which tool",
+            "discovery",
+            "bm25",
+            "suggest",
+            "ranking",
+        ],
+    ),
+    ToolMeta(
+        name="list_features",
+        description=(
+            "List every registered MCP-Dubai feature with its tier, tool "
+            "count, and authentication requirement. Use this to see what "
+            "is available at a glance."
+        ),
+        feature="meta",
+        tier=TIER_META,
+        tags=[
+            "list features",
+            "available",
+            "what tools are available",
+            "what features",
+            "catalogue",
+            "inventory",
+            "registered",
+            "overview",
+            "tool count",
+        ],
+    ),
+    ToolMeta(
+        name="get_knowledge_status",
+        description=(
+            "Return the freshness registry of every registered business "
+            "knowledge domain: knowledge date, volatility, verify_at URL, "
+            "and disclaimer."
+        ),
+        feature="meta",
+        tier=TIER_META,
+        tags=[
+            "knowledge",
+            "freshness",
+            "knowledge date",
+            "stale",
+            "how recent",
+            "when was this verified",
+            "volatility",
+            "verify",
+            "last updated",
+        ],
+    ),
+    ToolMeta(
+        name="about",
+        description=(
+            "Return the MCP-Dubai package version, knowledge date, live "
+            "tool count, and repo and PyPI URLs."
+        ),
+        feature="meta",
+        tier=TIER_META,
+        tags=[
+            "about",
+            "version",
+            "package",
+            "which version",
+            "repo",
+            "pypi",
+            "info",
+            "metadata",
+            "server info",
+        ],
+    ),
+]
+
+get_tool_discovery().register_many(_META_TOOLS)

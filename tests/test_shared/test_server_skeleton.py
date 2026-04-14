@@ -62,3 +62,55 @@ class TestMetaTools:
         info = domains["test_domain"]
         assert info["volatility"] == "high"
         assert info["verify_at"] == "https://example.ae"
+
+
+class TestMetaToolDiscoveryRegistration:
+    """
+    Regression tests for the four root meta tools being findable via
+    BM25 `recommend_tools`. The autouse `reset_tool_discovery` fixture
+    wipes the registry before every test, so we reload `server` to
+    re-run its module-level `register_many` call.
+    """
+
+    def _reload_server(self) -> None:
+        import importlib
+
+        from mcp_dubai import server as root_server
+
+        importlib.reload(root_server)
+
+    def test_all_four_meta_tools_are_registered(self) -> None:
+        from mcp_dubai._shared.discovery import TIER_META, get_tool_discovery
+
+        self._reload_server()
+        registered = {m.name: m for m in get_tool_discovery().list_all() if m.feature == "meta"}
+        assert set(registered.keys()) == {
+            "recommend_tools",
+            "list_features",
+            "get_knowledge_status",
+            "about",
+        }
+        for meta in registered.values():
+            assert meta.tier == TIER_META
+
+    def test_navigational_queries_route_to_meta_tools(self) -> None:
+        """The whole point of registering meta tools: BM25 surfaces them
+        for the questions they answer."""
+        from mcp_dubai._shared.discovery import get_tool_discovery
+
+        self._reload_server()
+        disc = get_tool_discovery()
+
+        cases = {
+            "what tools are available": "list_features",
+            "list all features": "list_features",
+            "how fresh is the knowledge": "get_knowledge_status",
+            "when was this verified": "get_knowledge_status",
+            "which version am i running": "about",
+        }
+        for query, expected in cases.items():
+            results = disc.recommend(query, top_k=3)
+            assert results, f"no recommendations for {query!r}"
+            assert results[0].name == expected, (
+                f"query {query!r} routed to {results[0].name}, expected {expected}"
+            )
