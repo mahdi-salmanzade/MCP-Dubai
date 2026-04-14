@@ -17,6 +17,8 @@ from typing import Final
 
 from rank_bm25 import BM25Okapi
 
+from mcp_dubai._shared.aliases import expand_text
+
 logger = logging.getLogger(__name__)
 
 
@@ -74,7 +76,14 @@ class ToolDiscovery:
         if not self._tools:
             return
         self._tool_names = list(self._tools.keys())
-        tokenized = [self._tools[name].searchable_text.lower().split() for name in self._tool_names]
+        # Expand each tool's searchable text through the alias map so
+        # Arabic queries and abbreviation queries match against the
+        # English tags and vice versa. `expand_text` appends any matched
+        # equivalence set's members to the source string.
+        tokenized = [
+            expand_text(self._tools[name].searchable_text).lower().split()
+            for name in self._tool_names
+        ]
         self._bm25 = BM25Okapi(tokenized)
         logger.debug("Built BM25 index with %d tools", len(self._tool_names))
 
@@ -98,16 +107,21 @@ class ToolDiscovery:
         if self._bm25 is None or not self._tool_names:
             return []
 
-        tokenized_query = query.lower().split()
+        # Expand the query through the alias map so an Arabic term like
+        # `جميرا` picks up the English tag `jumeirah` on the matching
+        # tools. The expansion is symmetric with `_build_index`, which
+        # runs every tool's tags through the same function.
+        expanded_query = expand_text(query)
+        tokenized_query = expanded_query.lower().split()
         if not tokenized_query:
             return []
 
-        # Compute token overlap between the query and each tool. This is
-        # the actual "relevant?" signal. BM25 then ranks within the
-        # relevant set.
+        # Compute token overlap between the expanded query and each
+        # tool's expanded searchable text. This is the actual "relevant?"
+        # signal. BM25 then ranks within the relevant set.
         relevant_indices: list[int] = []
         for i, name in enumerate(self._tool_names):
-            tool_tokens = set(self._tools[name].searchable_text.lower().split())
+            tool_tokens = set(expand_text(self._tools[name].searchable_text).lower().split())
             if any(token in tool_tokens for token in tokenized_query):
                 relevant_indices.append(i)
 
