@@ -29,7 +29,7 @@
 > Dubai gave me a life. I promised myself I'd give something back.
 >
 > by **Mahdi Salmanzade**, Software Developer, Dubai
-> 📧 [info@mindzone.tech](mailto:info@mindzone.tech) · 📅 April 2026
+> 📧 [mahdi@clrtstudio.com](mailto:mahdi@clrtstudio.com) · 📅 April 2026
 
 ---
 
@@ -458,7 +458,7 @@ Read the full [DISCLAIMER.md](DISCLAIMER.md) for nature of project, trademarks, 
 ## 📬 Contact
 
 - **Maintainer**: Mahdi Salmanzade, Software Developer, Dubai
-- **Email**: [info@mindzone.tech](mailto:info@mindzone.tech)
+- **Email**: [mahdi@clrtstudio.com](mailto:mahdi@clrtstudio.com)
 - **Issues**: <https://github.com/mahdi-salmanzade/MCP-Dubai/issues>
 - **Pull requests welcome**: see [CONTRIBUTING.md](CONTRIBUTING.md)
 
@@ -476,7 +476,7 @@ Read the full [DISCLAIMER.md](DISCLAIMER.md) for nature of project, trademarks, 
 
 **Made with ❤️ in Dubai by Mahdi Salmanzade**
 
-📧 [info@mindzone.tech](mailto:info@mindzone.tech) · 📅 April 2026
+📧 [mahdi@clrtstudio.com](mailto:mahdi@clrtstudio.com) · 📅 April 2026
 
 > هذا المشروع مبادرة مجتمعية مفتوحة المصدر، مرحبًا بمساهماتكم
 

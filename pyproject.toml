@@ -5,10 +5,10 @@ description = "MCP server for Dubai and UAE public APIs and business knowledge"
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
-    { name = "Mahdi Salmanzade", email = "info@mindzone.tech" },
+    { name = "Mahdi Salmanzade", email = "mahdi@clrtstudio.com" },
 ]
 maintainers = [
-    { name = "Mahdi Salmanzade", email = "info@mindzone.tech" },
+    { name = "Mahdi Salmanzade", email = "mahdi@clrtstudio.com" },
 ]
 requires-python = ">=3.11"
 keywords = [
