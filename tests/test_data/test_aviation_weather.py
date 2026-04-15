@@ -47,14 +47,17 @@ class TestWeatherUaeIcao:
 
         result = await tools.weather_uae_icao(icao="OMDB", include_taf=True)
 
-        assert result["icao"] == "OMDB"
-        assert result["airport"] == "Dubai International"
-        metar = result["metar"]
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["icao"] == "OMDB"
+        assert data["airport"] == "Dubai International"
+        metar = data["metar"]
         assert isinstance(metar, dict)
         assert metar["temp"] == 32
-        taf = result["taf"]
+        taf = data["taf"]
         assert isinstance(taf, dict)
         assert "BECMG" in str(taf["rawTAF"])
+        assert result["source"] == "aviationweather.gov"
 
     @pytest.mark.asyncio
     @respx.mock
@@ -67,13 +70,16 @@ class TestWeatherUaeIcao:
         result = await tools.weather_uae_icao(icao="OMSJ", include_taf=False)
 
         assert metar_route.called
-        assert not taf_route.called  # include_taf=False means no TAF call
-        assert result["taf"] is None
+        assert not taf_route.called
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["taf"] is None
 
     @pytest.mark.asyncio
-    async def test_invalid_icao_raises(self) -> None:
-        with pytest.raises(ValueError, match=r"Unknown UAE ICAO code"):
-            await tools.weather_uae_icao(icao="EGLL")
+    async def test_invalid_icao_returns_fail(self) -> None:
+        result = await tools.weather_uae_icao(icao="EGLL")
+        assert result["success"] is False
+        assert "Unknown UAE ICAO code" in str(result["error"])
 
     @pytest.mark.asyncio
     @respx.mock
@@ -84,9 +90,11 @@ class TestWeatherUaeIcao:
 
         result = await tools.weather_uae_icao(icao="OMDB", include_taf=True)
 
-        assert result["icao"] == "OMDB"
-        assert result["metar"] is None
-        assert result["taf"] is None
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["icao"] == "OMDB"
+        assert data["metar"] is None
+        assert data["taf"] is None
 
     @pytest.mark.asyncio
     @respx.mock
@@ -97,8 +105,10 @@ class TestWeatherUaeIcao:
 
         result = await tools.weather_uae_icao(icao="OMDB", include_taf=True)
 
-        assert result["metar"] is None
-        assert result["taf"] is None
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["metar"] is None
+        assert data["taf"] is None
 
     @pytest.mark.asyncio
     @respx.mock
@@ -109,7 +119,9 @@ class TestWeatherUaeIcao:
         respx.get(constants.TAF_ENDPOINT).mock(return_value=Response(200, json=[]))
 
         result = await tools.weather_uae_icao(icao="omdb")
-        assert result["icao"] == "OMDB"
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["icao"] == "OMDB"
 
 
 class TestWeatherUaeAll:
@@ -126,12 +138,13 @@ class TestWeatherUaeAll:
         result = await tools.weather_uae_all()
 
         assert route.called
-        # ids should be all UAE codes joined.
         ids_param = route.calls.last.request.url.params["ids"]
         for code in constants.UAE_AIRPORTS:
             assert code in ids_param
 
-        airports = result["airports"]
+        data = result["data"]
+        assert isinstance(data, dict)
+        airports = data["airports"]
         assert isinstance(airports, list)
         assert len(airports) == len(constants.UAE_AIRPORTS)
 

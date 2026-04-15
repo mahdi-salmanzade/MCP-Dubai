@@ -88,10 +88,13 @@ class TestFcscSearchDataset:
 
         assert route.called
         assert route.calls.last.request.url.params["q"] == "trade"
-        assert result["count"] == 2
-        results = result["results"]
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["count"] == 2
+        results = data["results"]
         assert isinstance(results, list)
         assert len(results) == 2
+        assert result["source"] == "opendata.fcsc.gov.ae"
 
     @pytest.mark.asyncio
     @respx.mock
@@ -106,14 +109,16 @@ class TestFcscSearchDataset:
         assert params["fq"] == "organization:federal-customs-authority"
 
     @pytest.mark.asyncio
-    async def test_invalid_rows_raises(self) -> None:
-        with pytest.raises(ValueError, match=r"rows"):
-            await tools.fcsc_search_dataset(rows=200)
+    async def test_invalid_rows_returns_fail(self) -> None:
+        result = await tools.fcsc_search_dataset(rows=200)
+        assert result["success"] is False
+        assert "rows" in str(result["error"])
 
     @pytest.mark.asyncio
-    async def test_invalid_start_raises(self) -> None:
-        with pytest.raises(ValueError, match=r"start"):
-            await tools.fcsc_search_dataset(start=-1)
+    async def test_invalid_start_returns_fail(self) -> None:
+        result = await tools.fcsc_search_dataset(start=-1)
+        assert result["success"] is False
+        assert "start" in str(result["error"])
 
 
 class TestFcscGetDataset:
@@ -128,25 +133,29 @@ class TestFcscGetDataset:
 
         assert route.called
         assert route.calls.last.request.url.params["id"] == "uae-trade-2025"
-        assert result["title"] == "UAE Foreign Trade 2025"
-        resources = result["resources"]
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["title"] == "UAE Foreign Trade 2025"
+        resources = data["resources"]
         assert isinstance(resources, list)
         assert resources[0]["format"] == "CSV"
 
     @pytest.mark.asyncio
     @respx.mock
-    async def test_failure_payload_raises(self) -> None:
+    async def test_failure_payload_returns_fail_envelope(self) -> None:
         respx.get(constants.PACKAGE_SHOW).mock(
             return_value=Response(200, json=_ckan_failure_payload())
         )
 
-        with pytest.raises(RuntimeError, match=r"CKAN reported failure"):
-            await tools.fcsc_get_dataset("missing")
+        result = await tools.fcsc_get_dataset("missing")
+        assert result["success"] is False
+        assert "CKAN reported failure" in str(result["error"])
 
     @pytest.mark.asyncio
-    async def test_empty_id_raises(self) -> None:
-        with pytest.raises(ValueError, match=r"dataset_id"):
-            await tools.fcsc_get_dataset("")
+    async def test_empty_id_returns_fail(self) -> None:
+        result = await tools.fcsc_get_dataset("")
+        assert result["success"] is False
+        assert "dataset_id" in str(result["error"])
 
 
 class TestFcscListOrganizations:
@@ -158,8 +167,10 @@ class TestFcscListOrganizations:
         )
 
         result = await tools.fcsc_list_organizations()
-        assert result["count"] == 3
-        orgs = result["organizations"]
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["count"] == 3
+        orgs = data["organizations"]
         assert isinstance(orgs, list)
         assert "federal-customs-authority" in orgs
 

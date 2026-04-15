@@ -82,18 +82,23 @@ class TestQuranSurah:
         result = await tools.quran_surah(number=1)
 
         assert route.called
-        assert result["englishName"] == "Al-Fatihah"
-        assert result["numberOfAyahs"] == 7
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["englishName"] == "Al-Fatihah"
+        assert data["numberOfAyahs"] == 7
+        assert result["source"] == "api.alquran.cloud"
 
     @pytest.mark.asyncio
-    async def test_invalid_surah_number_raises(self) -> None:
-        with pytest.raises(ValueError, match=r"surah number"):
-            await tools.quran_surah(number=200)
+    async def test_invalid_surah_number_returns_fail(self) -> None:
+        result = await tools.quran_surah(number=200)
+        assert result["success"] is False
+        assert "surah number" in str(result["error"])
 
     @pytest.mark.asyncio
     async def test_zero_invalid(self) -> None:
-        with pytest.raises(ValueError, match=r"surah number"):
-            await tools.quran_surah(number=0)
+        result = await tools.quran_surah(number=0)
+        assert result["success"] is False
+        assert "surah number" in str(result["error"])
 
 
 class TestQuranAyah:
@@ -106,15 +111,18 @@ class TestQuranAyah:
         result = await tools.quran_ayah(reference="2:255")
 
         assert route.called
-        assert result["numberInSurah"] == 255
-        surah = result["surah"]
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["numberInSurah"] == 255
+        surah = data["surah"]
         assert isinstance(surah, dict)
         assert surah["englishName" if "englishName" in surah else "name"]
 
     @pytest.mark.asyncio
-    async def test_empty_reference_raises(self) -> None:
-        with pytest.raises(ValueError, match=r"reference"):
-            await tools.quran_ayah(reference="")
+    async def test_empty_reference_returns_fail(self) -> None:
+        result = await tools.quran_ayah(reference="")
+        assert result["success"] is False
+        assert "reference" in str(result["error"])
 
 
 class TestQuranJuz:
@@ -128,12 +136,15 @@ class TestQuranJuz:
 
         result = await tools.quran_juz(number=1)
         assert route.called
-        assert result["number"] == 1
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["number"] == 1
 
     @pytest.mark.asyncio
-    async def test_invalid_juz_raises(self) -> None:
-        with pytest.raises(ValueError, match=r"juz number"):
-            await tools.quran_juz(number=31)
+    async def test_invalid_juz_returns_fail(self) -> None:
+        result = await tools.quran_juz(number=31)
+        assert result["success"] is False
+        assert "juz number" in str(result["error"])
 
 
 class TestQuranSearch:
@@ -146,15 +157,18 @@ class TestQuranSearch:
         result = await tools.quran_search(query="Allah")
 
         assert route.called
-        assert result["count"] == 1
-        matches = result["matches"]
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["count"] == 1
+        matches = data["matches"]
         assert isinstance(matches, list)
         assert len(matches) == 1
 
     @pytest.mark.asyncio
-    async def test_empty_query_raises(self) -> None:
-        with pytest.raises(ValueError, match=r"query"):
-            await tools.quran_search(query="")
+    async def test_empty_query_returns_fail(self) -> None:
+        result = await tools.quran_search(query="")
+        assert result["success"] is False
+        assert "query" in str(result["error"])
 
 
 class TestDiscovery:

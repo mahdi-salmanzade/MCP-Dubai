@@ -72,7 +72,7 @@ async def prayer_times_calendar(
     country: str = "United Arab Emirates",
     method: int = 8,
     school: int = 0,
-) -> list[dict[str, object]]:
+) -> dict[str, object]:
     """
     Get prayer times for an entire month in one call.
 

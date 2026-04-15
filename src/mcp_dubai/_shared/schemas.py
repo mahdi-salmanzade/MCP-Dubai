@@ -79,6 +79,13 @@ class ToolResponse(BaseModel, Generic[T]):
     fail because Dubai Pulse credentials are missing return a dict with
     `status`, `reason`, and `docs` fields so the MCP client can render a
     proper help message (Pattern 2).
+
+    `source` identifies the upstream that produced the data (a hostname,
+    "curated" for bundled knowledge packs, or a specific provider label).
+    `retrieved_at` is an ISO-8601 UTC timestamp marking when the data was
+    read. For live API calls this is the moment of the HTTP response; for
+    curated biz packs it is the domain's `knowledge_date` so every tool
+    exposes a uniform freshness field regardless of type.
     """
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
@@ -87,6 +94,8 @@ class ToolResponse(BaseModel, Generic[T]):
     data: T | None = None
     error: str | dict[str, Any] | None = None
     knowledge: KnowledgeMetadata | None = None
+    source: str | None = None
+    retrieved_at: str | None = None
 
     @model_validator(mode="after")
     def _validate_consistency(self) -> ToolResponse[T]:
@@ -101,15 +110,26 @@ class ToolResponse(BaseModel, Generic[T]):
         cls,
         data: T,
         knowledge: KnowledgeMetadata | None = None,
+        source: str | None = None,
+        retrieved_at: str | None = None,
     ) -> ToolResponse[T]:
         """Build a success response."""
-        return cls(success=True, data=data, error=None, knowledge=knowledge)
+        return cls(
+            success=True,
+            data=data,
+            error=None,
+            knowledge=knowledge,
+            source=source,
+            retrieved_at=retrieved_at,
+        )
 
     @classmethod
     def fail(
         cls,
         error: str | dict[str, Any],
         knowledge: KnowledgeMetadata | None = None,
+        source: str | None = None,
+        retrieved_at: str | None = None,
     ) -> ToolResponse[T]:
         """
         Build a failure response.
@@ -117,7 +137,14 @@ class ToolResponse(BaseModel, Generic[T]):
         Accepts either a plain error string or a structured dict (used by
         the credential-missing path in Pattern 2).
         """
-        return cls(success=False, data=None, error=error, knowledge=knowledge)
+        return cls(
+            success=False,
+            data=None,
+            error=error,
+            knowledge=knowledge,
+            source=source,
+            retrieved_at=retrieved_at,
+        )
 
 
 # ----------------------------------------------------------------------------

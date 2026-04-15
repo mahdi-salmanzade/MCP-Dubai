@@ -5,7 +5,7 @@ Lunar holidays use placeholder dates that need to be re-verified against
 the MoHRE circular (typically published 10 days before the date) and the
 Saudi Umm al-Qura calendar. Each lunar entry is flagged with `provisional=True`.
 
-Knowledge date: 2026-04-12.
+Knowledge date: 2026-04-14.
 Source: u.ae federal holidays page and MoHRE circulars.
 """
 

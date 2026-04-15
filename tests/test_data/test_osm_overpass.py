@@ -81,31 +81,41 @@ class TestOsmSearchPoi:
         )
 
         assert route.called
-        assert result["count"] == 2
-        results = result["results"]
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["count"] == 2
+        results = data["results"]
         assert isinstance(results, list)
         assert results[0]["name"] == "Al Mallah"
         assert results[0]["name_ar"] == "المله"
+        assert result["source"] == "overpass-api.de"
 
     @pytest.mark.asyncio
-    async def test_unknown_category_raises(self) -> None:
-        with pytest.raises(ValueError, match=r"Unknown category"):
-            await tools.osm_search_poi(latitude=25.0, longitude=55.0, category="laundromat")
+    async def test_unknown_category_returns_fail(self) -> None:
+        result = await tools.osm_search_poi(
+            latitude=25.0, longitude=55.0, category="laundromat"
+        )
+        assert result["success"] is False
+        assert "Unknown category" in str(result["error"])
 
     @pytest.mark.asyncio
-    async def test_invalid_latitude_raises(self) -> None:
-        with pytest.raises(ValueError, match=r"latitude"):
-            await tools.osm_search_poi(latitude=91.0, longitude=55.0, category="restaurant")
+    async def test_invalid_latitude_returns_fail(self) -> None:
+        result = await tools.osm_search_poi(
+            latitude=91.0, longitude=55.0, category="restaurant"
+        )
+        assert result["success"] is False
+        assert "latitude" in str(result["error"])
 
     @pytest.mark.asyncio
-    async def test_radius_out_of_range_raises(self) -> None:
-        with pytest.raises(ValueError, match=r"radius_meters"):
-            await tools.osm_search_poi(
-                latitude=25.0,
-                longitude=55.0,
-                category="restaurant",
-                radius_meters=50000,
-            )
+    async def test_radius_out_of_range_returns_fail(self) -> None:
+        result = await tools.osm_search_poi(
+            latitude=25.0,
+            longitude=55.0,
+            category="restaurant",
+            radius_meters=50000,
+        )
+        assert result["success"] is False
+        assert "radius_meters" in str(result["error"])
 
     @pytest.mark.asyncio
     @respx.mock
@@ -119,15 +129,19 @@ class TestOsmSearchPoi:
             category="restaurant",
             limit=1,
         )
-        assert result["count"] == 1
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["count"] == 1
 
 
 class TestOsmListCategories:
     @pytest.mark.asyncio
     async def test_returns_curated_categories(self) -> None:
         result = await tools.osm_list_categories()
-        assert result["count"] == len(constants.COMMON_POI_TAGS)
-        cats = result["categories"]
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["count"] == len(constants.COMMON_POI_TAGS)
+        cats = data["categories"]
         assert isinstance(cats, list)
         assert "restaurant" in cats
         assert "mosque" in cats

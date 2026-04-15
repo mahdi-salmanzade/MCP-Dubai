@@ -65,6 +65,26 @@ class TestToolResponse:
         assert dumped["success"] is True
         assert dumped["data"] == {"k": "v"}
         assert dumped["error"] is None
+        assert dumped["source"] is None
+        assert dumped["retrieved_at"] is None
+
+    def test_ok_carries_source_and_retrieved_at(self) -> None:
+        response = ToolResponse[dict].ok(
+            {"k": "v"},
+            source="example.ae",
+            retrieved_at="2026-04-15T12:00:00Z",
+        )
+        assert response.source == "example.ae"
+        assert response.retrieved_at == "2026-04-15T12:00:00Z"
+
+    def test_fail_carries_source_and_retrieved_at(self) -> None:
+        response = ToolResponse[dict].fail(
+            "boom",
+            source="example.ae",
+            retrieved_at="2026-04-15T12:00:00Z",
+        )
+        assert response.source == "example.ae"
+        assert response.retrieved_at == "2026-04-15T12:00:00Z"
 
 
 class TestKnowledgeMetadata:

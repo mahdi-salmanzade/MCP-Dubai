@@ -117,15 +117,16 @@ class TestPrayerTimesFor:
         result = await tools.prayer_times_for(city="Dubai", country="United Arab Emirates")
 
         assert route.called
-        # The upstream gets snake_case after parsing through PrayerTimes aliases.
-        assert result["timings"]["fajr"] == "05:12"
-        assert result["timings"]["maghrib"] == "18:12"
-        assert result["timings"]["isha"] == "19:32"
-        # Date envelope is preserved.
-        assert result["date"]["hijri"]["year"] == "1447"
-        assert result["date"]["gregorian"]["year"] == "2026"
-        # Meta is passed through as a plain dict.
-        assert result["meta"]["timezone"] == "Asia/Dubai"
+        assert result["success"] is True
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["timings"]["fajr"] == "05:12"
+        assert data["timings"]["maghrib"] == "18:12"
+        assert data["timings"]["isha"] == "19:32"
+        assert data["date"]["hijri"]["year"] == "1447"
+        assert data["date"]["gregorian"]["year"] == "2026"
+        assert data["meta"]["timezone"] == "Asia/Dubai"
+        assert result["source"] == "api.aladhan.com"
 
     @pytest.mark.asyncio
     @respx.mock
@@ -157,7 +158,9 @@ class TestPrayerTimesFor:
         params = route.calls.last.request.url.params
         assert params["latitude"] == "25.2048"
         assert params["longitude"] == "55.2708"
-        assert result["timings"]["fajr"] == "05:12"
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["timings"]["fajr"] == "05:12"
 
     @pytest.mark.asyncio
     @respx.mock
@@ -172,14 +175,16 @@ class TestPrayerTimesFor:
         assert params["date"] == "12-04-2026"
 
     @pytest.mark.asyncio
-    async def test_no_city_no_coords_raises(self) -> None:
-        with pytest.raises(ValueError, match=r"city.*latitude"):
-            await tools.prayer_times_for()
+    async def test_no_city_no_coords_returns_fail(self) -> None:
+        result = await tools.prayer_times_for()
+        assert result["success"] is False
+        assert "city" in str(result["error"])
 
     @pytest.mark.asyncio
-    async def test_partial_coords_raises(self) -> None:
-        with pytest.raises(ValueError, match="together"):
-            await tools.prayer_times_for(latitude=25.2048)
+    async def test_partial_coords_returns_fail(self) -> None:
+        result = await tools.prayer_times_for(latitude=25.2048)
+        assert result["success"] is False
+        assert "together" in str(result["error"])
 
     @pytest.mark.asyncio
     @respx.mock
@@ -218,18 +223,22 @@ class TestPrayerTimesCalendar:
         params = route.calls.last.request.url.params
         assert params["month"] == "4"
         assert params["year"] == "2026"
-        assert len(result) == 3
-        assert result[0]["timings"]["fajr"] == "05:12"
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["count"] == 3
+        assert data["days"][0]["timings"]["fajr"] == "05:12"
 
     @pytest.mark.asyncio
-    async def test_invalid_month_raises(self) -> None:
-        with pytest.raises(ValueError, match="month must be 1 to 12"):
-            await tools.prayer_times_calendar(city="Dubai", month=13, year=2026)
+    async def test_invalid_month_returns_fail(self) -> None:
+        result = await tools.prayer_times_calendar(city="Dubai", month=13, year=2026)
+        assert result["success"] is False
+        assert "month must be 1 to 12" in str(result["error"])
 
     @pytest.mark.asyncio
-    async def test_invalid_year_raises(self) -> None:
-        with pytest.raises(ValueError, match="year must"):
-            await tools.prayer_times_calendar(city="Dubai", month=4, year=10000)
+    async def test_invalid_year_returns_fail(self) -> None:
+        result = await tools.prayer_times_calendar(city="Dubai", month=4, year=10000)
+        assert result["success"] is False
+        assert "year must" in str(result["error"])
 
 
 # ----------------------------------------------------------------------------
@@ -249,19 +258,23 @@ class TestQiblaDirection:
         result = await tools.qibla_direction(latitude=25.2048, longitude=55.2708)
 
         assert route.called
-        assert result["direction"] == pytest.approx(258.42)
-        assert result["latitude"] == pytest.approx(25.2048)
-        assert 250 < result["direction"] < 270  # roughly Mecca-ward from Dubai
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["direction"] == pytest.approx(258.42)
+        assert data["latitude"] == pytest.approx(25.2048)
+        assert 250 < data["direction"] < 270
 
     @pytest.mark.asyncio
-    async def test_invalid_latitude_raises(self) -> None:
-        with pytest.raises(ValueError, match="latitude must"):
-            await tools.qibla_direction(latitude=91.0, longitude=55.0)
+    async def test_invalid_latitude_returns_fail(self) -> None:
+        result = await tools.qibla_direction(latitude=91.0, longitude=55.0)
+        assert result["success"] is False
+        assert "latitude must" in str(result["error"])
 
     @pytest.mark.asyncio
-    async def test_invalid_longitude_raises(self) -> None:
-        with pytest.raises(ValueError, match="longitude must"):
-            await tools.qibla_direction(latitude=25.0, longitude=181.0)
+    async def test_invalid_longitude_returns_fail(self) -> None:
+        result = await tools.qibla_direction(latitude=25.0, longitude=181.0)
+        assert result["success"] is False
+        assert "longitude must" in str(result["error"])
 
 
 # ----------------------------------------------------------------------------
@@ -280,9 +293,11 @@ class TestDateConversion:
         result = await tools.hijri_to_gregorian(day=23, month=10, year=1447)
 
         assert route.called
-        assert result["gregorian"]["year"] == "2026"
-        assert result["gregorian"]["date"] == "12-04-2026"
-        assert result["hijri"]["year"] == "1447"
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["gregorian"]["year"] == "2026"
+        assert data["gregorian"]["date"] == "12-04-2026"
+        assert data["hijri"]["year"] == "1447"
 
     @pytest.mark.asyncio
     @respx.mock
@@ -294,18 +309,22 @@ class TestDateConversion:
         result = await tools.gregorian_to_hijri(day=12, month=4, year=2026)
 
         assert route.called
-        assert result["hijri"]["year"] == "1447"
-        assert result["hijri"]["date"] == "23-10-1447"
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["hijri"]["year"] == "1447"
+        assert data["hijri"]["date"] == "23-10-1447"
 
     @pytest.mark.asyncio
     async def test_hijri_invalid_day(self) -> None:
-        with pytest.raises(ValueError, match="day must be 1 to 30"):
-            await tools.hijri_to_gregorian(day=31, month=10, year=1447)
+        result = await tools.hijri_to_gregorian(day=31, month=10, year=1447)
+        assert result["success"] is False
+        assert "day must be 1 to 30" in str(result["error"])
 
     @pytest.mark.asyncio
     async def test_gregorian_invalid_month(self) -> None:
-        with pytest.raises(ValueError, match="month must be 1 to 12"):
-            await tools.gregorian_to_hijri(day=12, month=13, year=2026)
+        result = await tools.gregorian_to_hijri(day=12, month=13, year=2026)
+        assert result["success"] is False
+        assert "month must be 1 to 12" in str(result["error"])
 
 
 # ----------------------------------------------------------------------------

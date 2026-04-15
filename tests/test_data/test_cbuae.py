@@ -145,12 +145,17 @@ class TestCbuaeExchangeRatesTool:
         result = await tools.cbuae_exchange_rates()
 
         assert route.called
-        assert result["date"] == "today"
-        assert result["currency_count"] == 7
-        rates = result["rates"]
+        assert result["success"] is True
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["date"] == "today"
+        assert data["currency_count"] == 7
+        rates = data["rates"]
         assert isinstance(rates, list)
         iso_codes = [r["iso_code"] for r in rates if r["iso_code"]]
         assert "USD" in iso_codes
+        assert result["source"] == "centralbank.ae"
+        assert result["retrieved_at"]
 
     @pytest.mark.asyncio
     @respx.mock
@@ -163,12 +168,15 @@ class TestCbuaeExchangeRatesTool:
 
         assert route.called
         assert route.calls.last.request.url.params["dateTime"] == "2026-04-10"
-        assert result["date"] == "2026-04-10"
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["date"] == "2026-04-10"
 
     @pytest.mark.asyncio
-    async def test_invalid_date_raises(self) -> None:
-        with pytest.raises(ValueError, match=r"Invalid ISO date"):
-            await tools.cbuae_exchange_rates(date_str="not-a-date")
+    async def test_invalid_date_returns_fail_envelope(self) -> None:
+        result = await tools.cbuae_exchange_rates(date_str="not-a-date")
+        assert result["success"] is False
+        assert "Invalid ISO date" in str(result["error"])
 
 
 class TestCurrencyMap:
@@ -205,7 +213,11 @@ class TestCbuaeBaseRateTool:
         result = await tools.cbuae_base_rate()
 
         assert route.called
-        assert result["base_rate_percent"] == pytest.approx(3.476)
+        assert result["success"] is True
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["base_rate_percent"] == pytest.approx(3.476)
+        assert result["source"] == "centralbank.ae"
 
 
 class TestCbuaeUpstreamFailures:

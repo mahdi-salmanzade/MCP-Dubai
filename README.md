@@ -18,7 +18,7 @@
 
 **Connect AI agents (Claude, GPT, Cursor, Copilot) to Dubai and UAE public APIs and curated business setup knowledge.**
 
-🔧 **90 tools** · 🏛️ **29 features** · 📚 **17 verified knowledge domains** · ✅ **9 anonymous APIs** · 💼 **51 business advisor tools** · 🤖 **2 agent skills**
+🔧 **91 tools** · 🏛️ **29 features** · 📚 **17 verified knowledge domains** · ✅ **9 anonymous APIs** · 💼 **51 business advisor tools** · 🤖 **2 agent skills**
 
 [Quick Start](#-quick-start) · [Tool Catalogue](#-tool-catalogue) · [Knowledge Freshness](#-knowledge-freshness) · [Architecture](#%EF%B8%8F-architecture) · [Roadmap](#-roadmap) · [Contributing](#-contributing)
 
@@ -161,7 +161,7 @@ claude mcp add dubai -- uvx mcp-dubai
 
 ## 🧰 Tool Catalogue
 
-**90 tools across 29 features.** All Tier 0 features ship today and work without any credentials. Tier 2 business knowledge and agent-skill tools are also live. Tier 1 (Dubai Pulse OAuth) DLD and RTA feature wrappers ship with graceful credential-missing fallbacks. Use `recommend_tools(query)` to find the right tool for any natural-language question.
+**91 tools across 29 features.** All Tier 0 features ship today and work without any credentials. Tier 2 business knowledge and agent-skill tools are also live. Tier 1 (Dubai Pulse OAuth) DLD and RTA feature wrappers ship with graceful credential-missing fallbacks. Use `recommend_tools(query)` to find the right tool for any natural-language question.
 
 ### ✅ Tier 0: anonymous APIs (no auth, ship today)
 
@@ -266,7 +266,7 @@ Clients should check `result["success"]` and read `result["error"]["status"]` / 
 
 ## ⚙️ Configuration
 
-**Zero keys required to run 81 of 90 tools.** For the full walkthrough of every environment variable, where to get each credential, and step-by-step setup for Dubai Pulse, WAQI, and Calendarific, see **[CREDENTIALS.md](./CREDENTIALS.md)**.
+**Zero keys required to run 82 of 91 tools.** For the full walkthrough of every environment variable, where to get each credential, and step-by-step setup for Dubai Pulse, WAQI, and Calendarific, see **[CREDENTIALS.md](./CREDENTIALS.md)**.
 
 | Env Var | Required | Default | Unlocks |
 |---|---|---|---|
@@ -280,7 +280,7 @@ Clients should check `result["success"]` and read `result["error"]["status"]` / 
 | `MCP_DUBAI_HTTP_TIMEOUT` | No | `30.0` | HTTP timeout in seconds |
 | `MCP_DUBAI_HTTP_MAX_RETRIES` | No | `3` | Tenacity retry budget |
 
-Every variable is optional. The server starts and runs all 9 Tier 0 features and all 6 Tier 2 business features without any of them.
+Every variable is optional. The server starts and runs all 9 Tier 0 features, all 15 Tier 2 business features, and both agent skills without any of them.
 
 ---
 

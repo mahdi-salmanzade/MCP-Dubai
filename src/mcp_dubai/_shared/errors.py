@@ -10,10 +10,16 @@ reaches the client as a structured ToolResponse.fail() envelope.
 
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from typing import Any
 
 from mcp_dubai._shared.http_client import HttpClientError, RateLimitError
 from mcp_dubai._shared.schemas import ToolResponse
+
+
+def now_iso() -> str:
+    """UTC timestamp in the form tools should stamp on live responses."""
+    return datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def upstream_error_response(
@@ -21,6 +27,8 @@ def upstream_error_response(
     *,
     status: str | None = None,
     verify_at: str | None = None,
+    source: str | None = None,
+    retrieved_at: str | None = None,
 ) -> dict[str, Any]:
     """
     Convert an upstream exception to a ToolResponse.fail() dict.
@@ -40,13 +48,18 @@ def upstream_error_response(
     if verify_at:
         payload["verify_at"] = verify_at
 
-    return ToolResponse[dict[str, Any]].fail(error=payload).model_dump()
+    return (
+        ToolResponse[dict[str, Any]]
+        .fail(error=payload, source=source, retrieved_at=retrieved_at or now_iso())
+        .model_dump()
+    )
 
 
 def cloudflare_blocked_response(
     endpoint: str,
     *,
     verify_at: str | None = None,
+    source: str | None = None,
 ) -> dict[str, Any]:
     """Return a structured error for an endpoint known to be Cloudflare-blocked."""
     payload: dict[str, str] = {
@@ -58,7 +71,11 @@ def cloudflare_blocked_response(
     }
     if verify_at:
         payload["verify_at"] = verify_at
-    return ToolResponse[dict[str, Any]].fail(error=payload).model_dump()
+    return (
+        ToolResponse[dict[str, Any]]
+        .fail(error=payload, source=source or endpoint, retrieved_at=now_iso())
+        .model_dump()
+    )
 
 
 def _classify(error: Exception, reason: str) -> str:

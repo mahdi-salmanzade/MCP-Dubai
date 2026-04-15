@@ -6,21 +6,22 @@ from datetime import date
 
 import httpx
 
-from mcp_dubai._shared.errors import upstream_error_response
+from mcp_dubai._shared.errors import now_iso, upstream_error_response
+from mcp_dubai._shared.health import mark_failure, mark_success
 from mcp_dubai._shared.http_client import HttpClientError
 from mcp_dubai._shared.schemas import ToolResponse
 from mcp_dubai.data.cbuae.client import CbuaeClient
 
 CBUAE_VERIFY_URL = "https://www.centralbank.ae/en/forex-eibor/exchange-rates/"
+_SOURCE = "centralbank.ae"
+_UPSTREAM_EXCHANGE = "cbuae_exchange"
+_UPSTREAM_BASE_RATE = "cbuae_base_rate"
 
 
 def _parse_iso_date(value: str | None) -> date | None:
     if value is None or value == "":
         return None
-    try:
-        return date.fromisoformat(value)
-    except ValueError as exc:
-        raise ValueError(f"Invalid ISO date: {value}") from exc
+    return date.fromisoformat(value)
 
 
 async def cbuae_exchange_rates(date_str: str | None = None) -> dict[str, object]:
@@ -30,8 +31,20 @@ async def cbuae_exchange_rates(date_str: str | None = None) -> dict[str, object]
     Returns ~75 currencies vs AED. Updated Mon to Fri at ~18:00 GST. The
     underlying CBUAE endpoint is undocumented but verified live.
     """
+    try:
+        target = _parse_iso_date(date_str)
+    except ValueError as exc:
+        return (
+            ToolResponse[dict[str, object]]
+            .fail(
+                error=f"Invalid ISO date: {date_str!r} ({exc})",
+                source=_SOURCE,
+                retrieved_at=now_iso(),
+            )
+            .model_dump()
+        )
+
     client = CbuaeClient()
-    target = _parse_iso_date(date_str)
 
     try:
         if target is None:
@@ -39,9 +52,15 @@ async def cbuae_exchange_rates(date_str: str | None = None) -> dict[str, object]
         else:
             rates = await client.get_exchange_rates_for_date(target)
     except (HttpClientError, httpx.HTTPError) as exc:
-        return upstream_error_response(exc, verify_at=CBUAE_VERIFY_URL)
+        mark_failure(_UPSTREAM_EXCHANGE, str(exc))
+        return upstream_error_response(
+            exc,
+            verify_at=CBUAE_VERIFY_URL,
+            source=_SOURCE,
+        )
 
     if not rates:
+        mark_failure(_UPSTREAM_EXCHANGE, "parse_error: zero rates returned")
         return (
             ToolResponse[dict[str, object]]
             .fail(
@@ -52,29 +71,37 @@ async def cbuae_exchange_rates(date_str: str | None = None) -> dict[str, object]
                         "structure may have changed or the endpoint may be blocked."
                     ),
                     "verify_at": CBUAE_VERIFY_URL,
-                }
+                },
+                source=_SOURCE,
+                retrieved_at=now_iso(),
             )
             .model_dump()
         )
 
+    mark_success(_UPSTREAM_EXCHANGE)
+
     if target is None:
-        return {
+        data: dict[str, object] = {
             "date": "today",
             "currency_count": len(rates),
             "rates": rates,
-            "source": "CBUAE Umbraco endpoint, undocumented",
             "warning": (
                 "These endpoints are not officially documented. They have been "
                 "verified live but could break without notice."
             ),
         }
+    else:
+        data = {
+            "date": target.isoformat(),
+            "currency_count": len(rates),
+            "rates": rates,
+        }
 
-    return {
-        "date": target.isoformat(),
-        "currency_count": len(rates),
-        "rates": rates,
-        "source": "CBUAE Umbraco endpoint, undocumented",
-    }
+    return (
+        ToolResponse[dict[str, object]]
+        .ok(data, source=_SOURCE, retrieved_at=now_iso())
+        .model_dump()
+    )
 
 
 async def cbuae_base_rate() -> dict[str, object]:
@@ -87,12 +114,23 @@ async def cbuae_base_rate() -> dict[str, object]:
     try:
         result = await client.get_key_interest_rate()
     except (HttpClientError, httpx.HTTPError) as exc:
+        mark_failure(_UPSTREAM_BASE_RATE, str(exc))
         return upstream_error_response(
             exc,
             verify_at="https://www.centralbank.ae/en/monetary-policy/base-rate/",
+            source=_SOURCE,
         )
-    return {
-        "base_rate_percent": result["base_rate_percent"],
-        "source": "CBUAE Umbraco endpoint, undocumented",
-        "raw_excerpt": result.get("raw", ""),
-    }
+
+    mark_success(_UPSTREAM_BASE_RATE)
+    return (
+        ToolResponse[dict[str, object]]
+        .ok(
+            {
+                "base_rate_percent": result["base_rate_percent"],
+                "raw_excerpt": result.get("raw", ""),
+            },
+            source=_SOURCE,
+            retrieved_at=now_iso(),
+        )
+        .model_dump()
+    )

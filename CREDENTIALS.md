@@ -10,7 +10,7 @@ MCP-Dubai is designed so that each user obtains their own API keys. This keeps y
 
 | Env Variable | Required? | Cost | Unlocks | Time to Get |
 |---|---|---|---|---|
-| *(none)* | no | Free | **81 tools**: prayer times, Quran, exchange rates, schools, aviation weather, OSM POIs, holidays, and all 15 business advisor tools | Instant |
+| *(none)* | no | Free | **82 tools**: prayer times, Quran, exchange rates, schools, aviation weather, OSM POIs, holidays, every business advisor tool, and the meta tools | Instant |
 | `MCP_DUBAI_WAQI_TOKEN` | Optional | Free | Air quality tools (`air_quality_dubai`, `air_quality_by_coords`, `air_quality_dubai_stations`) | ~2 minutes |
 | `MCP_DUBAI_PULSE_CLIENT_ID` | Optional | Free | Tier 1 tools: DLD real estate, RTA transport, DHA health, DEWA, DTCM tourism, and more | ~14 days (approval) |
 | `MCP_DUBAI_PULSE_CLIENT_SECRET` | Optional | Free | (same as above, used together with CLIENT_ID) | (same as above) |
