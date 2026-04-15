@@ -92,9 +92,7 @@ async def quran_juz(
 ) -> dict[str, object]:
     """Get a full juz (1 to 30) in a specific edition."""
     if not constants.MIN_JUZ <= number <= constants.MAX_JUZ:
-        return _fail(
-            f"juz number must be {constants.MIN_JUZ} to {constants.MAX_JUZ}, got {number}"
-        )
+        return _fail(f"juz number must be {constants.MIN_JUZ} to {constants.MAX_JUZ}, got {number}")
     client = QuranCloudClient()
     return await _run(client.get_juz(number=number, edition=edition))
 

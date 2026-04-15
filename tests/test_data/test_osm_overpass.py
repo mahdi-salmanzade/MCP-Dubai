@@ -92,17 +92,13 @@ class TestOsmSearchPoi:
 
     @pytest.mark.asyncio
     async def test_unknown_category_returns_fail(self) -> None:
-        result = await tools.osm_search_poi(
-            latitude=25.0, longitude=55.0, category="laundromat"
-        )
+        result = await tools.osm_search_poi(latitude=25.0, longitude=55.0, category="laundromat")
         assert result["success"] is False
         assert "Unknown category" in str(result["error"])
 
     @pytest.mark.asyncio
     async def test_invalid_latitude_returns_fail(self) -> None:
-        result = await tools.osm_search_poi(
-            latitude=91.0, longitude=55.0, category="restaurant"
-        )
+        result = await tools.osm_search_poi(latitude=91.0, longitude=55.0, category="restaurant")
         assert result["success"] is False
         assert "latitude" in str(result["error"])
 
