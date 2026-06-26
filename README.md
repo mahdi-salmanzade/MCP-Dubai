@@ -33,9 +33,9 @@
 
 ---
 
-> ⚠️ **Knowledge Date: April 2026**
+> ⚠️ **Knowledge Date: June 2026**
 >
-> Business rules in the UAE (corporate tax, visas, free zone pricing, accelerator cycles, API migrations) change frequently. Always verify with the official source before making real decisions. Every `biz/*` tool returns a `knowledge_date` field with its own per-domain freshness stamp, and you can call `get_knowledge_status()` at any time to see which domains were verified when.
+> Most recently verified June 2026 (the e-invoicing and late-payment-penalty refresh, plus the new cost_of_living and tenancy packs); the remaining curated domains were last verified April 2026. Business rules in the UAE (corporate tax, visas, free zone pricing, accelerator cycles, API migrations) change frequently. Always verify with the official source before making real decisions. Every `biz/*` tool returns a `knowledge_date` field with its own per-domain freshness stamp, and you can call `get_knowledge_status()` at any time to see which domains were verified when.
 
 ---
 
