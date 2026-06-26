@@ -276,3 +276,101 @@ async def esr_status() -> dict[str, object]:
     """Return the current status of UAE Economic Substance Regulations."""
     esr = _block("esr")
     return ToolResponse[dict[str, object]].ok(esr, knowledge=KNOWLEDGE).model_dump()
+
+
+async def einvoicing_timeline() -> dict[str, object]:
+    """
+    Return the UAE e-invoicing regime: legislation, the PINT AE / DCTCE
+    model, the announced phased rollout dates, and a short list of what to
+    do now.
+
+    The rollout dates are an announced timeline. Verify them against the
+    FTA and the Ministry of Finance before relying on them.
+    """
+    einv = _block("e_invoicing")
+    what_to_do_now = [
+        "Select and appoint an accredited service provider (ASP) early.",
+        "Make sure your ERP or accounting system can emit PINT AE invoices "
+        "and exchange them on the DCTCE 5-corner model.",
+        "Watch for the mandatory date that matches your revenue band so you "
+        "are ready before it applies.",
+    ]
+    return (
+        ToolResponse[dict[str, object]]
+        .ok(
+            {
+                "name": einv.get("name"),
+                "legislation": einv.get("legislation", []),
+                "model": einv.get("model"),
+                "penalties_law": einv.get("penalties_law"),
+                "status": einv.get("status"),
+                "rollout": einv.get("rollout", {}),
+                "scope_note": einv.get("scope_note"),
+                "what_to_do_now": what_to_do_now,
+                "source_urls": einv.get("source_urls", []),
+            },
+            knowledge=KNOWLEDGE,
+        )
+        .model_dump()
+    )
+
+
+async def late_payment_penalty_estimate(
+    tax_due_aed: float,
+    days_late: int,
+) -> dict[str, object]:
+    """
+    Estimate the unified UAE late-payment penalty (Cabinet Decision 129 of
+    2025, effective 14 April 2026) on overdue tax.
+
+    Applies a flat 14% per annum to the unpaid tax, pro-rated by the number
+    of days late. This is an approximation; confirm the exact accrual
+    mechanics and any caps with the FTA.
+
+    Args:
+        tax_due_aed: The unpaid tax amount in AED (must be > 0).
+        days_late: Number of days the payment is late (must be >= 0).
+    """
+    if tax_due_aed <= 0:
+        return (
+            ToolResponse[dict[str, object]]
+            .fail(error=f"tax_due_aed must be > 0, got {tax_due_aed}")
+            .model_dump()
+        )
+    if days_late < 0:
+        return (
+            ToolResponse[dict[str, object]]
+            .fail(error=f"days_late must be >= 0, got {days_late}")
+            .model_dump()
+        )
+
+    lpp = _block("late_payment_penalty")
+    annual_rate_pct = float(lpp.get("annual_rate_pct", 14))
+    estimated_penalty_aed = round(tax_due_aed * (annual_rate_pct / 100) * (days_late / 365), 2)
+
+    return (
+        ToolResponse[dict[str, object]]
+        .ok(
+            {
+                "rule": {
+                    "name": lpp.get("name"),
+                    "annual_rate_pct": annual_rate_pct,
+                    "law": lpp.get("law"),
+                    "effective_from": lpp.get("effective_from"),
+                },
+                "inputs": {
+                    "tax_due_aed": tax_due_aed,
+                    "days_late": days_late,
+                },
+                "estimated_penalty_aed": estimated_penalty_aed,
+                "note": (
+                    "This is an approximation based on a flat 14% per annum "
+                    "pro-rated by days late. Confirm the exact accrual "
+                    "mechanics and any caps with the FTA."
+                ),
+                "source_urls": lpp.get("source_urls", []),
+            },
+            knowledge=KNOWLEDGE,
+        )
+        .model_dump()
+    )

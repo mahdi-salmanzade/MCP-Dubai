@@ -167,6 +167,54 @@ class TestEsrStatus:
             )
 
 
+class TestEInvoicing:
+    @pytest.mark.asyncio
+    async def test_returns_rollout_dates_and_legislation(self) -> None:
+        result = await tools.einvoicing_timeline()
+        assert result["success"] is True
+        data = result["data"]
+        assert isinstance(data, dict)
+        legislation = data["legislation"]
+        assert isinstance(legislation, list)
+        assert "Ministerial Decision 243 of 2025" in legislation
+        assert "Ministerial Decision 244 of 2025" in legislation
+        rollout = data["rollout"]
+        assert isinstance(rollout, dict)
+        assert rollout["voluntary_pilot_from"] == "2026-07-01"
+        assert rollout["mandatory_revenue_at_or_above_aed_50m_from"] == "2027-01-01"
+        assert rollout["mandatory_revenue_below_aed_50m_from"] == "2027-07-01"
+        assert rollout["government_entities_from"] == "2027-10-01"
+        what_to_do_now = data["what_to_do_now"]
+        assert isinstance(what_to_do_now, list)
+        assert len(what_to_do_now) >= 1
+
+
+class TestLatePaymentPenalty:
+    @pytest.mark.asyncio
+    async def test_full_year(self) -> None:
+        result = await tools.late_payment_penalty_estimate(tax_due_aed=100000, days_late=365)
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["estimated_penalty_aed"] == 14000.0
+
+    @pytest.mark.asyncio
+    async def test_thirty_days(self) -> None:
+        result = await tools.late_payment_penalty_estimate(tax_due_aed=100000, days_late=30)
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["estimated_penalty_aed"] == pytest.approx(1150.68, abs=0.01)
+
+    @pytest.mark.asyncio
+    async def test_non_positive_tax_due_returns_error(self) -> None:
+        result = await tools.late_payment_penalty_estimate(tax_due_aed=0, days_late=30)
+        assert result["success"] is False
+
+    @pytest.mark.asyncio
+    async def test_negative_days_late_returns_error(self) -> None:
+        result = await tools.late_payment_penalty_estimate(tax_due_aed=100000, days_late=-1)
+        assert result["success"] is False
+
+
 class TestKnowledge:
     @pytest.mark.asyncio
     async def test_envelope_includes_knowledge(self) -> None:

@@ -82,6 +82,39 @@ async def esr_status() -> dict[str, object]:
     return await tools.esr_status()
 
 
+@mcp.tool
+async def einvoicing_timeline() -> dict[str, object]:
+    """
+    Return the UAE e-invoicing regime and announced rollout timeline.
+
+    Legislated by Ministerial Decisions 243 and 244 of 2025 on the PINT AE
+    DCTCE 5-corner model, reported to the FTA through EmaraTax. Announced
+    phases: voluntary pilot from July 2026, mandatory for revenue at or
+    above AED 50M from January 2027, below AED 50M from July 2027, and
+    government entities from October 2027. Verify dates with the FTA/MoF.
+    """
+    return await tools.einvoicing_timeline()
+
+
+@mcp.tool
+async def late_payment_penalty_estimate(
+    tax_due_aed: float,
+    days_late: int,
+) -> dict[str, object]:
+    """
+    Estimate the unified UAE late-payment penalty on overdue tax.
+
+    Cabinet Decision 129 of 2025 applies a flat 14% per annum to unpaid
+    tax, effective 14 April 2026, unifying VAT, Excise and Corporate Tax.
+    This pro-rates that rate by days late and is an approximation to
+    confirm with the FTA.
+    """
+    return await tools.late_payment_penalty_estimate(
+        tax_due_aed=tax_due_aed,
+        days_late=days_late,
+    )
+
+
 _TOOLS: list[ToolMeta] = [
     ToolMeta(
         name="corporate_tax_estimate",
@@ -164,6 +197,37 @@ _TOOLS: list[ToolMeta] = [
             "cabinet resolution 98",
             "refundable",
             "compliance",
+        ],
+    ),
+    ToolMeta(
+        name="einvoicing_timeline",
+        description=(
+            "UAE e-invoicing regime: PINT AE / DCTCE 5-corner model, "
+            "EmaraTax reporting, and the announced phased rollout through "
+            "2027 (MD 243 and 244 of 2025)."
+        ),
+        feature="tax_compliance",
+        tier=TIER_BIZ,
+        tags=[
+            "e-invoicing",
+            "einvoice",
+            "pint ae",
+            "emaratax",
+            "فاتورة إلكترونية",
+        ],
+    ),
+    ToolMeta(
+        name="late_payment_penalty_estimate",
+        description=(
+            "Estimate the unified UAE late-payment penalty (flat 14% per "
+            "annum, Cabinet Decision 129 of 2025, effective 14 April 2026)."
+        ),
+        feature="tax_compliance",
+        tier=TIER_BIZ,
+        tags=[
+            "late payment penalty",
+            "14%",
+            "غرامة تأخير",
         ],
     ),
 ]

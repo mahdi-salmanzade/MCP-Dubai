@@ -68,6 +68,8 @@ CBUAE_UMBRACO_BASE: str = "https://www.centralbank.ae/umbraco/Surface"
 AVIATION_WEATHER_BASE: str = "https://aviationweather.gov/api/data"
 OVERPASS_BASE: str = "https://overpass-api.de/api/interpreter"
 TRANSITLAND_GTFS_DUBAI: str = "https://gtfs-source-feeds.transit.land/dubai-rta.zip"
+# Open-Meteo: keyless human-friendly weather and forecast (no token, no signup).
+OPEN_METEO_BASE: str = "https://api.open-meteo.com/v1"
 
 # ----------------------------------------------------------------------------
 # Free-key third parties (require a free signup)

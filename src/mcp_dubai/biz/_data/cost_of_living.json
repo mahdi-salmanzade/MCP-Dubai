@@ -1,0 +1,164 @@
+{
+  "domain": "cost_of_living",
+  "knowledge_date": "2026-06-26",
+  "volatility": "high",
+  "verify_at": "https://dubailand.gov.ae",
+  "currency": "AED",
+  "disclaimer": "Rents and groceries are ballpark ranges that drift with the market (the DLD Smart Rental Index is the canonical rent source). The deterministic parts are the DEWA tariff slabs and housing fee, the Salik toll windows, and the KHDA fee-increase cap rule. Always verify current figures with the official source before budgeting.",
+  "rents": {
+    "volatility": "high",
+    "unit": "annual_aed",
+    "citywide_1br_average_aed": 97000,
+    "yoy_growth_note": "YoY rent growth cooled to roughly 4-6% in early 2026 from the double-digit increases seen across 2023-2024.",
+    "areas": {
+      "Dubai Marina": {
+        "studio": [55000, 75000],
+        "1BR": [75000, 115000],
+        "2BR": [110000, 170000]
+      },
+      "Downtown Dubai": {
+        "1BR": [90000, 150000],
+        "2BR": [150000, 240000]
+      },
+      "JLT": {
+        "studio": [45000, 60000],
+        "1BR": [50000, 100000],
+        "2BR": [90000, 140000]
+      },
+      "Business Bay": {
+        "1BR": [70000, 110000],
+        "2BR": [110000, 170000]
+      },
+      "Deira": {
+        "studio": [30000, 45000],
+        "1BR": [45000, 65000]
+      },
+      "International City": {
+        "studio": [28000, 40000],
+        "1BR": [42000, 60000]
+      },
+      "JVC": {
+        "studio": [38000, 52000],
+        "1BR": [55000, 80000]
+      }
+    },
+    "source_urls": [
+      "https://dmcc.ae/blog/cost-of-living-in-dubai-for-expats",
+      "https://dubailand.gov.ae"
+    ]
+  },
+  "utilities": {
+    "provider": "DEWA",
+    "volatility": "medium",
+    "electricity_slabs_fils_per_kwh": [
+      { "range": "0-2000", "fils": 23 },
+      { "range": "2001-4000", "fils": 28 },
+      { "range": "4001-6000", "fils": 32 },
+      { "range": "above 6000", "fils": 38 }
+    ],
+    "electricity_slab_note": "confirm higher slabs on the DEWA tariff calculator",
+    "water_first_slab_aed_per_imperial_gallon": 0.035,
+    "sewerage_rule": "100% of the water charge",
+    "vat_pct": 5,
+    "fuel_surcharge_note": "a monthly fuel surcharge applies and varies",
+    "housing_fee": {
+      "apartment_pct_of_annual_rent": 5,
+      "villa_pct_of_annual_rent": 10,
+      "billed_via": "monthly through the DEWA bill"
+    },
+    "typical_monthly_bill_aed": {
+      "volatility": "medium",
+      "studio": [150, 300],
+      "1BR": [250, 450],
+      "2BR": [400, 700],
+      "3BR": [600, 1000],
+      "note": "summer bills run 2.5x to 3.5x winter because AC is 60-70% of summer electricity"
+    },
+    "source_urls": [
+      "https://www.dewa.gov.ae/en/consumer/billing/tariff-calculator"
+    ]
+  },
+  "groceries": {
+    "volatility": "medium",
+    "monthly_aed": {
+      "single": [600, 900],
+      "single_branded_imported": [1000, 2500],
+      "couple": [800, 1200],
+      "family_of_four": [2000, 3000]
+    },
+    "weekly_aed": {
+      "single": [250, 450],
+      "couple": [350, 650],
+      "family_of_four": [650, 1200]
+    },
+    "staples_aed": {
+      "rice_5kg": [12, 20],
+      "bread_loaf": [4, 6],
+      "milk_1l": [6, 8],
+      "eggs_30": [12, 18],
+      "chicken_per_kg": [12, 18]
+    },
+    "chain_price_tiers": [
+      { "chain": "Union Coop", "vs_carrefour": "around 15-20% below Carrefour" },
+      { "chain": "Lulu", "vs_carrefour": "around 10-15% below Carrefour" },
+      { "chain": "Carrefour", "vs_carrefour": "mid-market baseline" },
+      { "chain": "Spinneys / Waitrose", "vs_carrefour": "premium" }
+    ],
+    "source_urls": [
+      "https://www.startdxb.ae/article/groceries-cost-in-dubai-weekly-shop-for-singles-couples-families"
+    ]
+  },
+  "transport": {
+    "nol": {
+      "volatility": "stable",
+      "silver_card_aed": 25,
+      "silver_card_breakdown": "19 credit + 6 issue",
+      "zone_fares_aed": {
+        "one_zone": 3,
+        "two_zones": 5,
+        "three_plus_zones": 7.5
+      },
+      "daily_cap_aed": 14,
+      "monthly_pass_aed": {
+        "one_zone": 140,
+        "two_adjacent": 230,
+        "all_zones": 350
+      },
+      "red_paper_ticket_aed": "2 + fare",
+      "blue_concession_card_aed": 70
+    },
+    "salik": {
+      "status": "official",
+      "effective_from": "2025-01-31",
+      "gates": 9,
+      "peak_windows": ["06:00-10:00", "16:00-20:00"],
+      "peak_toll_aed": 6,
+      "off_peak_windows": ["10:00-16:00", "20:00-01:00"],
+      "off_peak_toll_aed": 4,
+      "free_window": "01:00-06:00",
+      "free_toll_aed": 0,
+      "sunday_flat_aed": 4,
+      "sunday_note": "excluding public holidays and special events",
+      "ramadan_peak_window": "09:00-17:00",
+      "twin_gate_note": "Al Safa and Al Mamzar twin-gate pairs charge once per hour per direction",
+      "source_urls": [
+        "https://www.salik.ae/en/news/salik-announces-implementation-of-variable-toll-pricing-effective-january-31-2025"
+      ]
+    }
+  },
+  "schooling": {
+    "volatility": "medium",
+    "curriculum": "british",
+    "british_curriculum_annual_aed": {
+      "foundation_primary": [7000, 40000],
+      "secondary": [20000, 120000],
+      "overall_range": [15000, 110000],
+      "ultra_premium_up_to_aed": 118000
+    },
+    "fee_increase_cap_rule": "Fee increases are regulated by the KHDA Education Cost Index and capped by the school inspection rating. Outstanding-rated schools could raise up to about 3.2% in the relevant cycle, while Acceptable-rated schools cannot raise.",
+    "other_curricula_note": "Other curricula (Indian, American, IB) vary. British is used as the benchmark here.",
+    "source_urls": [
+      "https://web.khda.gov.ae/en/About-Us/Whats-New/School-Fees-Fact-Sheet-enables-parents-to-make-bet"
+    ]
+  }
+}

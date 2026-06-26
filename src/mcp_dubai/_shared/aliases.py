@@ -129,6 +129,13 @@ EQUIVALENCE_SETS: Final[tuple[tuple[str, ...], ...]] = (
     ("bus", "حافلة", "باص"),
     ("salik", "toll", "رسوم الطريق"),
     ("nol", "nol card", "بطاقة نول"),
+    # --- Tenancy and cost of living -------------------------------------
+    ("ejari", "إيجاري", "tenancy contract registration"),
+    ("rent increase", "زيادة الإيجار", "rera rent index", "rent cap"),
+    ("rental disputes centre", "rdc", "لجنة فض المنازعات الإيجارية"),
+    ("cost of living", "تكلفة المعيشة", "living costs"),
+    ("currency", "exchange rate", "convert", "تحويل عملة", "سعر الصرف"),
+    ("e-invoicing", "einvoice", "pint ae", "فاتورة إلكترونية"),
 )
 
 

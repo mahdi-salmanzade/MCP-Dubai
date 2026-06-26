@@ -12,13 +12,13 @@
 [![FastMCP 3.x](https://img.shields.io/badge/FastMCP-3.x-brightgreen.svg)](https://gofastmcp.com)
 [![Made in Dubai](https://img.shields.io/badge/Made%20in-Dubai-red.svg)](#)
 [![Status: Alpha](https://img.shields.io/badge/status-alpha-orange.svg)](#-roadmap)
-[![Knowledge Updated](https://img.shields.io/badge/knowledge_updated-April_2026-blue)](#-knowledge-freshness)
-[![Tests](https://img.shields.io/badge/tests-369_passing-brightgreen.svg)](#)
+[![Knowledge Updated](https://img.shields.io/badge/knowledge_updated-June_2026-blue)](#-knowledge-freshness)
+[![Tests](https://img.shields.io/badge/tests-489_passing-brightgreen.svg)](#)
 [![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen.svg)](#)
 
 **Connect AI agents (Claude, GPT, Cursor, Copilot) to Dubai and UAE public APIs and curated business setup knowledge.**
 
-🔧 **91 tools** · 🏛️ **29 features** · 📚 **17 verified knowledge domains** · ✅ **9 anonymous APIs** · 💼 **51 business advisor tools** · 🤖 **2 agent skills**
+🔧 **108 tools** · 🏛️ **33 features** · 📚 **19 verified knowledge domains** · ✅ **11 anonymous APIs** · 💼 **62 business advisor tools** · 🤖 **2 agent skills**
 
 [Quick Start](#-quick-start) · [Tool Catalogue](#-tool-catalogue) · [Knowledge Freshness](#-knowledge-freshness) · [Architecture](#%EF%B8%8F-architecture) · [Roadmap](#-roadmap) · [Contributing](#-contributing)
 
@@ -161,7 +161,7 @@ claude mcp add dubai -- uvx mcp-dubai
 
 ## 🧰 Tool Catalogue
 
-**91 tools across 29 features.** All Tier 0 features ship today and work without any credentials. Tier 2 business knowledge and agent-skill tools are also live. Tier 1 (Dubai Pulse OAuth) DLD and RTA feature wrappers ship with graceful credential-missing fallbacks. Use `recommend_tools(query)` to find the right tool for any natural-language question.
+**108 tools across 33 features.** All Tier 0 features ship today and work without any credentials. Tier 2 business knowledge and agent-skill tools are also live. Tier 1 (Dubai Pulse OAuth) DLD and RTA feature wrappers ship with graceful credential-missing fallbacks. Use `recommend_tools(query)` to find the right tool for any natural-language question.
 
 ### ✅ Tier 0: anonymous APIs (no auth, ship today)
 
@@ -173,6 +173,8 @@ claude mcp add dubai -- uvx mcp-dubai
 | `fcsc_ckan` | `fcsc_search_dataset`, `fcsc_get_dataset`, `fcsc_list_organizations`, `fca_trade_stats` | Anonymous read against the UAE federal open data CKAN portal. Includes a convenience wrapper for Federal Customs Authority trade statistics (the easiest no-auth path for UAE trade data). |
 | `khda` | `khda_search_school`, `khda_list_curricula`, `khda_list_areas` | Search Dubai private schools by name, area, curriculum, KHDA inspection rating, or fee ceiling. Backed by a curated snapshot of well-known schools; full XLSX refresh script in roadmap. |
 | `aviation_weather` | `weather_uae_icao`, `weather_uae_all` | METAR (current observation) and TAF (forecast) for the 6 UAE international airports (OMDB Dubai International, OMDW Al Maktoum, OMSJ Sharjah, OMAA Abu Dhabi, OMAL Al Ain, OMRK RAK). The standard substitute for the missing NCM public API. |
+| `open_meteo` | `uae_weather`, `uae_weather_forecast`, `weather_by_coords`, `list_uae_weather_cities` | Keyless human-friendly weather: current temperature, feels-like, humidity, wind, and a multi-day forecast (highs, lows, rain chance, UV) for 8 UAE cities or any coordinate, via Open-Meteo. The everyday companion to the pilot-oriented `aviation_weather` METAR/TAF tools. |
+| `currency` | `currency_rates`, `currency_convert` | Keyless everyday currency conversion on an AED base via the ExchangeRate-API open endpoint. The convenient companion to the official `cbuae` central-bank rates. |
 | `air_quality` | `air_quality_dubai`, `air_quality_by_coords`, `air_quality_dubai_stations` | Real-time air quality (AQI, PM2.5, PM10, NO2, SO2, CO, O3) for Dubai stations via WAQI/AQICN. Requires a free token from `aqicn.org`. Uses the graceful degradation pattern: returns a structured help error if the token is missing. |
 | `osm_overpass` | `osm_search_poi`, `osm_list_categories` | Find OpenStreetMap POIs near a Dubai location: restaurants, pharmacies, mosques, ATMs, metro stations, malls, parking, etc. 22 curated categories. |
 | `holidays` | `uae_holidays`, `uae_next_holiday`, `is_uae_holiday` | UAE federal public holidays. Lunar holidays (Eid Al Fitr, Eid Al Adha, Hijri New Year, Mawlid, Arafat Day) are flagged as `provisional` until officially announced by MoHRE. |
@@ -186,7 +188,7 @@ claude mcp add dubai -- uvx mcp-dubai
 | `visas` | `list_visa_types`, `visa_details`, `visa_recommend`, `golden_visa_check` | All 13 UAE visa types. Green Visa is correctly split into the AED 15K/month skilled employee track and the AED 360K/24-month freelancer track. Golden Visa specialized talent salary tightened to AED 30,000 basic monthly verified over 24 months (early 2026 update). |
 | `banking` | `list_banks`, `bank_details`, `bank_recommendation`, `dul_eligibility` | 14-bank matrix (Wio, Mashreq NEOBiz, Zand, ruya, Emirates NBD, RAKBANK, ADCB, FAB, CBD, ADIB, HSBC, StanChart, Citi, Liv) on onboarding speed, minimum balance, and crypto stance. Plus DUL (Dubai Unified Licence) fast-track eligibility check listing the 7 participating banks and 3 participating free zones. |
 | `founder_essentials` | `attestation_guide`, `pro_services_estimate`, `legal_translation_estimate`, `chamber_of_commerce_info`, `setup_timeline_estimate`, `common_founder_mistakes` | The boring stuff that breaks setups. Full 5-step UAE legalization chain (UAE is NOT a Hague Apostille member, despite what some sources claim), PRO service cost estimator, MOJ legal translation calculator, Dubai Chamber of Commerce membership and CoO fees, realistic 1-to-16-week banking timelines, and the 11 most common founder mistakes with impact and fix for each. |
-| `tax_compliance` | `corporate_tax_estimate`, `vat_filing_calendar`, `qfzp_check`, `esr_status` | UAE Corporate Tax (Federal Decree-Law 47 of 2022, 9% above AED 375,000), VAT (5%), QFZP (Qualifying Free Zone Person under Ministerial Decision 229 of 2025, with the explicit SaaS-not-qualifying warning), and ESR status (DEAD for periods after Dec 2022 per Cabinet Resolution 98 of 2024). |
+| `tax_compliance` | `corporate_tax_estimate`, `vat_filing_calendar`, `qfzp_check`, `esr_status`, `einvoicing_timeline`, `late_payment_penalty_estimate` | UAE Corporate Tax (Federal Decree-Law 47 of 2022, 9% above AED 375,000), VAT (5%), QFZP (Qualifying Free Zone Person under Ministerial Decision 229 of 2025, with the explicit SaaS-not-qualifying warning), ESR status (DEAD for periods after Dec 2022 per Cabinet Resolution 98 of 2024), the 2025/2026 e-invoicing rollout (PINT AE on a DCTCE model, Ministerial Decisions 243 and 244 of 2025, phased through 2027), and the new unified 14% per-year late-payment penalty (Cabinet Decision 129 of 2025, effective 14 April 2026). |
 | `compliance` | `aml_requirements`, `ubo_filing_guide`, `pdpl_compliance` | UAE AML/CFT obligations with DNFBP detection (real estate, precious metals, auditors, CSPs, lawyers, notaries) routing to goAML. UBO filing rules (Cabinet Decision 58/2020, 25% threshold, 15-day update window). PDPL data protection compliance for UAE federal, DIFC DPL, and ADGM DPR. |
 | `funding` | `accelerator_search`, `vc_list`, `grant_programs` | Accelerator program search filtered by sector, free/paid, and location. Active UAE VC list. Grant programs including Mohammed bin Rashid Innovation Fund and Khalifa Fund. |
 | `gov_portals` | `portal_guide` | Cross-linked guide to UAE government portals (MOHRE, ICP, FTA, EmaraTax, GDRFA, Dubai Now, TAS HEEL, Tamm, Tawjeeh) with what each does and which service sits where. |
@@ -196,6 +198,8 @@ claude mcp add dubai -- uvx mcp-dubai
 | `ip_trademark` | `trademark_registration`, `ip_protection` | UAE trademark registration process via MOIAT (MOE migration complete), classes, timeline, and the three protection routes for software and brand IP. |
 | `halal` | `halal_certification`, `moiat_requirements` | Halal certification process via ESMA/UAE.S Halal National Mark, MOIAT import requirements for food, beverages, cosmetics, and pharmaceuticals. |
 | `createapps` | `createapps_championship`, `submission_guide` | Dubai Create Apps Championship entry rules, prize structure, timeline, and a submission-ready step-by-step guide. |
+| `cost_of_living` | `cost_of_living_overview`, `rent_estimate`, `dewa_bill_estimate`, `salik_toll_estimate`, `grocery_estimate`, `school_fee_estimate` | Ballpark Dubai living costs (rent ranges by area and bedroom, grocery baskets by household) plus the deterministic rules: DEWA tariff slabs and the 5%/10% housing fee, the Salik variable-toll windows, and the KHDA British-curriculum fee-increase cap. Rents and groceries are flagged high-volatility ranges; the DEWA, Salik, and KHDA rules are encoded as facts. |
+| `tenancy` | `ejari_guide`, `rera_rent_increase`, `rental_dispute_guide` | The Dubai tenancy loop. Ejari registration (documents, fees by channel, timeline, common mistakes), the RERA rent-increase calculator under Dubai Decree 43 of 2013 (maps how far the current rent sits below the area average to the 0/5/10/15/20% cap, plus the 90-day notice rule), and Rental Disputes Centre filing (3.5% of annual rent, AED 500 floor, AED 20,000 cap, active Ejari prerequisite). |
 
 ### 🤖 Tier 2 agent skills
 
@@ -208,7 +212,7 @@ claude mcp add dubai -- uvx mcp-dubai
 
 | Tool | What it does |
 |---|---|
-| `recommend_tools(query, top_k=5)` | BM25-powered tool discovery. Pass a natural-language query, get a ranked list of the most relevant tools so the LLM does not have to scan all 90 at once. |
+| `recommend_tools(query, top_k=5)` | BM25-powered tool discovery. Pass a natural-language query, get a ranked list of the most relevant tools so the LLM does not have to scan all 100-plus at once. |
 | `list_features()` | List every registered feature with its tier, auth requirement, and tool count. |
 | `get_knowledge_status()` | Read the freshness registry. Returns every registered business knowledge domain with its `knowledge_date`, `volatility`, `verify_at` URL, and disclaimer. |
 | `about()` | Return the package version, knowledge date, live tool count, and repo URL. Useful for clients that want to confirm which version is running without scanning the full catalogue. |
@@ -236,10 +240,12 @@ More Dubai Pulse feature wrappers (DHA health, DEWA, DTCM, DET, Dubai Municipali
 | [FCSC Open Data](https://opendata.fcsc.gov.ae) | ✅ Open (CKAN) | UAE federal datasets, FCA trade | `fcsc_ckan` |
 | [KHDA Resources](https://web.khda.gov.ae/en/Resources/KHDA-data-statistics) | ✅ Open (XLSX) | Dubai schools | `khda` |
 | [aviationweather.gov](https://aviationweather.gov/data/api/) | ✅ Open | METAR / TAF for UAE ICAOs | `aviation_weather` |
+| [Open-Meteo](https://open-meteo.com/en/docs) | ✅ Open | Human weather and forecast for UAE cities | `open_meteo` |
 | [OSM Overpass](https://overpass-api.de) | ✅ Open | POI fallback | `osm_overpass` |
 | [WAQI / AQICN](https://aqicn.org/api/) | 🔑 Free key | Air quality | `air_quality` |
+| [ExchangeRate-API (open endpoint)](https://www.exchangerate-api.com/docs/free) | ✅ Open | Everyday AED-base currency rates and conversion | `currency` |
 | Curated UAE federal calendar | 📚 Static | Public holidays | `holidays` |
-| Curated business knowledge files | 📚 Static | Free zones, visas, banks, founder essentials, tax | `setup_advisor`, `free_zones`, `visas`, `banking`, `founder_essentials`, `tax_compliance` |
+| Curated business knowledge files | 📚 Static | Free zones, visas, banks, founder essentials, tax, cost of living, tenancy | `setup_advisor`, `free_zones`, `visas`, `banking`, `founder_essentials`, `tax_compliance`, `cost_of_living`, `tenancy` |
 | [Dubai Pulse Gateway](https://api.dubaipulse.gov.ae) | 🔐 OAuth (planned) | DLD, RTA, DHA, DEWA, DET, DTCM, DM, Dubai Airports | Tier 1 (Phase 4) |
 | [DLD API Gateway](https://dubailand.gov.ae/en/eservices/api-gateway/) | 💰 Paid (~AED 31,500/yr per product) | Ejari, Mollak, Trakheesi, Rental Index | Not built (we use Dubai Pulse open data instead) |
 
@@ -266,7 +272,7 @@ Clients should check `result["success"]` and read `result["error"]["status"]` / 
 
 ## ⚙️ Configuration
 
-**Zero keys required to run 82 of 91 tools.** For the full walkthrough of every environment variable, where to get each credential, and step-by-step setup for Dubai Pulse, WAQI, and Calendarific, see **[CREDENTIALS.md](./CREDENTIALS.md)**.
+**Zero keys required to run 99 of 108 tools.** For the full walkthrough of every environment variable, where to get each credential, and step-by-step setup for Dubai Pulse, WAQI, and Calendarific, see **[CREDENTIALS.md](./CREDENTIALS.md)**.
 
 | Env Var | Required | Default | Unlocks |
 |---|---|---|---|
@@ -280,7 +286,7 @@ Clients should check `result["success"]` and read `result["error"]["status"]` / 
 | `MCP_DUBAI_HTTP_TIMEOUT` | No | `30.0` | HTTP timeout in seconds |
 | `MCP_DUBAI_HTTP_MAX_RETRIES` | No | `3` | Tenacity retry budget |
 
-Every variable is optional. The server starts and runs all 9 Tier 0 features, all 15 Tier 2 business features, and both agent skills without any of them.
+Every variable is optional. The server starts and runs all 11 Tier 0 features, all 17 Tier 2 business features, and both agent skills without any of them.
 
 ---
 
@@ -300,14 +306,17 @@ The hardest thing about a Dubai business-knowledge MCP is that **the rules move*
 
 | Domain | Volatility | Re-verify cadence |
 |---|---|---|
-| `setup_advisor`, `free_zones`, `visas`, `tax_compliance` | 🔴 high | quarterly |
-| `banking`, `founder_essentials` | 🟡 medium | quarterly |
+| `setup_advisor`, `free_zones`, `visas`, `tax_compliance`, `cost_of_living` | 🔴 high | quarterly |
+| `banking`, `founder_essentials`, `tenancy` | 🟡 medium | quarterly |
 | Tier 0 anonymous APIs | 🟢 stable | yearly |
 | Dubai Pulse dataset slugs (when wired) | 🟡 medium | quarterly (data.dubai migration in progress) |
 | Accelerator cohort dates, event calendar (when shipped) | 🔴 high | monthly |
 
-**Recent rule changes captured** (as of 2026-04-13):
+**Recent rule changes captured** (as of 2026-06-26):
 
+- UAE e-invoicing legislated by Ministerial Decisions 243 and 244 of 2025 (PINT AE on a DCTCE model). Announced phased rollout: voluntary pilot from 1 July 2026, mandatory for revenue at or above AED 50M from 1 January 2027, below AED 50M from 1 July 2027, government entities from 1 October 2027. Penalties under Cabinet Decision 106 of 2025. Verify dates with the FTA/MoF.
+- Unified late-payment penalty: flat 14% per year on unpaid tax (Cabinet Decision 129 of 2025, effective 14 April 2026), replacing the previous escalating monthly model across VAT, Excise, and Corporate Tax.
+- Small Business Relief: as of June 2026 no extension announced; relief ends for tax periods ending 31 December 2026, standard Corporate Tax applies thereafter.
 - QFZP Qualifying Activities updated by Ministerial Decision 229/2025 (SaaS still excluded).
 - CT late-registration penalty waived if first return filed within 7 months (FTA, April 2025).
 - Golden Visa specialized talent salary tightened to AED 30,000 basic monthly verified over 24 months (early 2026).
@@ -411,8 +420,9 @@ Ask your AI assistant any of these. The agent will route to the right tool via `
 | **Phase 4: Tier 1 Dubai Pulse scaffolding** | ✅ Complete | dubai_pulse base client + dld + rta example features with credential-missing pattern. Ready to wire more features when credentials arrive. |
 | **Phase 5: Polish** | ✅ Complete | README, CONTRIBUTING, CI, PyPI publish workflow, issue templates. |
 | **Phase 6: Agent skills** | ✅ Complete | arabic_writer (bilingual letter templates) + data_analyst (cross-tool plans + Markdown report synthesis with knowledge-freshness footer). |
-| **Phase 7: More Tier 1 features** | 🔐 Blocked on credentials | dha, dewa, det, dtcm, dm_food, dm_permits, dubai_customs, dubai_airports. The dubai_pulse base client and dld + rta examples are ready as the template. |
-| **Phase 8: Quarterly knowledge refresh** | ♻️ Ongoing | Re-verify the 17 curated knowledge domains every quarter, bump knowledge_date in the JSON files. Tax rules and visa thresholds move fastest. |
+| **Phase 7: Credential-free expansion** | ✅ Complete (v0.3.0) | open_meteo (human weather), currency (AED-base converter), cost_of_living pack, tenancy pack (Ejari + RERA rent-increase + RDC), and a tax_compliance refresh (e-invoicing + the unified 14% late-payment penalty). All ship without credentials. |
+| **Phase 8: More Tier 1 features** | 🔐 Blocked on credentials | dha, dewa, det, dtcm, dm_food, dm_permits, dubai_customs, dubai_airports. The dubai_pulse base client and dld + rta examples are ready as the template. The credential-free DLD-from-CSV and RTA-GTFS paths need their source URLs re-discovered first: dubaipulse.gov.ae now redirects to data.dubai and the previous transit.land GTFS mirror requires auth. |
+| **Phase 9: Quarterly knowledge refresh** | ♻️ Ongoing | Re-verify the 19 curated knowledge domains every quarter, bump knowledge_date in the JSON files. Tax rules and visa thresholds move fastest. |
 
 ---
 

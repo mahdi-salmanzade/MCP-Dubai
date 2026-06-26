@@ -1,10 +1,10 @@
 {
   "domain": "tax_compliance",
-  "knowledge_date": "2026-04-13",
+  "knowledge_date": "2026-06-26",
   "volatility": "high",
   "verify_at": "https://tax.gov.ae",
   "source_brief_section": "6.4",
-  "disclaimer": "UAE corporate tax rules changed materially in 2025/2026 (MD 229/2025 updated QFZP, FTA late-registration penalty waiver in April 2025, Pillar Two DMTT effective January 2025, sweetened drinks tiered excise from January 2026). Always verify against the FTA portal before quoting figures.",
+  "disclaimer": "UAE corporate tax rules changed materially in 2025/2026 (MD 229/2025 updated QFZP, FTA late-registration penalty waiver in April 2025, Pillar Two DMTT effective January 2025, sweetened drinks tiered excise from January 2026). UAE e-invoicing was legislated in 2025 (Ministerial Decisions 243 and 244 of 2025) with a phased rollout through 2027, and a unified late-payment penalty (Cabinet Decision 129 of 2025) takes effect 14 April 2026. Always verify against the FTA portal before quoting figures.",
   "currency": "AED",
   "corporate_tax": {
     "law": "Federal Decree-Law 47 of 2022",
@@ -31,7 +31,8 @@
       "law": "Ministerial Decision 73 of 2023",
       "revenue_threshold_aed": 3000000,
       "available_through_periods_ending": "2026-12-31",
-      "summary": "Revenue under AED 3M qualifies for full relief through tax periods ending 31 December 2026."
+      "summary": "Revenue under AED 3M qualifies for full relief through tax periods ending 31 December 2026.",
+      "extension_status_note": "As of June 2026 no extension has been announced. Relief ends for tax periods ending 31 December 2026 and standard corporate tax applies thereafter."
     },
     "registration": {
       "deadline_law": "FTA Decision 3 of 2024",
@@ -134,5 +135,39 @@
       "law": "Cabinet Decision 197 of 2025",
       "rates_aed_per_litre": [0.79, 1.09]
     }
+  },
+  "e_invoicing": {
+    "name": "UAE E-Invoicing",
+    "legislation": [
+      "Ministerial Decision 243 of 2025",
+      "Ministerial Decision 244 of 2025"
+    ],
+    "model": "PINT AE on a Decentralized Continuous Transaction Control and Exchange (DCTCE) 5-corner model; e-invoices exchanged via accredited service providers (ASPs) and reported to the FTA through EmaraTax",
+    "penalties_law": "Cabinet Decision 106 of 2025",
+    "status": "announced timeline, verify against the FTA/MoF before relying on dates",
+    "rollout": {
+      "voluntary_pilot_from": "2026-07-01",
+      "mandatory_revenue_at_or_above_aed_50m_from": "2027-01-01",
+      "mandatory_revenue_below_aed_50m_from": "2027-07-01",
+      "government_entities_from": "2027-10-01"
+    },
+    "scope_note": "applies to B2B and B2G transactions; phased by revenue band",
+    "source_urls": [
+      "https://mof.gov.ae",
+      "https://tax.gov.ae",
+      "https://www.deloitte.com/middle-east/en/services/tax/perspectives/release-of-uae-einvoicing-legislation.html"
+    ]
+  },
+  "late_payment_penalty": {
+    "name": "Unified late-payment penalty",
+    "law": "Cabinet Decision 129 of 2025",
+    "effective_from": "2026-04-14",
+    "annual_rate_pct": 14,
+    "basis": "flat 14% per annum on unpaid tax, accruing monthly, unifying the late-payment penalty across VAT, Excise and Corporate Tax (replacing the previous escalating monthly model)",
+    "note": "confirm the exact accrual mechanics and any caps with the FTA",
+    "source_urls": [
+      "https://tax.gov.ae",
+      "https://habibalmulla.com/articles/administrative-penalties-in-the-uae-the-2025-reform-and-the-shift-toward-a-unified-tax-penalty-regime/"
+    ]
   }
 }

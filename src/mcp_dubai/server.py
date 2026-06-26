@@ -64,6 +64,7 @@ from mcp_dubai.agents.arabic_writer.server import mcp as arabic_writer_mcp  # no
 from mcp_dubai.agents.data_analyst.server import mcp as data_analyst_mcp  # noqa: E402
 from mcp_dubai.biz.banking.server import mcp as banking_mcp  # noqa: E402
 from mcp_dubai.biz.compliance.server import mcp as compliance_mcp  # noqa: E402
+from mcp_dubai.biz.cost_of_living.server import mcp as cost_of_living_mcp  # noqa: E402
 from mcp_dubai.biz.createapps.server import mcp as createapps_mcp  # noqa: E402
 from mcp_dubai.biz.dcde.server import mcp as dcde_mcp  # noqa: E402
 from mcp_dubai.biz.events.server import mcp as events_mcp  # noqa: E402
@@ -76,15 +77,18 @@ from mcp_dubai.biz.ip_trademark.server import mcp as ip_trademark_mcp  # noqa: E
 from mcp_dubai.biz.parkin.server import mcp as parkin_mcp  # noqa: E402
 from mcp_dubai.biz.setup_advisor.server import mcp as setup_advisor_mcp  # noqa: E402
 from mcp_dubai.biz.tax_compliance.server import mcp as tax_compliance_mcp  # noqa: E402
+from mcp_dubai.biz.tenancy.server import mcp as tenancy_mcp  # noqa: E402
 from mcp_dubai.biz.visas.server import mcp as visas_mcp  # noqa: E402
 from mcp_dubai.data.air_quality.server import mcp as air_quality_mcp  # noqa: E402
 from mcp_dubai.data.al_adhan.server import mcp as al_adhan_mcp  # noqa: E402
 from mcp_dubai.data.aviation_weather.server import mcp as aviation_weather_mcp  # noqa: E402
 from mcp_dubai.data.cbuae.server import mcp as cbuae_mcp  # noqa: E402
+from mcp_dubai.data.currency.server import mcp as currency_mcp  # noqa: E402
 from mcp_dubai.data.dld.server import mcp as dld_mcp  # noqa: E402
 from mcp_dubai.data.fcsc_ckan.server import mcp as fcsc_ckan_mcp  # noqa: E402
 from mcp_dubai.data.holidays.server import mcp as holidays_mcp  # noqa: E402
 from mcp_dubai.data.khda.server import mcp as khda_mcp  # noqa: E402
+from mcp_dubai.data.open_meteo.server import mcp as open_meteo_mcp  # noqa: E402
 from mcp_dubai.data.osm_overpass.server import mcp as osm_overpass_mcp  # noqa: E402
 from mcp_dubai.data.quran_cloud.server import mcp as quran_cloud_mcp  # noqa: E402
 from mcp_dubai.data.rta.server import mcp as rta_mcp  # noqa: E402
@@ -93,15 +97,18 @@ mcp.mount(air_quality_mcp)
 mcp.mount(al_adhan_mcp)
 mcp.mount(aviation_weather_mcp)
 mcp.mount(cbuae_mcp)
+mcp.mount(currency_mcp)
 mcp.mount(dld_mcp)
 mcp.mount(fcsc_ckan_mcp)
 mcp.mount(holidays_mcp)
 mcp.mount(khda_mcp)
+mcp.mount(open_meteo_mcp)
 mcp.mount(osm_overpass_mcp)
 mcp.mount(quran_cloud_mcp)
 mcp.mount(rta_mcp)
 mcp.mount(banking_mcp)
 mcp.mount(compliance_mcp)
+mcp.mount(cost_of_living_mcp)
 mcp.mount(createapps_mcp)
 mcp.mount(dcde_mcp)
 mcp.mount(events_mcp)
@@ -114,6 +121,7 @@ mcp.mount(ip_trademark_mcp)
 mcp.mount(parkin_mcp)
 mcp.mount(setup_advisor_mcp)
 mcp.mount(tax_compliance_mcp)
+mcp.mount(tenancy_mcp)
 mcp.mount(visas_mcp)
 mcp.mount(arabic_writer_mcp)
 mcp.mount(data_analyst_mcp)

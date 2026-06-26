@@ -1,0 +1,111 @@
+{
+  "domain": "tenancy",
+  "knowledge_date": "2026-06-26",
+  "volatility": "medium",
+  "verify_at": "https://dubailand.gov.ae/en/eservices/ejari/",
+  "disclaimer": "Verify current Ejari fees, RERA rent-increase slabs, and Rental Disputes Centre filing rules with the Dubai Land Department (DLD) before acting.",
+  "currency": "AED",
+  "ejari": {
+    "name": "Ejari registration",
+    "summary": "Ejari is the mandatory DLD system that registers a Dubai tenancy contract. An active Ejari is a precondition for DEWA activation, mainland visa quotas, and filing at the Rental Disputes Centre.",
+    "required_documents": [
+      "Original signed tenancy contract",
+      "Tenant Emirates ID (front and back)",
+      "Tenant passport and visa page",
+      "The property 9-digit DEWA premise number",
+      "Landlord title deed copy",
+      "Landlord passport or Emirates ID"
+    ],
+    "fees_by_channel_aed": {
+      "dubai_rest_app": "155 + VAT",
+      "real_estate_trustee_centre": 219.75,
+      "typing_center": "~220 (155 registration + 10 knowledge + 10 innovation + 45-60 admin)"
+    },
+    "fees_notes": {
+      "real_estate_trustee_centre": "AED 219.75 incl VAT"
+    },
+    "timeline": {
+      "dubai_rest_app": "self-service ~15-30 min, certificate issued in 1-2 working days",
+      "trustee_centre": "issued on the spot"
+    },
+    "channels": [
+      "Dubai REST app (official DLD)",
+      "DLD Ejari website at dubailand.gov.ae",
+      "AQARI WhatsApp service",
+      "all via UAE Pass login"
+    ],
+    "common_mistakes": [
+      "Not registering Ejari before applying for a mainland visa quota (Ejari is a precondition)",
+      "Using the wrong DEWA premise number",
+      "Trying to file at the Rental Disputes Centre or activate DEWA without an active Ejari"
+    ],
+    "source_urls": [
+      "https://dubailand.gov.ae/en/eservices/ejari/"
+    ]
+  },
+  "rera_rent_increase": {
+    "law": "Dubai Decree No. 43 of 2013",
+    "summary": "The maximum allowed rent increase at renewal depends on how far the current rent sits below the area average market rent on the RERA Rent Index.",
+    "index": "RERA Rent Index",
+    "slabs": [
+      {
+        "band": "less than 10% below",
+        "gap_pct_min": 0,
+        "gap_pct_max": 10,
+        "max_increase_pct": 0,
+        "description": "Current rent is less than 10% below the area average: no increase allowed (0%)."
+      },
+      {
+        "band": "11-20% below",
+        "gap_pct_min": 10,
+        "gap_pct_max": 20,
+        "max_increase_pct": 5,
+        "description": "Current rent is 11-20% below the area average: up to 5% increase."
+      },
+      {
+        "band": "21-30% below",
+        "gap_pct_min": 20,
+        "gap_pct_max": 30,
+        "max_increase_pct": 10,
+        "description": "Current rent is 21-30% below the area average: up to 10% increase."
+      },
+      {
+        "band": "31-40% below",
+        "gap_pct_min": 30,
+        "gap_pct_max": 40,
+        "max_increase_pct": 15,
+        "description": "Current rent is 31-40% below the area average: up to 15% increase."
+      },
+      {
+        "band": "more than 40% below",
+        "gap_pct_min": 40,
+        "gap_pct_max": null,
+        "max_increase_pct": 20,
+        "description": "Current rent is more than 40% below the area average: up to 20% increase."
+      }
+    ],
+    "notice_rule": "90 days written notice before contract renewal changes",
+    "source_urls": [
+      "https://dubailand.gov.ae/media/z2dn3gtr/rental-increase-decree-43-in-dubai.pdf"
+    ]
+  },
+  "rdc": {
+    "name": "Rental Disputes Centre (part of DLD)",
+    "summary": "The Rental Disputes Centre (RDC) handles landlord and tenant disputes in Dubai.",
+    "filing_fee": "3.5% of annual rent, minimum AED 500, maximum AED 20,000",
+    "filing_fee_note": "Monetary claims are capped at AED 15,000.",
+    "filing_fee_pct": 3.5,
+    "filing_fee_min_aed": 500,
+    "filing_fee_max_aed": 20000,
+    "monetary_claim_cap_aed": 15000,
+    "prerequisite": "active Ejari registration",
+    "channels": [
+      "rdc.gov.ae portal",
+      "Dubai REST app",
+      "in person at DLD HQ in Deira"
+    ],
+    "source_urls": [
+      "https://rdc.gov.ae/en/frequently-asked-questions/"
+    ]
+  }
+}
