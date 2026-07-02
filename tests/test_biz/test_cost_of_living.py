@@ -90,8 +90,8 @@ class TestDewaBillEstimate:
         assert isinstance(data, dict)
         fee = data["housing_fee"]
         assert isinstance(fee, dict)
-        assert fee["apartment_pct_of_annual_rent"] == 5
-        assert fee["villa_pct_of_annual_rent"] == 10
+        assert fee["residential_pct_of_annual_rent"] == 5
+        assert "villas alike" in fee["note"]
 
     @pytest.mark.asyncio
     async def test_invalid_unit_size_fails(self) -> None:
@@ -107,18 +107,20 @@ class TestDewaBillEstimate:
 class TestSalikTollEstimate:
     @pytest.mark.asyncio
     async def test_peak_weekday(self) -> None:
+        # VAT-inclusive from 2026-06-01: dynamic peak AED 6.00 -> 6.30.
         result = await tools.salik_toll_estimate(time_of_day="08:00", day="weekday")
         data = result["data"]
         assert isinstance(data, dict)
-        assert data["toll_aed"] == 6
+        assert data["toll_aed"] == 6.3
         assert data["window_applied"] == "peak"
 
     @pytest.mark.asyncio
     async def test_off_peak_weekday(self) -> None:
+        # VAT-inclusive from 2026-06-01: standard gate AED 4.00 -> 4.20.
         result = await tools.salik_toll_estimate(time_of_day="12:00", day="weekday")
         data = result["data"]
         assert isinstance(data, dict)
-        assert data["toll_aed"] == 4
+        assert data["toll_aed"] == 4.2
         assert data["window_applied"] == "off-peak"
 
     @pytest.mark.asyncio
@@ -134,7 +136,7 @@ class TestSalikTollEstimate:
         result = await tools.salik_toll_estimate(time_of_day="12:00", day="sunday")
         data = result["data"]
         assert isinstance(data, dict)
-        assert data["toll_aed"] == 4
+        assert data["toll_aed"] == 4.2
         assert data["window_applied"] == "sunday flat"
 
     @pytest.mark.asyncio
@@ -150,7 +152,17 @@ class TestSalikTollEstimate:
         result = await tools.salik_toll_estimate(time_of_day="22:30", day="weekday")
         data = result["data"]
         assert isinstance(data, dict)
-        assert data["toll_aed"] == 4
+        assert data["toll_aed"] == 4.2
+
+    @pytest.mark.asyncio
+    async def test_vat_fields_present(self) -> None:
+        result = await tools.salik_toll_estimate(time_of_day="08:00", day="weekday")
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["vat_pct"] == 5
+        assert data["vat_effective_from"] == "2026-06-01"
+        assert isinstance(data["vat_note"], str)
+        assert "VAT-inclusive" in data["vat_note"]
 
     @pytest.mark.asyncio
     async def test_bad_format_fails(self) -> None:
@@ -207,9 +219,60 @@ class TestSchoolFeeEstimate:
         assert "KHDA" in data["fee_increase_cap_rule"]
 
     @pytest.mark.asyncio
+    async def test_fee_freeze_2026_27(self) -> None:
+        result = await tools.school_fee_estimate(stage="primary")
+        data = result["data"]
+        assert isinstance(data, dict)
+        freeze = data["fee_freeze_2026_27"]
+        assert isinstance(freeze, dict)
+        assert freeze["announced"] == "2026-05-22"
+        assert "NO increase" in freeze["rule"]
+        # The ECI cap rule is kept as background but flagged as suspended.
+        assert "suspended for 2026-27" in data["fee_increase_cap_rule"]
+
+    @pytest.mark.asyncio
     async def test_invalid_stage_fails(self) -> None:
         result = await tools.school_fee_estimate(stage="kindergarten")
         assert result["success"] is False
+
+
+class TestFuelPriceGuide:
+    @pytest.mark.asyncio
+    async def test_happy_path(self) -> None:
+        result = await tools.fuel_price_guide()
+        assert result["success"] is True
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert "Fuel Price Committee" in data["mechanism"]
+        assert data["update_frequency"] == "monthly"
+        assert data["volatility"] == "high"
+        assert data["unit"] == "aed_per_litre"
+        assert "u.ae" in data["verify_at"]
+
+    @pytest.mark.asyncio
+    async def test_july_2026_snapshot_figures(self) -> None:
+        result = await tools.fuel_price_guide()
+        data = result["data"]
+        assert isinstance(data, dict)
+        snapshot = data["july_2026_snapshot"]
+        assert isinstance(snapshot, dict)
+        assert snapshot["effective_from"] == "2026-07-01"
+        assert snapshot["super_98"] == 3.4
+        assert snapshot["special_95"] == 3.29
+        assert snapshot["e_plus_91"] == 3.21
+        assert snapshot["diesel"] == 3.6
+
+    @pytest.mark.asyncio
+    async def test_july_dropped_from_june_reference(self) -> None:
+        result = await tools.fuel_price_guide()
+        data = result["data"]
+        assert isinstance(data, dict)
+        june = data["june_2026_reference"]
+        july = data["july_2026_snapshot"]
+        assert isinstance(june, dict)
+        assert isinstance(july, dict)
+        for grade in ("super_98", "special_95", "e_plus_91", "diesel"):
+            assert july[grade] < june[grade]
 
 
 class TestKnowledge:
@@ -218,7 +281,7 @@ class TestKnowledge:
         result = await tools.cost_of_living_overview()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-06-26"
+        assert knowledge["knowledge_date"] == "2026-07-02"
         assert knowledge["volatility"] == "high"
 
     def test_registers_with_knowledge_registry(self) -> None:
@@ -248,6 +311,7 @@ class TestDiscovery:
             "salik_toll_estimate",
             "grocery_estimate",
             "school_fee_estimate",
+            "fuel_price_guide",
         }
 
     def test_recommends_for_query(self) -> None:

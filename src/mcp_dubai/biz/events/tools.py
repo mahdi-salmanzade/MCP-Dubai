@@ -36,10 +36,16 @@ async def startup_events(category: str | None = None) -> dict[str, object]:
             or needle in str(e.get("tagline", "")).lower()
         ]
 
+    payload: dict[str, object] = {"count": len(events), "events": events}
+    for note_key in ("venue_shift", "data_availability"):
+        note = _DATA.get(note_key)
+        if isinstance(note, dict):
+            payload[note_key] = note
+
     return (
         ToolResponse[dict[str, object]]
         .ok(
-            {"count": len(events), "events": events},
+            payload,
             knowledge=KNOWLEDGE,
         )
         .model_dump()

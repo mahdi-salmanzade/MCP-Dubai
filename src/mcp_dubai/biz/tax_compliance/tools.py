@@ -162,6 +162,7 @@ async def vat_filing_calendar(
         )
 
     vat = _block("vat")
+    amendments = vat.get("amendments_2026", {})
     mandatory = int(vat.get("mandatory_registration_threshold_aed", 375000))
     voluntary = int(vat.get("voluntary_registration_threshold_aed", 187500))
     monthly_threshold = int(
@@ -203,6 +204,7 @@ async def vat_filing_calendar(
                     "voluntary_aed": voluntary,
                     "monthly_filing_at_aed_revenue": monthly_threshold,
                 },
+                "amendments_2026": amendments,
                 "portal": "EmaraTax (https://eservices.tax.gov.ae)",
             },
             knowledge=KNOWLEDGE,
@@ -281,17 +283,23 @@ async def esr_status() -> dict[str, object]:
 async def einvoicing_timeline() -> dict[str, object]:
     """
     Return the UAE e-invoicing regime: legislation, the PINT AE / DCTCE
-    model, the announced phased rollout dates, and a short list of what to
-    do now.
+    model, the phased rollout dates, the ASP appointment deadlines, the
+    pre-approved ASP register, published technical documents, and a short
+    list of what to do now.
 
-    The rollout dates are an announced timeline. Verify them against the
-    FTA and the Ministry of Finance before relying on them.
+    The pilot phase went live on 1 July 2026 with voluntary adoption open
+    from the same date. Verify dates against the FTA and the Ministry of
+    Finance before relying on them.
     """
     einv = _block("e_invoicing")
     what_to_do_now = [
-        "Select and appoint an accredited service provider (ASP) early.",
+        "Appoint an accredited service provider (ASP): revenue at or above "
+        "AED 50M must appoint by 30 October 2026, below AED 50M by "
+        "31 March 2027. Pick from the official MoF pre-approved register.",
         "Make sure your ERP or accounting system can emit PINT AE invoices "
         "and exchange them on the DCTCE 5-corner model.",
+        "Consider joining the voluntary phase (open since 1 July 2026) to "
+        "test end to end before your mandatory go-live date.",
         "Watch for the mandatory date that matches your revenue band so you "
         "are ready before it applies.",
     ]
@@ -305,6 +313,9 @@ async def einvoicing_timeline() -> dict[str, object]:
                 "penalties_law": einv.get("penalties_law"),
                 "status": einv.get("status"),
                 "rollout": einv.get("rollout", {}),
+                "asp_appointment_deadlines": einv.get("asp_appointment_deadlines", {}),
+                "asp_register": einv.get("asp_register", {}),
+                "technical_docs": einv.get("technical_docs", {}),
                 "scope_note": einv.get("scope_note"),
                 "what_to_do_now": what_to_do_now,
                 "source_urls": einv.get("source_urls", []),

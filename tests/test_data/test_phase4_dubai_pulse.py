@@ -147,17 +147,78 @@ class TestHappyPath:
         assert isinstance(data, dict)
         assert "balances" in data["warning"].lower() or "Smart Salik" in data["warning"]
 
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_rta_salik_tariff_includes_vat_block(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        respx.get(f"{DUBAI_PULSE_API_BASE}/open/rta/rta_salik_tariff-open-api").mock(
+            return_value=Response(
+                200,
+                json={"data": [{"gate": "Al Garhoud", "tariff_aed": 4}], "total": 1},
+            )
+        )
+
+        result = await rta_tools.rta_salik_tariff()
+        data = result["data"]
+        assert isinstance(data, dict)
+        vat = data["vat"]
+        assert isinstance(vat, dict)
+        assert vat["effective_date"] == "2026-06-01"
+        assert vat["vat_rate"] == 0.05
+        assert vat["standard_crossing_aed_incl_vat"] == 4.20
+        assert vat["peak_crossing_aed_incl_vat"] == 6.30
+        assert "source_urls" in vat
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_rta_metro_stations_includes_upcoming_line_notes(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        respx.get(f"{DUBAI_PULSE_API_BASE}/open/rta/rta_metro_stations-open-api").mock(
+            return_value=Response(
+                200,
+                json={"data": [{"name": "Burj Khalifa", "line": "Red"}], "total": 1},
+            )
+        )
+
+        result = await rta_tools.rta_search_metro_stations(line="Red")
+        data = result["data"]
+        assert isinstance(data, dict)
+        notes = data["upcoming_line_notes"]
+        assert isinstance(notes, dict)
+        assert "2029-09-09" in notes["blue_line"]
+        assert "2032-09-09" in notes["gold_line"]
+
 
 class TestRtaGtfsStaticUrl:
     @pytest.mark.asyncio
-    async def test_returns_anonymous_mirror(self) -> None:
-        # No credentials needed for the URL helper.
+    async def test_returns_anonymous_7z_download(self) -> None:
+        # No credentials and no network needed for the URL helper.
         result = await rta_tools.rta_gtfs_static_url()
         data = result["data"]
         assert isinstance(data, dict)
-        assert data["transitland_mirror_auth_required"] is False
-        assert "transit.land" in str(data["transitland_mirror_url"])
+        assert data["download_auth_required"] is False
+        assert str(data["download_url"]).endswith(".7z")
+        assert data["archive_format"] == "7z"
+        assert "py7zr" in str(data["extraction_hint"])
+        assert "GTFS_20250823" in str(data["feed_version_note"])
+        assert "fresher" in str(data["staleness_note"])
+        assert data["query_api_auth_required"] is True
         assert data["gtfs_realtime_available"] is False
+
+    @pytest.mark.asyncio
+    async def test_transitland_mirror_marked_dead(self) -> None:
+        result = await rta_tools.rta_gtfs_static_url()
+        data = result["data"]
+        assert isinstance(data, dict)
+        dead = data["dead_sources"]
+        assert isinstance(dead, list)
+        assert any("transit.land" in str(entry["url"]) for entry in dead)
+        # The dead mirror must never be offered as the download URL.
+        assert "transit.land" not in str(data["download_url"])
 
 
 class TestDiscovery:

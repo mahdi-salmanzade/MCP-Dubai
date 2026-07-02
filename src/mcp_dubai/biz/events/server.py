@@ -23,7 +23,12 @@ async def startup_events(category: str | None = None) -> dict[str, object]:
 
 @mcp.tool
 async def gitex_info() -> dict[str, object]:
-    """Return GITEX Global 2026 details and venue (Dubai Exhibition Centre)."""
+    """
+    Return GITEX Global 2026 details and venue.
+
+    Confirmed 7 to 11 December 2026 at Expo City Dubai (split-venue format,
+    anchored at the Dubai Exhibition Centre).
+    """
     return await tools.gitex_info()
 
 
@@ -42,7 +47,7 @@ async def ens_calendar() -> dict[str, object]:
 _TOOLS: list[ToolMeta] = [
     ToolMeta(
         name="startup_events",
-        description="List Dubai and UAE startup and tech events with dates, venues, and links.",
+        description="List Dubai and UAE startup, tech, and retail calendar events with dates, venues, and links.",
         feature="events",
         tier=TIER_BIZ,
         tags=[
@@ -54,8 +59,16 @@ _TOOLS: list[ToolMeta] = [
             "gitex",
             "step",
             "aim congress",
-            "world government summit",
+            "world governments summit",
             "dubai ai week",
+            "dubai ai festival",
+            "fintech summit",
+            "airshow",
+            "wetex",
+            "fitness challenge",
+            "dsf",
+            "dss",
+            "retail festival",
         ],
     ),
     ToolMeta(

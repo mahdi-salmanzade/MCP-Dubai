@@ -84,10 +84,14 @@ from mcp_dubai.data.al_adhan.server import mcp as al_adhan_mcp  # noqa: E402
 from mcp_dubai.data.aviation_weather.server import mcp as aviation_weather_mcp  # noqa: E402
 from mcp_dubai.data.cbuae.server import mcp as cbuae_mcp  # noqa: E402
 from mcp_dubai.data.currency.server import mcp as currency_mcp  # noqa: E402
+from mcp_dubai.data.data_dubai.server import mcp as data_dubai_mcp  # noqa: E402
+from mcp_dubai.data.dfm.server import mcp as dfm_mcp  # noqa: E402
 from mcp_dubai.data.dld.server import mcp as dld_mcp  # noqa: E402
 from mcp_dubai.data.fcsc_ckan.server import mcp as fcsc_ckan_mcp  # noqa: E402
+from mcp_dubai.data.gold_rate.server import mcp as gold_rate_mcp  # noqa: E402
 from mcp_dubai.data.holidays.server import mcp as holidays_mcp  # noqa: E402
 from mcp_dubai.data.khda.server import mcp as khda_mcp  # noqa: E402
+from mcp_dubai.data.makani.server import mcp as makani_mcp  # noqa: E402
 from mcp_dubai.data.open_meteo.server import mcp as open_meteo_mcp  # noqa: E402
 from mcp_dubai.data.osm_overpass.server import mcp as osm_overpass_mcp  # noqa: E402
 from mcp_dubai.data.quran_cloud.server import mcp as quran_cloud_mcp  # noqa: E402
@@ -98,10 +102,14 @@ mcp.mount(al_adhan_mcp)
 mcp.mount(aviation_weather_mcp)
 mcp.mount(cbuae_mcp)
 mcp.mount(currency_mcp)
+mcp.mount(data_dubai_mcp)
+mcp.mount(dfm_mcp)
 mcp.mount(dld_mcp)
 mcp.mount(fcsc_ckan_mcp)
+mcp.mount(gold_rate_mcp)
 mcp.mount(holidays_mcp)
 mcp.mount(khda_mcp)
+mcp.mount(makani_mcp)
 mcp.mount(open_meteo_mcp)
 mcp.mount(osm_overpass_mcp)
 mcp.mount(quran_cloud_mcp)

@@ -26,11 +26,13 @@ async def visa_details(visa_id: str) -> dict[str, object]:
     Get the full curated record for a single UAE visa type.
 
     Args:
-        visa_id: Visa id slug. Examples: "investor_partner", "employment",
+        visa_id: Visa id slug. Examples: "investor_partner",
+            "property_investor_2yr", "employment",
             "golden_specialized_talent", "golden_investor_real_estate",
             "golden_entrepreneur", "green_skilled_employee",
             "green_freelancer", "freelance_permit", "virtual_working",
-            "retirement", "family_dependent", "tourist_30", "tourist_60".
+            "retirement", "family_dependent", "tourist_30", "tourist_60",
+            "visa_on_arrival".
     """
     return await tools.visa_details(visa_id=visa_id)
 

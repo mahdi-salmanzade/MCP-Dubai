@@ -1,4 +1,4 @@
-"""Confirmed DLD dataset slugs on Dubai Pulse."""
+"""Confirmed DLD dataset slugs on Dubai Pulse (now the data.dubai gateway)."""
 
 from __future__ import annotations
 

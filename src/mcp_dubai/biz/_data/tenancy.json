@@ -1,6 +1,6 @@
 {
   "domain": "tenancy",
-  "knowledge_date": "2026-06-26",
+  "knowledge_date": "2026-07-02",
   "volatility": "medium",
   "verify_at": "https://dubailand.gov.ae/en/eservices/ejari/",
   "disclaimer": "Verify current Ejari fees, RERA rent-increase slabs, and Rental Disputes Centre filing rules with the Dubai Land Department (DLD) before acting.",
@@ -41,6 +41,41 @@
     ],
     "source_urls": [
       "https://dubailand.gov.ae/en/eservices/ejari/"
+    ]
+  },
+  "flexi_rent": {
+    "name": "DLD Flexi Rent initiative",
+    "launched": "2026-06-23",
+    "summary": "The Dubai Land Department's Flexi Rent initiative lets tenants pay annual rent in monthly, quarterly, or semi-annual instalments through approved partner real estate firms, instead of the traditional 1-4 cheques.",
+    "how_it_works": [
+      "Applies to new and renewed contracts with participating landlords",
+      "Rent payable in monthly, quarterly, or semi-annual instalments with no premium over the annual amount",
+      "Card payments supported",
+      "Allows grace periods and waived bounced-cheque fees",
+      "In specific cases the annual rent increase can be waived",
+      "Existing tenants can request conversion via participating property managers"
+    ],
+    "partners": {
+      "count_at_launch": 12,
+      "named": [
+        "Deyaar",
+        "Wasl",
+        "Dubai Investment Real Estate",
+        "Driven Properties",
+        "SBK Real Estate",
+        "Al Showaib",
+        "Rocky Real Estate",
+        "SRG Properties",
+        "Modern Real Estate",
+        "Harbor Real Estate",
+        "Dubai World Real Estate"
+      ]
+    },
+    "note": "This changes the standard 'rent in 1-4 cheques' guidance: instalment plans are now an official DLD option through approved partners.",
+    "source_urls": [
+      "https://www.thenationalnews.com/business/property/2026/06/23/dubai-launches-flexi-rent-scheme-to-support-tenants/",
+      "https://gulfnews.com/business/property/dubai-launches-flexi-rents-initiative-to-ease-tenant-payment-burden-1.500583691",
+      "https://www.gdnonline.com/Details/1398888/Dubai-Land-Department-launches-%E2%80%98Flexi-Rent%E2%80%99-initiative"
     ]
   },
   "rera_rent_increase": {
@@ -85,6 +120,7 @@
       }
     ],
     "notice_rule": "90 days written notice before contract renewal changes",
+    "rent_cap_status": "Decree 43 of 2013 bands verified unchanged as of 2026-07-02. The Smart Rental Index remains the benchmark with refreshed 2026 values; no official change to the slab structure.",
     "source_urls": [
       "https://dubailand.gov.ae/media/z2dn3gtr/rental-increase-decree-43-in-dubai.pdf"
     ]
@@ -106,6 +142,44 @@
     ],
     "source_urls": [
       "https://rdc.gov.ae/en/frequently-asked-questions/"
+    ]
+  },
+  "shared_housing": {
+    "law": "Dubai Law No. 4 of 2026",
+    "name": "Shared housing / co-living regulation",
+    "announced": "2026-03-11",
+    "published": "2026-02-27 (Official Gazette date as cited by legal reporting)",
+    "in_force": "180 days after Official Gazette publication, approximately late August to September 2026",
+    "summary": "Law No. 4 of 2026 regulates the occupancy and management of shared housing (bed space, partitioned, and co-living arrangements) in Dubai: operator permits, an electronic Shared Housing Registry, minimum space per resident, and fines up to AED 1,000,000.",
+    "key_rules": [
+      "No unit may be allocated to shared housing without a permit (valid 1 year, renewable)",
+      "DLD manages an electronic Shared Housing Registry linked to Dubai Municipality",
+      "Only property owners, licensed property-management firms, or licensed subleasing entities may operate shared housing; tenants cannot sublease",
+      "Legal reporting cites a minimum of about 5 sqm net habitable space per resident (bedrooms and living rooms only)"
+    ],
+    "fines": {
+      "range_aed": "500 to 500,000",
+      "repeat_violation_rule": "Fines double for repeat violations within a year, up to a maximum of AED 1,000,000",
+      "max_aed": 1000000
+    },
+    "grace_period": "Existing operators get 1 year from the effective date to regularise their status, with one extension possible",
+    "source_urls": [
+      "https://mediaoffice.ae/en/news/2026/march/11-03/mohammed-bin-rashid-issues-law-regulating-the-management",
+      "https://habibalmulla.com/articles/dubai-regulates-shared-housing-key-takeaways-from-law-no-4-of-2026/",
+      "https://www.lexismiddleeast.com/pn/UnitedArabEmirates/Dubai_Law_No_4_2026/en",
+      "https://sat-law.com/law-no-4-of-2026-redefining-shared-housing-in-dubais-real-estate-market/"
+    ]
+  },
+  "dld_initiatives_2026": {
+    "summary": "One-line status of DLD initiatives relevant to Dubai tenants and buyers, as of 2026-07-02.",
+    "first_time_home_buyer": "First-Time Home Buyer programme (launched July 2025) expanded to 22 participating developers as of June 2026.",
+    "tokenization": "Real estate tokenization Phase 2 live since 2026-02-20, with a regulated (VARA-supervised) secondary market on PRYPCO Mint.",
+    "smart_rental_index": "Smart Rental Index benchmarks refreshed for 2026; building star ratings and the 90-day notice rule continue to apply.",
+    "source_urls": [
+      "https://mediaoffice.ae/en/news/2026/jun/08-06/dubai-first-time-home-buyer-program",
+      "https://dubailand.gov.ae/en/eservices/first-time-home-buyer-overview/",
+      "https://dubailand.gov.ae/en/eservices/real-estate-tokenization/",
+      "https://dubailand.gov.ae/en/eservices/rental-index/rental-index/"
     ]
   }
 }

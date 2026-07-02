@@ -5,13 +5,21 @@ All Dubai Pulse Tier 1 features (DLD, RTA, DHA, DEWA, etc.) inherit the
 same auth flow and the same query parameters. This client encapsulates
 both so feature implementations stay focused on dataset semantics.
 
+Migration note (verified 2026-07-02): the Dubai Pulse portal
+(www.dubaipulse.gov.ae) was decommissioned between Dec 2025 and Jan 2026
+and now redirects to https://data.dubai. The canonical API host going
+forward is apis.data.dubai; the legacy api.dubaipulse.gov.ae host still
+resolves and both front the same DDSE gateway with the same endpoint
+pattern and OAuth requirement. Set MCP_DUBAI_PULSE_API_BASE to switch
+hosts without code changes.
+
 Endpoint pattern (verified live April 2026, see knowledge brief 4.2):
 
     POST {DUBAI_PULSE_TOKEN_URL}?grant_type=client_credentials
     Form: client_id={KEY}&client_secret={SECRET}
     -> { "access_token": "...", "expires_in": 1800 }
 
-    GET https://api.dubaipulse.gov.ae/{open|shared}/{org}/{dataset-slug}
+    GET {base}/{open|shared}/{org}/{dataset-slug}
     Header: Authorization: Bearer {token}
     Query: limit, offset, order_by, column, filter=col=val AND col2=val2
 """

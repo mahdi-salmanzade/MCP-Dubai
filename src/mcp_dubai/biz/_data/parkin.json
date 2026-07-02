@@ -1,6 +1,6 @@
 {
   "domain": "parkin",
-  "knowledge_date": "2026-04-13",
+  "knowledge_date": "2026-07-02",
   "volatility": "medium",
   "verify_at": "https://parkin.ae",
   "source_brief_section": "6.10c",
@@ -35,12 +35,65 @@
       "Sundays (all day)",
       "Public holidays (all day)",
       "Daily 22:00 to 08:00"
+    ],
+    "vat_note": "From 2026-06-01 a 5% VAT applies on top of these base tariffs, so displayed prices are VAT-inclusive (e.g. the AED 6 premium peak hour displays as AED 6.30, the AED 4 standard hour as AED 4.20)."
+  },
+  "vat": {
+    "rate_pct": 5,
+    "applies_from": "2026-06-01",
+    "summary": "5% VAT applies to all Parkin public parking tariffs and services from 1 June 2026, remitted to the Federal Tax Authority. Base tariffs are unchanged; VAT is added on top, so displayed prices are now VAT-inclusive.",
+    "source_urls": [
+      "https://gulfnews.com/uae/transport/dubai-paid-parking-update-parkin-to-apply-5-vat-from-june-1-1.500549597",
+      "https://www.emirates247.com/uae/dubais-parkin-announces-5-vat-on-all-services-from-june-1/1888"
+    ]
+  },
+  "payments": {
+    "cashless_meters_from": "2026-06-01",
+    "note": "Cash and coin payments at parking meters are phased out from 1 June 2026 under Dubai's Cashless Strategy. Nol cards are still accepted at meters; otherwise pay via the Parkin app, mParking SMS (with SMS surcharge), or card and other digital channels.",
+    "accepted_methods": [
+      "Nol card at parking meters",
+      "Parkin app",
+      "mParking SMS to 7275 (SMS surcharge applies)",
+      "Card and other digital channels"
+    ],
+    "source_urls": [
+      "https://www.khaleejtimes.com/uae/transport/dubai-phase-out-cash-payments-parking-metres-june-1-2026"
     ]
   },
   "zones": {
     "confirmed": ["A", "B", "C", "D", "E", "F"],
     "unverified": ["G", "H", "I", "J", "K"],
-    "unverified_note": "Zone letters G through K appear in third-party sources but need first-party confirmation from parkin.ae."
+    "unverified_note": "Zone letters G through K appear in third-party sources but need first-party confirmation from parkin.ae.",
+    "new_paid_areas_2026": [
+      {
+        "area": "International City",
+        "paid_from": "2026-02-01",
+        "operator": "Parkin",
+        "note": "Parkin tariffs apply."
+      },
+      {
+        "area": "Discovery Gardens",
+        "paid_from": "2026-01-15",
+        "operator": "Parkonic (private provider, not Parkin)",
+        "note": "Regulated paid parking operated by Parkonic. Typical new-community pattern: AED 2 per 30 min/hour up to AED 36 per 24h in premium zones, enforced 08:00-22:00 Monday-Saturday, free Sundays and public holidays, subscriptions from about AED 300/month."
+      }
+    ],
+    "new_paid_areas_2026_source_urls": [
+      "https://www.khaleejtimes.com/uae/paid-parking-dubai-international-city",
+      "https://www.timeoutdubai.com/news/discovery-gardens-paid-parking-2026"
+    ]
+  },
+  "mall_parking": {
+    "summary": "Parkin expanded into mall parking in 2026 with barrierless (ANPR) operations and AI-driven enforcement deals.",
+    "majid_al_futtaim": "Barrierless parking live at Mall of the Emirates since 2026-02-03 under a 5-year Majid Al Futtaim deal that also covers City Centre Deira and City Centre Mirdif (~21,000 spaces; mall tariffs unchanged).",
+    "emaar": "AI-driven enforcement agreement (May 2026) covering Dubai Mall, Dubai Hills Mall, and Marina Mall using licence-plate recognition.",
+    "al_futtaim": "5-year enforcement deal (May 2026) with Al Futtaim Group covering Dubai Festival City Mall, Festival Plaza, and Arabian Centre.",
+    "secure_parking_jv": "Partnership with Secure Parking announced 2026-04-15 to roll out 60,000 barrier-free smart parking spaces across the UAE.",
+    "source_urls": [
+      "https://www.khaleejtimes.com/uae/transport/dubai-barrierless-parking-at-mall-of-the-emirates-begins-today-all-you-need-to-know",
+      "https://www.arabianbusiness.com/business/transport/parkin-and-secure-parking-partner-to-launch-60000-barrier-free-smart-parking-spaces-across-the-uae",
+      "https://www.zawya.com/en/press-release/companies-news/parkin-to-deploy-ai-driven-enforcement-at-dubai-mall-dubai-hills-mall-and-marina-mall-under-new-emaar-agreement-hkskz8ou"
+    ]
   },
   "mparking": {
     "sms_shortcode": "7275",

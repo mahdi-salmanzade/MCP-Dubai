@@ -115,6 +115,7 @@ async def rera_rent_increase(
                 "max_new_rent_aed": max_new_rent_aed,
                 "slab_description": slab_description,
                 "notice_note": rera.get("notice_rule"),
+                "rent_cap_status": rera.get("rent_cap_status"),
             },
             knowledge=KNOWLEDGE,
         )

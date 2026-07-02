@@ -263,7 +263,10 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
             "endpoint": "opendata.fcsc.gov.ae",
             "requires_auth": False,
             "initial_status": "blocked",
-            "initial_reason": "Cloudflare bot protection active as of 2026-04-13.",
+            "initial_reason": (
+                "Cloudflare bot protection still active as of 2026-07-02. "
+                "The same FCSC datasets are browsable on bayanat.ae."
+            ),
             "features": ["fcsc_ckan"],
         },
         {
@@ -325,10 +328,51 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
         },
         {
             "name": "rta_gtfs",
-            "endpoint": "gtfs-source-feeds.transit.land",
+            "endpoint": "www.dubaipulse.gov.ae (direct file download)",
             "requires_auth": False,
-            "initial_status": "unknown",
+            "initial_status": "working",
+            "initial_reason": (
+                "Anonymous 7z download verified 2026-07-02. The old "
+                "transit.land mirror now returns 401."
+            ),
             "features": ["rta"],
+        },
+        {
+            "name": "dfm",
+            "endpoint": "api2.dfm.ae",
+            "requires_auth": False,
+            "initial_status": "working",
+            "initial_reason": "Undocumented anonymous JSON endpoints, verified 2026-07-02.",
+            "features": ["dfm"],
+        },
+        {
+            "name": "makani",
+            "endpoint": "www.makani.ae/MakaniPublicDataService",
+            "requires_auth": False,
+            "initial_status": "working",
+            "initial_reason": "Official Dubai Municipality public SOAP service, verified 2026-07-02.",
+            "features": ["makani"],
+        },
+        {
+            "name": "gold_rate",
+            "endpoint": "dubaicityofgold.com",
+            "requires_auth": False,
+            "initial_status": "working",
+            "initial_reason": (
+                "Server-rendered DJG retail rates page, parsed as HTML. Verified 2026-07-02."
+            ),
+            "features": ["gold_rate"],
+        },
+        {
+            "name": "data_dubai_catalog",
+            "endpoint": "data.dubai/o/c",
+            "requires_auth": False,
+            "initial_status": "working",
+            "initial_reason": (
+                "Credential-free catalog metadata API on the portal that "
+                "replaced Dubai Pulse. Verified 2026-07-02."
+            ),
+            "features": ["data_dubai"],
         },
     ]
 

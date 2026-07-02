@@ -135,7 +135,7 @@ class TestSetupAdvisorEnvelope:
         assert isinstance(knowledge, dict)
         assert knowledge["volatility"] == "high"
         assert knowledge["verify_at"] == "https://invest.dubai.ae"
-        assert knowledge["knowledge_date"] == "2026-04-13"
+        assert knowledge["knowledge_date"] == "2026-07-02"
         assert "disclaimer" in knowledge
 
     @pytest.mark.asyncio
@@ -213,7 +213,7 @@ class TestSetupAdvisorDiscovery:
         registry = get_knowledge_registry()
         meta = registry.get("setup_advisor")
         assert meta is not None
-        assert meta.knowledge_date == "2026-04-13"
+        assert meta.knowledge_date == "2026-07-02"
         assert meta.volatility == "high"
 
     def test_recommend_for_setup_query(self) -> None:

@@ -10,19 +10,19 @@ MCP-Dubai is designed so that each user obtains their own API keys. This keeps y
 
 | Env Variable | Required? | Cost | Unlocks | Time to Get |
 |---|---|---|---|---|
-| *(none)* | no | Free | **82 tools**: prayer times, Quran, exchange rates, schools, aviation weather, OSM POIs, holidays, every business advisor tool, and the meta tools | Instant |
-| `MCP_DUBAI_WAQI_TOKEN` | Optional | Free | Air quality tools (`air_quality_dubai`, `air_quality_by_coords`, `air_quality_dubai_stations`) | ~2 minutes |
-| `MCP_DUBAI_PULSE_CLIENT_ID` | Optional | Free | Tier 1 tools: DLD real estate, RTA transport, DHA health, DEWA, DTCM tourism, and more | ~14 days (approval) |
+| *(none)* | no | Free | **112 of 120 tools**: prayer times, Quran, exchange rates, weather, schools, OSM POIs, holidays, DFM market data, Makani, gold rates, the data.dubai catalog, every business advisor tool, both agent skills, and the meta tools | Instant |
+| `MCP_DUBAI_WAQI_TOKEN` | Optional | Free | Air quality readings (`air_quality_dubai`, `air_quality_by_coords`); the station list tool works without it | ~2 minutes |
+| `MCP_DUBAI_PULSE_CLIENT_ID` | Optional | Free | Tier 1 tools: DLD real estate + RTA transport (6 tools); more agencies planned in Phase 8 | ~14 days (approval) |
 | `MCP_DUBAI_PULSE_CLIENT_SECRET` | Optional | Free | (same as above, used together with CLIENT_ID) | (same as above) |
 | `MCP_DUBAI_CALENDARIFIC_KEY` | Optional | Free tier | Future: automated holiday calendar refresh | ~2 minutes |
 
-**Zero keys = 81 fully working tools.** Keys only unlock additional features.
+**Zero keys = 112 fully working tools.** Keys only unlock additional features.
 
 ---
 
 ## Tier 0: No Keys Needed (works immediately)
 
-These 9 API integrations and 6 business knowledge modules require **zero configuration**:
+These 14 credential-free API integrations and 17 business knowledge modules require **zero configuration**:
 
 **Live APIs (anonymous):**
 - **Al-Adhan**: Prayer times, Qibla direction, Hijri/Gregorian conversion
@@ -31,12 +31,18 @@ These 9 API integrations and 6 business knowledge modules require **zero configu
 - **FCSC CKAN**: UAE federal open data portal *(currently Cloudflare-blocked; returns structured error)*
 - **KHDA**: Dubai private school search by rating, curriculum, area, fees
 - **Aviation Weather**: METAR/TAF for all 6 UAE international airports
+- **Open-Meteo**: Human-friendly weather and forecasts for UAE cities
+- **ExchangeRate-API**: Everyday AED-base currency conversion
 - **OSM Overpass**: Find nearby restaurants, pharmacies, mosques, ATMs, metro stations (22 categories)
+- **DFM**: Dubai Financial Market index and stock quotes (undocumented, best-effort)
+- **Makani**: Dubai Municipality geo-addressing (Makani numbers, reverse geocoding)
+- **Dubai City of Gold**: DJG retail gold rates, AED per gram
+- **data.dubai catalog**: Dataset search across 76 Dubai government entities (metadata only)
 - **UAE Holidays**: Federal public holidays with provisional lunar date flagging
 
 **Curated business knowledge (static, no API):**
-- Setup Advisor, Free Zones, Visas, Banking, Founder Essentials, Tax Compliance
-- 15 tools total, all with source citations and knowledge freshness dates
+- Setup Advisor, Free Zones, Visas, Banking, Founder Essentials, Tax Compliance, Compliance, Funding, Gov Portals, DCDE, Events, Parkin, IP/Trademark, Halal, Create Apps, Cost of Living, Tenancy
+- 56 tools total, all with source citations and knowledge freshness dates
 
 Just install and run:
 ```bash
@@ -92,10 +98,15 @@ Or in Claude Desktop config:
 
 ## 🏛️ Dubai Pulse Credentials (Government Data)
 
-**What it unlocks:** This is the big one. Dubai Pulse is the unified API gateway for Dubai government data. With credentials, MCP-Dubai can access:
+**What it unlocks:** This is the big one. Dubai Pulse (now the data.dubai / apis.data.dubai gateway) is the unified API layer for Dubai government data.
 
-- **DLD**: Real estate transactions, land registry, property developers, rental index
-- **RTA**: Transport routes, bus stops, taxi stands, tram stations, metro data
+**Available now** (built and wired in MCP-Dubai):
+
+- **DLD**: Real estate sale transactions, Ejari rent contracts, RERA broker lookup (3 tools)
+- **RTA**: Metro stations, bus routes, Salik tariff (3 tools; the GTFS download tool needs no credentials)
+
+**Planned (Phase 8, not yet built)** so credentials alone will not surface these today:
+
 - **DHA**: Health facilities and services
 - **DEWA**: Utilities (electricity & water) data
 - **DTCM**: Tourism statistics
@@ -109,18 +120,26 @@ Or in Claude Desktop config:
 
 **How to get it:**
 
-### Step 1: Create a Dubai Pulse account
+### Step 1: Create an account on data.dubai (formerly Dubai Pulse)
 
-1. Go to [https://www.dubaipulse.gov.ae](https://www.dubaipulse.gov.ae)
+> **Portal migration (verified 2026-07-02):** the Dubai Pulse portal
+> (www.dubaipulse.gov.ae) was decommissioned between December 2025 and
+> January 2026 and now redirects to [https://data.dubai](https://data.dubai),
+> run by the Dubai Data and Statistics Establishment. The API gateway moved
+> to `apis.data.dubai` with the same `/open/{entity}/{dataset}-open-api`
+> pattern; the legacy `api.dubaipulse.gov.ae` host still resolves and stays
+> the default base URL. Dataset slugs below are unchanged on the API side.
+
+1. Go to [https://data.dubai](https://data.dubai)
 2. Sign up / log in (you may need a UAE Pass or email registration)
 
 ### Step 2: Request access to open datasets
 
-Each dataset has its own access request. Navigate to any dataset page and click **"Get Access"** then **"Request Permission"**, agree to terms, and click **"Send Request"**.
+Each dataset has its own access request. Find the dataset in the data.dubai catalog and follow its access request flow, agree to terms, and submit.
 
-**Recommended datasets to request first** (all labeled "open", all free):
+**Recommended datasets to request first** (all labeled "open", all free; paths shown are the legacy Dubai Pulse slugs, which still identify the datasets on the API gateway):
 
-| Dataset | URL path on dubaipulse.gov.ae | Agency |
+| Dataset | Legacy URL path (dataset slug) | Agency |
 |---|---|---|
 | Real estate transactions | `/data/dld-transactions/dld_transactions-open-api` | DLD |
 | Land registry | `/data/dld-registration/dld_land_registry-open-api` | DLD |

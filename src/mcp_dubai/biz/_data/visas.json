@@ -1,10 +1,10 @@
 {
   "domain": "visas",
-  "knowledge_date": "2026-04-13",
+  "knowledge_date": "2026-07-02",
   "volatility": "high",
   "verify_at": "https://u.ae/en/information-and-services/visa-and-emirates-id",
   "source_brief_section": "6.3",
-  "disclaimer": "Visa thresholds change frequently in the UAE. Verify the current ICP rules before applying. Recent changes captured: Golden Visa specialized-talent salary tightened to AED 30,000 basic monthly verified over 24 months. Federal health insurance mandate kicked in January 2025. Visa stickers discontinued since 2022 (residency is digitally tied to Emirates ID).",
+  "disclaimer": "Visa thresholds change frequently in the UAE. Verify the current ICP rules before applying. Recent changes captured (as of July 2026): Dubai removed the AED 750,000 minimum for the 2-year property investor visa for sole owners (April 2026, reported via the DLD Cube Centre with no formal decree); GDRFA Dubai took over Golden, Retiree and Property residency intake from DLD (MoU of 11 April 2026); MoHRE relaunched work permits around 13 types with AI screening of all new applications from May 2026; visa-on-arrival expanded to 6 new nationalities holding residence permits from 9 listed countries (25 June 2026); the virtual work visa now requires 6 months of bank statements. Golden Visa specialized-talent salary remains AED 30,000 basic monthly verified over 24 months. Federal health insurance mandate kicked in January 2025. Visa stickers discontinued since 2022 (residency is digitally tied to Emirates ID).",
   "currency": "AED",
   "visas": [
     {
@@ -55,6 +55,39 @@
       ]
     },
     {
+      "id": "visa_on_arrival",
+      "name": "Visa on Arrival (14 or 60 days)",
+      "duration_label": "14 or 60 days",
+      "track": "tourist",
+      "best_for": [
+        "eligible nationalities and qualifying residence-permit holders arriving without a pre-arranged visa"
+      ],
+      "eligibility": [
+        "Nationals of the standard visa-on-arrival countries (per the current ICP list)",
+        "Since 25 June 2026: ordinary-passport holders of Indonesia, Vietnam, Thailand, the Philippines, Kenya and South Africa (plus accompanying family members), provided they hold a valid residence permit from the US, an EU member state, the UK, Singapore, Japan, South Korea, Australia, New Zealand or Canada",
+        "Indian passport holders: the qualifying-document list widened in June 2026; residence or visas from Singapore, Japan, South Korea, Australia, New Zealand and Canada now qualify in addition to the earlier US, EU and UK list"
+      ],
+      "options": [
+        {
+          "duration_days": 14,
+          "cost_aed": 100,
+          "notes": "Extendable once."
+        },
+        {
+          "duration_days": 60,
+          "cost_aed": 250,
+          "notes": "Non-extendable, single stay."
+        }
+      ],
+      "cost_aed_min": 100,
+      "cost_aed_max": 250,
+      "overstay_fine_aed_per_day": 50,
+      "source_urls": [
+        "https://www.mofa.gov.ae/en/mediahub/news/2026/6/25/uae-grants-visa-on-arrival",
+        "https://www.khaleejtimes.com/uae/uae-expands-entry-visit-visa-eligibility"
+      ]
+    },
+    {
       "id": "investor_partner",
       "name": "Investor / Partner Visa",
       "duration_label": "2 years",
@@ -93,6 +126,30 @@
       ]
     },
     {
+      "id": "property_investor_2yr",
+      "name": "Property Investor Visa (2 years, Dubai)",
+      "duration_label": "2 years",
+      "duration_years": 2,
+      "track": "property_investor",
+      "best_for": [
+        "owners of completed Dubai residential property below the AED 2M Golden Visa threshold"
+      ],
+      "eligibility": [
+        "Sole owners: the AED 750,000 minimum property value was removed in April 2026, so a completed Dubai residential property of any value can qualify, subject to the usual conditions",
+        "Jointly owned property: each co-owner needs a registered share worth at least AED 400,000 (previously each co-owner had to meet the AED 750,000 threshold)",
+        "Mortgaged or instalment-purchased property: bank NOC plus proof that at least 50% of the value or AED 375,000 has been paid",
+        "Property must be completed, with the title deed registered with DLD"
+      ],
+      "change_note": "The relaxed thresholds appeared on the DLD-affiliated Cube Centre platform around 29 April 2026 and were reported by Khaleej Times and Gulf News (Fragomen alert 8 May 2026). No formal decree or announcement was issued, so treat the exact thresholds as subject to confirmation. Note the channel discrepancy: the update surfaced on Cube Centre even though intake had formally moved to GDRFA on 11 April 2026, and it is unclear which platform is authoritative for eligibility rules.",
+      "process_note": "Since the GDRFA-DLD MoU of 11 April 2026, Property Residency applications run through a single GDRFA Dubai channel (document intake, DLD-fed property valuation and title verification, and visa issuance), superseding the earlier DLD Cube / Taskeen application path. Officials framed this as service integration, not a change to eligibility thresholds.",
+      "source_urls": [
+        "https://www.khaleejtimes.com/life-and-living/visa-and-immigration-in-uae/dubai-property-investor-visa-rules-removes-minimum-property-value-requirement",
+        "https://www.fragomen.com/insights/united-arab-emirates-dubai-relaxes-eligibility-criteria-for-two-year-property-investor-residence-visa.html",
+        "https://gulfnews.com/living-in-uae/visa-immigration/dubai-residency-by-investment-guide-1.500523250",
+        "https://mediaoffice.ae/en/news/2026/april/11-04/gdrfa"
+      ]
+    },
+    {
       "id": "employment",
       "name": "Employment Visa",
       "duration_label": "2 years",
@@ -121,8 +178,13 @@
         "attested degree",
         "employer offer letter"
       ],
+      "work_permit_system_note": "MoHRE relaunched the work-permit system on 7 June 2026 around 13 permit types (recruitment from outside the UAE, transfer, family-sponsored, temporary, mission, part-time, juvenile 15-18, student training, UAE/GCC national, Golden Residency holder, trainee UAE national, freelance, private tutoring; several with 2-year validity). Supporting-document requirements were eliminated and mandatory data fields cut roughly 75-97% for certain permits, with unified digital channels and roughly 2-working-day processing. A public e-consultation on further simplified hiring rules runs until 30 July 2026, so more changes are likely in H2 2026.",
+      "ai_screening_note": "From May 2026 all new work-permit applications are screened by a joint ICP-MoHRE AI and robotics platform that scores skills, education, experience and knowledge against ICP identity records and labour-market data, with automatic approval for strong matches and human adjudication for borderline files.",
       "source_urls": [
-        "https://www.mohre.gov.ae"
+        "https://www.mohre.gov.ae",
+        "https://gulfnews.com/uae/mohre-launches-upgraded-uae-work-permits-adds-13-types-to-speed-up-hiring-1.500566457",
+        "https://www.khaleejtimes.com/uae/uae-to-use-ai-robotics-to-screen-work-permit-applicants-from-may",
+        "https://mohre.gov.ae/en/digital-participation/econsultation-and-decision/details?id=3147"
       ]
     },
     {
@@ -147,8 +209,10 @@
       "cost_aed_max": 9500,
       "cost_notes": "Plus dependent visa fees.",
       "process": "Apply via ICP portal or Amer / GDRFA Dubai. Self-sponsored, no employer needed.",
+      "process_note": "In Dubai, the GDRFA-DLD MoU of 11 April 2026 merged Golden, Retiree and Property residency services into a single GDRFA Dubai channel (service integration only; eligibility thresholds unchanged).",
       "source_urls": [
-        "https://icp.gov.ae/en/golden-residency"
+        "https://icp.gov.ae/en/golden-residency",
+        "https://mediaoffice.ae/en/news/2026/april/11-04/gdrfa"
       ]
     },
     {
@@ -163,13 +227,18 @@
       ],
       "eligibility": [
         "Property worth AED 2 million or more (single or combined)",
-        "Property must be paid off (or substantial equity in mortgaged property)",
+        "Traditionally the property had to be fully paid, or have substantial paid-in equity if mortgaged (developer or bank NOC required). April-May 2026 industry guidance suggests off-plan and mortgaged property may now qualify on the DLD-certified valuation alone, but this is UNCONFIRMED; see unverified_note.",
         "Property in approved areas"
       ],
       "cost_aed_min": 3800,
       "cost_aed_max": 9500,
+      "unverified_note": "UNCONFIRMED: industry reports from around February 2026 claim the requirement to have paid 50% (or AED 1 million) of an off-plan or mortgaged property before applying was removed, with the full purchase price recorded on the Oqood counting toward the AED 2 million threshold regardless of the amount paid (developer or bank NOC still required). No official DLD or ICP decision number has been found, and the sources are real-estate industry blogs plus CEOWORLD. Re-verify against DLD Cube / GDRFA or ICP before relying on this; note the tension with the 2-year property visa rules, which still reference 50% or AED 375,000 paid for mortgaged property.",
+      "process_note": "Since the GDRFA-DLD MoU of 11 April 2026, Dubai Golden Residency applications linked to real estate run through a single GDRFA Dubai channel with DLD-fed property valuation and title verification (service integration only; eligibility thresholds unchanged).",
       "source_urls": [
-        "https://icp.gov.ae/en/golden-residency"
+        "https://icp.gov.ae/en/golden-residency",
+        "https://gulfnews.com/living-in-uae/visa-immigration/dubai-residency-by-investment-guide-1.500523250",
+        "https://www.fragomen.com/insights/united-arab-emirates-dubai-relaxes-eligibility-criteria-for-two-year-property-investor-residence-visa.html",
+        "https://mediaoffice.ae/en/news/2026/april/11-04/gdrfa"
       ]
     },
     {
@@ -274,13 +343,17 @@
       ],
       "eligibility": [
         "Employment contract with a foreign (non-UAE) employer",
-        "USD 3,500 minimum monthly salary",
+        "USD 3,500 minimum monthly salary (per the official GDRFA Dubai service page as of July 2026)",
+        "Six consecutive months of bank statements to prove the income requirement (raised from three months in late January 2026)",
         "Health insurance valid in the UAE"
       ],
-      "cost_aed_min": 0,
-      "cost_aed_max": 0,
+      "cost_aed_min": 230,
+      "cost_aed_max": 730,
+      "cost_notes": "AED 200 visa fee plus 5% VAT, plus AED 10 knowledge and AED 10 innovation dirhams (AED 230 total); AED 500 extra for inside-country applications, bringing the maximum to AED 730 (per the GDRFA Dubai service page).",
+      "unverified_note": "UNCONFIRMED: some aggregators claim the income floor rose to USD 5,000 per month for employed applicants and that required health-insurance cover rose to AED 500,000. Neither figure is reflected on the official GDRFA service page as of July 2026, so treat them as unconfirmed.",
       "source_urls": [
-        "https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/virtual-working-programme"
+        "https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/virtual-working-programme",
+        "https://www.gdrfad.gov.ae/en/services/64154a31-ec6d-11ec-140b-0050569629e8"
       ]
     },
     {
@@ -296,8 +369,10 @@
         "Age 55 or older",
         "AED 1 million property OR savings, OR AED 20,000 monthly income"
       ],
+      "process_note": "Since the GDRFA-DLD MoU of 11 April 2026, Retiree Residency services in Dubai run through a single GDRFA Dubai channel together with Golden and Property residency (service integration only; eligibility unchanged).",
       "source_urls": [
-        "https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/retirement-visa"
+        "https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/retirement-visa",
+        "https://mediaoffice.ae/en/news/2026/april/11-04/gdrfa"
       ]
     },
     {
@@ -320,6 +395,29 @@
       "timeline_weeks_max": 4,
       "source_urls": [
         "https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/residence-visa-for-family-members"
+      ]
+    }
+  ],
+  "myth_busters": [
+    {
+      "claim": "A lifetime UAE Golden Visa can be bought for AED 100,000 by Indian and Bangladeshi nationals through overseas consultancies",
+      "status": "officially_denied",
+      "note": "ICP again formally denied this in late January 2026 after the claims resurfaced on social media (the original July 2025 Rayad Group story had already been debunked, and Rayad Group publicly apologised). ICP called the reports without legal basis, reiterated that all Golden Visa applications go exclusively through official government channels with no external advisory body approved, and warned of legal action under cybercrime law. No lifetime or nationality-specific nomination Golden Visa exists as of July 2026.",
+      "source_urls": [
+        "https://www.khaleejtimes.com/life-and-living/visa-and-immigration-in-uae/uae-golden-visa-confusion-apology-clarification",
+        "https://traveltradejournal.com/uae-authorities-reject-claims-of-lifetime-golden-visas-for-certain-nationalities-rayad-group-issues-apology-following-icp-clarification/"
+      ]
+    }
+  ],
+  "upcoming": [
+    {
+      "id": "gcc_grand_tours",
+      "name": "GCC unified tourist visa (Grand Tours)",
+      "status": "expected_not_live",
+      "note": "The unified GCC tourist visa pilot has slipped again and is now expected in Q4 2026, linking Dubai International with Bahrain International first (QR-code validation, ICP data sharing), with Saudi Arabia, Oman, Qatar and Kuwait joining in early 2027 if successful. Indicative pricing floated around USD 100 for single-country and USD 120-130 for a multi-country 60-90 day permit. The Q4 2026 Dubai-Bahrain pilot detail comes from secondary aggregators, so treat this as an expected timeline, not a live product.",
+      "source_urls": [
+        "https://gulfnews.com/business/tourism/unified-gcc-visa-now-coming-in-2026-whats-behind-the-new-launch-date-1.500339495",
+        "https://www.visahq.com/news/2026-04-14/ae/gcc-unified-tourist-visa-pilot-set-for-q4-2026-with-dubai-bahrain-air-corridor-first-in-line/"
       ]
     }
   ]

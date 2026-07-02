@@ -191,6 +191,14 @@ async def visa_recommend(
             "golden_investor_real_estate",
             "Real estate worth AED 2 million or more in approved areas qualifies for the 10-year Golden Visa.",
         )
+        _add(
+            "property_investor_2yr",
+            "Below AED 2M, Dubai's 2-year Property Investor Visa is the fallback: "
+            "the AED 750,000 minimum was removed for sole owners in April 2026 "
+            "(any completed Dubai residential property can qualify, subject to "
+            "the usual conditions); co-owners need a registered share of at "
+            "least AED 400,000 each.",
+        )
 
     elif profile == "specialized_talent":
         _add(
@@ -288,7 +296,15 @@ async def golden_visa_check(
             eligible.append(
                 {
                     "category": "real_estate_investor",
-                    "criterion": "AED 2,000,000+ in UAE property in approved areas.",
+                    "criterion": (
+                        "AED 2,000,000+ in UAE property in approved areas. "
+                        "Traditionally paid-off (or substantial equity if "
+                        "mortgaged, with NOC); April-May 2026 industry "
+                        "guidance suggests off-plan and mortgaged property "
+                        "may now qualify on the DLD-certified valuation, "
+                        "but that change is UNCONFIRMED. Verify with "
+                        "GDRFA/ICP."
+                    ),
                 }
             )
         else:
@@ -296,7 +312,10 @@ async def golden_visa_check(
                 {
                     "category": "real_estate_investor",
                     "criterion": (
-                        f"Need AED 2,000,000+ in property. Have AED {real_estate_value_aed}."
+                        f"Need AED 2,000,000+ in property. Have AED {real_estate_value_aed}. "
+                        "Consider Dubai's 2-year Property Investor Visa instead: the "
+                        "minimum value was removed for sole owners in April 2026 "
+                        "(AED 400,000 share per co-owner for joint ownership)."
                     ),
                 }
             )

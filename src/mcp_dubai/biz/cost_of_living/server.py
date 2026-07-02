@@ -63,7 +63,8 @@ async def salik_toll_estimate(
 ) -> dict[str, object]:
     """
     Deterministic Salik toll (AED) for a time of day using the official
-    variable-pricing windows.
+    variable-pricing windows. Figures are VAT-inclusive (5% VAT applies at
+    the point of use from 2026-06-01).
 
     Args:
         time_of_day: 24-hour HH:MM, e.g. '08:00'.
@@ -87,12 +88,23 @@ async def grocery_estimate(household_size: str = "single") -> dict[str, object]:
 @mcp.tool
 async def school_fee_estimate(stage: str = "primary") -> dict[str, object]:
     """
-    British-curriculum annual school fee range plus the KHDA fee-cap rule.
+    British-curriculum annual school fee range plus the KHDA fee rules,
+    including the 2026-27 fee freeze (no increase allowed that year).
 
     Args:
         stage: One of: foundation_primary, primary, secondary.
     """
     return await tools.school_fee_estimate(stage=stage)
+
+
+@mcp.tool
+async def fuel_price_guide() -> dict[str, object]:
+    """
+    Monthly UAE fuel prices in AED per litre (Super 98, Special 95,
+    E-Plus 91, diesel): the Fuel Price Committee mechanism, the latest
+    monthly snapshot, and the H1 2026 volatility trend.
+    """
+    return await tools.fuel_price_guide()
 
 
 _TOOLS: list[ToolMeta] = [
@@ -154,7 +166,10 @@ _TOOLS: list[ToolMeta] = [
     ),
     ToolMeta(
         name="salik_toll_estimate",
-        description="Deterministic Salik road toll by time of day using the 2025 windows.",
+        description=(
+            "Deterministic Salik road toll by time of day using the 2025 windows, "
+            "VAT-inclusive from June 2026."
+        ),
         feature="cost_of_living",
         tier=TIER_BIZ,
         tags=[
@@ -188,7 +203,10 @@ _TOOLS: list[ToolMeta] = [
     ),
     ToolMeta(
         name="school_fee_estimate",
-        description="British-curriculum school fee range and the KHDA fee-cap rule.",
+        description=(
+            "British-curriculum school fee range, the 2026-27 KHDA fee freeze, "
+            "and the fee-cap rule."
+        ),
         feature="cost_of_living",
         tier=TIER_BIZ,
         tags=[
@@ -200,6 +218,29 @@ _TOOLS: list[ToolMeta] = [
             "primary",
             "secondary",
             "tuition",
+            "fee freeze",
+        ],
+    ),
+    ToolMeta(
+        name="fuel_price_guide",
+        description=(
+            "Monthly UAE fuel prices in AED per litre (Super 98, Special 95, "
+            "E-Plus 91, diesel) with the Fuel Price Committee mechanism."
+        ),
+        feature="cost_of_living",
+        tier=TIER_BIZ,
+        tags=[
+            "fuel",
+            "petrol",
+            "gasoline",
+            "diesel",
+            "بنزين",
+            "وقود",
+            "fuel price",
+            "super 98",
+            "special 95",
+            "e-plus 91",
+            "driving",
         ],
     ),
 ]

@@ -107,6 +107,13 @@ class TestReraRentIncrease:
         assert "90 days" in str(data["notice_note"])
 
     @pytest.mark.asyncio
+    async def test_includes_rent_cap_status(self) -> None:
+        result = await tools.rera_rent_increase(current_annual_rent=90000, area_average_rent=100000)
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert "unchanged as of 2026-07-02" in str(data["rent_cap_status"])
+
+    @pytest.mark.asyncio
     async def test_zero_current_rent_fails(self) -> None:
         result = await tools.rera_rent_increase(current_annual_rent=0, area_average_rent=100000)
         assert result["success"] is False
@@ -157,13 +164,48 @@ class TestRentalDisputeGuide:
         assert result["success"] is False
 
 
+class TestJuly2026PackAdditions:
+    def test_flexi_rent_block(self) -> None:
+        from mcp_dubai.biz._data.loader import load_data_file
+
+        data = load_data_file("tenancy.json")
+        flexi = data["flexi_rent"]
+        assert flexi["launched"] == "2026-06-23"
+        assert "monthly, quarterly, or semi-annual instalments" in flexi["summary"]
+        partners = flexi["partners"]
+        assert partners["count_at_launch"] == 12
+        assert "Deyaar" in partners["named"]
+        assert "Wasl" in partners["named"]
+        assert len(flexi["source_urls"]) >= 2
+
+    def test_shared_housing_block(self) -> None:
+        from mcp_dubai.biz._data.loader import load_data_file
+
+        data = load_data_file("tenancy.json")
+        shared = data["shared_housing"]
+        assert shared["law"] == "Dubai Law No. 4 of 2026"
+        assert shared["fines"]["max_aed"] == 1000000
+        assert "1 year" in shared["grace_period"]
+        assert any("Registry" in rule for rule in shared["key_rules"])
+        assert len(shared["source_urls"]) >= 3
+
+    def test_dld_initiatives_2026_block(self) -> None:
+        from mcp_dubai.biz._data.loader import load_data_file
+
+        data = load_data_file("tenancy.json")
+        initiatives = data["dld_initiatives_2026"]
+        assert "22 participating developers" in initiatives["first_time_home_buyer"]
+        assert "PRYPCO Mint" in initiatives["tokenization"]
+        assert "2026" in initiatives["smart_rental_index"]
+
+
 class TestKnowledge:
     @pytest.mark.asyncio
     async def test_envelope_includes_knowledge(self) -> None:
         result = await tools.ejari_guide()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-06-26"
+        assert knowledge["knowledge_date"] == "2026-07-02"
         assert knowledge["volatility"] == "medium"
 
     def test_registers_with_knowledge_registry(self) -> None:

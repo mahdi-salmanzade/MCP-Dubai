@@ -1,10 +1,10 @@
 {
   "domain": "compliance",
-  "knowledge_date": "2026-04-13",
-  "volatility": "stable",
+  "knowledge_date": "2026-07-02",
+  "volatility": "medium",
   "verify_at": "https://www.fiu.gov.ae",
   "source_brief_section": "6.6",
-  "disclaimer": "Compliance frameworks (ESR repealed, AML, UBO, PDPL) are stable but enforcement guidance changes. Always check the regulator portal before filing.",
+  "disclaimer": "The AML framework was overhauled by Federal Decree-Law 10 of 2025 (in force 14 October 2025) and Emiratisation targets carry monthly charges from 1 July 2026. UBO and PDPL are stable but enforcement guidance changes. Always check the regulator portal before filing.",
   "esr": {
     "name": "Economic Substance Regulations",
     "status": "DEAD for periods after 2022-12-31",
@@ -28,9 +28,22 @@
     ]
   },
   "aml_cft": {
-    "name": "Anti-Money Laundering and Counter-Financing of Terrorism",
-    "law": "Federal Decree-Law 20 of 2018",
-    "implementing_regulation": "Cabinet Decision 10 of 2019",
+    "name": "Anti-Money Laundering, Counter-Financing of Terrorism and Proliferation Financing",
+    "law": "Federal Decree-Law 10 of 2025",
+    "law_in_force_since": "2025-10-14",
+    "implementing_regulation": "Cabinet Resolution 134 of 2025 (in force 2025-12-14)",
+    "previous_law": {
+      "law": "Federal Decree-Law 20 of 2018",
+      "implementing_regulation": "Cabinet Decision 10 of 2019",
+      "status": "Repealed and replaced by Federal Decree-Law 10 of 2025 with effect from 2025-10-14. Cited only for conduct predating that date."
+    },
+    "key_changes_2025": [
+      "Fines for legal persons raised to AED 5,000,000 to 100,000,000",
+      "Tax evasion added as a predicate offence",
+      "Virtual assets and VASPs explicitly covered",
+      "Proliferation financing added as a standalone offence category"
+    ],
+    "dfsa_alignment": "DFSA (DIFC) AML rulebook aligned with Federal Decree-Law 10 of 2025 effective 2026-03-02.",
     "regulator": "UAE Financial Intelligence Unit (FIU)",
     "portal": "goAML",
     "portal_url": "https://www.fiu.gov.ae",
@@ -67,13 +80,52 @@
       }
     ],
     "fines_aed": {
-      "minimum": 50000,
-      "maximum": 1000000
+      "legal_persons_minimum": 5000000,
+      "legal_persons_maximum": 100000000,
+      "notes": "Fine range for legal persons under Federal Decree-Law 10 of 2025 (previously AED 50,000 to 1,000,000 under FDL 20 of 2018). Administrative penalties for DNFBP registration or reporting breaches are set separately by the supervisory authorities."
     },
-    "vara_separate": "Crypto / virtual asset businesses fall under VARA Law 4 of 2022, V2.0 Rulebook effective 19 June 2025. Travel Rule applies. Monero and Zcash are banned.",
+    "vara_separate": "Crypto / virtual asset businesses in Dubai fall under VARA Law 4 of 2022, V2.0 Rulebook effective 19 June 2025. Travel Rule applies. Monero and Zcash are banned. Federal Decree-Law 10 of 2025 now also covers virtual assets at the federal AML level.",
     "source_urls": [
+      "https://uaelegislation.gov.ae/en/legislations/3314",
+      "https://rulebook.centralbank.ae/en/rulebook/federal-decree-law-no-10-2025-regarding-anti-money-laundering-and-combating-financing",
+      "https://www.whitecase.com/insight-alert/uae-enacts-new-aml-law-what-are-key-changes-and-what-does-mean-your-business",
+      "https://www.hsfkramer.com/notes/middle-east/2026-posts/the-uae-introduces-landmark-new-aml-and-cft-law",
       "https://www.fiu.gov.ae",
       "https://www.vara.ae"
+    ]
+  },
+  "emiratisation": {
+    "name": "Emiratisation (Nafis programme targets)",
+    "regulator": "Ministry of Human Resources and Emiratisation (MOHRE)",
+    "portal_url": "https://www.mohre.gov.ae",
+    "applies_to": "Private-sector companies registered with MOHRE (free zones are generally out of scope except where a zone opts in)",
+    "firms_50_plus": {
+      "scope": "Private-sector companies with 50 or more employees",
+      "target": "Increase Emirati headcount in skilled roles by 1% every half-year (2% per year), toward a 10% Emiratisation rate by end of 2026 under the current programme.",
+      "h1_2026_deadline": "2026-06-30",
+      "h1_2026_deadline_status": "PASSED. The 30 June 2026 deadline for the first-half 1% increment has expired.",
+      "non_compliance_charge": {
+        "monthly_charge_aed_per_position": 10000,
+        "annual_equivalent_aed_per_position": 120000,
+        "charged_from": "2026-07-01",
+        "notes": "From 1 July 2026 MOHRE collects AED 10,000 per month for each unachieved Emiratisation position (AED 120,000 per year per position). The rate started at AED 6,000/month in 2022 and rises AED 1,000 each year."
+      }
+    },
+    "firms_20_to_49": {
+      "scope": "Private-sector companies with 20 to 49 employees in 14 selected economic sectors",
+      "sectors_note": "Selected sectors include information and communications, financial and insurance, real estate, professional and technical activities, administrative and support services, education, healthcare and social work, construction, wholesale and retail, transport and warehousing, hospitality, arts and entertainment, mining, and manufacturing.",
+      "quota": "At least 1 Emirati by end of 2024 and at least 2 Emiratis by end of 2025.",
+      "non_compliance_charge": {
+        "shortfall_2024_aed": 96000,
+        "shortfall_2025_aed": 108000,
+        "notes": "One-off yearly contributions: AED 96,000 collected in January 2025 for a 2024 shortfall and AED 108,000 collected in January 2026 for a 2025 shortfall (instalment options available). The regime remains operative for 2026 enforcement; no new quota beyond the 2-Emirati level has been announced as of 2026-07-02."
+      }
+    },
+    "enforcement": "MOHRE runs digital field monitoring to detect fake Emiratisation (ghost employees, paper-only contracts). When an Emirati employee leaves, the employer has two months to replace them before the position counts as unachieved.",
+    "source_urls": [
+      "https://www.mohre.gov.ae/ar/media-center/news/22/6/2026/mohre-30-june-final-deadline-for-achieving-private-sector-emiratisation-targets-for-the-first-half",
+      "https://gulfnews.com/uae/uae-urges-private-sector-to-meet-emiratisation-target-before-june-30-1.500529886",
+      "https://www.mohre.gov.ae"
     ]
   },
   "ubo": {

@@ -1,12 +1,106 @@
 {
   "domain": "free_zones",
-  "knowledge_date": "2026-04-13",
+  "knowledge_date": "2026-07-02",
   "volatility": "high",
   "verify_at": "https://www.dubaichamber.com/en/digital",
   "source_brief_section": "6.2",
   "disclaimer": "Free zone pricing is indicative and changes annually. Verify with the official free zone website before quoting figures to a founder.",
   "currency": "AED",
   "renewal_note": "Renewal cost is roughly equal to or slightly less than first-year setup. The myth that renewal is 20-30% higher is incorrect. Cost compounding over time comes from facility rent escalation and 2-to-3-year visa renewal cycles.",
+  "freezone_to_mainland": {
+    "name": "Free Zone Mainland Operating Permit",
+    "legislation": "Dubai Executive Council Resolution No. 11 of 2025",
+    "status": "Fully operational in 2026. Free zone companies can obtain DET permits or licences to operate onshore in mainland Dubai.",
+    "launched": "2025-10-08",
+    "apply_via": "Invest in Dubai platform (digital application; requires a Dubai Unified Licence)",
+    "permit_types": [
+      {
+        "type": "branch_licence",
+        "fee_aed": 10000,
+        "period": "per year"
+      },
+      {
+        "type": "remote_branch_licence",
+        "fee_aed": 10000,
+        "period": "per year"
+      },
+      {
+        "type": "temporary_permit",
+        "fee_aed": 5000,
+        "period": "6 months, renewable at the same fee"
+      }
+    ],
+    "phase_one_scope": "Non-regulated activities only (tech, consultancy, design, professional services, trading). Regulated sectors (finance, healthcare, education, real estate) are deferred to a later phase.",
+    "regularisation_deadline": "2026-03-03",
+    "regularisation_status": "The one-year regularisation deadline for free zone firms already operating onshore passed on 2026-03-03. A one-time extension (to March 2027 at most) was available only if applied for before the deadline. Firms operating onshore without a permit after that date face fines and licence suspension.",
+    "tax_note": "Mainland-sourced revenue is subject to 9% corporate tax with mandatory separate financial records.",
+    "source_urls": [
+      "https://mediaoffice.ae/ar/news/2025/october/08-10/dubai-launches-free-zone-mainland-operating-permit",
+      "https://dlp.dubai.gov.ae/Legislation%20Reference/2025/Executive%20Council%20Resolution%20No.%20(11)%20of%202025%20Regulating%20the%20Conduct%20of%20Free%20Zone%20Establishments%E2%80%99%20Activities.html",
+      "https://www.reedsmith.com/our-insights/blogs/viewpoints/102l0qt/new-era-for-free-zone-mainland-integration-dubais-executive-council-resolution/",
+      "https://virtuzone.com/blog/free-zone-mainland-operating-permit/"
+    ]
+  },
+  "developments_2026": [
+    {
+      "id": "dso_district_io",
+      "zone_id": "dso_dtec",
+      "date": "2026-01-22",
+      "headline": "District IO innovation district launched at DSO/DIEZ (AED 12.8bn expansion)",
+      "summary": "AED 12.8 billion of expansion projects for Dubai Silicon Oasis under DIEZ. District IO (AED 11bn, 25 energy-efficient buildings including 18 commercial, phase one from 2026, phase two 2027) targets smart mobility, 3D printing, robotics, AI, quantum, Web3 and X-Tech, with incentives including end-to-end setup, funding support, flexible leasing and RegLab product testing without operational licences. Block 14 (AED 1.8bn, transit-oriented development near the Metro Blue Line) completes 2029.",
+      "tag": "official",
+      "source_urls": [
+        "https://www.thenationalnews.com/news/uae/2026/01/22/sheikh-mohammed-bin-rashid-launches-dh128-billion-dubai-silicon-oasis-expansion-plan/",
+        "https://www.khaleejtimes.com/uae/mohammed-bin-rashid-launches-dh128-billion-strategic-expansion-projects-for-dubai-silicon-oasis"
+      ]
+    },
+    {
+      "id": "meydan_remote_setup",
+      "zone_id": "meydan",
+      "date": "2026-03-19",
+      "headline": "Meydan launches fully remote non-residency setup with a guaranteed corporate account via MPlus",
+      "summary": "Fully remote company formation: founders anywhere can obtain a UAE trade licence online in as little as 60 minutes (24 hours for complex structures) across 2,500+ activities, then open a corporate bank account via Meydan's MPlus banking team (26+ banking partners, up to 17 currencies) without travelling to the UAE. Marketed as a guaranteed bank account with the licence.",
+      "tag": "single_source",
+      "caveat": "Single-source Gulf News company-news item. Treat the guaranteed-account claim as marketing until verified directly with Meydan.",
+      "source_urls": [
+        "https://gulfnews.com/gn-focus/company-news/meydan-free-zone-launches-non-residency-business-setup-with-guaranteed-corporate-bank-account-1.500479010"
+      ]
+    },
+    {
+      "id": "dubai_south_incentives",
+      "zone_id": "dubai_south",
+      "date": "2026-04-17",
+      "headline": "Dubai South announces 2026 incentive package",
+      "summary": "New incentives covering support for new company formation, facilitation of licence renewals, and exemptions from late-renewal fines. Detailed financial terms were not publicly disclosed; benefits are applied case by case on application to the free zone authority.",
+      "tag": "single_source",
+      "source_urls": [
+        "https://www.middleeastbriefing.com/news/dubai-south-free-zone-rolls-out-new-incentives/"
+      ]
+    },
+    {
+      "id": "dmcc_26000_members_tether",
+      "zone_id": "dmcc",
+      "date": "2026-06-16",
+      "headline": "DMCC crosses 26,000 members and signs a Tether MoU",
+      "summary": "DMCC signed an MoU with Tether covering blockchain and payment infrastructure within DMCC, tokenisation advisory and ecosystem programmes. DMCC reports 26,000+ member companies including 4,000+ tech firms; the Crypto Centre crossed 700 members (38% YoY growth). DMCC also announced a Crypto.com commodities-tokenisation partnership and launched DMCC Quantum in H1 2026.",
+      "tag": "official",
+      "source_urls": [
+        "https://gulfbusiness.com/en/2026/blockchain/dmcc-signs-blockchain-and-tokenisation-partnership-with-tether/",
+        "https://dmcc.ae/latest-news/dmcc-and-crypto.com-strike-partnership-to-advance-commodities-tokenisation-and-digital-trade-infrastructure"
+      ]
+    },
+    {
+      "id": "al_selmiyyah_defence_fz",
+      "zone_id": null,
+      "date": "2026-05-06",
+      "headline": "Al Selmiyyah Defence Industrial Free Zone announced in Abu Dhabi (outside Dubai)",
+      "summary": "Tawazun Council and AD Ports Group announced a defence industrial free zone in Abu Dhabi aimed at global defence OEMs, domestic production, technology transfer and SME participation in defence supply chains, under the Operation 300bn industrial strategy. No size, timeline or investment figures disclosed yet. Outside Dubai; noted for completeness only and not part of the Dubai zone matrix.",
+      "tag": "official",
+      "source_urls": [
+        "https://www.thenationalnews.com/business/economy/2026/05/06/new-defence-free-zone-to-be-set-up-in-abu-dhabi/"
+      ]
+    }
+  ],
   "free_zones": [
     {
       "id": "ifza",

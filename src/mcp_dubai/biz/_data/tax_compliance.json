@@ -1,10 +1,10 @@
 {
   "domain": "tax_compliance",
-  "knowledge_date": "2026-06-26",
+  "knowledge_date": "2026-07-02",
   "volatility": "high",
   "verify_at": "https://tax.gov.ae",
   "source_brief_section": "6.4",
-  "disclaimer": "UAE corporate tax rules changed materially in 2025/2026 (MD 229/2025 updated QFZP, FTA late-registration penalty waiver in April 2025, Pillar Two DMTT effective January 2025, sweetened drinks tiered excise from January 2026). UAE e-invoicing was legislated in 2025 (Ministerial Decisions 243 and 244 of 2025) with a phased rollout through 2027, and a unified late-payment penalty (Cabinet Decision 129 of 2025) takes effect 14 April 2026. Always verify against the FTA portal before quoting figures.",
+  "disclaimer": "UAE tax rules changed materially through 2025/2026. From 1 January 2026 the VAT Law amendments (FDL 16/2025), the Tax Procedures Law amendments (FDL 17/2025), and the sweetened drinks tiered excise all apply, and a new AML law (FDL 10/2025) has been in force since 14 October 2025. The e-invoicing pilot went live on 1 July 2026; businesses with revenue at or above AED 50M must appoint an Accredited Service Provider by 30 October 2026 (Ministerial Resolution 66 of 2026). The unified late-payment penalty (Cabinet Decision 129 of 2025) took effect 14 April 2026. Always verify against the FTA and MoF portals before quoting figures.",
   "currency": "AED",
   "corporate_tax": {
     "law": "Federal Decree-Law 47 of 2022",
@@ -32,7 +32,7 @@
       "revenue_threshold_aed": 3000000,
       "available_through_periods_ending": "2026-12-31",
       "summary": "Revenue under AED 3M qualifies for full relief through tax periods ending 31 December 2026.",
-      "extension_status_note": "As of June 2026 no extension has been announced. Relief ends for tax periods ending 31 December 2026 and standard corporate tax applies thereafter."
+      "extension_status_note": "As of July 2026 no extension has been announced. Relief ends for tax periods ending 31 December 2026 and standard corporate tax applies thereafter."
     },
     "registration": {
       "deadline_law": "FTA Decision 3 of 2024",
@@ -52,7 +52,40 @@
       "name": "Domestic Minimum Top-up Tax",
       "rate_pct": 15,
       "applies_to": "MNE groups with consolidated revenue at or above EUR 750 million",
-      "effective_from": "2025-01-01"
+      "effective_from": "2025-01-01",
+      "registration_status": {
+        "status": "DMTT registration opened on the EmaraTax portal (reported mid-June 2026); no registration deadline announced yet and comprehensive filing guidance is pending. Verify with the FTA.",
+        "first_return_expected_due": "2027-06-30",
+        "first_return_note": "First top-up tax return (for FY ending 31 December 2025) is expected due 30 June 2027 under an 18-month transitional window. Verify with the FTA.",
+        "source_urls": [
+          "https://mof.gov.ae/uae-domestic-minimum-top-up-tax/",
+          "https://www.deloitte.com/middle-east/en/services/tax/perspectives/uae-pillar-two-registration-updates.html"
+        ]
+      }
+    },
+    "sports_entities_exemption": {
+      "law": "Cabinet Decision 1 of 2026",
+      "decision_date": "2026-01-12",
+      "retroactive_from": "2023-06-01",
+      "summary": "Qualifying non-commercial sports entities (international sports entities, sports entities, and supporting ancillary entities) are exempt from corporate tax retroactively from 1 June 2023. Conditions include recognition by the Ministry of Sports or competent authority and exclusive use of income and assets for the entity's objectives; entities must register and apply for the exemption with the FTA and file an annual declaration.",
+      "source_urls": [
+        "https://mof.gov.ae/en/news/ministry-of-finance-announces-the-issuance-of-a-cabinet-decision-exempting-certain-sports-entities-from-corporate-tax-to-support-the-continued-development-of-the-sports-ecosystem/",
+        "https://mof.gov.ae/wp-content/uploads/2026/02/Cabinet-Decision-No.1-of-2026-on-Exempting-Certain-Sports-Entities-from-Corporate-Tax-for-the-Purposes-of-Federal-Decree-Law-en-10.2.26.pdf"
+      ]
+    },
+    "fta_service_fees": {
+      "law": "Cabinet Decision 174 of 2025",
+      "effective_from": "2026-01-01",
+      "note": "Cabinet Decision 174 of 2025 revised FTA service fees from 1 January 2026: new fees for Unilateral Advance Pricing Agreement applications, and the paid paper Tax Registration Certificate and Warehouse Keeper Registration Certificate replaced by free electronic certificates with QR-code verification.",
+      "source_urls": [
+        "https://tax.gov.ae/en/media.centre/news/implementation.of.amendments.to.certain.provisions.of.the.federal.tax.authoritys.service.fees.effective.from.1.january.2026.aspx"
+      ]
+    },
+    "guides_2026": {
+      "note": "June 2026 FTA publications: updated Corporate Tax Guide on Taxation of Family Foundations (CTGFF1, 10 June 2026), Education Sector VAT Guide (29 June 2026), and a Basic Tax Information Bulletin on Corporate Tax Losses (25 June 2026). Per secondary legal reporting; verify titles and dates on the FTA guides page.",
+      "source_urls": [
+        "https://tax.gov.ae/en/taxes/corporate.tax/corporate.tax.guides.references.aspx"
+      ]
     }
   },
   "vat": {
@@ -64,7 +97,42 @@
       "quarterly_under_aed_revenue": 150000000,
       "monthly_at_or_above_aed_revenue": 150000000
     },
-    "filing_deadline_day_of_month": 28
+    "filing_deadline_day_of_month": 28,
+    "amendments_2026": {
+      "law": "Federal Decree-Law 16 of 2025",
+      "effective_from": "2026-01-01",
+      "changes": [
+        "Reverse-charge imports no longer require self-issued tax invoices.",
+        "Carry-forward of excess recoverable VAT is capped at 5 years from the end of the tax period in which it arose; 2021 credits start expiring during 2026.",
+        "The FTA may deny input VAT recovery on supply chains connected to tax evasion where the recipient knew.",
+        "The VAT Law statute-of-limitations article moved into the Tax Procedures Law."
+      ],
+      "source_urls": [
+        "https://mof.gov.ae/en/news/ministry-of-finance-to-implement-vat-law-amendments-starting-january-2026/",
+        "https://www.dlapiper.com/en/insights/publications/gulf-tax-insights/2025/gulf-tax-insights-december-2025/uae-announces-amendments-to-vat-law-effective-1-january-2026"
+      ]
+    }
+  },
+  "tax_procedures": {
+    "name": "Tax Procedures Law amendments",
+    "law": "Federal Decree-Law 17 of 2025 (amending Federal Decree-Law 28 of 2022)",
+    "effective_from": "2026-01-01",
+    "audit_window": {
+      "standard_years": 5,
+      "extended_years_for_evasion_or_failure_to_register": 15,
+      "extra_years_for_audits_notified_before_expiry": 4,
+      "summary": "The standard 5-year audit and assessment window is extendable up to 15 years for tax evasion or failure to register, and the FTA gets 4 extra years to complete an audit notified before the window expires."
+    },
+    "refunds_and_credit_balances": {
+      "claim_window_years": 5,
+      "basis": "Refunds and credit balances are claimable for a maximum of 5 years from the end of the relevant tax period.",
+      "transition": "Balances older than 5 years are claimable only until 31 December 2026 under a 1-year transition."
+    },
+    "excise_statute_of_limitations": "Consolidated into the Tax Procedures Law; the Excise Tax Law's standalone limitation article was repealed by FDL 17/2025.",
+    "source_urls": [
+      "https://mof.gov.ae/en/news/ministry-of-finance-to-implement-amendments-to-the-tax-procedures-law-starting-early-2026/",
+      "https://www.dlapiper.com/en/insights/publications/gulf-tax-insights/2025/gulf-tax-insights-december-2025/uae-tax-procedures-law-changes-as-per-1-january-2026"
+    ]
   },
   "esr": {
     "name": "Economic Substance Regulations",
@@ -86,7 +154,19 @@
     ]
   },
   "aml_cft": {
-    "law": "Federal Decree-Law 20 of 2018",
+    "law": "Federal Decree-Law 10 of 2025",
+    "in_force_since": "2025-10-14",
+    "executive_regulations": "Cabinet Resolution 134 of 2025",
+    "key_changes": [
+      "Fines for legal persons raised to AED 5,000,000 to AED 100,000,000.",
+      "Tax evasion added as a predicate offence.",
+      "Virtual assets explicitly covered."
+    ],
+    "fines_legal_persons_aed": {
+      "min": 5000000,
+      "max": 100000000
+    },
+    "historical_note": "FDL 10/2025 replaces the Federal Decree-Law 20 of 2018 regime; FDL 20/2018 remains relevant only as a historical reference for pre-October-2025 matters.",
     "regulator": "UAE Financial Intelligence Unit (FIU)",
     "portal": "goAML",
     "dnfbp_categories": [
@@ -95,12 +175,21 @@
       "Auditors",
       "Corporate service providers"
     ],
+    "source_urls": [
+      "https://uaelegislation.gov.ae/en/legislations/3314"
+    ],
     "vara": {
       "name": "Virtual Assets Regulatory Authority of Dubai",
       "law": "Law 4 of 2022",
       "v2_rulebook_effective": "2025-06-19",
       "monero_zcash_status": "banned",
-      "applies_to": "Virtual asset service providers operating in Dubai (excluding DIFC)"
+      "applies_to": "Virtual asset service providers operating in Dubai (excluding DIFC)",
+      "issuance_rulebook_2026": {
+        "note": "April 2026: VARA published its first dedicated Virtual Asset Issuance Rulebook guidance, covering fiat-referenced and asset-referenced tokens and banning anonymity-enhanced cryptocurrencies (AECs), alongside a formal virtual asset derivatives regime.",
+        "source_urls": [
+          "https://rulebooks.vara.ae/rulebook/virtual-asset-issuance-rulebook"
+        ]
+      }
     }
   },
   "ubo": {
@@ -128,34 +217,88 @@
     }
   },
   "excise": {
-    "law": "Federal Decree-Law 7 of 2017",
+    "law": "Federal Decree-Law 7 of 2017 (as amended by Federal Decree-Law 17 of 2025)",
     "categories": ["Tobacco", "Sugary drinks", "Energy drinks", "Sweetened drinks"],
     "sweetened_drinks_volumetric": {
       "effective_from": "2026-01-01",
       "law": "Cabinet Decision 197 of 2025",
-      "rates_aed_per_litre": [0.79, 1.09]
+      "model": "Tiered volumetric excise by sugar content, replacing the flat 50% ad valorem rate on sweetened beverages.",
+      "tiers": [
+        {
+          "band": "5g to under 8g sugar per 100ml",
+          "sugar_g_per_100ml_min": 5,
+          "sugar_g_per_100ml_max": 8,
+          "rate_aed_per_litre": 0.79
+        },
+        {
+          "band": "8g or more sugar per 100ml",
+          "sugar_g_per_100ml_min": 8,
+          "sugar_g_per_100ml_max": null,
+          "rate_aed_per_litre": 1.09
+        }
+      ],
+      "exempt": "Drinks under 5g sugar per 100ml, or sweetened only with artificial sweeteners.",
+      "rates_aed_per_litre": [0.79, 1.09],
+      "certification": "A MoIAT Emirates Conformity Certificate is required to evidence sugar content; uncertified drinks default to the high-sugar band (AED 1.09 per litre).",
+      "source_urls": [
+        "https://mof.gov.ae/en/news/ministry-of-finance-announces-new-amendments-to-the-excise-tax-for-the-tiered-volumetric-model-on-sweetened-beverages/",
+        "https://tax.gov.ae/en/media.centre/news/federal.tax.authority.clarifies.new.aspx"
+      ]
     }
   },
   "e_invoicing": {
     "name": "UAE E-Invoicing",
     "legislation": [
       "Ministerial Decision 243 of 2025",
-      "Ministerial Decision 244 of 2025"
+      "Ministerial Decision 244 of 2025",
+      "Ministerial Resolution 66 of 2026"
     ],
     "model": "PINT AE on a Decentralized Continuous Transaction Control and Exchange (DCTCE) 5-corner model; e-invoices exchanged via accredited service providers (ASPs) and reported to the FTA through EmaraTax",
     "penalties_law": "Cabinet Decision 106 of 2025",
-    "status": "announced timeline, verify against the FTA/MoF before relying on dates",
+    "status": "pilot phase live: the MoF and FTA launched the pilot on 2026-07-01 (announced at the 26 June 2026 Sharjah awareness event) with a selected Taxpayer Working Group; voluntary adoption is open to any business from the same date",
     "rollout": {
       "voluntary_pilot_from": "2026-07-01",
       "mandatory_revenue_at_or_above_aed_50m_from": "2027-01-01",
       "mandatory_revenue_below_aed_50m_from": "2027-07-01",
       "government_entities_from": "2027-10-01"
     },
+    "asp_appointment_deadlines": {
+      "revenue_at_or_above_aed_50m": {
+        "appoint_asp_by": "2026-10-30",
+        "extended_from": "2026-07-31",
+        "extension_law": "Ministerial Resolution 66 of 2026 (dated 14 May 2026)",
+        "go_live": "2027-01-01",
+        "note": "The go-live date is unchanged despite the appointment extension."
+      },
+      "revenue_below_aed_50m": {
+        "appoint_asp_by": "2027-03-31",
+        "go_live": "2027-07-01"
+      },
+      "government_entities": {
+        "go_live": "2027-10-01"
+      }
+    },
+    "asp_register": {
+      "pre_approved_provider_count": 41,
+      "as_of": "2026-07-02",
+      "status": "41 pre-approved eInvoicing Service Providers on the official MoF register; pre-approval under Article 15 of Ministerial Decision 64 of 2025, final accreditation under Article 16 still pending",
+      "register_url": "https://mof.gov.ae/en/about-us/initiatives/einvoicing/pre-approved-einvoicing-service-providers/",
+      "criteria_note": "Accreditation criteria updated by Ministerial Resolution 56 of 2026: active Peppol-certified service providers that passed OpenPeppol conformance testing, with the PSP product operational for at least 2 years."
+    },
+    "technical_docs": {
+      "guidelines": "UAE Electronic Invoicing Guidelines V-1.1 (published 2026-06-01)",
+      "mandatory_fields": "Mandatory Field Requirements V-1.0 (published 2026-02-23)",
+      "format": "PINT AE XML (UBL-based) on the 5-corner DCTCE model",
+      "source_urls": [
+        "https://mof.gov.ae/en/about-us/initiatives/einvoicing/"
+      ]
+    },
     "scope_note": "applies to B2B and B2G transactions; phased by revenue band",
     "source_urls": [
-      "https://mof.gov.ae",
+      "https://mof.gov.ae/en/about-us/initiatives/einvoicing/",
+      "https://mof.gov.ae/en/about-us/initiatives/einvoicing/pre-approved-einvoicing-service-providers/",
       "https://tax.gov.ae",
-      "https://www.deloitte.com/middle-east/en/services/tax/perspectives/release-of-uae-einvoicing-legislation.html"
+      "https://www.deloitte.com/middle-east/en/services/tax/perspectives/uae-e-invoicing-asp-appointment-deadline-extended-but-go-live-remains-01012027.html"
     ]
   },
   "late_payment_penalty": {

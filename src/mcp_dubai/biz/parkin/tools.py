@@ -25,7 +25,10 @@ def _list(name: str) -> list[dict[str, Any]]:
 
 async def parking_zones() -> dict[str, object]:
     """
-    Return Dubai parking (Parkin) zone info, tariffs, and free periods.
+    Return Dubai parking (Parkin) zone info, tariffs, VAT, and free periods.
+
+    From 2026-06-01, 5% VAT applies on top of the base tariffs and cash
+    payments at parking meters are phased out (Nol cards still accepted).
 
     CRITICAL: 'Mawaqif' is Abu Dhabi, not Dubai. Dubai paid parking is
     operated by Parkin Company PJSC.
@@ -37,7 +40,10 @@ async def parking_zones() -> dict[str, object]:
                 "operator": _block("operator"),
                 "naming_correction": _block("naming_correction"),
                 "tariffs": _block("tariffs"),
+                "vat": _block("vat"),
+                "payments": _block("payments"),
                 "zones": _block("zones"),
+                "mall_parking": _block("mall_parking"),
                 "mparking": _block("mparking"),
                 "datasets_status": _block("datasets_status"),
             },

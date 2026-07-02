@@ -112,6 +112,46 @@ class TestCompareFreeZones:
         assert result["success"] is False
 
 
+class TestFreezoneToMainland:
+    @pytest.mark.asyncio
+    async def test_list_free_zones_surfaces_mainland_permit_block(self) -> None:
+        result = await tools.list_free_zones()
+        data = result["data"]
+        assert isinstance(data, dict)
+        mainland = data["freezone_to_mainland"]
+        assert isinstance(mainland, dict)
+        assert mainland["legislation"] == "Dubai Executive Council Resolution No. 11 of 2025"
+        assert mainland["regularisation_deadline"] == "2026-03-03"
+        permit_types = mainland["permit_types"]
+        assert isinstance(permit_types, list)
+        fees = {p["type"]: p["fee_aed"] for p in permit_types}
+        assert fees["branch_licence"] == 10000
+        assert fees["temporary_permit"] == 5000
+        assert "Invest in Dubai" in str(mainland["apply_via"])
+
+    @pytest.mark.asyncio
+    async def test_list_free_zones_surfaces_2026_developments(self) -> None:
+        result = await tools.list_free_zones()
+        data = result["data"]
+        assert isinstance(data, dict)
+        developments = data["developments_2026"]
+        assert isinstance(developments, list)
+        ids = {d["id"] for d in developments}
+        assert "dso_district_io" in ids
+        assert "dmcc_26000_members_tether" in ids
+        # The Meydan remote-setup item is single-source and must be flagged.
+        meydan = next(d for d in developments if d["id"] == "meydan_remote_setup")
+        assert meydan["tag"] == "single_source"
+
+    @pytest.mark.asyncio
+    async def test_developments_do_not_add_zone_matrix_entries(self) -> None:
+        result = await tools.list_free_zones()
+        data = result["data"]
+        assert isinstance(data, dict)
+        zone_ids = {fz["id"] for fz in data["free_zones"]}
+        assert "al_selmiyyah_defence_fz" not in zone_ids
+
+
 class TestListOffshore:
     @pytest.mark.asyncio
     async def test_returns_offshore_options(self) -> None:
@@ -131,7 +171,7 @@ class TestKnowledgeMetadata:
         result = await tools.list_free_zones()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-04-13"
+        assert knowledge["knowledge_date"] == "2026-07-02"
         assert knowledge["volatility"] == "high"
 
 

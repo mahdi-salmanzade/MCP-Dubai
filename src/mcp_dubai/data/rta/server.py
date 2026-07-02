@@ -25,6 +25,10 @@ async def rta_search_metro_stations(
 
     Tier 1, requires Dubai Pulse credentials.
 
+    Covers operating lines only. Blue Line (under construction, opening
+    2029-09-09) and Gold Line (approved 2026, opening 2032-09-09) stations
+    are not in the dataset yet.
+
     Args:
         line: Optional line filter (Red, Green, Route 2020).
         limit: Max records.
@@ -53,6 +57,10 @@ async def rta_salik_tariff() -> dict[str, object]:
 
     Tier 1, requires Dubai Pulse credentials.
 
+    From 2026-06-01 a 5% VAT applies to tolls and tag activation fees
+    (AED 4 becomes AED 4.20, peak AED 6 becomes AED 6.30); the response
+    includes the VAT-inclusive amounts.
+
     Only the tariff is public. Account balances, trips, and violations
     are NOT exposed via any public API.
     """
@@ -62,9 +70,11 @@ async def rta_salik_tariff() -> dict[str, object]:
 @mcp.tool
 async def rta_gtfs_static_url() -> dict[str, object]:
     """
-    Return the URL for the RTA GTFS static feed.
+    Return download details for the RTA GTFS static feed.
 
-    The Transitland mirror is anonymous and works without any credentials.
+    The direct file download is anonymous (a 7z archive, no credentials);
+    only the credentialed query API requires OAuth. The old Transitland
+    mirror is dead (HTTP 401, 2021-era data).
     No GTFS-RT (real-time) feed exists for Dubai RTA.
     """
     return await tools.rta_gtfs_static_url()
@@ -108,11 +118,11 @@ _TOOLS: list[ToolMeta] = [
     ),
     ToolMeta(
         name="rta_gtfs_static_url",
-        description="GTFS static feed URL for Dubai RTA (Transitland mirror is anonymous).",
+        description="GTFS static feed download for Dubai RTA (anonymous 7z archive).",
         feature="rta",
         tier=TIER_OPEN,
         requires_auth=False,
-        tags=["gtfs", "rta", "transit feed", "transitland", "static", "feed"],
+        tags=["gtfs", "rta", "transit feed", "7z", "download", "static", "feed"],
     ),
 ]
 

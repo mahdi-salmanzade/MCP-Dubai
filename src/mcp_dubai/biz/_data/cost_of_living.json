@@ -1,15 +1,29 @@
 {
   "domain": "cost_of_living",
-  "knowledge_date": "2026-06-26",
+  "knowledge_date": "2026-07-02",
   "volatility": "high",
   "verify_at": "https://dubailand.gov.ae",
   "currency": "AED",
-  "disclaimer": "Rents and groceries are ballpark ranges that drift with the market (the DLD Smart Rental Index is the canonical rent source). The deterministic parts are the DEWA tariff slabs and housing fee, the Salik toll windows, and the KHDA fee-increase cap rule. Always verify current figures with the official source before budgeting.",
+  "disclaimer": "Rents and groceries are ballpark ranges that drift with the market (the DLD Smart Rental Index is the canonical rent source), and H1 2026 was unusually volatile (see inflation_context). The deterministic parts are the DEWA tariff slabs and housing fee, the VAT-inclusive Salik toll windows, and the monthly Fuel Price Committee announcements. The usual KHDA fee-increase cap is suspended for 2026-27 (full fee freeze). Always verify current figures with the official source before budgeting.",
+  "inflation_context": {
+    "volatility": "high",
+    "note": "Dubai CPI inflation hit 5.5% year on year in May 2026, the fastest pace since the pandemic, driven by the regional Strait of Hormuz disruption (February-June 2026): transport and food led the spike. Treat the rent and grocery ranges in this pack as extra-volatile for H1 2026.",
+    "dubai_cpi_yoy_pct": {
+      "2026-03": 3.8,
+      "2026-04": 4.8,
+      "2026-05": 5.5
+    },
+    "outlook_note": "Emirates NBD forecasts moderation to roughly 2.9% year on year by December 2026 as oil retreats and shipping normalizes.",
+    "source_urls": [
+      "https://www.thenationalnews.com/business/economy/2026/05/26/dubai-inflation-may-ease-but-not-because-life-is-becoming-cheaper/"
+    ]
+  },
   "rents": {
     "volatility": "high",
     "unit": "annual_aed",
     "citywide_1br_average_aed": 97000,
-    "yoy_growth_note": "YoY rent growth cooled to roughly 4-6% in early 2026 from the double-digit increases seen across 2023-2024.",
+    "yoy_growth_note": "Asking-rent growth decelerated sharply in H1 2026: annual residential rental growth eased from about 6.2% in December 2025 to roughly 1.5% by April 2026, and prime new-let asking rents fell 10-20% year on year while renewals stayed anchored to the RERA index.",
+    "h1_2026_trend_note": "Ranges below are retained but flagged: softening is concentrated where new supply is handing over (JVC, Business Bay, Dubai South, Al Furjan), Downtown is flat, and Dubai Marina is resilient. Treat the top ends as soft for new lets in H1 2026.",
     "areas": {
       "Dubai Marina": {
         "studio": [55000, 75000],
@@ -50,6 +64,8 @@
   "utilities": {
     "provider": "DEWA",
     "volatility": "medium",
+    "verified_unchanged_as_of": "2026-07-02",
+    "verified_unchanged_note": "Tariff slabs and the 5% residential housing fee verified unchanged as of this date.",
     "electricity_slabs_fils_per_kwh": [
       { "range": "0-2000", "fils": 23 },
       { "range": "2001-4000", "fils": 28 },
@@ -62,9 +78,11 @@
     "vat_pct": 5,
     "fuel_surcharge_note": "a monthly fuel surcharge applies and varies",
     "housing_fee": {
-      "apartment_pct_of_annual_rent": 5,
-      "villa_pct_of_annual_rent": 10,
-      "billed_via": "monthly through the DEWA bill"
+      "residential_pct_of_annual_rent": 5,
+      "owner_occupied_basis": "5% of the RERA-assessed annual rental value",
+      "commercial_market_fee_pct": 10,
+      "billed_via": "monthly through the DEWA bill",
+      "note": "The Dubai Municipality housing fee is 5% of annual rent for ALL residential property, apartments and villas alike; owner-occupied homes are assessed on the RERA rental index value. The separate 10% market fee applies to commercial premises, not homes."
     },
     "typical_monthly_bill_aed": {
       "volatility": "medium",
@@ -79,7 +97,8 @@
     ]
   },
   "groceries": {
-    "volatility": "medium",
+    "volatility": "high",
+    "h1_2026_note": "Grocery prices rose noticeably in H1 2026 on the back of the regional disruption (food CPI jumped in March 2026 and most UAE shoppers reported higher prices). Ranges here are ballparks; expect the top end while conditions persist.",
     "monthly_aed": {
       "single": [600, 900],
       "single_branded_imported": [1000, 2500],
@@ -105,6 +124,7 @@
       { "chain": "Spinneys / Waitrose", "vs_carrefour": "premium" }
     ],
     "source_urls": [
+      "https://www.moet.gov.ae/en/essential-goods-prices-platform",
       "https://www.startdxb.ae/article/groceries-cost-in-dubai-weekly-shop-for-singles-couples-families"
     ]
   },
@@ -130,21 +150,52 @@
     "salik": {
       "status": "official",
       "effective_from": "2025-01-31",
-      "gates": 9,
+      "gates": 10,
       "peak_windows": ["06:00-10:00", "16:00-20:00"],
-      "peak_toll_aed": 6,
+      "peak_toll_aed": 6.3,
       "off_peak_windows": ["10:00-16:00", "20:00-01:00"],
-      "off_peak_toll_aed": 4,
+      "off_peak_toll_aed": 4.2,
       "free_window": "01:00-06:00",
       "free_toll_aed": 0,
-      "sunday_flat_aed": 4,
+      "sunday_flat_aed": 4.2,
       "sunday_note": "excluding public holidays and special events",
+      "vat_pct": 5,
+      "vat_effective_from": "2026-06-01",
+      "vat_note": "From 2026-06-01 Salik applies 5% VAT at the point of use. The underlying tariffs are unchanged (dynamic peak AED 6.00, standard gate AED 4.00); the figures here are VAT-inclusive (peak AED 6.30, standard/off-peak AED 4.20).",
       "ramadan_peak_window": "09:00-17:00",
       "twin_gate_note": "Al Safa and Al Mamzar twin-gate pairs charge once per hour per direction",
       "source_urls": [
-        "https://www.salik.ae/en/news/salik-announces-implementation-of-variable-toll-pricing-effective-january-31-2025"
+        "https://www.salik.ae/en/news/salik-announces-implementation-of-variable-toll-pricing-effective-january-31-2025",
+        "https://www.salik.ae/en/toll-gates",
+        "https://www.thenationalnews.com/news/uae/2026/05/22/dubai-salik-parkin-vat-toll-parking-fees-june/"
       ]
     }
+  },
+  "fuel_prices": {
+    "volatility": "high",
+    "update_frequency": "monthly",
+    "unit": "aed_per_litre",
+    "mechanism": "The UAE Fuel Price Committee announces retail fuel prices monthly (typically on the last day of the month), effective the 1st of the following month.",
+    "july_2026_snapshot": {
+      "effective_from": "2026-07-01",
+      "super_98": 3.4,
+      "special_95": 3.29,
+      "e_plus_91": 3.21,
+      "diesel": 3.6
+    },
+    "june_2026_reference": {
+      "effective_from": "2026-06-01",
+      "super_98": 3.95,
+      "special_95": 3.83,
+      "e_plus_91": 3.76,
+      "diesel": 4.33
+    },
+    "trend_note": "July 2026 brought a sharp drop (petrol down up to AED 0.55/L and diesel down AED 0.73/L month on month) after four consecutive monthly rises across H1 2026 driven by the February-June 2026 Strait of Hormuz disruption. Treat any cached snapshot as stale after the 1st of the month.",
+    "verify_at": "https://u.ae/en/information-and-services/environment-and-energy/water-and-energy/energy-and-fuel-prices",
+    "source_urls": [
+      "https://u.ae/en/information-and-services/environment-and-energy/water-and-energy/energy-and-fuel-prices",
+      "https://www.khaleejtimes.com/business/energy/uae-petrol-diesel-prices-july-2026-announced"
+    ]
   },
   "schooling": {
     "volatility": "medium",
@@ -155,10 +206,42 @@
       "overall_range": [15000, 110000],
       "ultra_premium_up_to_aed": 118000
     },
-    "fee_increase_cap_rule": "Fee increases are regulated by the KHDA Education Cost Index and capped by the school inspection rating. Outstanding-rated schools could raise up to about 3.2% in the relevant cycle, while Acceptable-rated schools cannot raise.",
+    "fee_freeze_2026_27": {
+      "status": "official",
+      "announced": "2026-05-22",
+      "applies_to": "academic year 2026-27",
+      "rule": "Under Sheikh Hamdan bin Mohammed's directives, KHDA confirmed there will be NO increase in private school fees for the 2026-27 academic year: a full tuition freeze across all KHDA-permitted private schools (17 curricula). No Education Cost Index value was published for 2026-27.",
+      "relief_note": "Schools receive offsetting relief (deferral or instalment of licence renewal fees, deferral of fines); early childhood centres are also exempted from licence renewal fees, fines, and Dubai Municipality market fees, plus partial rent exemptions.",
+      "source_urls": [
+        "https://mediaoffice.ae/en/news/2026/may/22-05/under-hamdan-bin-mohammeds-directives-khda-confirms-no-fee-increase"
+      ]
+    },
+    "fee_increase_cap_rule": "Background rule, suspended for 2026-27: fee increases are normally regulated by the KHDA Education Cost Index and capped by the school inspection rating. Outstanding-rated schools could raise up to about 3.2% in the relevant cycle, while Acceptable-rated schools cannot raise. For 2026-27, KHDA confirmed a full fee freeze, so no increase applies.",
     "other_curricula_note": "Other curricula (Indian, American, IB) vary. British is used as the benchmark here.",
     "source_urls": [
-      "https://web.khda.gov.ae/en/About-Us/Whats-New/School-Fees-Fact-Sheet-enables-parents-to-make-bet"
+      "https://web.khda.gov.ae/en/About-Us/Whats-New/School-Fees-Fact-Sheet-enables-parents-to-make-bet",
+      "https://mediaoffice.ae/en/news/2026/may/22-05/under-hamdan-bin-mohammeds-directives-khda-confirms-no-fee-increase"
+    ]
+  },
+  "health_insurance": {
+    "volatility": "medium",
+    "mandatory_note": "Health insurance is mandatory for Dubai residence visas: employers cover employees and sponsors cover dependants. Since early 2026 the ICP automatically cross-checks insurance records at every residency visa application and renewal.",
+    "essential_benefits_plan": {
+      "annual_premium_aed": [500, 800],
+      "cheapest_compliant_from_aed": 340,
+      "annual_coverage_aed": 150000,
+      "salary_threshold_aed_per_month": 4000,
+      "note": "The mandatory DHA Essential Benefits Plan floor is unchanged in 2026."
+    },
+    "premium_trend_2026": {
+      "status": "market_estimate",
+      "increase_pct_range": [8, 11.5],
+      "note": "Broker and aggregator sources report 2026 medical insurance premiums up roughly 8-11.5% across the emirates. This is a market estimate, not an official DHA decree; verify quotes directly with insurers."
+    },
+    "source_urls": [
+      "https://www.dha.gov.ae",
+      "https://www.pacificprime.com/blog/dubai-insurance-uae-medical-insurance-prices.html",
+      "https://insurancehub.ae/blog/health-insurance-cost-uae-2026-by-age-emirate"
     ]
   }
 }

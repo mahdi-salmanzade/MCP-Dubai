@@ -51,7 +51,9 @@ async def vat_filing_calendar(annual_revenue_aed: int) -> dict[str, object]:
 
     Mandatory at AED 375,000 revenue, voluntary at AED 187,500. Filing is
     quarterly under AED 150 million revenue, monthly above. Standard rate
-    is 5%.
+    is 5%. Includes the Federal Decree-Law 16 of 2025 amendments effective
+    1 January 2026 (reverse-charge invoicing, 5-year VAT credit
+    carry-forward cap, evasion-linked input VAT denial).
     """
     return await tools.vat_filing_calendar(annual_revenue_aed=annual_revenue_aed)
 
@@ -85,13 +87,16 @@ async def esr_status() -> dict[str, object]:
 @mcp.tool
 async def einvoicing_timeline() -> dict[str, object]:
     """
-    Return the UAE e-invoicing regime and announced rollout timeline.
+    Return the UAE e-invoicing regime, rollout timeline, and ASP deadlines.
 
     Legislated by Ministerial Decisions 243 and 244 of 2025 on the PINT AE
-    DCTCE 5-corner model, reported to the FTA through EmaraTax. Announced
-    phases: voluntary pilot from July 2026, mandatory for revenue at or
-    above AED 50M from January 2027, below AED 50M from July 2027, and
-    government entities from October 2027. Verify dates with the FTA/MoF.
+    DCTCE 5-corner model, reported to the FTA through EmaraTax. The pilot
+    phase went live 1 July 2026 with voluntary adoption open from the same
+    date. ASP appointment deadlines: 30 October 2026 for revenue at or
+    above AED 50M (Ministerial Resolution 66 of 2026), 31 March 2027 below
+    AED 50M. Mandatory go-live: January 2027 at or above AED 50M, July
+    2027 below, government entities October 2027. Includes the official
+    MoF pre-approved ASP register. Verify dates with the FTA/MoF.
     """
     return await tools.einvoicing_timeline()
 
@@ -203,8 +208,10 @@ _TOOLS: list[ToolMeta] = [
         name="einvoicing_timeline",
         description=(
             "UAE e-invoicing regime: PINT AE / DCTCE 5-corner model, "
-            "EmaraTax reporting, and the announced phased rollout through "
-            "2027 (MD 243 and 244 of 2025)."
+            "EmaraTax reporting, pilot live since 1 July 2026, ASP "
+            "appointment deadlines (30 Oct 2026 / 31 Mar 2027), the MoF "
+            "pre-approved ASP register, and the phased rollout through "
+            "2027 (MD 243 and 244 of 2025, MR 66 of 2026)."
         ),
         feature="tax_compliance",
         tier=TIER_BIZ,
@@ -213,6 +220,9 @@ _TOOLS: list[ToolMeta] = [
             "einvoice",
             "pint ae",
             "emaratax",
+            "asp",
+            "accredited service provider",
+            "pilot",
             "فاتورة إلكترونية",
         ],
     ),

@@ -49,7 +49,7 @@ class TestEvents:
         result = await events_tools.startup_events()
         data = result["data"]
         assert isinstance(data, dict)
-        assert data["count"] >= 5
+        assert data["count"] >= 18
 
     @pytest.mark.asyncio
     async def test_filter_events_by_category(self) -> None:
@@ -59,11 +59,38 @@ class TestEvents:
         assert data["count"] >= 1
 
     @pytest.mark.asyncio
+    async def test_filter_retail_festivals(self) -> None:
+        result = await events_tools.startup_events(category="retail")
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["count"] >= 4
+        ids = {e["id"] for e in data["events"]}  # type: ignore[union-attr]
+        assert "dubai_summer_surprises_2026" in ids
+        assert "dubai_shopping_festival_2026_27" in ids
+
+    @pytest.mark.asyncio
+    async def test_list_includes_curated_notes(self) -> None:
+        result = await events_tools.startup_events()
+        data = result["data"]
+        assert isinstance(data, dict)
+        availability = data["data_availability"]
+        assert isinstance(availability, dict)
+        assert availability["public_api"] is False
+        venue_shift = data["venue_shift"]
+        assert isinstance(venue_shift, dict)
+        assert "Dubai Exhibition Centre" in str(venue_shift["summary"])
+
+    @pytest.mark.asyncio
     async def test_gitex_info_returns_2026(self) -> None:
         result = await events_tools.gitex_info()
         data = result["data"]
         assert isinstance(data, dict)
         assert "2026" in data["name"]
+        dates = data["dates"]
+        assert isinstance(dates, dict)
+        assert dates["start"] == "2026-12-07"
+        assert dates["end"] == "2026-12-11"
+        assert "Expo City" in str(data["venue"])
 
     @pytest.mark.asyncio
     async def test_ens_calendar_returns_supernova_0x(self) -> None:
@@ -74,6 +101,19 @@ class TestEvents:
         assert isinstance(supernova, dict)
         assert supernova["name"] == "Supernova 0X"
         assert supernova["prize_pool_usd"] == 200000
+
+    @pytest.mark.asyncio
+    async def test_ens_dates_sit_inside_gitex_week(self) -> None:
+        result = await events_tools.ens_calendar()
+        data = result["data"]
+        assert isinstance(data, dict)
+        dates = data["dates"]
+        assert isinstance(dates, dict)
+        assert dates["start"] == "2026-12-08"
+        assert dates["end"] == "2026-12-10"
+
+    def test_knowledge_date_refreshed(self) -> None:
+        assert events_tools.KNOWLEDGE.knowledge_date == "2026-07-02"
 
 
 class TestParkin:
@@ -105,6 +145,53 @@ class TestParkin:
         mparking = data["mparking"]
         assert isinstance(mparking, dict)
         assert mparking["sms_shortcode"] == "7275"
+
+    @pytest.mark.asyncio
+    async def test_parking_vat_block(self) -> None:
+        result = await parkin_tools.parking_zones()
+        data = result["data"]
+        assert isinstance(data, dict)
+        vat = data["vat"]
+        assert isinstance(vat, dict)
+        assert vat["rate_pct"] == 5
+        assert vat["applies_from"] == "2026-06-01"
+        assert "VAT-inclusive" in str(vat["summary"])
+        tariffs = data["tariffs"]
+        assert isinstance(tariffs, dict)
+        assert "5% VAT" in str(tariffs["vat_note"])
+
+    @pytest.mark.asyncio
+    async def test_parking_cashless_payments_note(self) -> None:
+        result = await parkin_tools.parking_zones()
+        data = result["data"]
+        assert isinstance(data, dict)
+        payments = data["payments"]
+        assert isinstance(payments, dict)
+        assert payments["cashless_meters_from"] == "2026-06-01"
+        assert any("Nol" in m for m in payments["accepted_methods"])
+
+    @pytest.mark.asyncio
+    async def test_parking_new_paid_areas_2026(self) -> None:
+        result = await parkin_tools.parking_zones()
+        data = result["data"]
+        assert isinstance(data, dict)
+        zones = data["zones"]
+        assert isinstance(zones, dict)
+        areas = {a["area"]: a for a in zones["new_paid_areas_2026"]}
+        assert areas["International City"]["operator"] == "Parkin"
+        assert "Parkonic" in areas["Discovery Gardens"]["operator"]
+
+    @pytest.mark.asyncio
+    async def test_parking_mall_expansion(self) -> None:
+        result = await parkin_tools.parking_zones()
+        data = result["data"]
+        assert isinstance(data, dict)
+        mall = data["mall_parking"]
+        assert isinstance(mall, dict)
+        assert "Mall of the Emirates" in str(mall["majid_al_futtaim"])
+        assert "Dubai Mall" in str(mall["emaar"])
+        assert "Al Futtaim" in str(mall["al_futtaim"])
+        assert "60,000" in str(mall["secure_parking_jv"])
 
     @pytest.mark.asyncio
     async def test_nol_card_guide_lists_5_types(self) -> None:

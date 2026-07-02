@@ -1,10 +1,41 @@
 {
   "domain": "events",
-  "knowledge_date": "2026-04-13",
+  "knowledge_date": "2026-07-02",
   "volatility": "high",
   "verify_at": "https://expandnorthstar.com",
   "source_brief_section": "6.10",
   "disclaimer": "Event dates, venues, and pitch competition formats change. Verify with the event organiser before booking flights.",
+  "data_availability": {
+    "public_api": false,
+    "summary": "Dubai Calendar exposes no public API: dubaicalendar.ae redirects into bot-protected visitdubai.com (Akamai returns 403 to non-browser clients), and the only official events dataset (slug dtcm_e_permits_events-open-api, now served from the apis.data.dubai gateway after the Dubai Pulse portal was decommissioned) requires OAuth credentials. This pack therefore stays curated.",
+    "checked": "2026-07-02",
+    "source_urls": [
+      "https://apis.data.dubai/open/dtcm/dtcm_e_permits_events-open-api",
+      "https://data.dubai"
+    ]
+  },
+  "venue_shift": {
+    "summary": "DWTC anchor shows are migrating to the expanded Dubai Exhibition Centre at Expo City Dubai. GITEX Global leads the move in December 2026, with Gulfood and WHX Dubai following in 2027.",
+    "examples": [
+      {
+        "event": "GITEX Global 2026",
+        "dates": "7 to 11 December 2026"
+      },
+      {
+        "event": "WHX Dubai 2027",
+        "dates": "25 to 28 January 2027"
+      },
+      {
+        "event": "Gulfood 2027",
+        "dates": "15 to 19 March 2027"
+      }
+    ],
+    "source_urls": [
+      "https://www.gitex.com",
+      "https://whx-dubai.com",
+      "https://www.gulfood.com"
+    ]
+  },
   "events": [
     {
       "id": "expand_north_star_2026",
@@ -19,6 +50,7 @@
       },
       "venue": "Dubai Exhibition Centre at Expo City Dubai",
       "co_located_with": "GITEX Global 2026",
+      "notes": "ENS dates sit inside the GITEX Global 2026 week (7 to 11 December 2026).",
       "url": "https://expandnorthstar.com",
       "supernova_format": {
         "name": "Supernova 0X",
@@ -53,25 +85,74 @@
       "type": "tech_conference",
       "tagline": "World's largest tech and AI event",
       "operator": "DWTC / Kaoun International",
-      "venue": "Dubai Exhibition Centre at Expo City Dubai",
+      "dates": {
+        "start": "2026-12-07",
+        "end": "2026-12-11"
+      },
+      "venue": "Expo City Dubai (anchored at the Dubai Exhibition Centre)",
       "co_located_with": "Expand North Star 2026",
-      "notes": "Moved from Dubai World Trade Centre to Expo City Dubai for the 2026 edition.",
-      "url": "https://www.gitex.com"
+      "notes": "Confirmed 7 to 11 December 2026 at Expo City Dubai in a split-venue format. Moved from Dubai World Trade Centre for the 2026 edition; Expand North Star (8 to 10 December) runs inside the same week.",
+      "url": "https://www.gitex.com",
+      "source_urls": ["https://www.gitex.com"]
     },
     {
       "id": "step_conference",
-      "name": "Step Conference",
+      "name": "Step Dubai",
       "type": "regional_tech_conference",
       "location": "Dubai",
+      "next_edition_2027": {
+        "dates": {
+          "start": "2027-02-03",
+          "end": "2027-02-04"
+        },
+        "venue": "Dubai Internet City",
+        "confidence": "likely"
+      },
       "url": "https://www.stepconference.com",
-      "notes": "Annual MENA tech conference with founder, investor, and creator tracks."
+      "notes": "Annual MENA tech conference with founder, investor, and creator tracks. 2027 dates flagged as likely; confirm with the organiser."
     },
     {
       "id": "dubai_ai_week",
       "name": "Dubai AI Week",
       "type": "ai_focused",
       "location": "Dubai",
-      "operator": "Dubai Future Foundation"
+      "operator": "Dubai Future Foundation",
+      "edition_2026": {
+        "dates": {
+          "start": "2026-04-06",
+          "end": "2026-04-09"
+        },
+        "status": "held"
+      },
+      "url": "https://www.dubaiaiweek.ae",
+      "notes": "The 2026 edition was held 6 to 9 April 2026. The Dubai AI Festival no longer runs inside AI Week; see dubai_ai_festival_2026."
+    },
+    {
+      "id": "dubai_ai_festival_2026",
+      "name": "Dubai AI Festival 2026",
+      "type": "ai_focused",
+      "dates": {
+        "start": "2026-10-26",
+        "end": "2026-10-27"
+      },
+      "venue": "Dubai World Trade Centre",
+      "notes": "Rescheduled to 26 to 27 October 2026 and now runs as a standalone DWTC event, decoupled from Dubai AI Week (held 6 to 9 April 2026).",
+      "url": "https://dubaiaifestival.com",
+      "source_urls": ["https://dubaiaifestival.com"]
+    },
+    {
+      "id": "dubai_fintech_summit_2026",
+      "name": "Dubai FinTech Summit 2026",
+      "edition": 4,
+      "type": "fintech_summit",
+      "operator": "DIFC",
+      "dates": {
+        "start": "2026-11-02",
+        "end": "2026-11-03"
+      },
+      "venue": "Madinat Jumeirah",
+      "url": "https://dubaifintechsummit.com",
+      "source_urls": ["https://dubaifintechsummit.com"]
     },
     {
       "id": "aim_congress_2026",
@@ -86,11 +167,161 @@
     },
     {
       "id": "world_government_summit",
-      "name": "World Government Summit",
+      "name": "World Governments Summit",
       "type": "government_summit",
       "location": "Madinat Jumeirah",
       "frequency": "annual",
-      "url": "https://www.worldgovernmentsummit.org"
+      "next_edition_2027": {
+        "dates": {
+          "start": "2027-02-01",
+          "end": "2027-02-03"
+        }
+      },
+      "url": "https://www.worldgovernmentsummit.org",
+      "source_urls": ["https://www.worldgovernmentsummit.org"]
+    },
+    {
+      "id": "dubai_fitness_challenge_2026",
+      "name": "Dubai Fitness Challenge 2026",
+      "edition": 10,
+      "type": "citywide_fitness",
+      "tagline": "30x30: 30 minutes of activity for 30 days",
+      "dates": {
+        "start": "2026-10-31",
+        "end": "2026-11-29"
+      },
+      "highlights": {
+        "dubai_run": "2026-11-22"
+      },
+      "url": "https://www.dubaifitnesschallenge.com",
+      "notes": "10th edition. Dubai Run takes over Sheikh Zayed Road on 22 November 2026."
+    },
+    {
+      "id": "dubai_airshow_2027",
+      "name": "Dubai Airshow 2027",
+      "type": "aerospace_trade_show",
+      "dates": {
+        "start": "2027-11-15",
+        "end": "2027-11-19"
+      },
+      "venue": "DWC, Al Maktoum International Airport (Dubai World Central)",
+      "url": "https://www.dubaiairshow.aero",
+      "source_urls": ["https://www.dubaiairshow.aero"]
+    },
+    {
+      "id": "un_2026_water_conference",
+      "name": "UN 2026 Water Conference",
+      "type": "un_conference",
+      "location": "Abu Dhabi",
+      "co_hosts": ["United Arab Emirates", "Senegal"],
+      "dates": {
+        "start": "2026-12-08",
+        "end": "2026-12-10"
+      },
+      "notes": "UAE and Senegal co-host. Runs 8 to 10 December 2026 in Abu Dhabi, the same week as GITEX Global at Expo City Dubai; expect heavy hotel and flight demand across both emirates.",
+      "url": "https://sdgs.un.org/conferences/water2026",
+      "source_urls": ["https://sdgs.un.org/conferences/water2026"]
+    },
+    {
+      "id": "dubai_future_forum_2026",
+      "name": "Dubai Future Forum 2026",
+      "type": "foresight_forum",
+      "operator": "Dubai Future Foundation",
+      "dates": {
+        "start": "2026-11-17",
+        "end": "2026-11-18"
+      },
+      "venue": "Museum of the Future",
+      "confidence": "likely",
+      "url": "https://www.dubaifuture.ae/dubai-future-forum",
+      "notes": "Dates flagged as likely; confirm with Dubai Future Foundation."
+    },
+    {
+      "id": "wetex_2026",
+      "name": "WETEX 2026",
+      "type": "energy_sustainability_exhibition",
+      "tagline": "Water, Energy, Technology and Environment Exhibition",
+      "operator": "DEWA (Dubai Electricity and Water Authority)",
+      "dates": {
+        "start": "2026-10-20",
+        "end": "2026-10-22"
+      },
+      "venue": "Dubai World Trade Centre",
+      "url": "https://www.wetex.ae",
+      "source_urls": ["https://www.wetex.ae"]
+    },
+    {
+      "id": "dubai_esports_games_festival_2026",
+      "name": "Dubai Esports and Games Festival 2026",
+      "type": "esports_gaming_festival",
+      "operator": "Dubai Festivals and Retail Establishment (DFRE)",
+      "dates": {
+        "start": "2026-05-22",
+        "end": "2026-06-07"
+      },
+      "status": "held",
+      "sub_events": {
+        "gameexpo": {
+          "start": "2026-06-05",
+          "end": "2026-06-07"
+        }
+      },
+      "notes": "The 2026 festival was held 22 May to 7 June 2026, with GameExpo running 5 to 7 June.",
+      "source_urls": [
+        "https://www.visitdubai.com/en/festivals-and-events/dubai-esports-and-games-festival"
+      ]
+    },
+    {
+      "id": "dubai_summer_surprises_2026",
+      "name": "Dubai Summer Surprises 2026",
+      "type": "retail_festival",
+      "operator": "Dubai Festivals and Retail Establishment (DFRE)",
+      "dates": {
+        "start": "2026-07-03",
+        "end": "2026-08-30"
+      },
+      "source_urls": [
+        "https://www.visitdubai.com/en/festivals-and-events/dss"
+      ]
+    },
+    {
+      "id": "dubai_home_festival_2026",
+      "name": "Dubai Home Festival 2026",
+      "type": "retail_festival",
+      "operator": "Dubai Festivals and Retail Establishment (DFRE)",
+      "dates": {
+        "start": "2026-10-16",
+        "end": "2026-11-01"
+      },
+      "source_urls": [
+        "https://www.visitdubai.com/en/whats-on/dubai-events-calendar"
+      ]
+    },
+    {
+      "id": "dubai_festival_of_lights_2026",
+      "name": "Dubai Festival of Lights 2026",
+      "type": "retail_festival",
+      "operator": "Dubai Festivals and Retail Establishment (DFRE)",
+      "dates": {
+        "start": "2026-11-02",
+        "end": "2026-11-12"
+      },
+      "source_urls": [
+        "https://www.visitdubai.com/en/whats-on/dubai-events-calendar"
+      ]
+    },
+    {
+      "id": "dubai_shopping_festival_2026_27",
+      "name": "Dubai Shopping Festival 2026-27",
+      "edition": 32,
+      "type": "retail_festival",
+      "operator": "Dubai Festivals and Retail Establishment (DFRE)",
+      "dates_status": "not yet announced",
+      "expected_window": "December 2026 to January 2027",
+      "notes": "32nd edition. Exact dates not announced as of 2 July 2026; DSF traditionally runs from early December to mid January.",
+      "source_urls": [
+        "https://www.visitdubai.com/en/festivals-and-events/dsf"
+      ]
     }
   ]
 }

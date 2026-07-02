@@ -26,6 +26,64 @@ class TestCompliance:
         assert data["is_dnfbp"] is False
 
     @pytest.mark.asyncio
+    async def test_aml_law_is_fdl_10_of_2025(self) -> None:
+        result = await compliance_tools.aml_requirements()
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["law"] == "Federal Decree-Law 10 of 2025"
+        assert data["law_in_force_since"] == "2025-10-14"
+        previous = data["previous_law"]
+        assert isinstance(previous, dict)
+        assert previous["law"] == "Federal Decree-Law 20 of 2018"
+        fines = data["fines_aed"]
+        assert isinstance(fines, dict)
+        assert fines["legal_persons_minimum"] == 5_000_000
+        assert fines["legal_persons_maximum"] == 100_000_000
+        assert any(
+            "Tax evasion" in change
+            for change in data["key_changes_2025"]  # type: ignore[union-attr]
+        )
+
+    @pytest.mark.asyncio
+    async def test_emiratisation_50_plus_band(self) -> None:
+        result = await compliance_tools.emiratisation_requirements(employee_count=120)
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["applicable_band"] == "firms_50_plus"
+        band = data["firms_50_plus"]
+        assert isinstance(band, dict)
+        assert band["h1_2026_deadline"] == "2026-06-30"
+        charge = band["non_compliance_charge"]
+        assert isinstance(charge, dict)
+        assert charge["monthly_charge_aed_per_position"] == 10_000
+        assert charge["charged_from"] == "2026-07-01"
+
+    @pytest.mark.asyncio
+    async def test_emiratisation_20_49_band(self) -> None:
+        result = await compliance_tools.emiratisation_requirements(employee_count=30)
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["applicable_band"] == "firms_20_to_49"
+        band = data["firms_20_to_49"]
+        assert isinstance(band, dict)
+        assert band["non_compliance_charge"]["shortfall_2025_aed"] == 108_000  # type: ignore[index]
+
+    @pytest.mark.asyncio
+    async def test_emiratisation_no_count_returns_all_bands(self) -> None:
+        result = await compliance_tools.emiratisation_requirements()
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["applicable_band"] is None
+        assert "firms_50_plus" in data
+        assert "firms_20_to_49" in data
+        assert data["regulator"] == "Ministry of Human Resources and Emiratisation (MOHRE)"
+
+    @pytest.mark.asyncio
+    async def test_emiratisation_negative_count_fails(self) -> None:
+        result = await compliance_tools.emiratisation_requirements(employee_count=-1)
+        assert result["success"] is False
+
+    @pytest.mark.asyncio
     async def test_ubo_filing_25pct_threshold(self) -> None:
         result = await compliance_tools.ubo_filing_guide()
         data = result["data"]

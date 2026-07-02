@@ -32,8 +32,13 @@ def _initial_aed(fz: dict[str, Any]) -> int:
 
 
 async def list_free_zones() -> dict[str, object]:
-    """List every Dubai free zone in the curated dataset."""
+    """
+    List every Dubai free zone in the curated dataset, plus the free zone
+    to mainland permit regime (ECR 11 of 2025) and 2026 zone developments.
+    """
     free_zones = _all_free_zones()
+    mainland = _DATA.get("freezone_to_mainland", {})
+    developments = _DATA.get("developments_2026", [])
     return (
         ToolResponse[dict[str, object]]
         .ok(
@@ -49,6 +54,8 @@ async def list_free_zones() -> dict[str, object]:
                     }
                     for fz in free_zones
                 ],
+                "freezone_to_mainland": mainland if isinstance(mainland, dict) else {},
+                "developments_2026": developments if isinstance(developments, list) else [],
             },
             knowledge=KNOWLEDGE,
         )

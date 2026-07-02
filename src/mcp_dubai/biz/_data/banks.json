@@ -1,6 +1,6 @@
 {
   "domain": "banking",
-  "knowledge_date": "2026-04-13",
+  "knowledge_date": "2026-07-02",
   "volatility": "medium",
   "verify_at": "https://www.centralbank.ae",
   "source_brief_section": "6.5",
@@ -60,6 +60,97 @@
     ],
     "source_urls": []
   },
+  "open_finance": {
+    "name": "Al Tareq",
+    "framework": "CBUAE Open Finance framework",
+    "operator": "Nebras Open Finance",
+    "status": "Controlled live usage ahead of wider customer availability. First-phase mandate covers all banks (including foreign branches) and insurers.",
+    "as_of": "2026-07-02",
+    "live_banks": [
+      {
+        "bank_id": "cbd",
+        "name": "Commercial Bank of Dubai",
+        "note": "First UAE bank fully live in operational use (late 2025), with licensed TPPs Pay10 and Lean Technologies."
+      },
+      {
+        "bank_id": "fab",
+        "name": "FAB",
+        "live_date": "2025-12-30",
+        "note": "Pay-by-Bank payment initiation with Pay10 for selected retail current and savings accounts."
+      },
+      {
+        "bank_id": "adib",
+        "name": "ADIB",
+        "live_date": "2026-01-19",
+        "note": "First Islamic bank live under Al Tareq (first phase: CBUAE-certified API frameworks for data sharing and transactions)."
+      }
+    ],
+    "central_bank_law": {
+      "law": "Federal Decree-Law No. 6 of 2025",
+      "in_force": "2025-09-16",
+      "compliance_deadline": "2026-09-16",
+      "scope": "New Central Bank law replacing the 2018 law. Expands the CBUAE perimeter to open finance, stablecoin issuance, payment services using virtual assets, DeFi and enabling technology providers. In-scope entities must be licensed, partner with a licensed entity, or exit by the one-year transition deadline of 2026-09-16."
+    },
+    "source_urls": [
+      "https://www.centralbank.ae/en/our-operations/fintech-digital-transformation/open-finance/",
+      "https://www.adib.ae/en/news/2026/jan/open-finance-initiative-altareq",
+      "https://www.khaleejtimes.com/business/pay10-and-first-abu-dhabi-bank-announce-open-finance-go-live-under-al-tareq-scheme",
+      "https://www.openbankingexpo.com/news/commercial-bank-of-dubai-sets-milestone-with-open-finance-activation/",
+      "https://rulebook.centralbank.ae/en/rulebook/federal-decree-law-no-6-2025-regarding-central-bank-regulation-financial-institutions-and"
+    ]
+  },
+  "recent_entrants_2026": {
+    "note": "New CBUAE authorisations and product launches in H1 2026. These are NOT full entries in the bank comparison matrix; they are listed for awareness. Most are not yet fully launched for business banking.",
+    "entrants": [
+      {
+        "id": "tabby",
+        "name": "Tabby",
+        "licence": "Stored Value Facilities (SVF)",
+        "date": "2026-04",
+        "note": "BNPL firm's first direct UAE authorisation. Enables wallets, spending accounts, cards and money-management products.",
+        "source_urls": [
+          "https://tabby.ai/en-AE/newsroom/wallet-licence",
+          "https://gulfbusiness.com/en/2026/finance/tabby-secures-wallet-licence-in-uae/"
+        ]
+      },
+      {
+        "id": "mal",
+        "name": "Mal",
+        "licence": "In-principle approval to establish a licensed bank",
+        "date": "2026-05-18",
+        "note": "Billed as the first AI-native digital banking platform to receive such approval globally, following a USD 230 million seed round.",
+        "source_urls": [
+          "https://www.zawya.com/en/business/banking-and-insurance/mal-receives-in-principle-approval-for-bank-licence-from-cbuae-rrkstd5g"
+        ]
+      },
+      {
+        "id": "revolut",
+        "name": "Revolut",
+        "licence": "Stored Value Facilities (SVF) plus Retail Payment Services (RPS)",
+        "date": "2026-06-19",
+        "note": "Licences to offer multi-currency accounts, payments, cards and international transfers. Full UAE launch pending operational readiness.",
+        "source_urls": [
+          "https://www.agbi.com/banking-finance/2026/06/revolut-cleared-for-uae-launch-after-central-bank-approval/"
+        ]
+      },
+      {
+        "id": "alaan",
+        "name": "Alaan",
+        "licence": "Not a bank; account issued by Ruya Community Islamic Bank via ruya BaaS rails",
+        "date": "2026-06-16",
+        "note": "AI business account launched 2026-06-16 (Shariah-compliant, ruya's first major BaaS deal). SuperPay supplier payments to 40+ countries with no transfer fees, AI invoice processing, and integrations with Odoo, Zoho, Xero and QuickBooks.",
+        "source_urls": [
+          "https://www.tradingview.com/news/reuters.com,2026-06-16:newsml_ZawbZMvm1:0-zawya-alaan-launches-uae-s-first-ai-native-business-bank-account-powered-by-ruya/"
+        ]
+      }
+    ]
+  },
+  "regulators": {
+    "note": "The UAE Capital Market Authority (CMA) replaces the Securities and Commodities Authority (SCA) effective 2026-01-01 under Federal Decree-Law No. 32 of 2025 (CMA Law) and Federal Decree-Law No. 33 of 2025 (Capital Market Law). The CMA succeeds to all SCA rights, obligations and contracts; regulated entities have until 2027-01-01 to regularise (extendable by the CMA Board). Banking supervision remains with the CBUAE; DIFC/ADGM-only activities remain out of CMA scope.",
+    "source_urls": [
+      "https://www.clearygottlieb.com/news-and-insights/publication-listing/uae-capital-markets-overhaul-2026-new-regulatory-framework-for-the-capital-market-authority"
+    ]
+  },
   "banks": [
     {
       "id": "wio",
@@ -75,7 +166,7 @@
       "free_zones_supported": "Most free zones, app-first",
       "tier": "digital",
       "tag": "founder_report",
-      "notes": "Best for solo founders with clean profiles. App-only, no physical branches. Not on the DUL fast-track participant list as of April 2026."
+      "notes": "Best for solo founders with clean profiles. App-only, no physical branches. Not on the DUL fast-track participant list as of July 2026. Islamic banking platform in development (announced March 2026, subject to regulatory approval). June 2026 Geidea partnership distributes Wio Business accounts and SME financing to Geidea merchants. FY2025 revenue AED 1.24 billion; 120,000+ businesses report Wio as their main business banking partner."
     },
     {
       "id": "mashreq_neobiz",

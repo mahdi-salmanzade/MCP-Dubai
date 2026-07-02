@@ -95,6 +95,48 @@ class TestBankRecommendation:
         assert "liv" not in ids
 
 
+class TestOpenFinance:
+    @pytest.mark.asyncio
+    async def test_list_banks_surfaces_open_finance_block(self) -> None:
+        result = await tools.list_banks()
+        data = result["data"]
+        assert isinstance(data, dict)
+        open_finance = data["open_finance"]
+        assert isinstance(open_finance, dict)
+        assert open_finance["name"] == "Al Tareq"
+        assert open_finance["operator"] == "Nebras Open Finance"
+        live = {b["bank_id"]: b for b in open_finance["live_banks"]}
+        assert "cbd" in live
+        assert live["fab"]["live_date"] == "2025-12-30"
+        assert live["adib"]["live_date"] == "2026-01-19"
+        law = open_finance["central_bank_law"]
+        assert isinstance(law, dict)
+        assert law["compliance_deadline"] == "2026-09-16"
+
+    @pytest.mark.asyncio
+    async def test_recent_entrants_are_not_matrix_entries(self) -> None:
+        result = await tools.list_banks()
+        data = result["data"]
+        assert isinstance(data, dict)
+        matrix_ids = {b["id"] for b in data["banks"]}  # type: ignore[union-attr, index]
+        entrants = data["recent_entrants_2026"]
+        assert isinstance(entrants, dict)
+        entrant_ids = {e["id"] for e in entrants["entrants"]}
+        assert entrant_ids == {"tabby", "mal", "revolut", "alaan"}
+        assert entrant_ids.isdisjoint(matrix_ids)
+
+    @pytest.mark.asyncio
+    async def test_regulators_note_mentions_cma(self) -> None:
+        result = await tools.list_banks()
+        data = result["data"]
+        assert isinstance(data, dict)
+        regulators = data["regulators"]
+        assert isinstance(regulators, dict)
+        note = str(regulators["note"])
+        assert "Capital Market Authority" in note
+        assert "2026-01-01" in note
+
+
 class TestDulEligibility:
     @pytest.mark.asyncio
     async def test_emirates_nbd_dmcc_eligible(self) -> None:
@@ -132,6 +174,7 @@ class TestKnowledge:
         result = await tools.list_banks()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
+        assert knowledge["knowledge_date"] == "2026-07-02"
         assert knowledge["volatility"] == "medium"
 
     def test_registers_with_knowledge_registry(self) -> None:

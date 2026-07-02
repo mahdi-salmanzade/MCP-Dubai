@@ -13,11 +13,13 @@ mcp: FastMCP = FastMCP("parkin")
 @mcp.tool
 async def parking_zones() -> dict[str, object]:
     """
-    Dubai Parkin zones, tariffs, free periods, and mParking SMS shortcode.
+    Dubai Parkin zones, tariffs, VAT, free periods, and mParking shortcode.
 
     Variable tariffs since 4 April 2025: peak 4 to 6 AED/h, off-peak 2 to
-    4 AED/h. Free Sundays, public holidays, and 22:00 to 08:00. mParking
-    SMS shortcode is 7275 (PARK), format `<plate> <zone> <hours>`.
+    4 AED/h. From 1 June 2026 a 5% VAT applies on top (displayed prices are
+    VAT-inclusive) and cash payments at meters are phased out (Nol cards
+    still accepted). Free Sundays, public holidays, and 22:00 to 08:00.
+    mParking SMS shortcode is 7275 (PARK), format `<plate> <zone> <hours>`.
 
     CRITICAL: 'Mawaqif' is the Abu Dhabi parking system. Dubai parking is
     operated by Parkin Company PJSC (DFM:PARKIN), spun out of RTA in
@@ -45,8 +47,9 @@ _TOOLS: list[ToolMeta] = [
     ToolMeta(
         name="parking_zones",
         description=(
-            "Dubai Parkin parking zones, tariffs, free periods, and mParking "
-            "SMS shortcode (7275). Note: NOT 'Mawaqif' which is Abu Dhabi."
+            "Dubai Parkin parking zones, tariffs (5% VAT from June 2026), free "
+            "periods, and mParking SMS shortcode (7275). Note: NOT 'Mawaqif' "
+            "which is Abu Dhabi."
         ),
         feature="parkin",
         tier=TIER_BIZ,
@@ -60,6 +63,8 @@ _TOOLS: list[ToolMeta] = [
             "7275",
             "park",
             "rta",
+            "vat",
+            "cashless",
         ],
     ),
     ToolMeta(

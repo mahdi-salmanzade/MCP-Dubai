@@ -6,7 +6,7 @@ from datetime import date
 
 from mcp_dubai._shared.constants import KNOWLEDGE_DATE
 from mcp_dubai._shared.schemas import ToolResponse
-from mcp_dubai.data.holidays.data import HOLIDAYS_BY_YEAR
+from mcp_dubai.data.holidays.data import DATASET_NOTES, HOLIDAYS_BY_YEAR
 
 _SOURCE = "curated (u.ae federal holidays + MoHRE circulars)"
 
@@ -20,10 +20,13 @@ async def uae_holidays(year: int = 2026) -> dict[str, object]:
     List all UAE federal public holidays for a given Gregorian year.
 
     Lunar holidays are flagged as `provisional` until officially announced
-    by MoHRE roughly 10 days before the date.
+    by MoHRE roughly 10 days before the date. Individual entries may carry
+    an optional `note` with observance details (transferred days, sector
+    differences, pending circulars).
     """
     holidays = HOLIDAYS_BY_YEAR.get(year)
     if holidays is None:
+        covered = ", ".join(str(y) for y in sorted(HOLIDAYS_BY_YEAR))
         return (
             ToolResponse[dict[str, object]]
             .ok(
@@ -32,7 +35,7 @@ async def uae_holidays(year: int = 2026) -> dict[str, object]:
                     "holidays": [],
                     "warning": (
                         f"No curated holiday data for {year}. "
-                        f"Currently only 2026 is shipped. "
+                        f"Currently only {covered} are shipped. "
                         f"Use Calendarific (https://calendarific.com) for other years."
                     ),
                 },
@@ -42,17 +45,22 @@ async def uae_holidays(year: int = 2026) -> dict[str, object]:
             .model_dump()
         )
 
+    payload: dict[str, object] = {
+        "year": year,
+        "holidays": list(holidays),
+        "note": (
+            "Lunar holidays (provisional=true) need to be re-verified against "
+            "MoHRE circulars closer to the date."
+        ),
+    }
+    dataset_note = DATASET_NOTES.get(year)
+    if dataset_note is not None:
+        payload["dataset_note"] = dataset_note
+
     return (
         ToolResponse[dict[str, object]]
         .ok(
-            {
-                "year": year,
-                "holidays": list(holidays),
-                "note": (
-                    "Lunar holidays (provisional=true) need to be re-verified against "
-                    "MoHRE circulars closer to the date."
-                ),
-            },
+            payload,
             source=_SOURCE,
             retrieved_at=KNOWLEDGE_DATE,
         )
@@ -121,6 +129,20 @@ async def is_uae_holiday(date_str: str) -> dict[str, object]:
         return (
             ToolResponse[dict[str, object]]
             .fail(error=f"Invalid ISO date: {date_str!r} ({exc})", source=_SOURCE)
+            .model_dump()
+        )
+
+    if target.year not in HOLIDAYS_BY_YEAR:
+        covered = ", ".join(str(y) for y in sorted(HOLIDAYS_BY_YEAR))
+        return (
+            ToolResponse[dict[str, object]]
+            .fail(
+                error=(
+                    f"No curated holiday data for {target.year}, so is_holiday "
+                    f"cannot be determined. Currently only {covered} are shipped."
+                ),
+                source=_SOURCE,
+            )
             .model_dump()
         )
 

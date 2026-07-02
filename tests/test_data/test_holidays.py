@@ -5,7 +5,7 @@ from __future__ import annotations
 import pytest
 
 from mcp_dubai.data.holidays import tools
-from mcp_dubai.data.holidays.data import HOLIDAYS_2026
+from mcp_dubai.data.holidays.data import HOLIDAYS_2026, HOLIDAYS_2027
 
 
 class TestUaeHolidays:
@@ -18,8 +18,22 @@ class TestUaeHolidays:
         assert data["year"] == 2026
         assert isinstance(data["holidays"], list)
         assert len(data["holidays"]) == len(HOLIDAYS_2026)
+        assert len(data["holidays"]) == 13
         assert result["source"]
         assert result["retrieved_at"]
+
+    @pytest.mark.asyncio
+    async def test_returns_2027_holidays(self) -> None:
+        result = await tools.uae_holidays(year=2027)
+        assert result["success"] is True
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["year"] == 2027
+        assert isinstance(data["holidays"], list)
+        assert len(data["holidays"]) == len(HOLIDAYS_2027)
+        assert len(data["holidays"]) == 12
+        assert "dataset_note" in data
+        assert "2026-07-02" in str(data["dataset_note"])
 
     @pytest.mark.asyncio
     async def test_includes_new_year(self) -> None:
@@ -30,16 +44,94 @@ class TestUaeHolidays:
         assert "New Year's Day" in names
 
     @pytest.mark.asyncio
-    async def test_includes_national_day(self) -> None:
+    async def test_includes_eid_al_etihad(self) -> None:
         result = await tools.uae_holidays(year=2026)
         data = result["data"]
         assert isinstance(data, dict)
         dates = [h["date"] for h in data["holidays"]]
         assert "2026-12-02" in dates
+        assert "2026-12-03" in dates
+        names = [h["name"] for h in data["holidays"]]
+        assert "Eid Al Etihad (UAE National Day)" in names
 
     @pytest.mark.asyncio
-    async def test_lunar_holidays_flagged_provisional(self) -> None:
+    async def test_eid_al_fitr_2026_includes_30_ramadan_day(self) -> None:
         result = await tools.uae_holidays(year=2026)
+        data = result["data"]
+        assert isinstance(data, dict)
+        fitr = [h for h in data["holidays"] if h["date"].startswith("2026-03")]
+        assert [h["date"] for h in fitr] == [
+            "2026-03-19",
+            "2026-03-20",
+            "2026-03-21",
+            "2026-03-22",
+        ]
+        assert all(h["provisional"] is False for h in fitr)
+
+    @pytest.mark.asyncio
+    async def test_eid_al_adha_2026_confirmed(self) -> None:
+        result = await tools.uae_holidays(year=2026)
+        data = result["data"]
+        assert isinstance(data, dict)
+        adha = [h for h in data["holidays"] if h["date"].startswith("2026-05")]
+        assert [h["date"] for h in adha] == [
+            "2026-05-26",
+            "2026-05-27",
+            "2026-05-28",
+            "2026-05-29",
+        ]
+        assert all(h["provisional"] is False for h in adha)
+        arafat = adha[0]
+        assert arafat["name"] == "Arafat Day"
+        assert "2026-05-25" in arafat["note"]
+
+    @pytest.mark.asyncio
+    async def test_hijri_new_year_2026_observed_june_15(self) -> None:
+        result = await tools.uae_holidays(year=2026)
+        data = result["data"]
+        assert isinstance(data, dict)
+        dates = [h["date"] for h in data["holidays"]]
+        assert "2026-06-15" in dates
+        assert "2026-06-16" not in dates
+        hijri = next(h for h in data["holidays"] if h["date"] == "2026-06-15")
+        assert hijri["provisional"] is False
+        assert "transferable-holiday" in hijri["note"]
+
+    @pytest.mark.asyncio
+    async def test_prophets_birthday_2026_still_provisional(self) -> None:
+        result = await tools.uae_holidays(year=2026)
+        data = result["data"]
+        assert isinstance(data, dict)
+        mawlid = next(h for h in data["holidays"] if h["date"] == "2026-08-24")
+        assert mawlid["provisional"] is True
+        assert "2026-08-25" in mawlid["note"]
+
+    @pytest.mark.asyncio
+    async def test_commemoration_day_not_listed(self) -> None:
+        result = await tools.uae_holidays(year=2026)
+        data = result["data"]
+        assert isinstance(data, dict)
+        dates = [h["date"] for h in data["holidays"]]
+        names = [h["name"] for h in data["holidays"]]
+        assert "2026-12-01" not in dates
+        assert "Commemoration Day" not in names
+
+    @pytest.mark.asyncio
+    async def test_2026_provisional_flags(self) -> None:
+        result = await tools.uae_holidays(year=2026)
+        data = result["data"]
+        assert isinstance(data, dict)
+        for holiday in data["holidays"]:
+            if holiday["category"] == "fixed":
+                assert holiday["provisional"] is False
+            elif holiday["date"] == "2026-08-24":
+                assert holiday["provisional"] is True
+            else:
+                assert holiday["provisional"] is False
+
+    @pytest.mark.asyncio
+    async def test_2027_lunar_holidays_flagged_provisional(self) -> None:
+        result = await tools.uae_holidays(year=2027)
         data = result["data"]
         assert isinstance(data, dict)
         for holiday in data["holidays"]:
@@ -47,6 +139,16 @@ class TestUaeHolidays:
                 assert holiday["provisional"] is True
             elif holiday["category"] == "fixed":
                 assert holiday["provisional"] is False
+
+    @pytest.mark.asyncio
+    async def test_note_field_optional(self) -> None:
+        result = await tools.uae_holidays(year=2026)
+        data = result["data"]
+        assert isinstance(data, dict)
+        new_year = next(h for h in data["holidays"] if h["date"] == "2026-01-01")
+        assert "note" not in new_year
+        hijri = next(h for h in data["holidays"] if h["date"] == "2026-06-15")
+        assert isinstance(hijri["note"], str)
 
     @pytest.mark.asyncio
     async def test_unknown_year_returns_warning(self) -> None:
@@ -69,8 +171,8 @@ class TestUaeNextHoliday:
         next_h = data["next_holiday"]
         assert next_h is not None
         assert isinstance(next_h, dict)
-        assert next_h["date"] == "2026-06-16"
-        assert data["days_away"] == 15
+        assert next_h["date"] == "2026-06-15"
+        assert data["days_away"] == 14
 
     @pytest.mark.asyncio
     async def test_reference_on_holiday_returns_same_day(self) -> None:
@@ -84,8 +186,19 @@ class TestUaeNextHoliday:
         assert data["days_away"] == 0
 
     @pytest.mark.asyncio
-    async def test_reference_after_last_holiday_of_year(self) -> None:
+    async def test_reference_after_last_2026_holiday_rolls_into_2027(self) -> None:
         result = await tools.uae_next_holiday(from_date_str="2026-12-31")
+        data = result["data"]
+        assert isinstance(data, dict)
+        next_h = data["next_holiday"]
+        assert next_h is not None
+        assert isinstance(next_h, dict)
+        assert next_h["date"] == "2027-01-01"
+        assert data["days_away"] == 1
+
+    @pytest.mark.asyncio
+    async def test_reference_after_last_curated_holiday(self) -> None:
+        result = await tools.uae_next_holiday(from_date_str="2027-12-31")
         data = result["data"]
         assert isinstance(data, dict)
         assert data["next_holiday"] is None
@@ -100,7 +213,7 @@ class TestUaeNextHoliday:
 
 class TestIsUaeHoliday:
     @pytest.mark.asyncio
-    async def test_national_day_is_holiday(self) -> None:
+    async def test_eid_al_etihad_is_holiday(self) -> None:
         result = await tools.is_uae_holiday(date_str="2026-12-02")
         data = result["data"]
         assert isinstance(data, dict)
@@ -108,7 +221,34 @@ class TestIsUaeHoliday:
         assert data["holiday"] is not None
         holiday = data["holiday"]
         assert isinstance(holiday, dict)
-        assert holiday["name"] == "UAE National Day"
+        assert holiday["name"] == "Eid Al Etihad (UAE National Day)"
+
+    @pytest.mark.asyncio
+    async def test_hijri_new_year_observed_day_is_holiday(self) -> None:
+        result = await tools.is_uae_holiday(date_str="2026-06-15")
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["is_holiday"] is True
+        holiday = data["holiday"]
+        assert isinstance(holiday, dict)
+        assert holiday["name"] == "Hijri New Year"
+        assert "note" in holiday
+
+    @pytest.mark.asyncio
+    async def test_hijri_religious_date_is_not_holiday(self) -> None:
+        result = await tools.is_uae_holiday(date_str="2026-06-16")
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["is_holiday"] is False
+        assert data["holiday"] is None
+
+    @pytest.mark.asyncio
+    async def test_commemoration_day_is_not_holiday(self) -> None:
+        result = await tools.is_uae_holiday(date_str="2026-12-01")
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["is_holiday"] is False
+        assert data["holiday"] is None
 
     @pytest.mark.asyncio
     async def test_random_workday_is_not_holiday(self) -> None:
@@ -123,6 +263,14 @@ class TestIsUaeHoliday:
         result = await tools.is_uae_holiday(date_str="not-a-date")
         assert result["success"] is False
         assert "Invalid ISO date" in str(result["error"])
+
+    @pytest.mark.asyncio
+    async def test_uncovered_year_fails_instead_of_false(self) -> None:
+        # 2028-01-01 IS a statutory holiday; a bare is_holiday=False would be
+        # a wrong fact, so uncovered years must fail with a coverage message.
+        result = await tools.is_uae_holiday(date_str="2028-01-01")
+        assert result["success"] is False
+        assert "No curated holiday data for 2028" in str(result["error"])
 
 
 class TestDiscovery:

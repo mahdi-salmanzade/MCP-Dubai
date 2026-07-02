@@ -104,6 +104,7 @@ async def cost_of_living_overview() -> dict[str, object]:
             "rents": {
                 "citywide_1br_average_aed": rents.get("citywide_1br_average_aed"),
                 "yoy_growth_note": rents.get("yoy_growth_note"),
+                "h1_2026_trend_note": rents.get("h1_2026_trend_note"),
                 "areas_covered": sorted(rents.get("areas", {}).keys()),
             },
             "utilities": {
@@ -162,6 +163,7 @@ async def rent_estimate(
             "unit": "annual_aed",
             "citywide_1br_average_aed": rents.get("citywide_1br_average_aed"),
             "yoy_growth_note": rents.get("yoy_growth_note"),
+            "h1_2026_trend_note": rents.get("h1_2026_trend_note"),
             "source_urls": rents.get("source_urls", []),
         }
     )
@@ -196,6 +198,7 @@ async def dewa_bill_estimate(
             "season": season,
             "typical_monthly_bill_aed": bill_range,
             "season_note": season_note,
+            "verified_unchanged_as_of": utilities.get("verified_unchanged_as_of"),
             "housing_fee": utilities.get("housing_fee"),
             "electricity_slabs_fils_per_kwh": utilities.get("electricity_slabs_fils_per_kwh", []),
             "electricity_slab_note": utilities.get("electricity_slab_note"),
@@ -240,7 +243,12 @@ async def salik_toll_estimate(
     time_of_day: str = "08:00",
     day: str = "weekday",
 ) -> dict[str, object]:
-    """Deterministic Salik toll for a HH:MM time using the official windows."""
+    """
+    Deterministic Salik toll for a HH:MM time using the official windows.
+
+    Toll figures are VAT-inclusive: Salik applies 5% VAT at the point of
+    use from 2026-06-01 (peak AED 6.30, standard/off-peak AED 4.20).
+    """
     minute = _parse_hhmm(time_of_day)
     if minute is None:
         return _fail(f"Invalid time_of_day {time_of_day!r}. Use 24-hour HH:MM, e.g. '08:00'.")
@@ -250,16 +258,16 @@ async def salik_toll_estimate(
     in_free = _in_ranges(minute, _FREE_RANGES)
 
     if in_free:
-        toll = int(salik.get("free_toll_aed", 0))
+        toll = float(salik.get("free_toll_aed", 0))
         window = "free (01:00-06:00)"
     elif day == "sunday":
-        toll = int(salik.get("sunday_flat_aed", 4))
+        toll = float(salik.get("sunday_flat_aed", 4.2))
         window = "sunday flat"
     elif _in_ranges(minute, _PEAK_RANGES):
-        toll = int(salik.get("peak_toll_aed", 6))
+        toll = float(salik.get("peak_toll_aed", 6.3))
         window = "peak"
     else:
-        toll = int(salik.get("off_peak_toll_aed", 4))
+        toll = float(salik.get("off_peak_toll_aed", 4.2))
         window = "off-peak"
 
     return _ok(
@@ -272,6 +280,9 @@ async def salik_toll_estimate(
             "off_peak_windows": salik.get("off_peak_windows", []),
             "free_window": salik.get("free_window"),
             "sunday_note": salik.get("sunday_note"),
+            "vat_pct": salik.get("vat_pct"),
+            "vat_effective_from": salik.get("vat_effective_from"),
+            "vat_note": salik.get("vat_note"),
             "ramadan_peak_window": salik.get("ramadan_peak_window"),
             "twin_gate_note": salik.get("twin_gate_note"),
             "source_urls": salik.get("source_urls", []),
@@ -304,7 +315,12 @@ async def grocery_estimate(household_size: str = "single") -> dict[str, object]:
 
 
 async def school_fee_estimate(stage: str = "primary") -> dict[str, object]:
-    """British-curriculum fee range for a stage plus the KHDA fee-cap rule."""
+    """
+    British-curriculum fee range for a stage plus the KHDA fee rules.
+
+    Includes the 2026-27 fee freeze (no increase allowed) and the usual
+    ECI-based cap rule as suspended background.
+    """
     if stage not in VALID_STAGES:
         return _fail(f"Unknown stage {stage!r}. Valid: {list(VALID_STAGES)}.")
 
@@ -322,8 +338,14 @@ async def school_fee_estimate(stage: str = "primary") -> dict[str, object]:
             "annual_fee_aed": fee_range,
             "overall_range_aed": fees.get("overall_range"),
             "ultra_premium_up_to_aed": fees.get("ultra_premium_up_to_aed"),
+            "fee_freeze_2026_27": schooling.get("fee_freeze_2026_27"),
             "fee_increase_cap_rule": schooling.get("fee_increase_cap_rule"),
             "other_curricula_note": schooling.get("other_curricula_note"),
             "source_urls": schooling.get("source_urls", []),
         }
     )
+
+
+async def fuel_price_guide() -> dict[str, object]:
+    """Return the fuel_prices block: mechanism, latest monthly snapshot, trend."""
+    return _ok(dict(_block("fuel_prices")))

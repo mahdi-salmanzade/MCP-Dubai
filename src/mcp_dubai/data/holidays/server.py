@@ -21,13 +21,16 @@ async def uae_holidays(year: int = 2026) -> dict[str, object]:
 
     Lunar holidays (Eid al-Fitr, Eid al-Adha, Hijri New Year, Mawlid,
     Arafat Day) are returned with `provisional: true` until MoHRE
-    officially announces them roughly 10 days before the date.
+    officially announces them roughly 10 days before the date. Entries
+    may carry an optional `note` with observance details.
 
     Args:
-        year: Gregorian year. Currently only 2026 is shipped.
+        year: Gregorian year. Currently 2026 and 2027 are shipped
+            (2027 lunar dates are astronomical expectations).
 
     Returns:
-        Dict with `year`, `holidays` list, `knowledge_date`, and `note`.
+        Dict with `year`, `holidays` list, and `note` (plus `dataset_note`
+        for years without an official Cabinet calendar).
     """
     return await tools.uae_holidays(year=year)
 

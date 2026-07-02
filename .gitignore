@@ -4,6 +4,9 @@ project-knowledge/
 # Internal API research scratch (not for open source)
 research/
 
+# Local MCP server config (contains API tokens)
+.mcp.json
+
 # macOS metadata
 .DS_Store
 **/.DS_Store

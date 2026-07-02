@@ -49,8 +49,15 @@ VALID_INDUSTRIES = {
 
 
 async def list_banks() -> dict[str, object]:
-    """List every UAE business bank in the curated dataset."""
+    """
+    List every UAE business bank in the curated dataset, plus the CBUAE
+    open finance (Al Tareq) status, recent 2026 market entrants, and the
+    capital markets regulator note.
+    """
     banks = _all_banks()
+    open_finance = _DATA.get("open_finance", {})
+    recent_entrants = _DATA.get("recent_entrants_2026", {})
+    regulators = _DATA.get("regulators", {})
     return (
         ToolResponse[dict[str, object]]
         .ok(
@@ -67,6 +74,11 @@ async def list_banks() -> dict[str, object]:
                     }
                     for b in banks
                 ],
+                "open_finance": open_finance if isinstance(open_finance, dict) else {},
+                "recent_entrants_2026": (
+                    recent_entrants if isinstance(recent_entrants, dict) else {}
+                ),
+                "regulators": regulators if isinstance(regulators, dict) else {},
             },
             knowledge=KNOWLEDGE,
         )

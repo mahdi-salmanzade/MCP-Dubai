@@ -28,7 +28,7 @@ PACKAGE_VERSION: str = _read_package_version()
 # Project freshness
 # ----------------------------------------------------------------------------
 # Bumped when the curated business knowledge files are re-verified.
-KNOWLEDGE_DATE: str = "2026-04-14"
+KNOWLEDGE_DATE: str = "2026-07-02"
 
 
 # ----------------------------------------------------------------------------
@@ -67,9 +67,28 @@ FCSC_CKAN_BASE: str = "https://opendata.fcsc.gov.ae/api/3/action"
 CBUAE_UMBRACO_BASE: str = "https://www.centralbank.ae/umbraco/Surface"
 AVIATION_WEATHER_BASE: str = "https://aviationweather.gov/api/data"
 OVERPASS_BASE: str = "https://overpass-api.de/api/interpreter"
-TRANSITLAND_GTFS_DUBAI: str = "https://gtfs-source-feeds.transit.land/dubai-rta.zip"
+# RTA GTFS static feed: the old transit.land mirror started returning 401 in
+# 2026 (Transitland now requires an API token). The Dubai Pulse direct
+# download below still serves anonymously (verified 2026-07-02): a ~10 MB
+# 7-zip archive (not a plain zip) containing the GTFS text files.
+RTA_GTFS_DOWNLOAD_URL: str = (
+    "https://www.dubaipulse.gov.ae/dataset/73765e8f-e8c4-443c-9687-288072ed9d12/"
+    "resource/11515bd3-bdba-466f-ab65-f057bd123ab5/download/gtfs.7z"
+)
 # Open-Meteo: keyless human-friendly weather and forecast (no token, no signup).
 OPEN_METEO_BASE: str = "https://api.open-meteo.com/v1"
+# Dubai Financial Market: anonymous JSON market-data endpoints behind the
+# dfm.ae website (undocumented, best-effort). Verified 2026-07-02.
+DFM_API_BASE: str = "https://api2.dfm.ae"
+# Makani (Dubai Municipality geo-addressing): anonymous public SOAP service.
+# Attribution to Dubai Municipality is required by the service licence.
+MAKANI_SOAP_ENDPOINT: str = "https://www.makani.ae/MakaniPublicDataService/MakaniPublic.svc/basic"
+# Dubai City of Gold (Dubai Jewellery Group): retail gold rates page,
+# server-rendered HTML, updated three times daily (09:00, 13:30, 18:00 UAE).
+GOLD_RATE_PAGE: str = "https://dubaicityofgold.com/"
+# data.dubai catalog: credential-free Liferay Objects JSON API on the portal
+# that replaced Dubai Pulse (metadata only; dataset APIs need credentials).
+DATA_DUBAI_CATALOG_BASE: str = "https://data.dubai/o/c"
 
 # ----------------------------------------------------------------------------
 # Free-key third parties (require a free signup)
