@@ -1,0 +1,50 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.mahdi-salmanzade/mcp-dubai",
+  "title": "MCP Dubai",
+  "description": "Dubai and UAE public data plus curated business setup knowledge across 120 MCP tools.",
+  "version": "0.4.0",
+  "websiteUrl": "https://github.com/mahdi-salmanzade/MCP-Dubai",
+  "repository": {
+    "url": "https://github.com/mahdi-salmanzade/MCP-Dubai",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "mcp-dubai",
+      "version": "0.4.0",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "MCP_DUBAI_PULSE_CLIENT_ID",
+          "description": "Dubai Pulse OAuth client id. Optional; unlocks the Tier 1 dld and rta live tools.",
+          "isRequired": false,
+          "isSecret": true
+        },
+        {
+          "name": "MCP_DUBAI_PULSE_CLIENT_SECRET",
+          "description": "Dubai Pulse OAuth client secret. Optional; used together with the client id.",
+          "isRequired": false,
+          "isSecret": true
+        },
+        {
+          "name": "MCP_DUBAI_WAQI_TOKEN",
+          "description": "Free WAQI token from aqicn.org. Optional; unlocks the air_quality tools.",
+          "isRequired": false,
+          "isSecret": true
+        },
+        {
+          "name": "MCP_DUBAI_LOG_LEVEL",
+          "description": "Logging level (DEBUG, INFO, WARNING, ERROR).",
+          "isRequired": false,
+          "default": "INFO"
+        }
+      ]
+    }
+  ]
+}

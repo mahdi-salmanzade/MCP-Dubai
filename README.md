@@ -1,3 +1,5 @@
+<!-- mcp-name: io.github.mahdi-salmanzade/mcp-dubai -->
+
 <div align="center">
 
 <img src="./ae.svg" alt="UAE" width="120" height="120">
@@ -7,6 +9,7 @@
 **خادم MCP للبيانات العامة في دبي والإمارات وللمعرفة العملية لتأسيس الأعمال**
 *An MCP server for Dubai and UAE public data plus curated business setup knowledge*
 
+[![PyPI](https://img.shields.io/pypi/v/mcp-dubai?color=blue)](https://pypi.org/project/mcp-dubai/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![FastMCP 3.x](https://img.shields.io/badge/FastMCP-3.x-brightgreen.svg)](https://gofastmcp.com)
@@ -86,17 +89,27 @@ On top of that, founders coming to Dubai face the same questions over and over: 
 
 ## 🚀 Quick Start
 
-### Install via uvx (recommended)
+Works in any MCP client. Zero API keys needed for 112 of 120 tools. The recommended runner is `uvx` (ships with [uv](https://docs.astral.sh/uv/)); plain `pip install mcp-dubai` works too.
+
+[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=dubai&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJtY3AtZHViYWkiXX0%3D) [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_MCP--Dubai-0098FF?style=flat-square&logo=githubcopilot&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=dubai&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22mcp-dubai%22%5D%7D) [![Install in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install_MCP--Dubai-24bfa5?style=flat-square&logo=githubcopilot&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=dubai&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22mcp-dubai%22%5D%7D&quality=insiders)
+
+### Claude Code
 
 ```bash
-uvx mcp-dubai
+claude mcp add dubai -- uvx mcp-dubai
 ```
 
-### Or install with pip
+Or commit a project-scoped `.mcp.json` at your repo root so your whole team gets it:
 
-```bash
-pip install mcp-dubai
-python -m mcp_dubai
+```json
+{
+  "mcpServers": {
+    "dubai": {
+      "command": "uvx",
+      "args": ["mcp-dubai"]
+    }
+  }
+}
 ```
 
 ### Claude Desktop
@@ -136,9 +149,30 @@ Tier 1 (Dubai Pulse OAuth) `dld` and `rta` tools ship today and return structure
 
 Get Dubai Pulse credentials by requesting dataset access at [data.dubai](https://data.dubai). Get a WAQI token (free) at [aqicn.org/data-platform/token](https://aqicn.org/data-platform/token/).
 
-### Cursor / VS Code
+### Cursor
 
-Create `.vscode/mcp.json` in your project root:
+Click the install badge above, or add to `~/.cursor/mcp.json` (global) or `.cursor/mcp.json` (per project):
+
+```json
+{
+  "mcpServers": {
+    "dubai": {
+      "command": "uvx",
+      "args": ["mcp-dubai"]
+    }
+  }
+}
+```
+
+### VS Code (GitHub Copilot)
+
+Click the install badge above, or run:
+
+```bash
+code --add-mcp '{"name":"dubai","command":"uvx","args":["mcp-dubai"]}'
+```
+
+Or create `.vscode/mcp.json` in your project root:
 
 ```json
 {
@@ -151,10 +185,31 @@ Create `.vscode/mcp.json` in your project root:
 }
 ```
 
-### Claude Code CLI
+### Windsurf
+
+Add the same `mcpServers` block as Cursor to `~/.codeium/windsurf/mcp_config.json`.
+
+### Codex CLI
 
 ```bash
-claude mcp add dubai -- uvx mcp-dubai
+codex mcp add dubai -- uvx mcp-dubai
+```
+
+### Gemini CLI
+
+```bash
+gemini mcp add dubai uvx mcp-dubai
+```
+
+### Any other MCP client
+
+Every release is published to the [official MCP Registry](https://registry.modelcontextprotocol.io) as `io.github.mahdi-salmanzade/mcp-dubai`, so registry-aware clients can discover and install it by name. For manual setups, any client that speaks stdio MCP only needs:
+
+```json
+{
+  "command": "uvx",
+  "args": ["mcp-dubai"]
+}
 ```
 
 ---
@@ -527,6 +582,8 @@ Read the full [DISCLAIMER.md](DISCLAIMER.md) for nature of project, trademarks, 
 <img src="./ae.svg" alt="UAE" width="48" height="48">
 
 **Made with ❤️ in Dubai by Mahdi Salmanzade**
+
+Built at [CLRT Studio](https://clrtstudio.com)
 
 📧 [mahdi@clrtstudio.com](mailto:mahdi@clrtstudio.com) · 📅 April 2026
 

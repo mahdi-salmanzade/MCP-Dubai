@@ -1,4 +1,4 @@
-.PHONY: install dev test lint format typecheck check clean run
+.PHONY: install dev test lint format typecheck check clean run registry-check
 
 install:
 	pip install -e .
@@ -27,3 +27,8 @@ clean:
 
 run:
 	python -m mcp_dubai
+
+# Validate server.json against the MCP Registry schema without publishing.
+# Install the CLI first: brew install mcp-publisher
+registry-check:
+	mcp-publisher publish --dry-run
