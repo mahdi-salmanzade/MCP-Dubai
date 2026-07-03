@@ -26,5 +26,6 @@ from mcp_dubai.server import mcp
 
 __version__ = PACKAGE_VERSION
 __author__ = "Mahdi Salmanzade"
+__organization__ = "CLRT Studio (https://clrtstudio.com)"
 
-__all__ = ["mcp", "__version__", "__author__"]
+__all__ = ["mcp", "__version__", "__author__", "__organization__"]

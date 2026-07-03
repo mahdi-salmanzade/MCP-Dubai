@@ -6,6 +6,7 @@ readme = "README.md"
 license = { text = "MIT" }
 authors = [
     { name = "Mahdi Salmanzade", email = "mahdi@clrtstudio.com" },
+    { name = "CLRT Studio", email = "hello@clrtstudio.com" },
 ]
 maintainers = [
     { name = "Mahdi Salmanzade", email = "mahdi@clrtstudio.com" },
@@ -61,6 +62,8 @@ data = [
 Homepage = "https://github.com/mahdi-salmanzade/MCP-Dubai"
 Repository = "https://github.com/mahdi-salmanzade/MCP-Dubai"
 Issues = "https://github.com/mahdi-salmanzade/MCP-Dubai/issues"
+Fork = "https://github.com/CLRT-AI/MCP-Dubai"
+Organization = "https://clrtstudio.com"
 
 [project.scripts]
 mcp-dubai = "mcp_dubai.__main__:main"
