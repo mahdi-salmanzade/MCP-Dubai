@@ -1,6 +1,6 @@
 {
   "domain": "createapps",
-  "knowledge_date": "2026-04-13",
+  "knowledge_date": "2026-07-25",
   "volatility": "medium",
   "verify_at": "https://createapps.ae",
   "source_brief_section": "6.11",
@@ -12,7 +12,10 @@
     "launched_by": "Crown Prince Sheikh Hamdan bin Mohammed",
     "launched_on": "2023-03-29",
     "url": "https://createapps.ae",
-    "url_languages": ["en", "ar"],
+    "url_languages": [
+      "en",
+      "ar"
+    ],
     "track_record": {
       "applications_total": 5800,
       "apps_launched": 55,
@@ -24,11 +27,6 @@
       "id": "championship",
       "name": "Create Apps Championship",
       "type": "global_competition",
-      "current_cycle": {
-        "number": 3,
-        "starts": "2025-10",
-        "ends": "2026-05"
-      },
       "prize_pool_usd": 720000,
       "categories": [
         {
@@ -52,21 +50,45 @@
           "winner_prize_usd": 150000
         }
       ],
-      "key_dates_2026": {
-        "semi_finals": "2026-04-13",
-        "grand_finale": "2026-05-11",
-        "grand_finale_venue": "Museum of the Future"
-      },
       "previous_cycle_2025": {
         "submissions": 4710,
         "countries": 132,
         "finalists": 12,
         "winners": [
-          {"name": "Boom", "category": "logistics, also Dubai App of the Year"},
-          {"name": "BieBite", "category": "youth"},
-          {"name": "Rimal Game", "category": "gaming"},
-          {"name": "Brainy", "category": "innovative"}
+          {
+            "name": "Boom",
+            "category": "logistics, also Dubai App of the Year"
+          },
+          {
+            "name": "BieBite",
+            "category": "youth"
+          },
+          {
+            "name": "Rimal Game",
+            "category": "gaming"
+          },
+          {
+            "name": "Brainy",
+            "category": "innovative"
+          }
         ]
+      },
+      "cycle_status": "Cycle 3 has CONCLUDED. It ran October 2025 to May 2026; the semi-finals (13 April 2026) and the grand finale (11 May 2026, Museum of the Future) are both in the past. Do not present these as upcoming dates.",
+      "concluded_cycle": {
+        "number": 3,
+        "starts": "2025-10",
+        "ends": "2026-05",
+        "status": "concluded"
+      },
+      "cycle_3_key_dates_past": {
+        "semi_finals": "2026-04-13",
+        "grand_finale": "2026-05-11",
+        "grand_finale_venue": "Museum of the Future"
+      },
+      "next_cycle": {
+        "number": 4,
+        "status": "NOT ANNOUNCED as of 2026-07-25",
+        "note": "No cycle 4 dates, prize pool or category list has been published on createapps.ae as of 2026-07-25. Treat the cycle 3 prize pool and categories as historical precedent, not as the current offer. Check createapps.ae for the opening of the next intake."
       }
     },
     {
@@ -74,7 +96,10 @@
       "name": "Emirati Training Academy",
       "type": "free_training",
       "duration_weeks": 6,
-      "tracks": ["Android", "iOS"],
+      "tracks": [
+        "Android",
+        "iOS"
+      ],
       "audience": "UAE nationals",
       "delivered_with": "Udacity",
       "certificate_cosigned_by": [
@@ -96,7 +121,10 @@
     }
   ],
   "submission_guide": {
-    "audience": ["Mobile app developers worldwide", "UAE nationals (training academy)"],
+    "audience": [
+      "Mobile app developers worldwide",
+      "UAE nationals (training academy)"
+    ],
     "evaluation_criteria": [
       "Innovation and originality",
       "User experience and design",
@@ -116,5 +144,7 @@
     "rss": false,
     "sitemap": "https://createapps.ae/sitemap.xml",
     "notes": "Liferay-style sitemap with 13 per-layout sub-sitemaps. No public REST API or RSS feed."
-  }
+  },
+  "previous_knowledge_date": "2026-04-13",
+  "last_refresh_scope": "Targeted correctness audit of 2026-07-25: verified against the primary source and corrected. Not a full re-verification of every field in this pack."
 }

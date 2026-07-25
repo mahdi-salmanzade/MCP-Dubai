@@ -131,9 +131,21 @@ class TestCreateApps:
         assert isinstance(data, dict)
         championship = data["championship"]
         assert isinstance(championship, dict)
-        key_dates = championship["key_dates_2026"]
+        key_dates = championship["cycle_3_key_dates_past"]
         assert isinstance(key_dates, dict)
         assert "Museum of the Future" in key_dates["grand_finale_venue"]
+
+    @pytest.mark.asyncio
+    async def test_concluded_cycle_is_not_presented_as_upcoming(self) -> None:
+        """Cycle 3 ended May 2026; the tool must not imply its dates are ahead."""
+        result = await createapps_tools.createapps_championship()
+        data = result["data"]
+        assert isinstance(data, dict)
+        championship = data["championship"]
+        assert isinstance(championship, dict)
+        assert "CONCLUDED" in championship["cycle_status"]
+        assert championship["concluded_cycle"]["status"] == "concluded"
+        assert "NOT ANNOUNCED" in championship["next_cycle"]["status"]
 
     @pytest.mark.asyncio
     async def test_submission_guide_includes_evaluation_criteria(self) -> None:
