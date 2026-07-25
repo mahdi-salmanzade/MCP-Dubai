@@ -264,11 +264,37 @@ class TestLatePaymentPenalty:
         assert data["estimated_penalty_aed"] == 14000.0
 
     @pytest.mark.asyncio
-    async def test_thirty_days(self) -> None:
+    async def test_thirty_days_is_one_whole_month(self) -> None:
+        """CD 129/2025 charges per month or part thereof, not pro-rated by day."""
         result = await tools.late_payment_penalty_estimate(tax_due_aed=100000, days_late=30)
         data = result["data"]
         assert isinstance(data, dict)
-        assert data["estimated_penalty_aed"] == pytest.approx(1150.68, abs=0.01)
+        assert data["months_charged"] == 1
+        assert data["estimated_penalty_aed"] == pytest.approx(1166.67, abs=0.01)
+
+    @pytest.mark.asyncio
+    async def test_one_day_late_charges_a_full_month(self) -> None:
+        """A part month is a whole month, so day 1 already costs 14%/12."""
+        result = await tools.late_payment_penalty_estimate(tax_due_aed=100000, days_late=1)
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["months_charged"] == 1
+        assert data["estimated_penalty_aed"] == pytest.approx(1166.67, abs=0.01)
+
+    @pytest.mark.asyncio
+    async def test_thirty_one_days_rolls_into_a_second_month(self) -> None:
+        result = await tools.late_payment_penalty_estimate(tax_due_aed=100000, days_late=31)
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["months_charged"] == 2
+
+    @pytest.mark.asyncio
+    async def test_zero_days_late_is_not_late(self) -> None:
+        result = await tools.late_payment_penalty_estimate(tax_due_aed=100000, days_late=0)
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["months_charged"] == 0
+        assert data["estimated_penalty_aed"] == 0.0
 
     @pytest.mark.asyncio
     async def test_non_positive_tax_due_returns_error(self) -> None:
@@ -288,7 +314,7 @@ class TestKnowledge:
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
         assert knowledge["volatility"] == "high"
-        assert knowledge["knowledge_date"] == "2026-07-02"
+        assert knowledge["knowledge_date"] == "2026-07-25"
 
     def test_registers_with_knowledge_registry(self) -> None:
         import importlib
@@ -311,7 +337,7 @@ class TestCuratedPackJuly2026:
 
     def test_knowledge_date_bumped(self) -> None:
         data = self._data()
-        assert data["knowledge_date"] == "2026-07-02"
+        assert data["knowledge_date"] == "2026-07-25"
 
     def test_tax_procedures_fdl_17_2025(self) -> None:
         data = self._data()

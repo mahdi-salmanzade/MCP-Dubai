@@ -74,7 +74,7 @@ async def aml_requirements(
                 "vara_separate_note": aml.get("vara_separate"),
                 "next_steps": (
                     [
-                        "Register on goAML at https://www.fiu.gov.ae",
+                        "Register on goAML at https://services.uaefiu.gov.ae/goaml/",
                         "Appoint a Money Laundering Reporting Officer (MLRO)",
                         "Implement KYC and Customer Due Diligence procedures",
                         "File Suspicious Transaction Reports (STRs) when triggered",
@@ -116,10 +116,19 @@ async def emiratisation_requirements(
     if employee_count is not None:
         if employee_count >= 50:
             applicable_band = "firms_50_plus"
+            band = emiratisation.get("firms_50_plus", {})
+            band = band if isinstance(band, dict) else {}
+            charge = band.get("non_compliance_charge", {})
+            charge = charge if isinstance(charge, dict) else {}
+            # Read the deadlines from the pack rather than hardcoding them, so a
+            # knowledge refresh moves the tool forward without a code change.
             band_note = (
                 "Semi-annual 1% Emiratisation increase in skilled roles applies. "
-                "The H1 2026 deadline of 2026-06-30 has passed; unachieved positions "
-                "are charged AED 10,000 per month from 2026-07-01."
+                f"The H1 deadline of {band.get('h1_2026_deadline', 'unknown')} has "
+                f"passed; unachieved positions are charged AED "
+                f"{charge.get('monthly_charge_aed_per_position', 10000):,} per month "
+                f"from {charge.get('charged_from', 'unknown')}. The next deadline is "
+                f"{band.get('next_deadline', 'unknown')}."
             )
         elif employee_count >= 20:
             applicable_band = "firms_20_to_49"

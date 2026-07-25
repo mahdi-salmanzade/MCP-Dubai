@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Any
+import math
+from typing import Any, Final
 
 from mcp_dubai._shared.knowledge import register_domain_knowledge
 from mcp_dubai._shared.schemas import KnowledgeMetadata, ToolResponse
@@ -11,6 +12,10 @@ from mcp_dubai.biz._data.loader import extract_knowledge, load_data_file
 _DATA = load_data_file("tax_compliance.json")
 KNOWLEDGE: KnowledgeMetadata = extract_knowledge(_DATA)
 register_domain_knowledge("tax_compliance", KNOWLEDGE)
+
+# Average calendar month (365.25 / 12), used to convert a days_late input into
+# the number of whole-or-part months the statutory penalty charges for.
+_DAYS_PER_MONTH: Final[float] = 30.4375
 
 
 def _block(name: str) -> dict[str, Any]:
@@ -334,9 +339,10 @@ async def late_payment_penalty_estimate(
     Estimate the unified UAE late-payment penalty (Cabinet Decision 129 of
     2025, effective 14 April 2026) on overdue tax.
 
-    Applies a flat 14% per annum to the unpaid tax, pro-rated by the number
-    of days late. This is an approximation; confirm the exact accrual
-    mechanics and any caps with the FTA.
+    The 14% per annum rate accrues MONTHLY, for each month or part thereof,
+    from the day following the due date. It is not pro-rated by day, so one
+    day late already attracts a full month of penalty. There is no cap (the
+    old regime's 300% ceiling went with the 2% + 4%-per-month structure).
 
     Args:
         tax_due_aed: The unpaid tax amount in AED (must be > 0).
@@ -357,7 +363,13 @@ async def late_payment_penalty_estimate(
 
     lpp = _block("late_payment_penalty")
     annual_rate_pct = float(lpp.get("annual_rate_pct", 14))
-    estimated_penalty_aed = round(tax_due_aed * (annual_rate_pct / 100) * (days_late / 365), 2)
+
+    # CD 129/2025 charges the 14% per annum rate monthly, "for each month or
+    # part thereof", from the day following the due date. Any part month counts
+    # as a whole month, so round the month count up. days_late == 0 is not late.
+    months_charged = math.ceil(days_late / _DAYS_PER_MONTH) if days_late > 0 else 0
+    monthly_rate_pct = annual_rate_pct / 12
+    estimated_penalty_aed = round(tax_due_aed * (monthly_rate_pct / 100) * months_charged, 2)
 
     return (
         ToolResponse[dict[str, object]]
@@ -366,6 +378,9 @@ async def late_payment_penalty_estimate(
                 "rule": {
                     "name": lpp.get("name"),
                     "annual_rate_pct": annual_rate_pct,
+                    "monthly_rate_pct": round(monthly_rate_pct, 4),
+                    "accrual": "monthly, for each month or part thereof",
+                    "cap": "none",
                     "law": lpp.get("law"),
                     "effective_from": lpp.get("effective_from"),
                 },
@@ -373,11 +388,15 @@ async def late_payment_penalty_estimate(
                     "tax_due_aed": tax_due_aed,
                     "days_late": days_late,
                 },
+                "months_charged": months_charged,
                 "estimated_penalty_aed": estimated_penalty_aed,
                 "note": (
-                    "This is an approximation based on a flat 14% per annum "
-                    "pro-rated by days late. Confirm the exact accrual "
-                    "mechanics and any caps with the FTA."
+                    "The 14% per annum rate accrues monthly, for each month or "
+                    "part thereof, from the day after the due date, so one day "
+                    "late already costs a full month. Month count is derived "
+                    "from days_late using an average month length; for an exact "
+                    "figure count calendar months from the due date. No cap "
+                    "applies. Confirm with the FTA before paying."
                 ),
                 "source_urls": lpp.get("source_urls", []),
             },

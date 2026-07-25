@@ -11,5 +11,5 @@ FEATURE_META: dict[str, object] = {
     ),
     "tier": 2,
     "requires_auth": False,
-    "source_url": "https://www.fiu.gov.ae",
+    "source_url": "https://uaefiu.gov.ae/en",
 }

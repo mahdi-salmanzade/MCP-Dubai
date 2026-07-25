@@ -1,6 +1,6 @@
 {
   "domain": "tax_compliance",
-  "knowledge_date": "2026-07-02",
+  "knowledge_date": "2026-07-25",
   "volatility": "high",
   "verify_at": "https://tax.gov.ae",
   "source_brief_section": "6.4",
@@ -44,7 +44,11 @@
       "portal": "EmaraTax (https://eservices.tax.gov.ae)"
     },
     "transfer_pricing": {
-      "tp_disclosure_thresholds_aed": [40000000, 4000000, 500000],
+      "tp_disclosure_thresholds_aed": [
+        40000000,
+        4000000,
+        500000
+      ],
       "local_master_file_threshold_aed": 200000000,
       "mne_group_threshold_aed": 3150000000
     },
@@ -136,11 +140,14 @@
   },
   "esr": {
     "name": "Economic Substance Regulations",
-    "status": "DEAD for periods after 2022-12-31",
-    "repeal_law": "Cabinet Resolution 98 of 2024",
-    "applies_to_periods": "2019-01-01 to 2022-12-31",
-    "historical_penalties": "Refundable per Cabinet Resolution 98 of 2024",
-    "warning": "Do NOT promise ESR filing tools for current periods. The 9 Relevant Activities only matter for historical filings.",
+    "status": "DEAD for financial years ending after 2022-12-31",
+    "repeal_law": "Cabinet Decision 98 of 2024",
+    "applies_to_periods": "Financial years commencing on or after 2019-01-01 and ENDING on or before 2022-12-31. Scope is set by the financial year END date, so a year running into 2023 is already out of scope.",
+    "historical_obligations": "NOT waived. Cabinet Decision 98 of 2024 cancelled only the requirement to file notifications and reports for financial years ending after 2022-12-31. For in-scope years (2019 to 2022) companies remain liable to file, to answer information and amendment requests from the FTA or the regulatory authority, and to pay any penalties already imposed. Penalties for in-scope years are not refundable.",
+    "warning": "Do NOT promise ESR filing tools for current periods. The 9 Relevant Activities only matter for historical filings. Do not tell a user that historical ESR penalties are refundable, because they are not.",
+    "source_urls": [
+      "https://mof.gov.ae/en/news/ministry-of-finance-announces-amendment-to-cabinet-decision-on-economic-substance-requirements/"
+    ],
     "relevant_activities": [
       "Banking",
       "Insurance",
@@ -194,10 +201,16 @@
   },
   "ubo": {
     "name": "Ultimate Beneficial Owner",
-    "law": "Cabinet Decision 58 of 2020",
+    "law": "Cabinet Decision 109 of 2023 (Regulation of the Real Beneficiary Procedures)",
+    "law_in_force_since": "2023-11-16",
+    "previous_law": "Cabinet Decision 58 of 2020, superseded with effect from 2023-11-16. Cite it only for conduct predating that date.",
     "threshold_pct": 25,
     "update_window_days": 15,
-    "max_fine_aed": 1000000,
+    "penalties": {
+      "instrument": "Cabinet Decision 132 of 2023 (issued 2023-12-15, superseded Cabinet Decision 53 of 2021)",
+      "structure": "Graduated per violation: written warning for a first breach, up to AED 50,000 for a second, up to AED 100,000 for a third, plus possible licence suspension.",
+      "max_aed": 100000
+    },
     "summary": "All UAE companies must maintain a UBO register and file with their licensing authority. 25% threshold for direct or indirect ownership."
   },
   "data_protection": {
@@ -218,7 +231,12 @@
   },
   "excise": {
     "law": "Federal Decree-Law 7 of 2017 (as amended by Federal Decree-Law 17 of 2025)",
-    "categories": ["Tobacco", "Sugary drinks", "Energy drinks", "Sweetened drinks"],
+    "categories": [
+      "Tobacco",
+      "Sugary drinks",
+      "Energy drinks",
+      "Sweetened drinks"
+    ],
     "sweetened_drinks_volumetric": {
       "effective_from": "2026-01-01",
       "law": "Cabinet Decision 197 of 2025",
@@ -238,7 +256,10 @@
         }
       ],
       "exempt": "Drinks under 5g sugar per 100ml, or sweetened only with artificial sweeteners.",
-      "rates_aed_per_litre": [0.79, 1.09],
+      "rates_aed_per_litre": [
+        0.79,
+        1.09
+      ],
       "certification": "A MoIAT Emirates Conformity Certificate is required to evidence sugar content; uncertified drinks default to the high-sugar band (AED 1.09 per litre).",
       "source_urls": [
         "https://mof.gov.ae/en/news/ministry-of-finance-announces-new-amendments-to-the-excise-tax-for-the-tiered-volumetric-model-on-sweetened-beverages/",
@@ -312,5 +333,7 @@
       "https://tax.gov.ae",
       "https://habibalmulla.com/articles/administrative-penalties-in-the-uae-the-2025-reform-and-the-shift-toward-a-unified-tax-penalty-regime/"
     ]
-  }
+  },
+  "previous_knowledge_date": "2026-07-02",
+  "last_refresh_scope": "Targeted correctness audit of 2026-07-25: verified against the primary source and corrected. Not a full re-verification of every field in this pack."
 }
