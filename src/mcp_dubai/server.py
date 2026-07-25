@@ -29,6 +29,7 @@ from mcp_dubai._shared import (
     get_tool_discovery,
     get_upstream_registry,
 )
+from mcp_dubai._shared.annotations import ReadOnlyAnnotationMiddleware
 from mcp_dubai._shared.constants import PACKAGE_VERSION
 from mcp_dubai._shared.discovery import TIER_META
 
@@ -40,6 +41,12 @@ logger = logging.getLogger(__name__)
 # ----------------------------------------------------------------------------
 mcp: FastMCP = FastMCP(
     "mcp-dubai",
+    # Without this, initialize reports FastMCP's own version as serverInfo.version,
+    # so a client cannot tell which release of mcp-dubai it is talking to.
+    version=PACKAGE_VERSION,
+    # Every tool here is a read-only lookup. Declaring that centrally means
+    # clients do not have to prompt for confirmation on all 120 of them.
+    middleware=[ReadOnlyAnnotationMiddleware()],
     instructions=(
         "MCP-Dubai gives AI agents access to Dubai and UAE public APIs and "
         "curated business knowledge. Call `recommend_tools` with a natural-"
