@@ -35,13 +35,22 @@ classifiers = [
 ]
 
 dependencies = [
-    "fastmcp>=2.2.0",
-    "httpx>=0.27.0",
-    "pydantic>=2.6.0",
-    "tenacity>=8.2.0",
-    "python-dateutil>=2.8.0",
+    # 3.x is a hard floor, not a preference: server.py calls `mcp.mount(server)`
+    # without a prefix and `await mcp.list_tools()`, neither of which exists on
+    # FastMCP 2.x. The <4 cap is also required, since `mount(prefix=)` is slated
+    # for removal in v4 and 4.0.0 alphas are already on PyPI.
+    "fastmcp>=3.2.3,<4",
+    # Upper bounds on the majors that would break us. Without them a fresh
+    # install silently picks up the next major the day it lands.
+    "httpx>=0.28.1,<1",
+    "pydantic>=2.6.0,<3",
+    "tenacity>=8.2.0,<10",
+    "python-dateutil>=2.8.0,<3",
     "rank-bm25>=0.2.2",
-    "lxml>=5.0.0",
+    # 6.1.0 is a security floor, not a preference: it fixes CVE-2026-41066
+    # (XXE via the default resolve_entities in iterparse/ETCompatXMLParser,
+    # GHSA-vfmq-68hx-4jfw, HIGH). This package parses untrusted scraped HTML.
+    "lxml>=6.1.0,<7",
 ]
 
 [project.optional-dependencies]
