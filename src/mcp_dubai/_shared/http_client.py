@@ -144,13 +144,18 @@ class HttpClient:
         return response
 
     def _raise_for_status(self, response: httpx.Response) -> None:
+        # Never interpolate the raw URL into an exception: query strings can
+        # carry secrets (the WAQI air-quality upstream takes ?token=<key>), and
+        # these messages reach both the server log and the MCP client, which
+        # means they reach the LLM's context.
+        safe_url = response.url.copy_with(query=None)
         if response.status_code == 429:
             raise RateLimitError(
-                f"Rate limited by {response.url}: {response.text[:200]}",
+                f"Rate limited by {safe_url}: {response.text[:200]}",
                 status_code=429,
             )
         if response.status_code >= 400:
             raise HttpClientError(
-                f"HTTP {response.status_code} from {response.url}: {response.text[:200]}",
+                f"HTTP {response.status_code} from {safe_url}: {response.text[:200]}",
                 status_code=response.status_code,
             )
