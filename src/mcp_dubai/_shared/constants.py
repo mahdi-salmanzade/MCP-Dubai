@@ -9,6 +9,7 @@ project-wide freshness stamp surfaced through `get_knowledge_status()`.
 from __future__ import annotations
 
 import os
+from datetime import date, datetime
 from importlib.metadata import PackageNotFoundError
 from importlib.metadata import version as _pkg_version
 from zoneinfo import ZoneInfo
@@ -57,6 +58,19 @@ DUBAI_DATA_PORTAL_BASE: str = os.getenv(
 # ----------------------------------------------------------------------------
 UAE_TIMEZONE: ZoneInfo = ZoneInfo("Asia/Dubai")
 UAE_TZ_OFFSET: str = "+04:00"
+
+
+def uae_today() -> date:
+    """
+    Return today's date in Asia/Dubai (UTC+4).
+
+    Always use this instead of `date.today()`, which resolves against the
+    process timezone. A server running in UTC is a day behind Dubai between
+    20:00 and 00:00 UTC, which silently shifts "today", "next holiday" and
+    prayer-time lookups onto the wrong day for four hours out of every day.
+    """
+    return datetime.now(UAE_TIMEZONE).date()
+
 
 # ----------------------------------------------------------------------------
 # Anonymous third-party APIs (no auth, no key)
