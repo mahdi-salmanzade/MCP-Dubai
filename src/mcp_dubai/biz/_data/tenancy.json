@@ -1,6 +1,6 @@
 {
   "domain": "tenancy",
-  "knowledge_date": "2026-07-02",
+  "knowledge_date": "2026-07-25",
   "volatility": "medium",
   "verify_at": "https://dubailand.gov.ae/en/eservices/ejari/",
   "disclaimer": "Verify current Ejari fees, RERA rent-increase slabs, and Rental Disputes Centre filing rules with the Dubai Land Department (DLD) before acting.",
@@ -128,12 +128,11 @@
   "rdc": {
     "name": "Rental Disputes Centre (part of DLD)",
     "summary": "The Rental Disputes Centre (RDC) handles landlord and tenant disputes in Dubai.",
-    "filing_fee": "3.5% of annual rent, minimum AED 500, maximum AED 20,000",
-    "filing_fee_note": "Monetary claims are capped at AED 15,000.",
+    "filing_fee": "Two tracks. Non-monetary claims (eviction, renewal, rent recovery, termination): 3.5% of the annual rent or lease value, minimum AED 500, maximum AED 20,000. Monetary claims: 3.5% of the amount claimed, minimum AED 500, maximum AED 15,000.",
+    "filing_fee_note": "The AED 20,000 and AED 15,000 figures are ceilings on the FILING FEE, not limits on what a party may claim. There is no cap on the value of a claim the RDC will hear. A monetary claim above about AED 428,571 simply plateaus at the AED 15,000 fee.",
     "filing_fee_pct": 3.5,
     "filing_fee_min_aed": 500,
     "filing_fee_max_aed": 20000,
-    "monetary_claim_cap_aed": 15000,
     "prerequisite": "active Ejari registration",
     "channels": [
       "rdc.gov.ae portal",
@@ -142,7 +141,16 @@
     ],
     "source_urls": [
       "https://rdc.gov.ae/en/frequently-asked-questions/"
-    ]
+    ],
+    "monetary_claim_fee_max_aed": 15000,
+    "monetary_claim_fee_pct": 3.5,
+    "additional_fees_aed": {
+      "power_of_attorney_registration": 25,
+      "process_service": 100,
+      "knowledge_fee": 10,
+      "innovation_fee": 10,
+      "service_partner_note": "AED 130 plus VAT if filed through a trustee office."
+    }
   },
   "shared_housing": {
     "law": "Dubai Law No. 4 of 2026",
@@ -181,5 +189,7 @@
       "https://dubailand.gov.ae/en/eservices/real-estate-tokenization/",
       "https://dubailand.gov.ae/en/eservices/rental-index/rental-index/"
     ]
-  }
+  },
+  "previous_knowledge_date": "2026-07-02",
+  "last_refresh_scope": "Targeted correctness audit of 2026-07-25: verified against the primary source and corrected. Not a full re-verification of every field in this pack."
 }
