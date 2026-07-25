@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Final
 
 from mcp_dubai._shared.knowledge import register_domain_knowledge
 from mcp_dubai._shared.schemas import KnowledgeMetadata, ToolResponse
@@ -17,6 +17,18 @@ def _all_visas() -> list[dict[str, Any]]:
     items = _DATA.get("visas", [])
     return list(items) if isinstance(items, list) else []
 
+
+# USD/AED is a hard peg; the CBUAE reference rate is 3.6725 AED per USD.
+AED_PER_USD: Final[float] = 3.6725
+
+# GDRFA Dubai Virtual Working Programme: minimum USD 3,500 monthly income.
+# Compared in AED so the boundary is exact rather than float-divided.
+_VIRTUAL_WORKING_MIN_USD: Final[int] = 3500
+_VIRTUAL_WORKING_MIN_AED: Final[float] = _VIRTUAL_WORKING_MIN_USD * AED_PER_USD  # 12853.75
+
+# Green Visa freelancer track: AED 360,000 annual income in EACH of the prior
+# two years, not AED 360,000 cumulative across both.
+_GREEN_FREELANCER_MIN_ANNUAL_AED: Final[int] = 360_000
 
 VALID_PROFILES = {
     "founder",
@@ -159,14 +171,14 @@ async def visa_recommend(
             "freelance_permit",
             "Start with a Freelance Permit (TECOM, GoFreelance, or other free zone freelance program). 1 to 2 years.",
         )
-        if annual_income_aed and annual_income_aed >= 180000:
+        if annual_income_aed and annual_income_aed >= _GREEN_FREELANCER_MIN_ANNUAL_AED:
             _add(
                 "green_freelancer",
-                "AED 360,000 cumulative income over the prior 2 years qualifies for the Green Visa freelancer track (5-year, self-sponsored).",
+                "AED 360,000 annual freelance income in each of the prior 2 years qualifies for the Green Visa freelancer track (5-year, self-sponsored).",
             )
 
     elif profile == "remote_worker":
-        if monthly_salary_aed and monthly_salary_aed * 3.67 >= 3500:  # rough USD conversion
+        if monthly_salary_aed and monthly_salary_aed >= _VIRTUAL_WORKING_MIN_AED:
             _add(
                 "virtual_working",
                 "USD 3,500+ monthly salary from a foreign employer qualifies for the Virtual Working Programme (1-year UAE residency).",
@@ -211,14 +223,22 @@ async def visa_recommend(
             "family_dependent", "Family / Dependent Visa, linked to your sponsor's residence visa."
         )
         warnings.append(
-            "Sponsor minimum salary: AED 4,000 + housing OR AED 5,000 all-in. Marriage and birth certificates must be attested."
+            "Sponsor minimum salary: AED 4,000, or AED 3,000 plus employer-provided "
+            "accommodation. Assessed on basic salary in the attested labour contract, "
+            "not total package. Marriage and birth certificates must be attested."
         )
 
     elif profile == "retiree":
         if age is not None and age >= 55:
             _add(
                 "retirement",
-                "Retirement Visa (5 years). Requires AED 1M property OR savings OR AED 20,000 monthly income.",
+                "Retirement Visa (5 years). Requires 15+ years worked, then EITHER "
+                "AED 1M property AND AED 1M savings (both), OR annual income of "
+                "AED 240,000 for Dubai applications (AED 180,000 federal).",
+            )
+            warnings.append(
+                "The property and savings amounts are cumulative, not alternatives. "
+                "The 15-year work history is a separate mandatory requirement."
             )
         else:
             warnings.append("Retirement Visa requires age 55 or older.")
