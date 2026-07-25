@@ -1,4 +1,4 @@
-.PHONY: install dev test lint format typecheck check clean run registry-check
+.PHONY: install dev test lint format typecheck check clean run registry-check freshness
 
 install:
 	pip install -e .
@@ -10,15 +10,20 @@ test:
 	pytest
 
 lint:
-	ruff check src tests
+	ruff check src tests scripts
 
 format:
-	ruff format src tests
+	ruff format src tests scripts
 
 typecheck:
 	mypy src
 
-check: lint typecheck test
+check: lint typecheck test freshness
+
+# Report which curated knowledge packs are overdue for re-verification.
+# Informational by default; add --strict to make it exit non-zero.
+freshness:
+	python scripts/check_knowledge_freshness.py
 
 clean:
 	rm -rf .pytest_cache .mypy_cache .ruff_cache .coverage dist build *.egg-info

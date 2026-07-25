@@ -55,11 +55,19 @@ jobs:
           # anywhere in the shipped source tree. The rule is documented in
           # CONTRIBUTING.md and the PR template, which are exempted because
           # they document the rule itself.
-          if grep -RIn $'[\u2014\u2013]' src tests pyproject.toml README.md DISCLAIMER.md Makefile .env.example 2>/dev/null; then
+          if grep -RIn $'[\u2014\u2013]' src tests scripts pyproject.toml README.md DISCLAIMER.md Makefile .env.example 2>/dev/null; then
             echo "::error::Em dash or en dash found in shipped files. Use a hyphen, colon, or two sentences."
             exit 1
           fi
           echo "OK: no em or en dashes in shipped files."
+
+      # Informational only. Content going stale is the maintainer's cue to
+      # re-verify, not a reason to fail a PR that touched unrelated code. The
+      # blocking checks live in tests/test_biz/test_knowledge_freshness.py and
+      # the weekly knowledge-freshness workflow opens a tracking issue.
+      - name: Knowledge freshness report (informational)
+        if: matrix.python-version == '3.12'
+        run: python scripts/check_knowledge_freshness.py
 
       - name: Smoke test (server boots)
         run: |
