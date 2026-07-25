@@ -1,16 +1,15 @@
 {
   "domain": "compliance",
-  "knowledge_date": "2026-07-02",
+  "knowledge_date": "2026-07-25",
   "volatility": "medium",
-  "verify_at": "https://www.fiu.gov.ae",
+  "verify_at": "https://uaefiu.gov.ae/en",
   "source_brief_section": "6.6",
   "disclaimer": "The AML framework was overhauled by Federal Decree-Law 10 of 2025 (in force 14 October 2025) and Emiratisation targets carry monthly charges from 1 July 2026. UBO and PDPL are stable but enforcement guidance changes. Always check the regulator portal before filing.",
   "esr": {
     "name": "Economic Substance Regulations",
-    "status": "DEAD for periods after 2022-12-31",
-    "repeal_law": "Cabinet Resolution 98 of 2024",
-    "applies_to_periods": "2019-01-01 to 2022-12-31",
-    "historical_penalties": "Refundable per Cabinet Resolution 98 of 2024",
+    "status": "DEAD for financial years ending after 2022-12-31",
+    "repeal_law": "Cabinet Decision 98 of 2024",
+    "applies_to_periods": "Financial years commencing on or after 2019-01-01 and ENDING on or before 2022-12-31. Scope is set by the financial year END date, so a year running into 2023 is already out of scope.",
     "warning": "Do NOT file ESR returns for current periods. The 9 Relevant Activities only matter for historical filings.",
     "relevant_activities": [
       "Banking",
@@ -24,8 +23,9 @@
       "Distribution and service centre"
     ],
     "source_urls": [
-      "https://mof.gov.ae"
-    ]
+      "https://mof.gov.ae/en/news/ministry-of-finance-announces-amendment-to-cabinet-decision-on-economic-substance-requirements/"
+    ],
+    "historical_obligations": "NOT waived. Cabinet Decision 98 of 2024 cancelled only the requirement to file notifications and reports for financial years ending after 2022-12-31. For in-scope years (2019 to 2022) companies remain liable to file, to answer information and amendment requests from the FTA or the regulatory authority, and to pay any penalties already imposed. Penalties for in-scope years are not refundable."
   },
   "aml_cft": {
     "name": "Anti-Money Laundering, Counter-Financing of Terrorism and Proliferation Financing",
@@ -46,7 +46,7 @@
     "dfsa_alignment": "DFSA (DIFC) AML rulebook aligned with Federal Decree-Law 10 of 2025 effective 2026-03-02.",
     "regulator": "UAE Financial Intelligence Unit (FIU)",
     "portal": "goAML",
-    "portal_url": "https://www.fiu.gov.ae",
+    "portal_url": "https://services.uaefiu.gov.ae/goaml/",
     "applies_to": "DNFBPs (Designated Non-Financial Businesses and Professions)",
     "dnfbp_categories": [
       {
@@ -82,7 +82,7 @@
     "fines_aed": {
       "legal_persons_minimum": 5000000,
       "legal_persons_maximum": 100000000,
-      "notes": "Fine range for legal persons under Federal Decree-Law 10 of 2025 (previously AED 50,000 to 1,000,000 under FDL 20 of 2018). Administrative penalties for DNFBP registration or reporting breaches are set separately by the supervisory authorities."
+      "notes": "Criminal fine range for legal persons under Federal Decree-Law 10 of 2025 (previously AED 500,000 to 50,000,000 under Article 23 of Federal Decree-Law 20 of 2018). Administrative penalties for DNFBP registration or reporting breaches are set separately by the supervisory authorities under Cabinet Decision 16 of 2021."
     },
     "vara_separate": "Crypto / virtual asset businesses in Dubai fall under VARA Law 4 of 2022, V2.0 Rulebook effective 19 June 2025. Travel Rule applies. Monero and Zcash are banned. Federal Decree-Law 10 of 2025 now also covers virtual assets at the federal AML level.",
     "source_urls": [
@@ -90,7 +90,7 @@
       "https://rulebook.centralbank.ae/en/rulebook/federal-decree-law-no-10-2025-regarding-anti-money-laundering-and-combating-financing",
       "https://www.whitecase.com/insight-alert/uae-enacts-new-aml-law-what-are-key-changes-and-what-does-mean-your-business",
       "https://www.hsfkramer.com/notes/middle-east/2026-posts/the-uae-introduces-landmark-new-aml-and-cft-law",
-      "https://www.fiu.gov.ae",
+      "https://uaefiu.gov.ae/en/compliance-guidance/how-to-submit-a-report/",
       "https://www.vara.ae"
     ]
   },
@@ -108,8 +108,16 @@
         "monthly_charge_aed_per_position": 10000,
         "annual_equivalent_aed_per_position": 120000,
         "charged_from": "2026-07-01",
-        "notes": "From 1 July 2026 MOHRE collects AED 10,000 per month for each unachieved Emiratisation position (AED 120,000 per year per position). The rate started at AED 6,000/month in 2022 and rises AED 1,000 each year."
-      }
+        "notes": "From 1 July 2026 MOHRE collects AED 10,000 per month for each unachieved Emiratisation position (AED 120,000 per year per position). The rate started at AED 6,000/month in 2022 and rises AED 1,000 each year. The AED 10,000/month stream running from 2026-07-01 relates to the H1 shortfall; a separate assessment follows the 31 December 2026 H2 deadline."
+      },
+      "h2_2026_deadline": "2026-12-31",
+      "h2_2026_deadline_status": "UPCOMING. The second-half 1% increment is due by 31 December 2026, bringing total growth for the year to 2%.",
+      "next_deadline": "2026-12-31",
+      "post_2026_note": "No Emiratisation targets beyond end-2026 have been announced as of 2026-07-25. The current programme runs to a 10% skilled-role rate at end-2026; treat any 2027 target as unannounced rather than zero.",
+      "source_urls_h2": [
+        "https://gulfnews.com/uae/meet-emiratisation-targets-by-december-31-or-face-fines-warns-mohre-1.500322794",
+        "https://mohre.gov.ae/en/guidance-and-awareness-portal-new/emiratisation-targets"
+      ]
     },
     "firms_20_to_49": {
       "scope": "Private-sector companies with 20 to 49 employees in 14 selected economic sectors",
@@ -130,14 +138,20 @@
   },
   "ubo": {
     "name": "Ultimate Beneficial Owner",
-    "law": "Cabinet Decision 58 of 2020",
+    "law": "Cabinet Decision 109 of 2023 (Regulation of the Real Beneficiary Procedures)",
+    "law_in_force_since": "2023-11-16",
+    "previous_law": "Cabinet Decision 58 of 2020, superseded with effect from 2023-11-16. Cite it only for conduct predating that date.",
     "applies_to": "All UAE companies (mainland and most free zones)",
     "threshold_pct": 25,
     "threshold_notes": "Direct or indirect ownership of 25% or more, or control by other means, triggers UBO disclosure.",
     "filing_requirement": "Maintain a UBO register internally and file with the licensing authority.",
     "update_window_days": 15,
     "update_window_notes": "Any change in UBO must be reported within 15 days.",
-    "max_fine_aed": 1000000,
+    "penalties": {
+      "instrument": "Cabinet Decision 132 of 2023 (issued 2023-12-15, superseded Cabinet Decision 53 of 2021)",
+      "structure": "Graduated per violation: written warning for a first breach, up to AED 50,000 for a second, up to AED 100,000 for a third, plus possible licence suspension.",
+      "max_aed": 100000
+    },
     "exemptions": [
       "Companies wholly owned by federal or local UAE government",
       "Companies in financial free zones (DIFC, ADGM) with separate UBO regimes"
@@ -149,7 +163,8 @@
       "ADGM Registrar (ADGM, separate framework)"
     ],
     "source_urls": [
-      "https://www.economy.gov.ae"
+      "https://www.moet.gov.ae/documents/20121/0/Cabinet+Decision+109-2023+English+Version+06062024.pdf",
+      "https://masdarcity.ae/docs/default-source/pdf-to-download/cd-132-2023---final-english-version-06062024-(1).pdf"
     ]
   },
   "pdpl": {
@@ -196,5 +211,7 @@
       "regulator": "ADGM Office of Data Protection",
       "notes": "GDPR-aligned."
     }
-  }
+  },
+  "previous_knowledge_date": "2026-07-02",
+  "last_refresh_scope": "Targeted correctness audit of 2026-07-25: verified against the primary source and corrected. Not a full re-verification of every field in this pack."
 }

@@ -45,8 +45,10 @@ async def ubo_filing_guide() -> dict[str, object]:
     """
     Return UBO (Ultimate Beneficial Owner) filing requirements.
 
-    Cabinet Decision 58 of 2020. 25% threshold. 15-day update window.
-    Max fine AED 1,000,000.
+    Cabinet Decision 109 of 2023, in force since 16 November 2023 (it
+    superseded Cabinet Decision 58 of 2020). 25% threshold. 15-day update
+    window. Administrative penalties come from Cabinet Decision 132 of 2023
+    and are graduated: warning, then up to AED 50,000, then up to AED 100,000.
     """
     return await tools.ubo_filing_guide()
 
