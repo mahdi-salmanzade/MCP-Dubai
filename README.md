@@ -16,7 +16,7 @@
 [![Made in Dubai](https://img.shields.io/badge/Made%20in-Dubai-red.svg)](#)
 [![Status: Alpha](https://img.shields.io/badge/status-alpha-orange.svg)](#%EF%B8%8F-roadmap)
 [![Knowledge Updated](https://img.shields.io/badge/knowledge_updated-July_2026-blue)](#-knowledge-freshness)
-[![Tests](https://img.shields.io/badge/tests-611_passing-brightgreen.svg)](#)
+[![Tests](https://img.shields.io/badge/tests-691_passing-brightgreen.svg)](#)
 [![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen.svg)](#)
 
 **Connect AI agents (Claude, GPT, Cursor, Copilot) to Dubai and UAE public APIs and curated business setup knowledge.**
@@ -36,9 +36,19 @@
 
 ---
 
-> ⚠️ **Knowledge Date: July 2026**
+> ⚠️ **Knowledge Date: not uniform. Check per domain.**
 >
-> Most recently verified 2 July 2026: a full quarterly refresh of the tax, visas, free zones, banking, tenancy, parkin, cost-of-living, events, and compliance packs (e-invoicing pilot launch, VAT law amendments, the new AML law, Salik/Parkin VAT, the 2026-27 school fee freeze, and more), plus corrected 2026 holiday observances and a provisional 2027 calendar. Business rules in the UAE (corporate tax, visas, free zone pricing, accelerator cycles, API migrations) change frequently. Always verify with the official source before making real decisions. Every `biz/*` tool returns a `knowledge_date` field with its own per-domain freshness stamp, and you can call `get_knowledge_status()` at any time to see which domains were verified when.
+> Freshness is **per pack, not project-wide**. As of 25 July 2026:
+>
+> | Verified | Packs |
+> |---|---|
+> | **2026-07-25** | `compliance`, `tax_compliance` (partial), `visas`, `tenancy`, `createapps` |
+> | **2026-07-02** | `banks`, `cost_of_living`, `events`, `free_zones`, `parkin` |
+> | **2026-04-13** ⚠️ | `dcde`, `founder_essentials`, `funding`, `gov_portals`, `halal`, `ip_trademark` |
+>
+> The six packs stamped **2026-04-13 are over three months stale** and are the ones most likely to be wrong: accelerator cohort dates, free-zone and trademark fee schedules, and government portal URLs all move quickly. Treat them as leads to verify, not as current fact.
+>
+> Business rules in the UAE (corporate tax, visas, free zone pricing, accelerator cycles, API migrations) change frequently. Always verify with the official source before making real decisions. Every `biz/*` tool returns its own `knowledge_date`, and `get_knowledge_status()` reports which domains were verified when.
 
 ---
 

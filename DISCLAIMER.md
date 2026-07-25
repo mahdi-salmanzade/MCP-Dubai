@@ -57,7 +57,7 @@ MCP-Dubai is a **stateless proxy**. It does **not** collect, store, log, or tran
 
 Found a tool that's returning errors, empty results, or nonsense? Please help us fix it:
 
-1. Go to the GitHub repo issues page: **https://github.com/intzero/MCP-Dubai/issues**
+1. Go to the GitHub repo issues page: **https://github.com/mahdi-salmanzade/MCP-Dubai/issues**
 2. Click **"New Issue"**
 3. Include:
    - The **tool name** (e.g., `rta_nol_balance`)
