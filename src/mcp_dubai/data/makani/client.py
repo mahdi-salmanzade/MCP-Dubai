@@ -100,6 +100,15 @@ def _raise_for_status(response: httpx.Response) -> None:
 
 def _extract_result(operation: str, xml_text: str) -> dict[str, Any]:
     """Pull the JSON string out of `<OperationName>Result` and decode it."""
+    # stdlib ElementTree never fetches external entities, so this response is
+    # not an XXE risk. It does expand INTERNAL entities, which is the "billion
+    # laughs" quadratic-blowup vector. A legitimate Makani SOAP response carries
+    # no DTD, so refusing any doctype closes that off without adding defusedxml.
+    if "<!DOCTYPE" in xml_text[:2048].upper():
+        raise HttpClientError(
+            "Makani SOAP response declares a DTD, which a legitimate response "
+            "never does. Refusing to parse it (entity-expansion guard)."
+        )
     try:
         root = ET.fromstring(xml_text)
     except ET.ParseError as exc:
