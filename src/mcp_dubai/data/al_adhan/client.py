@@ -10,6 +10,7 @@ from __future__ import annotations
 
 from datetime import date
 
+from mcp_dubai._shared.constants import uae_today
 from mcp_dubai._shared.http_client import HttpClient
 from mcp_dubai.data.al_adhan import constants
 from mcp_dubai.data.al_adhan.schemas import (
@@ -40,8 +41,8 @@ class AlAdhanClient:
 
     @staticmethod
     def _format_date_ddmmyyyy(value: date | None) -> str:
-        """Al-Adhan path segments use DD-MM-YYYY."""
-        return (value or date.today()).strftime("%d-%m-%Y")
+        """Al-Adhan path segments use DD-MM-YYYY. Defaults to the Dubai date."""
+        return (value or uae_today()).strftime("%d-%m-%Y")
 
     async def get_timings_by_city(
         self,

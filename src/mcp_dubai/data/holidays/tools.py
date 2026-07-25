@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import date
 
-from mcp_dubai._shared.constants import KNOWLEDGE_DATE
+from mcp_dubai._shared.constants import KNOWLEDGE_DATE, uae_today
 from mcp_dubai._shared.schemas import ToolResponse
 from mcp_dubai.data.holidays.data import DATASET_NOTES, HOLIDAYS_BY_YEAR
 
@@ -71,7 +71,7 @@ async def uae_holidays(year: int = 2026) -> dict[str, object]:
 async def uae_next_holiday(from_date_str: str | None = None) -> dict[str, object]:
     """Return the next UAE public holiday on or after a reference date."""
     try:
-        reference = _parse_iso(from_date_str) if from_date_str else date.today()
+        reference = _parse_iso(from_date_str) if from_date_str else uae_today()
     except ValueError as exc:
         return (
             ToolResponse[dict[str, object]]
