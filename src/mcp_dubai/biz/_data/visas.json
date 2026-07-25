@@ -1,6 +1,6 @@
 {
   "domain": "visas",
-  "knowledge_date": "2026-07-02",
+  "knowledge_date": "2026-07-25",
   "volatility": "high",
   "verify_at": "https://u.ae/en/information-and-services/visa-and-emirates-id",
   "source_brief_section": "6.3",
@@ -298,7 +298,7 @@
       "eligibility": [
         "Freelance / self-employed permit from MOHRE",
         "Bachelor's degree or specialized diploma",
-        "AED 360,000 cumulative income over the prior two years OR proof of financial solvency for the residency duration"
+        "Annual freelance income of at least AED 360,000 in each of the past two years (about AED 30,000 per month), OR proof of financial solvency for the residency duration"
       ],
       "cost_aed_min": 4000,
       "cost_aed_max": 6000,
@@ -366,12 +366,16 @@
         "age 55 and older with assets or income"
       ],
       "eligibility": [
-        "Age 55 or older",
-        "AED 1 million property OR savings, OR AED 20,000 monthly income"
+        "Age 55 or older at the time of retirement",
+        "Worked for not less than 15 years, inside or outside the UAE (mandatory, in addition to the financial test below)",
+        "Then ONE of the two financial routes must be met",
+        "Route A: own property in the UAE worth AED 1,000,000 or more AND hold financial savings of AED 1,000,000 or more (both are required, this is not an either/or)",
+        "Route B: annual income of at least AED 180,000 under the federal ICP rule, or AED 240,000 (AED 20,000 per month) for applications filed in Dubai"
       ],
+      "eligibility_note": "The property and savings amounts in Route A are cumulative. A frequent misreading treats them as alternatives, which understates the requirement by AED 1 million.",
       "process_note": "Since the GDRFA-DLD MoU of 11 April 2026, Retiree Residency services in Dubai run through a single GDRFA Dubai channel together with Golden and Property residency (service integration only; eligibility unchanged).",
       "source_urls": [
-        "https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/retirement-visa",
+        "https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/residence-visa-for-the-retired",
         "https://mediaoffice.ae/en/news/2026/april/11-04/gdrfa"
       ]
     },
@@ -385,7 +389,8 @@
       ],
       "eligibility": [
         "Sponsor (the UAE resident) holds a valid residence visa",
-        "Sponsor minimum salary AED 4,000 plus housing OR AED 5,000 all-in",
+        "Sponsor minimum salary AED 4,000, or AED 3,000 plus employer-provided accommodation (per u.ae)",
+        "The threshold is assessed on the basic salary in the attested labour contract, not on total package",
         "Attested marriage and birth certificates"
       ],
       "cost_aed_min": 5000,
@@ -420,5 +425,7 @@
         "https://www.visahq.com/news/2026-04-14/ae/gcc-unified-tourist-visa-pilot-set-for-q4-2026-with-dubai-bahrain-air-corridor-first-in-line/"
       ]
     }
-  ]
+  ],
+  "previous_knowledge_date": "2026-07-02",
+  "last_refresh_scope": "Targeted correctness audit of 2026-07-25: verified against the primary source and corrected. Not a full re-verification of every field in this pack."
 }

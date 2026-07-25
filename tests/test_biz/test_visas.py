@@ -186,7 +186,7 @@ class TestVisaRecommend:
 
     @pytest.mark.asyncio
     async def test_freelancer_recommendations(self) -> None:
-        result = await tools.visa_recommend(profile="freelancer", annual_income_aed=200000)
+        result = await tools.visa_recommend(profile="freelancer", annual_income_aed=400000)
         data = result["data"]
         assert isinstance(data, dict)
         candidates = data["candidates"]
@@ -194,6 +194,35 @@ class TestVisaRecommend:
         ids = {c["id"] for c in candidates}
         assert "freelance_permit" in ids
         assert "green_freelancer" in ids
+
+    @pytest.mark.asyncio
+    async def test_freelancer_below_green_visa_threshold(self) -> None:
+        """AED 360,000 is required in EACH of the prior two years, not cumulative."""
+        result = await tools.visa_recommend(profile="freelancer", annual_income_aed=200000)
+        data = result["data"]
+        assert isinstance(data, dict)
+        candidates = data["candidates"]
+        assert isinstance(candidates, list)
+        ids = {c["id"] for c in candidates}
+        assert "freelance_permit" in ids
+        assert "green_freelancer" not in ids
+
+    @pytest.mark.asyncio
+    async def test_remote_worker_aed_usd_conversion_not_inverted(self) -> None:
+        """AED 1,000/month is USD ~272 and must NOT clear the USD 3,500 floor."""
+        low = await tools.visa_recommend(profile="remote_worker", monthly_salary_aed=1000)
+        low_data = low["data"]
+        assert isinstance(low_data, dict)
+        low_candidates = low_data["candidates"]
+        assert isinstance(low_candidates, list)
+        assert all("requires" in c["why"].lower() for c in low_candidates)
+
+        high = await tools.visa_recommend(profile="remote_worker", monthly_salary_aed=20000)
+        high_data = high["data"]
+        assert isinstance(high_data, dict)
+        high_candidates = high_data["candidates"]
+        assert isinstance(high_candidates, list)
+        assert any("qualifies" in c["why"].lower() for c in high_candidates)
 
     @pytest.mark.asyncio
     async def test_real_estate_investor(self) -> None:
@@ -274,7 +303,7 @@ class TestKnowledgeRegistration:
         result = await tools.list_visa_types()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-07-02"
+        assert knowledge["knowledge_date"] == "2026-07-25"
 
     def test_registers_with_knowledge_registry(self) -> None:
         import importlib
@@ -285,7 +314,7 @@ class TestKnowledgeRegistration:
         importlib.reload(visas_tools)
         meta = get_knowledge_registry().get("visas")
         assert meta is not None
-        assert meta.knowledge_date == "2026-07-02"
+        assert meta.knowledge_date == "2026-07-25"
 
 
 class TestCuratedPackSections:
