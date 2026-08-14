@@ -7,6 +7,7 @@ import respx
 from httpx import Response
 
 from mcp_dubai._shared.constants import DATA_DUBAI_CATALOG_BASE, DUBAI_DATA_PORTAL_BASE
+from mcp_dubai.data.data_dubai import client as client_module
 from mcp_dubai.data.data_dubai import constants, tools
 
 # Fixtures are trimmed-down copies of live payloads captured 2026-07-02
@@ -308,6 +309,45 @@ class TestDataDubaiSearch:
         assert "items is not a list" in error["reason"]
 
     @pytest.mark.asyncio
+    @pytest.mark.parametrize(
+        ("items", "total_count", "page", "page_size", "reason"),
+        [
+            ([42], 1, 1, 10, "items contains a non-object"),
+            ([{"id": 1}, {"id": 2}], 1, 1, 10, "totalCount is smaller than items"),
+            ([{"id": 1}, {"id": 2}], 2, 1, 1, "items exceeds pageSize"),
+            ([{"id": 1}], 1, 2, 10, "page after lastPage has items"),
+        ],
+    )
+    @respx.mock
+    async def test_invalid_page_envelope_is_structured_failure(
+        self,
+        items: list[object],
+        total_count: int,
+        page: int,
+        page_size: int,
+        reason: str,
+    ) -> None:
+        payload: dict[str, object] = {
+            "items": items,
+            "lastPage": max(1, (total_count + page_size - 1) // page_size),
+            "page": page,
+            "pageSize": page_size,
+            "totalCount": total_count,
+        }
+        respx.get(constants.DATASETS_ENDPOINT).mock(return_value=Response(200, json=payload))
+
+        result = await tools.data_dubai_search(
+            query="traffic",
+            page=page,
+            page_size=page_size,
+        )
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert reason in error["reason"]
+
+    @pytest.mark.asyncio
     @pytest.mark.parametrize("field", ["page", "pageSize", "lastPage"])
     @respx.mock
     async def test_missing_pagination_field_is_structured_failure(self, field: str) -> None:
@@ -424,6 +464,46 @@ class TestDataDubaiSearch:
         assert isinstance(datasets, list)
         assert datasets[0]["view_count"] == 0
         assert datasets[0]["download_count"] == 0
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize("invalid_value", [True, "not-a-number", 1.5, -1])
+    @respx.mock
+    async def test_invalid_custom_counter_is_structured_failure(
+        self,
+        invalid_value: object,
+    ) -> None:
+        item = _dataset_item()
+        item["customViewCounts"] = invalid_value
+        payload = _page_payload([item], total_count=1, page=1, page_size=10)
+        respx.get(constants.DATASETS_ENDPOINT).mock(return_value=Response(200, json=payload))
+
+        result = await tools.data_dubai_search(query="traffic")
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "customViewCounts" in error["reason"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_null_custom_counters_fall_back_to_legacy_values(self) -> None:
+        item = _dataset_item()
+        item["customViewCounts"] = None
+        item["viewCount"] = "58"
+        item["customDownloadCount"] = None
+        item["downloadCount"] = "14"
+        payload = _page_payload([item], total_count=1, page=1, page_size=10)
+        respx.get(constants.DATASETS_ENDPOINT).mock(return_value=Response(200, json=payload))
+
+        result = await tools.data_dubai_search(query="traffic")
+
+        assert result["success"] is True
+        data = result["data"]
+        assert isinstance(data, dict)
+        datasets = data["datasets"]
+        assert isinstance(datasets, list)
+        assert datasets[0]["view_count"] == 58
+        assert datasets[0]["download_count"] == 14
 
 
 class TestDataDubaiThemes:
@@ -636,6 +716,70 @@ class TestDataDubaiThemes:
         error = result["error"]
         assert isinstance(error, dict)
         assert "changed totalCount" in error["reason"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_last_page_change_after_decode_is_structured_failure(
+        self,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        first = _page_payload(
+            [_theme_item(identifier) for identifier in range(100)],
+            total_count=101,
+            page=1,
+        )
+        second = _page_payload([_theme_item(100)], total_count=101, page=2)
+        second["lastPage"] = 3
+        decoded_pages = iter([first, second])
+
+        def fake_decode_page_envelope(*args: object, **kwargs: object) -> dict[str, object]:
+            return next(decoded_pages)
+
+        monkeypatch.setattr(client_module, "_decode_page_envelope", fake_decode_page_envelope)
+        respx.get(constants.THEMES_ENDPOINT).mock(return_value=Response(200, json={}))
+
+        result = await tools.data_dubai_themes()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "changed lastPage" in error["reason"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_incomplete_decoded_pagination_is_structured_failure(
+        self,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        decoded_page = _page_payload([], total_count=1, page=1)
+
+        def fake_decode_page_envelope(*args: object, **kwargs: object) -> dict[str, object]:
+            return decoded_page
+
+        monkeypatch.setattr(client_module, "_decode_page_envelope", fake_decode_page_envelope)
+        respx.get(constants.THEMES_ENDPOINT).mock(return_value=Response(200, json={}))
+
+        result = await tools.data_dubai_themes()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "Incomplete pagination" in error["reason"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_missing_item_id_is_structured_failure(self) -> None:
+        item = _theme_item(1)
+        item.pop("id")
+        payload = _page_payload([item], total_count=1, page=1)
+        respx.get(constants.THEMES_ENDPOINT).mock(return_value=Response(200, json=payload))
+
+        result = await tools.data_dubai_themes()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "item id is missing or invalid" in error["reason"]
 
 
 class TestDataDubaiEntities:

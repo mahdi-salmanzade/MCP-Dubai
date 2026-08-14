@@ -137,6 +137,36 @@ class TestHttpClient:
             httpx_logger.setLevel(previous_httpx_level)
             httpcore_logger.setLevel(previous_httpcore_level)
 
+    def test_log_protection_raises_explicitly_verbose_dependency_level(self) -> None:
+        httpx_logger = logging.getLogger("httpx")
+        previous_level = httpx_logger.level
+        try:
+            httpx_logger.setLevel(logging.DEBUG)
+
+            protect_http_dependency_logging()
+
+            assert httpx_logger.level == logging.WARNING
+        finally:
+            httpx_logger.setLevel(previous_level)
+
+    def test_dependency_filter_suppresses_args_when_message_formatting_fails(
+        self, caplog: pytest.LogCaptureFixture
+    ) -> None:
+        secret = "token=must-not-escape"
+        httpx_logger = logging.getLogger("httpx")
+        previous_level = httpx_logger.level
+        try:
+            protect_http_dependency_logging()
+            httpx_logger.setLevel(logging.INFO)
+
+            with caplog.at_level(logging.INFO, logger="httpx"):
+                httpx_logger.info("request %s %s", secret)
+
+            assert secret not in caplog.text
+            assert "message suppressed: formatting failed" in caplog.text
+        finally:
+            httpx_logger.setLevel(previous_level)
+
     def test_dependency_filter_redacts_token_if_host_reenables_info_logs(
         self, caplog: pytest.LogCaptureFixture
     ) -> None:

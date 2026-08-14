@@ -115,6 +115,28 @@ class TestAirQualityDubai:
 
     @pytest.mark.asyncio
     @respx.mock
+    async def test_non_object_response_is_structured(self, configured_waqi_token: None) -> None:
+        url = constants.FEED_BY_CITY.format(path="A470305")
+        respx.get(url).mock(return_value=Response(200, json=["unexpected"]))
+
+        result = await tools.air_quality_dubai(station="karama")
+
+        assert result["success"] is False
+        assert "invalid response shape" in str(result["error"])
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_invalid_summary_payload_is_structured(self, configured_waqi_token: None) -> None:
+        url = constants.FEED_BY_CITY.format(path="A470305")
+        respx.get(url).mock(return_value=Response(200, json={"status": "ok", "data": {"aqi": 75}}))
+
+        result = await tools.air_quality_dubai(station="karama")
+
+        assert result["success"] is False
+        assert "invalid station payload" in str(result["error"])
+
+    @pytest.mark.asyncio
+    @respx.mock
     async def test_jebel_ali_uses_verified_feed_id(self, configured_waqi_token: None) -> None:
         route = respx.get(constants.FEED_BY_CITY.format(path="A470308")).mock(
             return_value=Response(200, json=_waqi_payload("Jebel Ali Village, Dubai"))
@@ -149,6 +171,31 @@ class TestAirQualityByCoords:
         error = result["error"]
         assert isinstance(error, dict)
         assert error["status"] == "token_missing"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize(
+        "payload",
+        [
+            pytest.param(["unexpected"], id="non-object-response"),
+            pytest.param({"status": "error", "data": "bad token"}, id="error-status"),
+            pytest.param({"status": "ok", "data": {}}, id="empty-data"),
+        ],
+    )
+    async def test_malformed_upstream_payload_is_structured(
+        self,
+        configured_waqi_token: None,
+        payload: object,
+    ) -> None:
+        url = constants.FEED_BY_GEO.format(lat=25.2048, lon=55.2708)
+        respx.get(url).mock(return_value=Response(200, json=payload))
+
+        result = await tools.air_quality_by_coords(latitude=25.2048, longitude=55.2708)
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "upstream_error"
 
 
 class TestAirQualityStations:

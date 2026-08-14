@@ -342,6 +342,18 @@ class TestMakaniValidate:
 
     @pytest.mark.asyncio
     @respx.mock
+    async def test_malformed_soap_returns_structured_error(self) -> None:
+        respx.post(MAKANI_SOAP_ENDPOINT).mock(
+            return_value=Response(200, text="<s:Envelope><unclosed>")
+        )
+
+        result = await tools.makani_validate(makani_number="30032 95320")
+
+        assert result["success"] is False
+        assert "Malformed SOAP response" in str(result["error"])
+
+    @pytest.mark.asyncio
+    @respx.mock
     async def test_503_returns_structured_upstream_error(self) -> None:
         respx.post(MAKANI_SOAP_ENDPOINT).mock(return_value=Response(503, text="busy"))
 

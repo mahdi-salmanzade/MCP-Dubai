@@ -237,7 +237,7 @@ Files are loaded via `mcp_dubai.biz._data.loader.load_data_file(name)` which use
 
 Before opening a PR, run `make check` and confirm:
 
-- [ ] All gates pass: `ruff check`, `ruff format --check`, `mypy --strict`, `pytest` (802 tests, 90.64% coverage).
+- [ ] All gates pass: `ruff check`, `ruff format --check`, `mypy --strict`, `pytest` (884 tests, 93.40% coverage).
 - [ ] No em dashes (`—`) or en dashes (`–`) anywhere in the diff.
 - [ ] If you added a new feature, it follows the feature folder layout (constants, schemas/client if needed, tools, server, tests).
 - [ ] If you added a `biz/*` feature, it has a curated JSON file in `_data/` with the standard envelope, a per-domain `KNOWLEDGE` constant, and a call to `register_domain_knowledge`.

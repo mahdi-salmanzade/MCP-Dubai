@@ -66,6 +66,8 @@ class _CredentialRedactionFilter(logging.Filter):
         try:
             rendered = record.getMessage()
         except Exception:
+            record.msg = "HTTP dependency log message suppressed: formatting failed"
+            record.args = ()
             return True
         rendered = _SENSITIVE_ASSIGNMENT_RE.sub(r"\1[REDACTED]", rendered)
         rendered = _BEARER_TOKEN_RE.sub(r"\1[REDACTED]", rendered)

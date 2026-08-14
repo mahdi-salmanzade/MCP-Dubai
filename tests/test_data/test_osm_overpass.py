@@ -6,6 +6,7 @@ import pytest
 import respx
 from httpx import Response
 
+from mcp_dubai._shared.http_client import HttpClientError
 from mcp_dubai.data.osm_overpass import constants, tools
 from mcp_dubai.data.osm_overpass.client import OverpassClient
 
@@ -63,6 +64,33 @@ class TestOverpassClient:
             radius_meters=1000,
         )
         assert "[amenity=place_of_worship][religion=muslim]" in query
+
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize(
+        ("response", "message"),
+        [
+            pytest.param(Response(204), "Empty response", id="empty"),
+            pytest.param(Response(200, text="not json"), "Non-JSON body", id="non-json"),
+            pytest.param(Response(200, json=[]), "expected an object", id="non-object"),
+            pytest.param(
+                Response(200, json={"elements": [{"id": 1}, "bad"]}),
+                "elements contains a non-object",
+                id="non-object-element",
+            ),
+        ],
+    )
+    async def test_rejects_malformed_upstream_payloads(
+        self, response: Response, message: str
+    ) -> None:
+        respx.post(constants.OVERPASS_ENDPOINT).mock(return_value=response)
+
+        with pytest.raises(HttpClientError, match=message):
+            await OverpassClient().search_nodes(
+                tag_selectors=["amenity=restaurant"],
+                latitude=25.2,
+                longitude=55.3,
+            )
 
 
 class TestOsmSearchPoi:

@@ -6,8 +6,9 @@ import asyncio
 
 import pytest
 import respx
-from httpx import Response
+from httpx import ConnectError, Response
 
+import mcp_dubai._shared.auth as auth_module
 from mcp_dubai._shared.auth import (
     DubaiPulseAuth,
     DubaiPulseAuthError,
@@ -47,6 +48,14 @@ class TestRequireCredentials:
     def test_configured_does_not_raise(self, configured_dubai_pulse_env: None) -> None:
         auth = DubaiPulseAuth()
         auth.require_credentials()  # should not raise
+
+    def test_fingerprint_rejects_partial_credentials(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        monkeypatch.setenv("MCP_DUBAI_PULSE_CLIENT_ID", "client-id")
+        monkeypatch.delenv("MCP_DUBAI_PULSE_CLIENT_SECRET", raising=False)
+
+        auth = DubaiPulseAuth()
+        with pytest.raises(DubaiPulseCredentialsMissingError):
+            auth._credential_fingerprint()
 
 
 class TestSingleton:
@@ -117,6 +126,73 @@ class TestTokenFetch:
         assert "HTTP 401" in str(exc_info.value)
         assert "must-never-escape" not in str(exc_info.value)
         assert "also-secret" not in str(exc_info.value)
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_token_network_error_is_sanitized(self, configured_dubai_pulse_env: None) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(
+            side_effect=ConnectError("upstream URL included client_secret=must-never-escape")
+        )
+
+        auth = DubaiPulseAuth()
+        with pytest.raises(DubaiPulseAuthError) as exc_info:
+            await auth.get_token()
+
+        assert str(exc_info.value) == "Dubai Pulse token request failed"
+        assert "must-never-escape" not in str(exc_info.value)
+
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize(
+        ("response", "expected_message"),
+        [
+            (Response(200, text="<html>gateway failure</html>"), "not valid JSON"),
+            (Response(200, json=["unexpected"]), "invalid shape"),
+        ],
+    )
+    async def test_token_rejects_malformed_success_response(
+        self,
+        configured_dubai_pulse_env: None,
+        response: Response,
+        expected_message: str,
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=response)
+
+        auth = DubaiPulseAuth()
+        with pytest.raises(DubaiPulseAuthError, match=expected_message):
+            await auth.get_token()
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_invalid_expiry_uses_default_ttl(self, configured_dubai_pulse_env: None) -> None:
+        route = respx.post(DUBAI_PULSE_TOKEN_URL).mock(
+            return_value=Response(
+                200,
+                json={"access_token": "cached-token", "expires_in": "not-a-number"},
+            )
+        )
+
+        auth = DubaiPulseAuth()
+        assert await auth.get_token() == "cached-token"
+        assert await auth.get_token() == "cached-token"
+        assert route.call_count == 1
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_nonpositive_expiry_forces_refresh(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        route = respx.post(DUBAI_PULSE_TOKEN_URL).mock(
+            side_effect=[
+                Response(200, json={"access_token": "stale-token", "expires_in": -1}),
+                Response(200, json={"access_token": "fresh-token", "expires_in": 1800}),
+            ]
+        )
+
+        auth = DubaiPulseAuth()
+        assert await auth.get_token() == "stale-token"
+        assert await auth.get_token() == "fresh-token"
+        assert route.call_count == 2
 
     @pytest.mark.asyncio
     @respx.mock
@@ -195,6 +271,55 @@ class TestTokenFetch:
         auth.reset_cache()
         with pytest.raises(DubaiPulseAuthError):
             await auth.get_token()
+        assert route.call_count == 2
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_failed_refresh_retries_after_cooldown(
+        self,
+        configured_dubai_pulse_env: None,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        monotonic_now = [100.0]
+        monkeypatch.setattr(auth_module.time, "monotonic", lambda: monotonic_now[0])
+        route = respx.post(DUBAI_PULSE_TOKEN_URL).mock(
+            side_effect=[
+                Response(503, json={"error": "temporarily_unavailable"}),
+                Response(200, json={"access_token": "recovered-token", "expires_in": 1800}),
+            ]
+        )
+
+        auth = DubaiPulseAuth()
+        with pytest.raises(DubaiPulseAuthError, match="HTTP 503"):
+            await auth.get_token()
+        with pytest.raises(DubaiPulseAuthError, match="HTTP 503"):
+            await auth.get_token()
+        assert route.call_count == 1
+
+        monotonic_now[0] = 101.1
+        assert await auth.get_token() == "recovered-token"
+        assert route.call_count == 2
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_changed_credentials_bypass_failed_refresh_cooldown(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        monkeypatch.setenv("MCP_DUBAI_PULSE_CLIENT_ID", "first-id")
+        monkeypatch.setenv("MCP_DUBAI_PULSE_CLIENT_SECRET", "first-secret")
+        route = respx.post(DUBAI_PULSE_TOKEN_URL).mock(
+            side_effect=[
+                Response(401, json={"error": "invalid_client"}),
+                Response(200, json={"access_token": "new-token", "expires_in": 1800}),
+            ]
+        )
+
+        auth = DubaiPulseAuth()
+        with pytest.raises(DubaiPulseAuthError, match="HTTP 401"):
+            await auth.get_token()
+
+        monkeypatch.setenv("MCP_DUBAI_PULSE_CLIENT_SECRET", "second-secret")
+        assert await auth.get_token() == "new-token"
         assert route.call_count == 2
 
     @pytest.mark.asyncio

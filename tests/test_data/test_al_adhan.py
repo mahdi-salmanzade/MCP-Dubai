@@ -211,6 +211,39 @@ class TestPrayerTimesFor:
         assert isinstance(error, dict)
         assert error["status"] == "upstream_error"
 
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_empty_success_payload_returns_structured_error(self) -> None:
+        respx.get(constants.TIMINGS_BY_CITY).mock(return_value=Response(204))
+
+        result = await tools.prayer_times_for(city="Dubai")
+
+        assert result["success"] is False
+        assert "Empty response" in str(result["error"])
+
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize("payload", [{"code": 200}, ["unexpected"]])
+    async def test_missing_data_envelope_returns_structured_error(self, payload: object) -> None:
+        respx.get(constants.TIMINGS_BY_CITY).mock(return_value=Response(200, json=payload))
+
+        result = await tools.prayer_times_for(city="Dubai")
+
+        assert result["success"] is False
+        assert "missing data" in str(result["error"])
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_schema_invalid_data_returns_structured_error(self) -> None:
+        respx.get(constants.TIMINGS_BY_CITY).mock(
+            return_value=Response(200, json={"code": 200, "data": {}})
+        )
+
+        result = await tools.prayer_times_for(city="Dubai")
+
+        assert result["success"] is False
+        assert "Invalid JSON shape" in str(result["error"])
+
 
 # ----------------------------------------------------------------------------
 # prayer_times_calendar
@@ -254,6 +287,18 @@ class TestPrayerTimesCalendar:
         result = await tools.prayer_times_calendar(city="Dubai", month=4, year=10000)
         assert result["success"] is False
         assert "year must" in str(result["error"])
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_non_list_calendar_data_returns_structured_error(self) -> None:
+        respx.get(constants.CALENDAR_BY_CITY).mock(
+            return_value=Response(200, json={"code": 200, "data": {"day": "unexpected"}})
+        )
+
+        result = await tools.prayer_times_calendar(city="Dubai", month=4, year=2026)
+
+        assert result["success"] is False
+        assert "data is not a list" in str(result["error"])
 
 
 # ----------------------------------------------------------------------------

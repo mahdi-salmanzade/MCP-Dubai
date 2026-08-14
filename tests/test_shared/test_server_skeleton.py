@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from mcp_dubai.server import (
+    about,
     get_knowledge_status,
     get_upstream_status,
     list_features,
@@ -27,6 +28,16 @@ class TestMetaTools:
         result = list_features()
         assert isinstance(result, list)
         assert result == []
+
+    async def test_about_returns_runtime_and_knowledge_metadata(self) -> None:
+        result = await about()
+
+        assert result["package"] == "mcp-dubai"
+        assert isinstance(result["version"], str)
+        assert isinstance(result["total_tools"], int)
+        assert result["total_tools"] > 0
+        assert "knowledge_date" in result
+        assert "oldest_full_review_date" in result
 
     def test_get_knowledge_status_returns_envelope(self) -> None:
         result = get_knowledge_status()

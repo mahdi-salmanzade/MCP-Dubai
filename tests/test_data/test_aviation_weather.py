@@ -139,6 +139,29 @@ class TestWeatherUaeIcao:
 
     @pytest.mark.asyncio
     @respx.mock
+    @pytest.mark.parametrize(
+        ("response", "message"),
+        [
+            pytest.param(Response(200, text="not json"), "Non-JSON body", id="non-json"),
+            pytest.param(
+                Response(200, json=[{"icaoId": "OMDB"}, "unexpected"]),
+                "list contains a non-object",
+                id="non-object-record",
+            ),
+        ],
+    )
+    async def test_malformed_metar_payload_returns_structured_error(
+        self, response: Response, message: str
+    ) -> None:
+        respx.get(constants.METAR_ENDPOINT).mock(return_value=response)
+
+        result = await tools.weather_uae_icao(icao="OMDB", include_taf=False)
+
+        assert result["success"] is False
+        assert message in str(result["error"])
+
+    @pytest.mark.asyncio
+    @respx.mock
     async def test_icao_normalization(self) -> None:
         respx.get(constants.METAR_ENDPOINT).mock(
             return_value=Response(200, json=_metar_payload("OMDB"))

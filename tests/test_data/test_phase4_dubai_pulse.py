@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from unittest.mock import AsyncMock
+
 import pytest
 import respx
 from httpx import Response
@@ -12,6 +14,7 @@ from mcp_dubai.data.dld import tools as dld_tools
 from mcp_dubai.data.dubai_pulse.client import (
     DubaiPulseClient,
     DubaiPulseResponseError,
+    DubaiPulseValidationError,
 )
 from mcp_dubai.data.rta import tools as rta_tools
 
@@ -116,6 +119,30 @@ class TestDubaiPulseClientValidation:
         with pytest.raises(ValueError, match="filter key"):
             await client.query(filters={"area;drop": "Marina"})
 
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize(
+        ("query_kwargs", "expected_message"),
+        [
+            ({"order_by": "created_at; DROP"}, "order_by"),
+            ({"columns": ["id"] * 51}, "at most 50"),
+            ({"columns": ["invalid-column"]}, "column"),
+            ({"filters": {f"field_{index}": index for index in range(21)}}, "at most 20"),
+            ({"filters": {"amount": float("nan")}}, "finite"),
+            ({"filters": {"payload": ["not", "scalar"]}}, "strings, numbers, or booleans"),
+            ({"filters": {"name": "x" * 257}}, "at most 256"),
+        ],
+    )
+    async def test_query_rejects_unsafe_options_before_auth(
+        self,
+        clean_dubai_pulse_env: None,
+        query_kwargs: dict[str, object],
+        expected_message: str,
+    ) -> None:
+        client = DubaiPulseClient("dld", "dld_transactions-open-api")
+
+        with pytest.raises(DubaiPulseValidationError, match=expected_message):
+            await client.query(**query_kwargs)
+
     def test_rejects_unsafe_path_slugs(self) -> None:
         with pytest.raises(ValueError, match="org"):
             DubaiPulseClient("../dld", "dld_transactions-open-api")
@@ -128,6 +155,140 @@ class TestDubaiPulseClientValidation:
 
         with pytest.raises(ValueError, match="page_size"):
             await client.get_all(page_size=0)
+
+    @pytest.mark.asyncio
+    async def test_get_all_rejects_invalid_record_cap_before_auth(
+        self, clean_dubai_pulse_env: None
+    ) -> None:
+        client = DubaiPulseClient("dld", "dld_transactions-open-api")
+
+        with pytest.raises(DubaiPulseValidationError, match="max_records"):
+            await client.get_all(max_records=0)
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_query_serializes_safe_options_and_filter_types(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        route = respx.get(f"{DUBAI_PULSE_API_BASE}/open/dld/dld_transactions-open-api").mock(
+            return_value=Response(200, json={"data": []})
+        )
+        client = DubaiPulseClient("dld", "dld_transactions-open-api")
+
+        await client.query(
+            order_by="created_at DESC",
+            columns=["id", "area_name_en"],
+            filters={
+                "active": True,
+                "archived": False,
+                "attempts": 3,
+                "ratio": 1.5,
+                "area_name_en": "Dubai Marina",
+            },
+        )
+
+        params = route.calls[0].request.url.params
+        assert params["order_by"] == "created_at DESC"
+        assert params["column"] == "id,area_name_en"
+        assert params["filter"] == (
+            "active=true AND archived=false AND attempts=3 AND ratio=1.5 "
+            "AND area_name_en=Dubai Marina"
+        )
+
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize(
+        ("response", "expected_message"),
+        [
+            (Response(200, text="not-json"), "not valid JSON"),
+            (Response(200, json=[{"id": 1}]), "non-object JSON response"),
+        ],
+    )
+    async def test_query_rejects_malformed_success_response(
+        self,
+        configured_dubai_pulse_env: None,
+        response: Response,
+        expected_message: str,
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        respx.get(f"{DUBAI_PULSE_API_BASE}/open/dld/dld_transactions-open-api").mock(
+            return_value=response
+        )
+        client = DubaiPulseClient("dld", "dld_transactions-open-api")
+
+        with pytest.raises(DubaiPulseResponseError, match=expected_message):
+            await client.query()
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize(
+        ("payload", "expected_message"),
+        [
+            ({"data": {"id": 1}}, "must be a list"),
+            ({"data": [{"id": 1}, "not-an-object"]}, "records must be objects"),
+        ],
+    )
+    async def test_get_all_rejects_malformed_pages(
+        self,
+        clean_dubai_pulse_env: None,
+        monkeypatch: pytest.MonkeyPatch,
+        payload: dict[str, object],
+        expected_message: str,
+    ) -> None:
+        client = DubaiPulseClient("dld", "dld_transactions-open-api")
+        monkeypatch.setattr(client, "query", AsyncMock(return_value=payload))
+
+        with pytest.raises(DubaiPulseResponseError, match=expected_message):
+            await client.get_all()
+
+    @pytest.mark.asyncio
+    async def test_get_all_returns_empty_for_empty_page(
+        self,
+        clean_dubai_pulse_env: None,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        client = DubaiPulseClient("dld", "dld_transactions-open-api")
+        mock_query = AsyncMock(return_value={"data": []})
+        monkeypatch.setattr(client, "query", mock_query)
+
+        assert await client.get_all() == []
+        assert mock_query.await_count == 1
+
+    @pytest.mark.asyncio
+    async def test_get_all_stops_at_declared_total_on_full_page(
+        self,
+        clean_dubai_pulse_env: None,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        client = DubaiPulseClient("dld", "dld_transactions-open-api")
+        mock_query = AsyncMock(return_value={"data": [{"id": 1}, {"id": 2}], "total": 2})
+        monkeypatch.setattr(client, "query", mock_query)
+
+        records = await client.get_all(max_records=10, page_size=2)
+
+        assert [record["id"] for record in records] == [1, 2]
+        assert mock_query.await_count == 1
+
+    @pytest.mark.asyncio
+    async def test_get_all_caps_records_after_full_pages(
+        self,
+        clean_dubai_pulse_env: None,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        client = DubaiPulseClient("dld", "dld_transactions-open-api")
+        mock_query = AsyncMock(
+            side_effect=[
+                {"data": [{"id": 1}, {"id": 2}], "total": 99},
+                {"data": [{"id": 3}, {"id": 4}], "total": 99},
+            ]
+        )
+        monkeypatch.setattr(client, "query", mock_query)
+
+        records = await client.get_all(max_records=3, page_size=2)
+
+        assert [record["id"] for record in records] == [1, 2, 3]
+        assert mock_query.await_count == 2
+        assert mock_query.await_args_list[1].kwargs["offset"] == 2
 
     @pytest.mark.asyncio
     @respx.mock
@@ -188,6 +349,99 @@ class TestHappyPath:
         assert transactions[0]["area_name_en"] == "Dubai Marina"
         assert result["source"] == DUBAI_PULSE_API_BASE
         assert result["retrieved_at"] is not None
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_dld_search_rent_contracts(self, configured_dubai_pulse_env: None) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        route = respx.get(f"{DUBAI_PULSE_API_BASE}/open/dld/dld_rent_contracts-open-api").mock(
+            return_value=Response(
+                200,
+                json={
+                    "data": [{"contract_id": "EJARI-1", "area_en": "Marina"}],
+                    "total": 1,
+                },
+            )
+        )
+
+        result = await dld_tools.dld_search_rent_contracts(
+            area="Marina",
+            bedrooms=2,
+            limit=25,
+        )
+
+        assert result["success"] is True
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["count"] == 1
+        assert data["rent_contracts"] == [{"contract_id": "EJARI-1", "area_en": "Marina"}]
+        assert route.calls[0].request.url.params["limit"] == "25"
+        assert route.calls[0].request.url.params["filter"] == "area_en=Marina AND no_of_rooms=2"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_dld_search_rent_contracts_returns_upstream_error(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        route = respx.get(f"{DUBAI_PULSE_API_BASE}/open/dld/dld_rent_contracts-open-api").mock(
+            return_value=Response(503, text="temporarily unavailable")
+        )
+
+        result = await dld_tools.dld_search_rent_contracts(area="Marina")
+
+        assert route.called
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "upstream_error"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_dld_lookup_broker(self, configured_dubai_pulse_env: None) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        route = respx.get(f"{DUBAI_PULSE_API_BASE}/open/dld/dld_brokers-open-api").mock(
+            return_value=Response(
+                200,
+                json={
+                    "data": [{"broker_name_en": "Aisha Broker", "license_number": "BR-42"}],
+                    "total": 1,
+                },
+            )
+        )
+
+        result = await dld_tools.dld_lookup_broker(
+            name="Aisha Broker",
+            license_number="BR-42",
+            limit=10,
+        )
+
+        assert result["success"] is True
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["count"] == 1
+        assert data["brokers"] == [{"broker_name_en": "Aisha Broker", "license_number": "BR-42"}]
+        assert route.calls[0].request.url.params["filter"] == (
+            "broker_name_en=Aisha Broker AND license_number=BR-42"
+        )
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_dld_lookup_broker_returns_upstream_error(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        route = respx.get(f"{DUBAI_PULSE_API_BASE}/open/dld/dld_brokers-open-api").mock(
+            return_value=Response(503, text="temporarily unavailable")
+        )
+
+        result = await dld_tools.dld_lookup_broker(name="Aisha Broker")
+
+        assert route.called
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "upstream_error"
 
     @pytest.mark.asyncio
     @respx.mock
@@ -287,6 +541,24 @@ class TestHappyPath:
 
     @pytest.mark.asyncio
     @respx.mock
+    async def test_rta_validation_error_is_returned_as_tool_failure(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        before = {item["name"]: item for item in get_upstream_registry().snapshot()}["dubai_pulse"]
+
+        result = await rta_tools.rta_search_metro_stations(line="Red OR Green")
+
+        after = {item["name"]: item for item in get_upstream_registry().snapshot()}["dubai_pulse"]
+        assert result["success"] is False
+        assert isinstance(result["error"], str)
+        assert "reserved query syntax" in result["error"]
+        assert result["source"] == DUBAI_PULSE_API_BASE
+        assert result["retrieved_at"] is not None
+        assert after["failure_count"] == before["failure_count"]
+        assert not respx.calls
+
+    @pytest.mark.asyncio
+    @respx.mock
     async def test_rta_metro_stations(self, configured_dubai_pulse_env: None) -> None:
         respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
         respx.get(f"{DUBAI_PULSE_API_BASE}/open/rta/rta_metro_stations-open-api").mock(
@@ -303,6 +575,53 @@ class TestHappyPath:
         assert result["success"] is True
         assert result["source"] == DUBAI_PULSE_API_BASE
         assert result["retrieved_at"] is not None
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_rta_search_bus_routes(self, configured_dubai_pulse_env: None) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        route = respx.get(f"{DUBAI_PULSE_API_BASE}/open/rta/rta_bus_routes-open-api").mock(
+            return_value=Response(
+                200,
+                json={
+                    "data": [{"route_number": "27", "origin": "Gold Souq"}],
+                    "total": 1,
+                },
+            )
+        )
+
+        result = await rta_tools.rta_search_bus_routes(
+            route_number="27",
+            origin="Gold Souq",
+            limit=20,
+        )
+
+        assert result["success"] is True
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["count"] == 1
+        assert data["routes"] == [{"route_number": "27", "origin": "Gold Souq"}]
+        assert route.calls[0].request.url.params["filter"] == (
+            "route_number=27 AND origin=Gold Souq"
+        )
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_rta_search_bus_routes_returns_upstream_error(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        route = respx.get(f"{DUBAI_PULSE_API_BASE}/open/rta/rta_bus_routes-open-api").mock(
+            return_value=Response(503, text="temporarily unavailable")
+        )
+
+        result = await rta_tools.rta_search_bus_routes(route_number="27")
+
+        assert route.called
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "upstream_error"
 
     @pytest.mark.asyncio
     @respx.mock
@@ -387,6 +706,24 @@ class TestHappyPath:
         data = result["data"]
         assert isinstance(data, dict)
         assert "balances" in data["warning"].lower() or "Smart Salik" in data["warning"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_rta_salik_tariff_returns_upstream_error(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        route = respx.get(f"{DUBAI_PULSE_API_BASE}/open/rta/rta_salik_tariff-open-api").mock(
+            return_value=Response(503, text="temporarily unavailable")
+        )
+
+        result = await rta_tools.rta_salik_tariff()
+
+        assert route.called
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "upstream_error"
 
     @pytest.mark.asyncio
     @respx.mock

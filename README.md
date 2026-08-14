@@ -16,8 +16,8 @@
 [![Made in Dubai](https://img.shields.io/badge/Made%20in-Dubai-red.svg)](#)
 [![Status: Alpha](https://img.shields.io/badge/status-alpha-orange.svg)](#%EF%B8%8F-roadmap)
 [![Knowledge Updated](https://img.shields.io/badge/knowledge_updated-August_2026-blue)](#-knowledge-freshness)
-[![Tests](https://img.shields.io/badge/tests-802_passing-brightgreen.svg)](#)
-[![Coverage](https://img.shields.io/badge/coverage-90.64%25-brightgreen.svg)](#)
+[![Tests](https://img.shields.io/badge/tests-884_passing-brightgreen.svg)](#)
+[![Coverage](https://img.shields.io/badge/coverage-93.40%25-brightgreen.svg)](#)
 
 **Connect AI agents (Claude, GPT, Cursor, Copilot) to Dubai and UAE public APIs and curated business setup knowledge.**
 

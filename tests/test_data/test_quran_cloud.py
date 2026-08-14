@@ -7,6 +7,7 @@ import respx
 from httpx import Response
 
 from mcp_dubai.data.quran_cloud import constants, tools
+from mcp_dubai.data.quran_cloud.client import QuranCloudClient
 
 
 def _surah_payload() -> dict[str, object]:
@@ -111,6 +112,19 @@ class TestQuranSurah:
 
         assert result["success"] is False
         assert "top-level response is not an object" in str(result["error"])
+
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize("data", [None, [], "unexpected"])
+    async def test_non_object_data_returns_fail(self, data: object) -> None:
+        respx.get(f"{constants.SURAH}/1/quran-uthmani").mock(
+            return_value=Response(200, json={"code": 200, "status": "OK", "data": data})
+        )
+
+        result = await tools.quran_surah(number=1)
+
+        assert result["success"] is False
+        assert "data is not an object" in str(result["error"])
 
 
 class TestQuranAyah:
@@ -287,6 +301,37 @@ class TestQuranSearch:
         assert "count does not match" in str(result["error"])
 
     @pytest.mark.asyncio
+    @respx.mock
+    async def test_non_list_matches_returns_fail(self) -> None:
+        payload = {
+            "code": 200,
+            "status": "OK",
+            "data": {"count": 1, "matches": {"number": 1}},
+        }
+        respx.get(f"{constants.SEARCH}/Allah/all/en").mock(return_value=Response(200, json=payload))
+
+        result = await tools.quran_search(query="Allah")
+
+        assert result["success"] is False
+        assert "search matches is not a list" in str(result["error"])
+
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize("count", [True, -1, 1.5, "1"])
+    async def test_invalid_upstream_count_returns_fail(self, count: object) -> None:
+        payload = {
+            "code": 200,
+            "status": "OK",
+            "data": {"count": count, "matches": [{"number": 1}]},
+        }
+        respx.get(f"{constants.SEARCH}/Allah/all/en").mock(return_value=Response(200, json=payload))
+
+        result = await tools.quran_search(query="Allah")
+
+        assert result["success"] is False
+        assert "count is not a non-negative integer" in str(result["error"])
+
+    @pytest.mark.asyncio
     @pytest.mark.parametrize("limit", [0, 101])
     async def test_invalid_limit_returns_fail(self, limit: int) -> None:
         result = await tools.quran_search(query="Allah", limit=limit)
@@ -312,6 +357,52 @@ class TestQuranSearch:
 
         assert result["success"] is True
         assert route.called
+
+
+class TestQuranCloudClientValidation:
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize("limit", [0, constants.MAX_SEARCH_LIMIT + 1])
+    async def test_rejects_invalid_limit_before_request(self, limit: int) -> None:
+        with pytest.raises(ValueError, match="limit must be"):
+            await QuranCloudClient().search("Allah", limit=limit)
+        assert not respx.calls
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_rejects_negative_offset_before_request(self) -> None:
+        with pytest.raises(ValueError, match="offset must be at least 0"):
+            await QuranCloudClient().search("Allah", offset=-1)
+        assert not respx.calls
+
+
+class TestServerWrappers:
+    @pytest.mark.asyncio
+    async def test_quran_search_forwards_pagination(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        from unittest.mock import AsyncMock
+
+        from mcp_dubai.data.quran_cloud import server as quran_server
+
+        expected: dict[str, object] = {"success": True, "data": {"matches": []}}
+        search = AsyncMock(return_value=expected)
+        monkeypatch.setattr(quran_server.tools, "quran_search", search)
+
+        result = await quran_server.quran_search(
+            query="mercy",
+            surah="2",
+            edition="en.sahih",
+            limit=10,
+            offset=20,
+        )
+
+        assert result == expected
+        search.assert_awaited_once_with(
+            query="mercy",
+            surah="2",
+            edition="en.sahih",
+            limit=10,
+            offset=20,
+        )
 
 
 class TestDiscovery:
