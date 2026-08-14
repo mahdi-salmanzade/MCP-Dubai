@@ -9,7 +9,7 @@ import httpx
 from mcp_dubai._shared.errors import now_iso, upstream_error_response
 from mcp_dubai._shared.health import mark_failure as mark_upstream_failure
 from mcp_dubai._shared.health import mark_success as mark_upstream_success
-from mcp_dubai._shared.http_client import HttpClientError, RateLimitError
+from mcp_dubai._shared.http_client import HttpClientError
 from mcp_dubai._shared.schemas import ToolResponse
 from mcp_dubai.data.dfm.client import DfmClient
 
@@ -101,8 +101,6 @@ async def dfm_index() -> dict[str, object]:
     client = DfmClient()
     try:
         records = await client.indices()
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_upstream_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
@@ -160,8 +158,6 @@ async def dfm_stock_quote(symbol: str) -> dict[str, object]:
     client = DfmClient()
     try:
         records = await client.stocks()
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_upstream_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
@@ -194,7 +190,7 @@ async def dfm_list_securities(search: str = "") -> dict[str, object]:
     Args:
         search: Optional substring matched case-insensitively against each
             security's symbol or name (the upstream returns null names as
-            of 2026-07-02, so symbol is the practical filter). Empty lists
+            of 2026-08-14, so symbol is the practical filter). Empty lists
             the first 50 securities alphabetically.
 
     Returns:
@@ -206,8 +202,6 @@ async def dfm_list_securities(search: str = "") -> dict[str, object]:
     client = DfmClient()
     try:
         records = await client.stocks()
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_upstream_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)

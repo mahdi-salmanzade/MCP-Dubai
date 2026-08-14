@@ -44,8 +44,16 @@ class TestUpstreamErrorResponse:
         result = upstream_error_response(err)
         assert result["error"]["status"] == "upstream_blocked"
 
-    def test_503_maps_to_upstream_blocked(self) -> None:
+    def test_generic_503_maps_to_upstream_error(self) -> None:
         err = HttpClientError("HTTP 503 from upstream", status_code=503)
+        result = upstream_error_response(err)
+        assert result["error"]["status"] == "upstream_error"
+
+    def test_cloudflare_503_maps_to_upstream_blocked(self) -> None:
+        err = HttpClientError(
+            "HTTP 503 from upstream: Cloudflare Just a moment...",
+            status_code=503,
+        )
         result = upstream_error_response(err)
         assert result["error"]["status"] == "upstream_blocked"
 

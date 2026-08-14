@@ -21,9 +21,9 @@ DATASETS: Final[dict[str, str]] = {
 # RTA_GTFS_DOWNLOAD_URL from mcp_dubai._shared.constants instead.
 GTFS_TRANSITLAND_MIRROR_DEAD: Final[str] = "https://gtfs-source-feeds.transit.land/dubai-rta.zip"
 
-# GTFS feed build inside the anonymous 7z download, verified 2026-07-02.
+# GTFS feed build inside the anonymous 7z download, rechecked 2026-08-14.
 GTFS_FEED_VERSION: Final[str] = "GTFS_20250823"
-GTFS_FEED_VERSION_CHECKED: Final[str] = "2026-07-02"
+GTFS_FEED_VERSION_CHECKED: Final[str] = "2026-08-14"
 
 # Salik VAT: from 2026-06-01 a 5% VAT applies to toll crossings and tag
 # activation fees (Salik PJSC announcement, 2026-05-22). The dataset rows

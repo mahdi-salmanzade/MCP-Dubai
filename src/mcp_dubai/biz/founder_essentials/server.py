@@ -64,8 +64,8 @@ async def legal_translation_estimate(
     """
     Estimate legal translation cost based on page count and urgency.
 
-    Only MOJ-licensed sworn translators are accepted by UAE courts and
-    government counters.
+    Where legal translation is required, use a legal translator registered
+    with MOJ and confirm the receiving authority's current document rules.
 
     Args:
         pages: Number of pages.
@@ -89,7 +89,7 @@ async def setup_timeline_estimate() -> dict[str, object]:
 @mcp.tool
 async def common_founder_mistakes(category: str | None = None) -> dict[str, object]:
     """
-    List the 11 most common founder mistakes that break Dubai setups.
+    List 10 common founder mistakes that break Dubai setups.
 
     Args:
         category: Optional substring filter on the mistake title or id.
@@ -182,7 +182,7 @@ _TOOLS: list[ToolMeta] = [
     ),
     ToolMeta(
         name="common_founder_mistakes",
-        description="The 11 most common founder mistakes that break Dubai setups.",
+        description="Ten common founder mistakes that break Dubai setups.",
         feature="founder_essentials",
         tier=TIER_BIZ,
         tags=[

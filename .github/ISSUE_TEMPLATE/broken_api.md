@@ -32,7 +32,7 @@ tool_name(arg1=..., arg2=...)
 
 ## Upstream endpoint (if known)
 
-<!-- e.g., https://api.dubaipulse.gov.ae/open/dld/dld_transactions-open-api -->
+<!-- e.g., https://apis.data.dubai/open/dld/dld_transactions-open-api -->
 
 ## Have you verified the upstream is working?
 

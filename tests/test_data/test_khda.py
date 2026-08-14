@@ -5,7 +5,7 @@ from __future__ import annotations
 import pytest
 
 from mcp_dubai.data.khda import tools
-from mcp_dubai.data.khda.snapshot import SCHOOLS
+from mcp_dubai.data.khda.snapshot import SCHOOLS, SNAPSHOT_DATE, TARGETED_CORRECTION_DATE
 
 
 def _data(result: dict[str, object]) -> dict[str, object]:
@@ -25,6 +25,9 @@ class TestKhdaSearchSchool:
         assert isinstance(schools, list)
         assert len(schools) == len(SCHOOLS)
         assert result["source"] == "KHDA curated snapshot"
+        assert result["retrieved_at"] == TARGETED_CORRECTION_DATE
+        assert data["full_snapshot_date"] == SNAPSHOT_DATE
+        assert data["targeted_correction_date"] == TARGETED_CORRECTION_DATE
 
     @pytest.mark.asyncio
     async def test_filter_by_name(self) -> None:
@@ -95,14 +98,28 @@ class TestKhdaSearchSchool:
         assert data["count"] == 0
         assert data["schools"] == []
 
+    def test_snapshot_contains_only_dubai_schools(self) -> None:
+        names = {school["name"] for school in SCHOOLS}
+        assert "Sharjah English School" not in names
+        assert all(school["area"] != "Sharjah" for school in SCHOOLS)
+
+    def test_delhi_private_school_uses_current_khda_area(self) -> None:
+        school = next(
+            school for school in SCHOOLS if school["name"] == "Delhi Private School Dubai"
+        )
+        assert school["area"] == "Jabal Ali First"
+
 
 class TestKhdaListCurricula:
     @pytest.mark.asyncio
     async def test_returns_unique_curricula(self) -> None:
         result = await tools.khda_list_curricula()
-        curricula = _data(result)["curricula"]
+        data = _data(result)
+        curricula = data["curricula"]
         assert isinstance(curricula, list)
         assert curricula == sorted(set(curricula))
+        assert data["full_snapshot_date"] == SNAPSHOT_DATE
+        assert data["targeted_correction_date"] == TARGETED_CORRECTION_DATE
 
 
 class TestKhdaListAreas:
@@ -112,6 +129,10 @@ class TestKhdaListAreas:
         areas = _data(result)["areas"]
         assert isinstance(areas, list)
         assert areas == sorted(set(areas))
+        data = _data(result)
+        assert data["full_snapshot_date"] == SNAPSHOT_DATE
+        assert data["targeted_correction_date"] == TARGETED_CORRECTION_DATE
+        assert "2026-08-14" in str(data["note"])
 
 
 class TestDiscovery:

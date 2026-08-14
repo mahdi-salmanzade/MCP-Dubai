@@ -51,6 +51,7 @@ async def list_free_zones() -> dict[str, object]:
                         "sector": fz.get("sector"),
                         "location": fz.get("location"),
                         "initial_license_aed": _initial_aed(fz),
+                        "source_urls": fz.get("source_urls", []),
                     }
                     for fz in free_zones
                 ],

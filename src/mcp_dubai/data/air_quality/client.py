@@ -22,10 +22,14 @@ class WaqiClient:
         async with HttpClient() as client:
             response = await client.get(url, params={"token": token})
         payload = response.json()
+        if not isinstance(payload, dict):
+            raise RuntimeError("WAQI API returned an invalid response shape")
         if payload.get("status") != "ok":
-            raise RuntimeError(f"WAQI API error: {payload.get('data', payload)}")
-        result = payload.get("data", {})
-        return result if isinstance(result, dict) else {}
+            raise RuntimeError("WAQI API returned an error status")
+        result = payload.get("data")
+        if not isinstance(result, dict) or not result:
+            raise RuntimeError("WAQI API returned invalid station data")
+        return result
 
     async def feed_by_coords(self, latitude: float, longitude: float) -> dict[str, Any]:
         """Fetch the closest station feed for a given lat/lon."""
@@ -37,7 +41,11 @@ class WaqiClient:
         async with HttpClient() as client:
             response = await client.get(url, params={"token": token})
         payload = response.json()
+        if not isinstance(payload, dict):
+            raise RuntimeError("WAQI API returned an invalid response shape")
         if payload.get("status") != "ok":
-            raise RuntimeError(f"WAQI API error: {payload.get('data', payload)}")
-        result = payload.get("data", {})
-        return result if isinstance(result, dict) else {}
+            raise RuntimeError("WAQI API returned an error status")
+        result = payload.get("data")
+        if not isinstance(result, dict) or not result:
+            raise RuntimeError("WAQI API returned invalid station data")
+        return result

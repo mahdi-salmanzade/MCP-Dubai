@@ -9,7 +9,7 @@ from mcp_dubai.biz.setup_advisor import tools
 
 class TestSetupAdvisorHappyPaths:
     @pytest.mark.asyncio
-    async def test_local_trade_forces_mainland(self) -> None:
+    async def test_local_trade_exposes_conditional_det_routes(self) -> None:
         result = await tools.setup_advisor(
             activity="restaurant",
             budget_aed=50000,
@@ -21,10 +21,21 @@ class TestSetupAdvisorHappyPaths:
         assert result["success"] is True
         data = result["data"]
         assert isinstance(data, dict)
-        assert data["jurisdiction"] == "mainland"
+        assert data["jurisdiction"] == "mainland_or_eligible_free_zone"
         reasoning = data["reasoning"]
         assert isinstance(reasoning, list)
         assert any("DET" in r for r in reasoning)
+        assert any("not automatically required" in r for r in reasoning)
+        route = data["local_trade_route"]
+        assert isinstance(route, dict)
+        assert route["det_fees_aed"] == {
+            "branch_licence_annual": 10000,
+            "temporary_permit": 5000,
+        }
+        assert any("dlp.dubai.gov.ae" in url for url in route["source_urls"])
+        serialized = str(data).lower()
+        assert "co-shareholder" not in serialized
+        assert "softens the bank profile" not in serialized
 
     @pytest.mark.asyncio
     async def test_no_visa_low_budget_offshore(self) -> None:
@@ -135,7 +146,9 @@ class TestSetupAdvisorEnvelope:
         assert isinstance(knowledge, dict)
         assert knowledge["volatility"] == "high"
         assert knowledge["verify_at"] == "https://invest.dubai.ae"
-        assert knowledge["knowledge_date"] == "2026-07-02"
+        assert knowledge["knowledge_date"] == "2026-08-14"
+        assert knowledge["previous_knowledge_date"] == "2026-07-02"
+        assert "Resolution 11 of 2025" in knowledge["last_refresh_scope"]
         assert "disclaimer" in knowledge
 
     @pytest.mark.asyncio
@@ -213,7 +226,9 @@ class TestSetupAdvisorDiscovery:
         registry = get_knowledge_registry()
         meta = registry.get("setup_advisor")
         assert meta is not None
-        assert meta.knowledge_date == "2026-07-02"
+        assert meta.knowledge_date == "2026-08-14"
+        assert meta.previous_knowledge_date == "2026-07-02"
+        assert meta.last_refresh_scope is not None
         assert meta.volatility == "high"
 
     def test_recommend_for_setup_query(self) -> None:

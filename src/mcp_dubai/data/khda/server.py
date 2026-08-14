@@ -36,7 +36,8 @@ async def khda_search_school(
         limit: Max results (1 to 200, default 20).
 
     Returns:
-        Dict with `count`, `schools` (list), and `knowledge_date`.
+        Dict with `count`, `schools` (list), `full_snapshot_date`, and
+        `targeted_correction_date`.
     """
     return await tools.khda_search_school(
         name=name,

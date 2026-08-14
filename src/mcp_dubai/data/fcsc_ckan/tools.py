@@ -6,7 +6,7 @@ import httpx
 
 from mcp_dubai._shared.errors import now_iso, upstream_error_response
 from mcp_dubai._shared.health import mark_failure, mark_success
-from mcp_dubai._shared.http_client import HttpClientError, RateLimitError
+from mcp_dubai._shared.http_client import HttpClientError
 from mcp_dubai._shared.schemas import ToolResponse
 from mcp_dubai.data.fcsc_ckan import constants
 from mcp_dubai.data.fcsc_ckan.client import FcscCkanClient
@@ -52,9 +52,7 @@ async def fcsc_search_dataset(
             start=start,
             organization=organization,
         )
-    except RateLimitError:
-        raise
-    except (HttpClientError, httpx.HTTPError) as exc:
+    except (HttpClientError, httpx.HTTPError, RuntimeError, ValueError) as exc:
         mark_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=FCSC_VERIFY_URL, source=_SOURCE)
 
@@ -77,14 +75,9 @@ async def fcsc_get_dataset(dataset_id: str) -> dict[str, object]:
     client = FcscCkanClient()
     try:
         result = await client.package_show(dataset_id)
-    except RateLimitError:
-        raise
-    except (HttpClientError, httpx.HTTPError) as exc:
+    except (HttpClientError, httpx.HTTPError, RuntimeError, ValueError) as exc:
         mark_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=FCSC_VERIFY_URL, source=_SOURCE)
-    except RuntimeError as exc:
-        mark_failure(_UPSTREAM, str(exc))
-        return _fail(str(exc))
 
     mark_success(_UPSTREAM)
     return _ok(result)
@@ -95,9 +88,7 @@ async def fcsc_list_organizations() -> dict[str, object]:
     client = FcscCkanClient()
     try:
         orgs = await client.organization_list()
-    except RateLimitError:
-        raise
-    except (HttpClientError, httpx.HTTPError) as exc:
+    except (HttpClientError, httpx.HTTPError, RuntimeError, ValueError) as exc:
         mark_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=FCSC_VERIFY_URL, source=_SOURCE)
 

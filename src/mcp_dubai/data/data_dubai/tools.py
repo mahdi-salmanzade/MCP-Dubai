@@ -12,16 +12,17 @@ from typing import Any
 
 import httpx
 
+from mcp_dubai._shared.constants import DUBAI_DATA_PORTAL_BASE
 from mcp_dubai._shared.errors import now_iso, upstream_error_response
 from mcp_dubai._shared.health import mark_failure as mark_upstream_failure
 from mcp_dubai._shared.health import mark_success as mark_upstream_success
-from mcp_dubai._shared.http_client import HttpClientError, RateLimitError
+from mcp_dubai._shared.http_client import HttpClientError
 from mcp_dubai._shared.schemas import ToolResponse
 from mcp_dubai.data.data_dubai.client import DataDubaiClient
 
 _SOURCE = "data.dubai"
 _UPSTREAM = "data_dubai_catalog"
-_VERIFY_AT = "https://data.dubai"
+_VERIFY_AT = DUBAI_DATA_PORTAL_BASE
 _METADATA_NOTE = (
     "This catalog is METADATA ONLY. The dataAPIEndpoints URLs (host "
     "apis.data.dubai) return 401 without Dubai Pulse/DDSE credentials, and "
@@ -56,12 +57,36 @@ def _arabic(value: Any) -> str | None:
     return None
 
 
-def _to_int(value: Any) -> int:
-    """Liferay serialises some counters as strings. Normalise to int."""
-    try:
-        return int(value)
-    except (TypeError, ValueError):
+def _to_int(value: Any, *, field: str) -> int:
+    """Normalise a non-negative integer field without accepting floats."""
+    if value is None or value == "":
         return 0
+    if isinstance(value, bool):
+        raise HttpClientError(f"Invalid catalog field {field}: expected a non-negative integer")
+    if isinstance(value, int):
+        parsed = value
+    elif isinstance(value, str):
+        try:
+            parsed = int(value.strip())
+        except (TypeError, ValueError, OverflowError) as exc:
+            raise HttpClientError(
+                f"Invalid catalog field {field}: expected a non-negative integer"
+            ) from exc
+    else:
+        raise HttpClientError(f"Invalid catalog field {field}: expected a non-negative integer")
+    if parsed < 0:
+        raise HttpClientError(f"Invalid catalog field {field}: expected a non-negative integer")
+    return parsed
+
+
+def _preferred_counter(item: dict[str, Any], primary: str, fallback: str) -> int:
+    """Use the current counter even when it is zero; fall back only on null."""
+    value = item.get(primary)
+    field = primary
+    if value is None:
+        value = item.get(fallback)
+        field = fallback
+    return _to_int(value, field=field)
 
 
 def _name_of(value: Any) -> str | None:
@@ -93,8 +118,8 @@ def _trim_dataset(item: dict[str, Any]) -> dict[str, object]:
         "ingestion_date": item.get("ingestionDate"),
         "published_date": item.get("publishedDate"),
         "date_modified": item.get("dateModified"),
-        "view_count": _to_int(item.get("customViewCounts") or item.get("viewCount")),
-        "download_count": _to_int(item.get("customDownloadCount") or item.get("downloadCount")),
+        "view_count": _preferred_counter(item, "customViewCounts", "viewCount"),
+        "download_count": _preferred_counter(item, "customDownloadCount", "downloadCount"),
         "dataset_source": item.get("datasetSource"),
         "issuing_entity_erc": item.get("r_issuingEntityOfDataset_c_issuingEntityERC"),
         "issuing_entity_id": item.get("r_issuingEntityOfDataset_c_issuingEntityId"),
@@ -110,7 +135,7 @@ def _trim_theme(item: dict[str, Any]) -> dict[str, object]:
         "title_ar": _arabic(item.get("title_i18n")),
         "description": item.get("description"),
         "description_ar": _arabic(item.get("description_i18n")),
-        "dataset_count": _to_int(item.get("datasetCounts")),
+        "dataset_count": _to_int(item.get("datasetCounts"), field="datasetCounts"),
     }
 
 
@@ -122,7 +147,7 @@ def _trim_entity(item: dict[str, Any]) -> dict[str, object]:
         "title": item.get("title"),
         "title_ar": _arabic(item.get("title_i18n")),
         "description": item.get("description"),
-        "dataset_usages": _to_int(item.get("usages")),
+        "dataset_usages": _to_int(item.get("usages"), field="usages"),
         "external_reference_code": item.get("externalReferenceCode"),
     }
 
@@ -144,8 +169,8 @@ async def data_dubai_search(
 
     Args:
         query: Free-text search over titles, descriptions, and keywords.
-            Empty string lists the full catalog (617 datasets as of
-            2026-07-02).
+            Empty string lists the full catalog (614 datasets as of
+            2026-08-14).
         page: 1-based page number.
         page_size: Datasets per page, 1 to 100.
 
@@ -161,28 +186,25 @@ async def data_dubai_search(
     client = DataDubaiClient()
     try:
         payload = await client.search_datasets(query=query, page=page, page_size=page_size)
-    except RateLimitError:
-        raise
+        items = _items_of(payload)
+        if not query.strip() and not items:
+            raise HttpClientError("data.dubai returned an empty unfiltered catalog page")
+        response = _ok(
+            {
+                "total_count": _to_int(payload.get("totalCount"), field="totalCount"),
+                "page": _to_int(payload.get("page"), field="page"),
+                "page_size": _to_int(payload.get("pageSize"), field="pageSize"),
+                "last_page": _to_int(payload.get("lastPage"), field="lastPage"),
+                "datasets": [_trim_dataset(item) for item in items],
+                "note": _METADATA_NOTE,
+            }
+        )
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_upstream_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
 
-    if not payload:
-        # An empty body would otherwise read as "the catalog is empty".
-        mark_upstream_failure(_UPSTREAM, "empty catalog response")
-        return _fail("data.dubai catalog returned an empty response; try again later.")
-
     mark_upstream_success(_UPSTREAM)
-    return _ok(
-        {
-            "total_count": _to_int(payload.get("totalCount")),
-            "page": page,
-            "page_size": page_size,
-            "last_page": _to_int(payload.get("lastPage")),
-            "datasets": [_trim_dataset(item) for item in _items_of(payload)],
-            "note": _METADATA_NOTE,
-        }
-    )
+    return response
 
 
 async def data_dubai_themes() -> dict[str, object]:
@@ -196,20 +218,22 @@ async def data_dubai_themes() -> dict[str, object]:
     client = DataDubaiClient()
     try:
         payload = await client.list_themes()
-    except RateLimitError:
-        raise
+        items = _items_of(payload)
+        if not items:
+            raise HttpClientError("data.dubai returned an empty themes catalog")
+        response = _ok(
+            {
+                "total_count": _to_int(payload.get("totalCount"), field="totalCount"),
+                "themes": [_trim_theme(item) for item in items],
+                "note": _METADATA_NOTE,
+            }
+        )
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_upstream_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
 
     mark_upstream_success(_UPSTREAM)
-    return _ok(
-        {
-            "total_count": _to_int(payload.get("totalCount")),
-            "themes": [_trim_theme(item) for item in _items_of(payload)],
-            "note": _METADATA_NOTE,
-        }
-    )
+    return response
 
 
 async def data_dubai_entities(search: str = "") -> dict[str, object]:
@@ -217,7 +241,7 @@ async def data_dubai_entities(search: str = "") -> dict[str, object]:
     List data.dubai issuing entities, optionally filtered (no credentials).
 
     The upstream endpoint has no server-side search, so the filter runs
-    client-side over the full entity list (76 records as of 2026-07-02).
+    client-side over the full entity list (76 records as of 2026-08-14).
 
     Args:
         search: Case-insensitive substring matched against each entity's
@@ -231,33 +255,36 @@ async def data_dubai_entities(search: str = "") -> dict[str, object]:
     client = DataDubaiClient()
     try:
         payload = await client.list_issuing_entities()
-    except RateLimitError:
-        raise
+        items = _items_of(payload)
+        if not items:
+            raise HttpClientError("data.dubai returned an empty issuing-entities catalog")
+        entities = [_trim_entity(item) for item in items]
+
+        needle = search.strip().lower()
+        if needle:
+            matched = [
+                entity
+                for entity in entities
+                if any(
+                    needle in str(entity[field] or "").lower()
+                    for field in ("title", "title_ar", "key")
+                )
+            ]
+        else:
+            matched = entities
+
+        response = _ok(
+            {
+                "total_count": _to_int(payload.get("totalCount"), field="totalCount"),
+                "matched_count": len(matched),
+                "search": search,
+                "entities": matched,
+                "note": _METADATA_NOTE,
+            }
+        )
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_upstream_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
 
     mark_upstream_success(_UPSTREAM)
-    entities = [_trim_entity(item) for item in _items_of(payload)]
-
-    needle = search.strip().lower()
-    if needle:
-        matched = [
-            entity
-            for entity in entities
-            if any(
-                needle in str(entity[field] or "").lower() for field in ("title", "title_ar", "key")
-            )
-        ]
-    else:
-        matched = entities
-
-    return _ok(
-        {
-            "total_count": _to_int(payload.get("totalCount")),
-            "matched_count": len(matched),
-            "search": search,
-            "entities": matched,
-            "note": _METADATA_NOTE,
-        }
-    )
+    return response

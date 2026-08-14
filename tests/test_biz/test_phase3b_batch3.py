@@ -17,8 +17,10 @@ class TestIpTrademark:
         assert isinstance(data, dict)
         cost = data["estimated_total_aed"]
         assert isinstance(cost, dict)
-        assert cost["min"] >= 6700
-        assert cost["max"] <= 12000
+        assert cost == {"min": 6500, "max": 6500}
+        assert data["government_fee_breakdown_aed"]["regular_total"] == 6500
+        assert data["examination_service_target_working_days"] == 20
+        assert data["opposition_period_days"] == 30
 
     @pytest.mark.asyncio
     async def test_trademark_sme_discount(self) -> None:
@@ -36,8 +38,9 @@ class TestIpTrademark:
         result = await ip_tools.trademark_registration(expedited=True)
         data = result["data"]
         assert isinstance(data, dict)
-        # Min should be 6700 + 2250 = 8950
-        assert data["estimated_total_aed"]["min"] == 8950
+        # AED 2,250 expedited examination replaces the AED 750 regular fee.
+        assert data["estimated_total_aed"]["min"] == 8000
+        assert data["expedited_examination_surcharge_aed"] == 1500
         assert data["expedited_examination"] is True
 
     @pytest.mark.asyncio
@@ -55,6 +58,17 @@ class TestIpTrademark:
         data = result["data"]
         assert isinstance(data, dict)
         assert data["ip_type"] == "trademark"
+
+    @pytest.mark.asyncio
+    async def test_new_unitary_gcc_patent_filings_are_unavailable(self) -> None:
+        result = await ip_tools.ip_protection(ip_type="patent")
+        data = result["data"]
+        assert isinstance(data, dict)
+        gcc = data["details"]["gcc_patent"]
+        assert gcc["new_unitary_gcc_applications_accepted"] is False
+        assert gcc["unitary_filing_stopped_on"] == "2021-01-06"
+        assert "UAE national route" in gcc["uae_filing_note"]
+        assert ip_tools.KNOWLEDGE.knowledge_date == "2026-08-14"
 
     @pytest.mark.asyncio
     async def test_ip_protection_invalid_type(self) -> None:
@@ -125,27 +139,30 @@ class TestCreateApps:
             assert cat["winner_prize_usd"] == 150000
 
     @pytest.mark.asyncio
-    async def test_grand_finale_at_museum_of_the_future(self) -> None:
+    async def test_cycle_3_structured_timeline(self) -> None:
         result = await createapps_tools.createapps_championship()
         data = result["data"]
         assert isinstance(data, dict)
         championship = data["championship"]
         assert isinstance(championship, dict)
-        key_dates = championship["cycle_3_key_dates_past"]
+        key_dates = championship["cycle_3_timeline"]
         assert isinstance(key_dates, dict)
-        assert "Museum of the Future" in key_dates["grand_finale_venue"]
+        assert key_dates["registration_close"] == "2025-12-28"
+        assert key_dates["finalists_announced"] == "2026-04-14"
+        assert key_dates["finals"] == "2026-10-07"
 
     @pytest.mark.asyncio
-    async def test_concluded_cycle_is_not_presented_as_upcoming(self) -> None:
-        """Cycle 3 ended May 2026; the tool must not imply its dates are ahead."""
+    async def test_cycle_is_ongoing_but_registration_is_closed(self) -> None:
         result = await createapps_tools.createapps_championship()
         data = result["data"]
         assert isinstance(data, dict)
         championship = data["championship"]
         assert isinstance(championship, dict)
-        assert "CONCLUDED" in championship["cycle_status"]
-        assert championship["concluded_cycle"]["status"] == "concluded"
-        assert "NOT ANNOUNCED" in championship["next_cycle"]["status"]
+        assert "ongoing" in championship["cycle_status"].lower()
+        assert championship["current_cycle"]["status"] == "ongoing_finalist_phase"
+        assert championship["current_cycle"]["registration_status"] == "closed"
+        assert "next_cycle" not in championship
+        assert "stale FAQ" in championship["official_page_consistency_note"]
 
     @pytest.mark.asyncio
     async def test_submission_guide_includes_evaluation_criteria(self) -> None:

@@ -22,6 +22,7 @@ class TestListFreeZones:
         assert "dmcc" in ids
         assert "difc_innovation" in ids
         assert "jafza" in ids
+        assert all(fz["source_urls"] for fz in free_zones)
 
 
 class TestFreeZoneDetails:
@@ -121,7 +122,9 @@ class TestFreezoneToMainland:
         mainland = data["freezone_to_mainland"]
         assert isinstance(mainland, dict)
         assert mainland["legislation"] == "Dubai Executive Council Resolution No. 11 of 2025"
-        assert mainland["regularisation_deadline"] == "2026-03-03"
+        assert mainland["regularisation_deadline"] == "2026-03-21"
+        assert "Director General may grant one extension" in mainland["regularisation_status"]
+        assert any("OGD-2025-707.pdf" in url for url in mainland["source_urls"])
         permit_types = mainland["permit_types"]
         assert isinstance(permit_types, list)
         fees = {p["type"]: p["fee_aed"] for p in permit_types}
@@ -163,6 +166,7 @@ class TestListOffshore:
         ids = {o["id"] for o in offshore}
         assert "rak_icc" in ids
         assert "jafza_offshore" in ids
+        assert all(o["source_urls"] for o in offshore)
 
 
 class TestKnowledgeMetadata:
@@ -171,7 +175,9 @@ class TestKnowledgeMetadata:
         result = await tools.list_free_zones()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-07-02"
+        assert knowledge["knowledge_date"] == "2026-08-14"
+        assert knowledge["previous_knowledge_date"] == "2026-07-02"
+        assert "regularisation deadline" in knowledge["last_refresh_scope"]
         assert knowledge["volatility"] == "high"
 
 

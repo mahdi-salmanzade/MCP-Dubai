@@ -76,6 +76,19 @@ class TestWeatherUaeIcao:
         assert data["taf"] is None
 
     @pytest.mark.asyncio
+    @respx.mock
+    async def test_omaa_uses_current_airport_name(self) -> None:
+        respx.get(constants.METAR_ENDPOINT).mock(
+            return_value=Response(200, json=_metar_payload("OMAA"))
+        )
+
+        result = await tools.weather_uae_icao(icao="OMAA", include_taf=False)
+
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["airport"] == "Zayed International Airport"
+
+    @pytest.mark.asyncio
     async def test_invalid_icao_returns_fail(self) -> None:
         result = await tools.weather_uae_icao(icao="EGLL")
         assert result["success"] is False
@@ -109,6 +122,20 @@ class TestWeatherUaeIcao:
         assert isinstance(data, dict)
         assert data["metar"] is None
         assert data["taf"] is None
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_malformed_record_array_returns_structured_error(self) -> None:
+        respx.get(constants.METAR_ENDPOINT).mock(
+            return_value=Response(200, json={"unexpected": "object"})
+        )
+
+        result = await tools.weather_uae_icao(icao="OMDB", include_taf=False)
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "upstream_error"
 
     @pytest.mark.asyncio
     @respx.mock

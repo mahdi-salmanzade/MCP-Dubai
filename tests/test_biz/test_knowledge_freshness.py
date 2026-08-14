@@ -29,7 +29,13 @@ _DATA_DIR = Path(__file__).resolve().parents[2] / "src" / "mcp_dubai" / "biz" / 
 
 # Kept in lockstep with scripts/check_knowledge_freshness.py.
 _VALID_VOLATILITY = {"high", "medium", "stable"}
-_REQUIRED_KEYS = ("domain", "knowledge_date", "volatility", "verify_at")
+_REQUIRED_KEYS = (
+    "domain",
+    "knowledge_date",
+    "full_review_date",
+    "volatility",
+    "verify_at",
+)
 
 
 def _packs() -> list[tuple[str, dict[str, object]]]:
@@ -67,6 +73,22 @@ def test_knowledge_date_is_iso_and_not_in_the_future(name: str, pack: dict[str, 
 
 
 @pytest.mark.parametrize("name,pack", _PACKS, ids=_IDS)
+def test_full_review_date_is_iso_and_not_after_latest_update(
+    name: str, pack: dict[str, object]
+) -> None:
+    full_review = date.fromisoformat(str(pack["full_review_date"]))
+    latest_update = date.fromisoformat(str(pack["knowledge_date"]))
+    assert full_review <= latest_update <= uae_today(), (
+        f"{name} has inconsistent full-review and latest-update dates: "
+        f"{full_review=} {latest_update=}"
+    )
+    if not pack.get("last_refresh_scope"):
+        assert full_review == latest_update, (
+            f"{name} has no targeted scope, so full_review_date must equal knowledge_date"
+        )
+
+
+@pytest.mark.parametrize("name,pack", _PACKS, ids=_IDS)
 def test_verify_at_is_an_https_url(name: str, pack: dict[str, object]) -> None:
     verify_at = str(pack["verify_at"])
     assert verify_at.startswith("https://"), (
@@ -75,8 +97,40 @@ def test_verify_at_is_an_https_url(name: str, pack: dict[str, object]) -> None:
     )
 
 
-def test_freshness_script_agrees_with_this_module() -> None:
+def test_freshness_script_covers_all_domains_and_preserves_full_review_age(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     """The script owns the budgets; this guards against the two drifting apart."""
-    from scripts.check_knowledge_freshness import MAX_AGE_DAYS
+    from scripts import check_knowledge_freshness as freshness
 
-    assert set(MAX_AGE_DAYS) == _VALID_VOLATILITY
+    assert freshness.MAX_AGE_DAYS == {"high": 100, "medium": 190, "stable": 365}
+    monkeypatch.setattr(freshness, "_today", lambda: date(2026, 8, 14))
+    audit_rows = freshness.audit()
+    assert len(audit_rows) == 19
+    assert {row["source_kind"] for row in audit_rows} == {"json", "code"}
+    domains = {str(row["domain"]) for row in audit_rows}
+    assert {"setup_advisor", "data_analyst", "arabic_writer"}.issubset(domains)
+
+    rows = {str(row["pack"]): row for row in audit_rows}
+    tax = rows["tax_compliance.json"]
+    assert tax["targeted_refresh"] is True
+    assert tax["full_review_date"] == "2026-07-25"
+    assert tax["previous_knowledge_date"] == "2026-07-25"
+    assert "QFZP" in str(tax["last_refresh_scope"])
+
+    # A targeted update does not mask an old full-pack review.
+    targeted = freshness._row(
+        source="example.json",
+        source_kind="json",
+        domain="example",
+        knowledge_date="2026-08-14",
+        full_review_date="2026-04-13",
+        previous_knowledge_date="2026-04-13",
+        last_refresh_scope="Targeted update only.",
+        volatility="high",
+        verify_at="https://example.ae",
+        today=date(2026, 8, 14),
+    )
+    assert targeted["latest_update_age_days"] == 0
+    assert targeted["full_review_age_days"] == 123
+    assert targeted["overdue"] is True

@@ -20,3 +20,5 @@ MIN_SURAH: Final[int] = 1
 MAX_SURAH: Final[int] = 114
 MIN_JUZ: Final[int] = 1
 MAX_JUZ: Final[int] = 30
+DEFAULT_SEARCH_LIMIT: Final[int] = 25
+MAX_SEARCH_LIMIT: Final[int] = 100

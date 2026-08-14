@@ -27,9 +27,10 @@ async def createapps_championship() -> dict[str, object]:
     """
     Return Create Apps Championship details for the current cycle.
 
-    Cycle 3: Oct 2025 to May 2026, USD 720,000 prize pool across 4
-    categories (USD 150,000 each). Semi-finals 13 April 2026, grand
-    finale 11 May 2026 at Museum of the Future.
+    Cycle 3 launched 12 October 2025 and is in its finalist phase. Registration
+    is closed; the official structured timeline schedules the finals for
+    7 October 2026. The page also contains a stale FAQ date, which is flagged
+    in the returned record.
     """
     programs = _list("programs")
     for p in programs:

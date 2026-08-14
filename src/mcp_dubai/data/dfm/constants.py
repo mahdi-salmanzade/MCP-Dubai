@@ -10,8 +10,8 @@ in this feature is applied client-side.
         {"id": "2026-07-02T15:00:00", "change": -19.48,
          "changepercentage": -0.324, "value": 5990.59, "volume": 120701866}
 
-    GET /mw/v1/stocks   -> ~450 listed securities, ~47 fields each
-        (id is the ticker symbol; `name` is null upstream as of 2026-07-02).
+    GET /mw/v1/stocks   -> 475 securities as of 2026-08-14
+        (id is the ticker symbol; `name` was null for all records on that date).
 """
 
 from __future__ import annotations

@@ -49,6 +49,8 @@ class TestProServicesEstimate:
         data = result["data"]
         assert isinstance(data, dict)
         assert data["recommendation"] == "per_transaction"
+        assert "Private-provider market estimate" in data["pricing_basis"]
+        assert any("mohre.gov.ae" in url for url in data["source_urls"])
 
     @pytest.mark.asyncio
     async def test_high_volume_recommends_retainer(self) -> None:
@@ -80,6 +82,9 @@ class TestLegalTranslationEstimate:
         assert isinstance(cost, dict)
         assert cost["min"] == 250  # 5 pages * AED 50
         assert cost["max"] == 750  # 5 pages * AED 150
+        assert "MOJ does not publish" in data["pricing_basis"]
+        assert any("moj.gov.ae" in url for url in data["source_urls"])
+        assert "receiving authority" in data["important"]
 
     @pytest.mark.asyncio
     async def test_same_day_uplift_applied(self) -> None:
@@ -103,11 +108,14 @@ class TestChamberOfCommerceInfo:
         result = await tools.chamber_of_commerce_info()
         data = result["data"]
         assert isinstance(data, dict)
-        assert data["annual_fee_aed_min"] == 700
+        assert data["annual_fee_aed_min"] == 50
         assert data["annual_fee_aed_max"] == 2200
-        assert (
-            data["mandatory_for"] == "Mainland commercial license holders (DET commercial activity)"
-        )
+        assert "subject to statutory exemptions" in data["mandatory_for"]
+        categories = data["annual_fee_categories"]
+        assert isinstance(categories, dict)
+        assert categories["free_zone_companies_aed"] == 2200
+        assert categories["simple_handicrafts_aed"] == 50
+        assert any("membership-renewal" in url for url in data["source_urls"])
 
     @pytest.mark.asyncio
     async def test_certificate_of_origin_fee(self) -> None:
@@ -132,11 +140,17 @@ class TestSetupTimelineEstimate:
 
 class TestCommonFounderMistakes:
     @pytest.mark.asyncio
-    async def test_returns_all_11(self) -> None:
+    async def test_returns_corrected_mistake_set(self) -> None:
         result = await tools.common_founder_mistakes()
         data = result["data"]
         assert isinstance(data, dict)
-        assert data["count"] == 11
+        assert data["count"] == 10
+        mistakes = data["mistakes"]
+        assert isinstance(mistakes, list)
+        assert not any(m["id"] == "single_shareholder" for m in mistakes)
+        local_trade = next(m for m in mistakes if m["id"] == "free_zone_mainland_invoice")
+        assert "Resolution 11 of 2025" in local_trade["fix"]
+        assert any("dlp.dubai.gov.ae" in url for url in local_trade["source_urls"])
 
     @pytest.mark.asyncio
     async def test_filter_by_category(self) -> None:
@@ -168,7 +182,9 @@ class TestKnowledge:
         result = await tools.attestation_guide()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-04-13"
+        assert knowledge["knowledge_date"] == "2026-08-14"
+        assert knowledge["previous_knowledge_date"] == "2026-04-13"
+        assert "co-shareholder" in knowledge["last_refresh_scope"]
 
     def test_registers_with_knowledge_registry(self) -> None:
         import importlib

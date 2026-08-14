@@ -193,10 +193,7 @@ async def bank_recommendation(
             "businesses) as of April 2026. Prepare extensive source-of-funds "
             "documentation and expect 8 to 16 week onboarding."
         )
-    warnings.append(
-        "Apply to 2 or 3 banks in parallel to hedge onboarding risk. "
-        "Single-shareholder structures face more bank scrutiny."
-    )
+    warnings.append("Apply to 2 or 3 banks in parallel to hedge onboarding risk.")
 
     return (
         ToolResponse[dict[str, object]]
@@ -224,39 +221,26 @@ async def dul_eligibility(
     free_zone: str | None = None,
 ) -> dict[str, object]:
     """
-    Check Dubai Unified Licence (DUL) fast-track eligibility for a bank
-    and free zone combination.
+    Report recorded Dubai Unified Licence (DUL) bank integration and
+    Dubai-wide free-zone coverage.
     """
 
     def _norm(value: str) -> str:
         return value.lower().replace("_", " ").replace("-", " ").strip()
 
     dul = _dul_block()
-    participating_banks = [_norm(str(b)) for b in dul.get("participating_banks", [])]
-    non_participating_banks = [_norm(str(b)) for b in dul.get("non_participating_banks", [])]
-    participating_zones = [_norm(str(z)) for z in dul.get("participating_free_zones", [])]
+    integrated_banks = [_norm(str(bank)) for bank in dul.get("integrated_banks", [])]
 
     bank_status: str | None = None
     if bank_id:
         needle = _norm(bank_id)
-        if any(needle == pb or needle in pb for pb in participating_banks):
-            bank_status = "participating"
-        elif any(needle == npb or needle in npb for npb in non_participating_banks):
-            bank_status = "not_participating"
+        if any(needle == bank or needle in bank or bank in needle for bank in integrated_banks):
+            bank_status = "integrated"
         else:
-            bank_status = "unknown"
+            bank_status = "not_listed_in_official_announcement"
 
-    zone_status: str | None = None
-    if free_zone:
-        needle = _norm(free_zone)
-        if any(needle == pz or needle in pz for pz in participating_zones):
-            zone_status = "participating"
-        else:
-            zone_status = "unknown_or_not_participating"
-
-    eligible = bank_status == "participating" and (
-        zone_status == "participating" or zone_status is None
-    )
+    zone_status = "covered_if_dubai" if free_zone else None
+    eligible = bank_status == "integrated"
 
     return (
         ToolResponse[dict[str, object]]
@@ -268,9 +252,13 @@ async def dul_eligibility(
                 "free_zone": free_zone,
                 "zone_status": zone_status,
                 "dul_summary": {
-                    "fast_track_days": "approximately 5",
-                    "participating_banks": dul.get("participating_banks", []),
-                    "participating_free_zones": dul.get("participating_free_zones", []),
+                    "average_onboarding_days": dul.get("average_onboarding_days"),
+                    "integrated_banks": dul.get("integrated_banks", []),
+                    "bank_list_as_of": dul.get("as_of"),
+                    "coverage": dul.get("coverage"),
+                    "caveat": dul.get("average_note"),
+                    "bank_list_note": dul.get("bank_list_note"),
+                    "source_urls": dul.get("source_urls", []),
                 },
             },
             knowledge=KNOWLEDGE,

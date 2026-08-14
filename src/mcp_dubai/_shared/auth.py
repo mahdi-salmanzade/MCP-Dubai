@@ -16,11 +16,15 @@ fresh machine with no env vars.
 
 from __future__ import annotations
 
+import asyncio
+import hashlib
 import logging
 import os
 import time
 from dataclasses import dataclass
+from threading import Lock
 from typing import Any
+from weakref import WeakKeyDictionary
 
 import httpx
 
@@ -31,6 +35,8 @@ from mcp_dubai._shared.constants import (
 )
 
 logger = logging.getLogger(__name__)
+
+_TOKEN_REFRESH_FAILURE_COOLDOWN_SECONDS = 1.0
 
 
 class DubaiPulseAuthError(Exception):
@@ -58,11 +64,30 @@ class TokenCache:
     """Cached OAuth token with expiry tracking."""
 
     access_token: str
-    expires_at: float
+    expires_at_monotonic: float
+    credential_fingerprint: str
 
-    @property
-    def is_valid(self) -> bool:
-        return time.time() < (self.expires_at - DUBAI_PULSE_TOKEN_REFRESH_BUFFER_SECONDS)
+    def is_valid_for(self, credential_fingerprint: str) -> bool:
+        """Return whether this token is fresh and belongs to the active credentials."""
+        return self.credential_fingerprint == credential_fingerprint and time.monotonic() < (
+            self.expires_at_monotonic - DUBAI_PULSE_TOKEN_REFRESH_BUFFER_SECONDS
+        )
+
+
+@dataclass(frozen=True)
+class TokenRefreshFailure:
+    """Safe failed-refresh result shared by callers in the same burst."""
+
+    credential_fingerprint: str
+    message: str
+    retry_after_monotonic: float
+
+    def is_active_for(self, credential_fingerprint: str) -> bool:
+        """Return whether callers should reuse this failed refresh."""
+        return (
+            self.credential_fingerprint == credential_fingerprint
+            and time.monotonic() < self.retry_after_monotonic
+        )
 
 
 class DubaiPulseAuth:
@@ -76,6 +101,15 @@ class DubaiPulseAuth:
 
     def __init__(self) -> None:
         self._token_cache: TokenCache | None = None
+        # A long-running MCP process can receive many tool calls concurrently.
+        # Only one caller per event loop should refresh an expired OAuth token.
+        # The package-level auth singleton can also be embedded in hosts that
+        # create sequential event loops, so never retain one loop-bound lock.
+        self._refresh_locks: WeakKeyDictionary[asyncio.AbstractEventLoop, asyncio.Lock] = (
+            WeakKeyDictionary()
+        )
+        self._refresh_locks_guard = Lock()
+        self._refresh_failure: TokenRefreshFailure | None = None
 
     @property
     def client_id(self) -> str | None:
@@ -121,8 +155,30 @@ class DubaiPulseAuth:
             raise DubaiPulseCredentialsMissingError()
 
     def reset_cache(self) -> None:
-        """Drop the cached token. Used by tests after monkeypatching env."""
+        """Drop cached token and refresh failure state."""
         self._token_cache = None
+        self._refresh_failure = None
+
+    def _credential_fingerprint(self) -> str:
+        """Hash the active credential pair without retaining another plaintext copy."""
+        client_id = self.client_id
+        client_secret = self.client_secret
+        if client_id is None or client_secret is None:
+            raise DubaiPulseCredentialsMissingError()
+        material = f"{client_id}\0{client_secret}".encode()
+        return hashlib.sha256(material).hexdigest()
+
+    def _refresh_lock_for_current_loop(self) -> asyncio.Lock:
+        """Return the single-flight lock owned by the active event loop."""
+        loop = asyncio.get_running_loop()
+        with self._refresh_locks_guard:
+            for closed_loop in [known for known in self._refresh_locks if known.is_closed()]:
+                del self._refresh_locks[closed_loop]
+            lock = self._refresh_locks.get(loop)
+            if lock is None:
+                lock = asyncio.Lock()
+                self._refresh_locks[loop] = lock
+            return lock
 
     async def get_token(self) -> str:
         """
@@ -133,38 +189,86 @@ class DubaiPulseAuth:
             DubaiPulseAuthError: if the token endpoint returns an error.
         """
         self.require_credentials()
+        credential_fingerprint = self._credential_fingerprint()
 
-        if self._token_cache is not None and self._token_cache.is_valid:
+        if self._token_cache is not None and self._token_cache.is_valid_for(credential_fingerprint):
             return self._token_cache.access_token
 
+        async with self._refresh_lock_for_current_loop():
+            # Credentials may have changed while this caller waited. Re-read and
+            # double-check the cache so a burst produces exactly one token POST.
+            self.require_credentials()
+            credential_fingerprint = self._credential_fingerprint()
+            if self._token_cache is not None and self._token_cache.is_valid_for(
+                credential_fingerprint
+            ):
+                return self._token_cache.access_token
+
+            failure = self._refresh_failure
+            if failure is not None and failure.is_active_for(credential_fingerprint):
+                # Reuse the safe result briefly instead of issuing one
+                # sequential POST per caller in a burst. The cooldown is
+                # credential-bound, so changed credentials retry immediately.
+                raise DubaiPulseAuthError(failure.message)
+
+            try:
+                access_token = await self._fetch_token(credential_fingerprint)
+            except DubaiPulseAuthError as exc:
+                self._refresh_failure = TokenRefreshFailure(
+                    credential_fingerprint=credential_fingerprint,
+                    message=str(exc),
+                    retry_after_monotonic=(
+                        time.monotonic() + _TOKEN_REFRESH_FAILURE_COOLDOWN_SECONDS
+                    ),
+                )
+                raise
+
+            self._refresh_failure = None
+            return access_token
+
+    async def _fetch_token(self, credential_fingerprint: str) -> str:
+        """Fetch and cache one token; callers serialize and coalesce this method."""
         logger.debug("Fetching new Dubai Pulse access token")
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            response = await client.post(
-                DUBAI_PULSE_TOKEN_URL,
-                params={"grant_type": "client_credentials"},
-                data={
-                    "client_id": self.client_id,
-                    "client_secret": self.client_secret,
-                },
-            )
+        try:
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                response = await client.post(
+                    DUBAI_PULSE_TOKEN_URL,
+                    params={"grant_type": "client_credentials"},
+                    data={
+                        "client_id": self.client_id,
+                        "client_secret": self.client_secret,
+                    },
+                )
+        except httpx.HTTPError as exc:
+            # Do not include request URLs, form bodies, or upstream response
+            # bodies here: OAuth endpoints handle the project's secrets.
+            raise DubaiPulseAuthError("Dubai Pulse token request failed") from exc
 
         if response.status_code != 200:
             raise DubaiPulseAuthError(
-                f"Dubai Pulse token fetch failed: HTTP {response.status_code} {response.text[:200]}"
+                f"Dubai Pulse token fetch failed: HTTP {response.status_code}"
             )
 
-        payload = response.json()
+        try:
+            payload = response.json()
+        except ValueError as exc:
+            raise DubaiPulseAuthError("Dubai Pulse token response was not valid JSON") from exc
+
+        if not isinstance(payload, dict):
+            raise DubaiPulseAuthError("Dubai Pulse token response had an invalid shape")
         raw_token = payload.get("access_token")
         if not raw_token or not isinstance(raw_token, str):
-            raise DubaiPulseAuthError(
-                f"Dubai Pulse token response missing 'access_token': {payload}"
-            )
+            raise DubaiPulseAuthError("Dubai Pulse token response missing 'access_token'")
         access_token: str = raw_token
 
-        expires_in = int(payload.get("expires_in", DUBAI_PULSE_TOKEN_TTL_SECONDS))
+        try:
+            expires_in = int(payload.get("expires_in", DUBAI_PULSE_TOKEN_TTL_SECONDS))
+        except (TypeError, ValueError):
+            expires_in = DUBAI_PULSE_TOKEN_TTL_SECONDS
         self._token_cache = TokenCache(
             access_token=access_token,
-            expires_at=time.time() + expires_in,
+            expires_at_monotonic=time.monotonic() + max(expires_in, 0),
+            credential_fingerprint=credential_fingerprint,
         )
         logger.debug("Dubai Pulse token cached, expires in %ds", expires_in)
         return access_token

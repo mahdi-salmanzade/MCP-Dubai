@@ -93,7 +93,13 @@ class TestSynthesizeReport:
 
         register_domain_knowledge(
             "test_dom",
-            KnowledgeMetadata(knowledge_date="2026-04-13", volatility="high"),
+            KnowledgeMetadata(
+                knowledge_date="2026-04-13",
+                full_review_date="2025-12-01",
+                previous_knowledge_date="2026-01-01",
+                last_refresh_scope="Targeted fee update.",
+                volatility="high",
+            ),
         )
         result = await tools.synthesize_report(title="X")
         data = result["data"]
@@ -101,6 +107,10 @@ class TestSynthesizeReport:
         markdown = data["markdown"]
         assert isinstance(markdown, str)
         assert "test_dom" in markdown
+        assert "latest recorded update 2026-04-13" in markdown
+        assert "full review 2025-12-01" in markdown
+        assert "targeted scope: Targeted fee update." in markdown
+        assert "verified 2026-04-13" not in markdown
 
     @pytest.mark.asyncio
     async def test_empty_title_returns_error(self) -> None:

@@ -78,8 +78,10 @@ async def esr_status() -> dict[str, object]:
     """
     Return the current status of UAE Economic Substance Regulations.
 
-    ESR is DEAD for periods after 31 December 2022 per Cabinet Resolution
-    98 of 2024. Historical penalties are refundable.
+    ESR is not required for financial years ending after 31 December 2022 per
+    Cabinet Decision 98 of 2024. Obligations and penalties for in-scope
+    financial years ending from 2019 through 2022 remain live, and penalties
+    already imposed for those periods are not refundable.
     """
     return await tools.esr_status()
 
@@ -96,7 +98,7 @@ async def einvoicing_timeline() -> dict[str, object]:
     above AED 50M (Ministerial Resolution 66 of 2026), 31 March 2027 below
     AED 50M. Mandatory go-live: January 2027 at or above AED 50M, July
     2027 below, government entities October 2027. Includes the official
-    MoF pre-approved ASP register. Verify dates with the FTA/MoF.
+    current MoF ASP accreditation register. Verify dates with the FTA/MoF.
     """
     return await tools.einvoicing_timeline()
 
@@ -109,10 +111,11 @@ async def late_payment_penalty_estimate(
     """
     Estimate the unified UAE late-payment penalty on overdue tax.
 
-    Cabinet Decision 129 of 2025 applies a flat 14% per annum to unpaid
-    tax, effective 14 April 2026, unifying VAT, Excise and Corporate Tax.
-    This pro-rates that rate by days late and is an approximation to
-    confirm with the FTA.
+    Cabinet Decision 129 of 2025 applies 14% per annum to unpaid tax,
+    effective 14 April 2026, unifying VAT, Excise and Corporate Tax. The
+    charge accrues monthly at 14% divided by 12 for every month or part of a
+    month; it is not pro-rated by day. Confirm the calendar-month count with
+    the FTA.
     """
     return await tools.late_payment_penalty_estimate(
         tax_due_aed=tax_due_aed,
@@ -185,8 +188,9 @@ _TOOLS: list[ToolMeta] = [
         name="esr_status",
         description=(
             "Check UAE Economic Substance Regulations status. ESR is DEAD "
-            "for periods after 31 Dec 2022 per Cabinet Resolution 98/2024, "
-            "historical penalties are refundable."
+            "for periods after 31 Dec 2022 per Cabinet Decision 98/2024, "
+            "but historical obligations remain live and penalties for in-scope "
+            "periods are not refundable."
         ),
         feature="tax_compliance",
         tier=TIER_BIZ,
@@ -199,8 +203,8 @@ _TOOLS: list[ToolMeta] = [
             "do i need to file esr",
             "repealed",
             "dead",
-            "cabinet resolution 98",
-            "refundable",
+            "cabinet decision 98",
+            "not refundable",
             "compliance",
         ],
     ),
@@ -210,7 +214,7 @@ _TOOLS: list[ToolMeta] = [
             "UAE e-invoicing regime: PINT AE / DCTCE 5-corner model, "
             "EmaraTax reporting, pilot live since 1 July 2026, ASP "
             "appointment deadlines (30 Oct 2026 / 31 Mar 2027), the MoF "
-            "pre-approved ASP register, and the phased rollout through "
+            "current ASP accreditation register, and the phased rollout through "
             "2027 (MD 243 and 244 of 2025, MR 66 of 2026)."
         ),
         feature="tax_compliance",
@@ -229,8 +233,9 @@ _TOOLS: list[ToolMeta] = [
     ToolMeta(
         name="late_payment_penalty_estimate",
         description=(
-            "Estimate the unified UAE late-payment penalty (flat 14% per "
-            "annum, Cabinet Decision 129 of 2025, effective 14 April 2026)."
+            "Estimate the unified UAE late-payment penalty: a 14% annual rate "
+            "charged monthly for every month or part of a month (Cabinet "
+            "Decision 129 of 2025, effective 14 April 2026)."
         ),
         feature="tax_compliance",
         tier=TIER_BIZ,

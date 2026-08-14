@@ -100,6 +100,18 @@ class TestQuranSurah:
         assert result["success"] is False
         assert "surah number" in str(result["error"])
 
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_non_object_top_level_response_returns_fail(self) -> None:
+        respx.get(f"{constants.SURAH}/1/quran-uthmani").mock(
+            return_value=Response(200, json=[{"code": 200}])
+        )
+
+        result = await tools.quran_surah(number=1)
+
+        assert result["success"] is False
+        assert "top-level response is not an object" in str(result["error"])
+
 
 class TestQuranAyah:
     @pytest.mark.asyncio
@@ -160,6 +172,11 @@ class TestQuranSearch:
         data = result["data"]
         assert isinstance(data, dict)
         assert data["count"] == 1
+        assert data["total"] == 1
+        assert data["returned"] == 1
+        assert data["offset"] == 0
+        assert data["next_offset"] is None
+        assert data["truncated"] is False
         matches = data["matches"]
         assert isinstance(matches, list)
         assert len(matches) == 1
@@ -169,6 +186,132 @@ class TestQuranSearch:
         result = await tools.quran_search(query="")
         assert result["success"] is False
         assert "query" in str(result["error"])
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_high_cardinality_search_is_bounded_and_paginated(self) -> None:
+        matches = [{"number": number, "text": f"match {number}"} for number in range(250)]
+        payload = {
+            "code": 200,
+            "status": "OK",
+            "data": {"count": len(matches), "matches": matches},
+        }
+        respx.get(f"{constants.SEARCH}/Allah/all/en").mock(return_value=Response(200, json=payload))
+
+        result = await tools.quran_search(query="Allah", limit=100, offset=100)
+
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["total"] == 250
+        assert data["returned"] == 100
+        assert data["offset"] == 100
+        assert data["next_offset"] == 200
+        assert data["truncated"] is True
+        page = data["matches"]
+        assert isinstance(page, list)
+        assert [match["number"] for match in page] == list(range(100, 200))
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_default_search_limit_bounds_high_cardinality_results(self) -> None:
+        matches = [{"number": number, "text": f"match {number}"} for number in range(250)]
+        payload = {
+            "code": 200,
+            "status": "OK",
+            "data": {"count": len(matches), "matches": matches},
+        }
+        respx.get(f"{constants.SEARCH}/Allah/all/en").mock(return_value=Response(200, json=payload))
+
+        result = await tools.quran_search(query="Allah")
+
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["returned"] == constants.DEFAULT_SEARCH_LIMIT
+        assert data["next_offset"] == constants.DEFAULT_SEARCH_LIMIT
+        page = data["matches"]
+        assert isinstance(page, list)
+        assert len(page) == constants.DEFAULT_SEARCH_LIMIT
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_final_search_page_has_no_next_offset(self) -> None:
+        matches = [{"number": number, "text": f"match {number}"} for number in range(250)]
+        payload = {
+            "code": 200,
+            "status": "OK",
+            "data": {"count": len(matches), "matches": matches},
+        }
+        respx.get(f"{constants.SEARCH}/Allah/all/en").mock(return_value=Response(200, json=payload))
+
+        result = await tools.quran_search(query="Allah", limit=100, offset=200)
+
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["returned"] == 50
+        assert data["next_offset"] is None
+        assert data["truncated"] is False
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_offset_past_end_has_no_next_offset(self) -> None:
+        matches = [{"number": number, "text": f"match {number}"} for number in range(10)]
+        payload = {
+            "code": 200,
+            "status": "OK",
+            "data": {"count": len(matches), "matches": matches},
+        }
+        respx.get(f"{constants.SEARCH}/Allah/all/en").mock(return_value=Response(200, json=payload))
+
+        result = await tools.quran_search(query="Allah", offset=20)
+
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["returned"] == 0
+        assert data["matches"] == []
+        assert data["next_offset"] is None
+        assert data["truncated"] is False
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_mismatched_upstream_count_returns_fail(self) -> None:
+        payload = {
+            "code": 200,
+            "status": "OK",
+            "data": {"count": 2, "matches": [{"number": 1}]},
+        }
+        respx.get(f"{constants.SEARCH}/Allah/all/en").mock(return_value=Response(200, json=payload))
+
+        result = await tools.quran_search(query="Allah")
+
+        assert result["success"] is False
+        assert "count does not match" in str(result["error"])
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize("limit", [0, 101])
+    async def test_invalid_limit_returns_fail(self, limit: int) -> None:
+        result = await tools.quran_search(query="Allah", limit=limit)
+
+        assert result["success"] is False
+        assert "limit must be 1 to 100" in str(result["error"])
+
+    @pytest.mark.asyncio
+    async def test_negative_offset_returns_fail(self) -> None:
+        result = await tools.quran_search(query="Allah", offset=-1)
+
+        assert result["success"] is False
+        assert "offset must be at least 0" in str(result["error"])
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_user_values_are_encoded_as_path_segments(self) -> None:
+        route = respx.get(f"{constants.SEARCH}/mercy%20%2F%20grace%3F/all/en%2Ftest").mock(
+            return_value=Response(200, json=_search_payload())
+        )
+
+        result = await tools.quran_search(query="mercy / grace?", edition="en/test")
+
+        assert result["success"] is True
+        assert route.called
 
 
 class TestDiscovery:

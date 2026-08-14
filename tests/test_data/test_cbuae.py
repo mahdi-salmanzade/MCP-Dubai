@@ -193,6 +193,11 @@ class TestCurrencyMap:
 
         assert lookup("غير موجود") == (None, None)
 
+    def test_lookup_nepalese_rupee_from_current_feed(self) -> None:
+        from mcp_dubai.data.cbuae.currency_map import lookup
+
+        assert lookup("روبية نيبالية") == ("NPR", "Nepalese Rupee")
+
     def test_all_iso_codes_are_three_letters(self) -> None:
         from mcp_dubai.data.cbuae.currency_map import ARABIC_TO_ISO
 

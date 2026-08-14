@@ -11,9 +11,9 @@ This guide covers the dev setup, the conventions every feature follows, and the 
 The most useful contributions right now:
 
 1. **Refresh stale curated knowledge.** Each `biz/*` feature reads a JSON file in `src/mcp_dubai/biz/_data/` with a `knowledge_date` and `verify_at` URL. UAE tax rules, visa thresholds, and free zone pricing change frequently. If you spot something stale, file a PR with the corrected data, the new `knowledge_date`, and a link to the official source.
-2. **Ship new Tier 1 features from public CSV/GTFS mirrors.** Do not wait for Dubai Pulse credentials. The DLD transactions dataset is downloadable as CSV from `dubaipulse.gov.ae`, RTA publishes GTFS independently, Open-Meteo gives free weather. Ship these now as static-loader tools following the `data/khda/snapshot.py` pattern, and swap in the live `DubaiPulseAuth` client when credentials arrive without touching tool signatures or tests.
+2. **Improve Tier 1 data.dubai integrations and contract checks.** DLD and RTA wrappers already use the OAuth gateway, while RTA publishes GTFS independently. Add bounded pagination, schema validation, and opt-in live contract checks without changing established tool signatures.
 3. **New Tier 1 Dubai Pulse wrappers.** `dld` and `rta` shells ship today with graceful credential-missing responses. The next orgs to wrap are DHA (health facilities), DEWA (utilities), DTCM (tourism stats), DET (business activities), Dubai Municipality (food safety, permits), Dubai Customs, and Dubai Airports (FIDS). See `src/mcp_dubai/_shared/auth.py` and `src/mcp_dubai/data/dld/tools.py` for the credential-missing contract.
-4. **New curated business packs.** `cost_of_living`, `ejari_guide`, and sector-specific startup playbooks are high demand and zero upstream dependency. Follow the `biz/founder_essentials` pattern: one JSON in `biz/_data/`, one `tools.py`, one `server.py`, one test file.
+4. **New curated business packs.** Sector-specific startup playbooks are high demand and have zero upstream dependency. Follow the `biz/founder_essentials` pattern: one JSON in `biz/_data/`, one `tools.py`, one `server.py`, and one test file.
 5. **Improve `recommend_tools` BM25 quality** by tuning tags. Current quirk: in small sub-corpora, length normalization can favour shorter tools when queries collide on common tokens. Arabic and abbreviation aliases already expand at index and query time (see `_shared/aliases.py`); adding new equivalence sets there is often enough.
 6. **Add features beyond Dubai.** Sharjah, Abu Dhabi, and federal UAE data could live in this same server.
 
@@ -48,7 +48,7 @@ make test         # pytest with coverage report
 make lint         # ruff check
 make format       # ruff format
 make typecheck    # mypy strict
-make check        # lint + typecheck + test (the all-gates pre-PR command)
+make check        # lint + format check + typecheck + test + freshness report
 make run          # python -m mcp_dubai (runs the MCP server over stdio)
 make clean        # drop caches
 ```
@@ -133,7 +133,7 @@ async def my_tool(...) -> dict[str, object]:
     return ToolResponse[dict[str, object]].ok(result, knowledge=KNOWLEDGE).model_dump()
 ```
 
-The per-domain `KNOWLEDGE` constant is registered with the shared registry at module import time, so `get_knowledge_status()` reflects current freshness automatically. When you re-verify a domain, bump the `knowledge_date` in the JSON envelope and the change flows through.
+The per-domain `KNOWLEDGE` constant is registered with the shared registry at module import time, so `get_knowledge_status()` reflects the latest recorded update automatically. When an update is targeted, preserve the prior date and describe the exact scope; the shared response metadata exposes both fields to clients.
 
 ### 5. Graceful credential degradation (Tier 1 features)
 
@@ -202,7 +202,7 @@ Every curated business knowledge file follows the same envelope. This is what ma
 ```json
 {
   "domain": "my_domain",
-  "knowledge_date": "2026-04-13",
+  "knowledge_date": "YYYY-MM-DD",
   "volatility": "high",
   "verify_at": "https://official.source.ae",
   "source_brief_section": "6.x",
@@ -223,9 +223,10 @@ Every curated business knowledge file follows the same envelope. This is what ma
 
 Rules:
 - Stable `id` per row (lowercase snake_case, never reused).
-- `as_of` date on every numeric field that can drift.
-- `source_urls` includes both the official source and any internal research file.
-- Tagged opinions: anything from a founder forum gets `"tag": "founder_report"`. Anything from an official agency page gets `"tag": "official"`.
+- Put `as_of` at row level or in the narrowest shared block containing numeric values that can drift.
+- Prefer `source_urls` for multiple references. Existing schemas may use `source_url` or a canonical `url` for a single official page.
+- Prefer primary official sources. Add secondary reporting only where the official source does not publish the required dated fact.
+- Use provenance tags only where a pack implements them consistently; they are not universal.
 - All numeric values use the most natural unit. Currency in `_aed` or `_usd` suffix.
 
 Files are loaded via `mcp_dubai.biz._data.loader.load_data_file(name)` which uses `importlib.resources` so they ship in the wheel automatically.
@@ -236,12 +237,12 @@ Files are loaded via `mcp_dubai.biz._data.loader.load_data_file(name)` which use
 
 Before opening a PR, run `make check` and confirm:
 
-- [ ] All gates pass: `ruff check`, `ruff format --check`, `mypy --strict`, `pytest` (currently 369+ tests, 90% coverage).
+- [ ] All gates pass: `ruff check`, `ruff format --check`, `mypy --strict`, `pytest` (802 tests, 90.64% coverage).
 - [ ] No em dashes (`—`) or en dashes (`–`) anywhere in the diff.
 - [ ] If you added a new feature, it follows the feature folder layout (constants, schemas/client if needed, tools, server, tests).
 - [ ] If you added a `biz/*` feature, it has a curated JSON file in `_data/` with the standard envelope, a per-domain `KNOWLEDGE` constant, and a call to `register_domain_knowledge`.
 - [ ] If you added a Tier 1 feature, it uses the graceful credential degradation pattern.
-- [ ] If you touched curated knowledge, you bumped `knowledge_date` and added a `source_urls` entry pointing to the change.
+- [ ] If you touched curated knowledge, you advanced `knowledge_date`, preserved `full_review_date` unless the whole domain was reviewed, recorded `previous_knowledge_date` and `last_refresh_scope` for a targeted refresh, and added or updated an authoritative `source_urls`, `source_url`, or canonical `url` reference in the affected record.
 - [ ] You added tests with `respx` mocks for any new HTTP path. No real network calls in CI.
 - [ ] You registered new tools with `ToolDiscovery` via a `_TOOLS: list[ToolMeta]` block in `server.py`.
 - [ ] If you added a new tool, you mounted its parent feature in `src/mcp_dubai/server.py`.
@@ -269,8 +270,8 @@ We cannot fix upstream outages (if RTA's API is down, it is down). But we can up
 If you are filing a PR to refresh stale curated knowledge:
 
 1. Find the relevant JSON file in `src/mcp_dubai/biz/_data/`.
-2. Update the affected fields and add your new source URL to the row's `source_urls` array.
-3. Bump the top-level `knowledge_date` to today's date.
+2. Update the affected fields and add or update the authoritative `source_urls`, `source_url`, or canonical `url` reference used by that pack.
+3. Advance the top-level `knowledge_date` to today's date only after materially re-verifying the affected fields. For a partial refresh, preserve `full_review_date`, record the old update date in `previous_knowledge_date`, describe the exact boundary in `last_refresh_scope`, and retain section-level `as_of` dates where applicable. Advance `full_review_date` only after reviewing the entire domain. Keep untouched packs and sections on their prior dates.
 4. Run `make check` to confirm tests still pass (most knowledge updates require zero code changes).
 5. Open the PR with the source URL in the description.
 

@@ -50,7 +50,7 @@ class TestAirQualityDubai:
     @pytest.mark.asyncio
     @respx.mock
     async def test_happy_path(self, configured_waqi_token: None) -> None:
-        url = constants.FEED_BY_CITY.format(path="dubai/karama")
+        url = constants.FEED_BY_CITY.format(path="A470305")
         respx.get(url).mock(return_value=Response(200, json=_waqi_payload("Karama, Dubai")))
 
         result = await tools.air_quality_dubai(station="karama")
@@ -84,12 +84,46 @@ class TestAirQualityDubai:
 
     @pytest.mark.asyncio
     @respx.mock
-    async def test_waqi_error_response_propagates(self, configured_waqi_token: None) -> None:
-        url = constants.FEED_BY_CITY.format(path="dubai/karama")
+    async def test_waqi_error_response_is_structured(self, configured_waqi_token: None) -> None:
+        url = constants.FEED_BY_CITY.format(path="A470305")
         respx.get(url).mock(return_value=Response(200, json=_waqi_error_payload()))
 
-        with pytest.raises(RuntimeError, match=r"WAQI API error"):
-            await tools.air_quality_dubai(station="karama")
+        result = await tools.air_quality_dubai(station="karama")
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "upstream_error"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize("bad_data", ["not-an-object", {}, 42])
+    async def test_invalid_station_data_is_structured(
+        self,
+        configured_waqi_token: None,
+        bad_data: object,
+    ) -> None:
+        url = constants.FEED_BY_CITY.format(path="A470305")
+        respx.get(url).mock(return_value=Response(200, json={"status": "ok", "data": bad_data}))
+
+        result = await tools.air_quality_dubai(station="karama")
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "upstream_error"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_jebel_ali_uses_verified_feed_id(self, configured_waqi_token: None) -> None:
+        route = respx.get(constants.FEED_BY_CITY.format(path="A470308")).mock(
+            return_value=Response(200, json=_waqi_payload("Jebel Ali Village, Dubai"))
+        )
+
+        result = await tools.air_quality_dubai(station="jebel-ali-village")
+
+        assert result["success"] is True
+        assert route.called
 
 
 class TestAirQualityByCoords:
@@ -125,6 +159,11 @@ class TestAirQualityStations:
         data = result["data"]
         assert isinstance(data, dict)
         assert data["count"] == len(constants.DUBAI_STATIONS)
+        stations = data["stations"]
+        assert isinstance(stations, list)
+        assert {station["waqi_feed_id"] for station in stations} == {"A470305", "A470308"}
+        assert data["verified_at"] == "2026-08-14"
+        assert str(result["retrieved_at"]).endswith("Z")
 
 
 class TestAqiCategory:

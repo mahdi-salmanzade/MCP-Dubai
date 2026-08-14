@@ -20,9 +20,10 @@ async def uae_holidays(year: int = 2026) -> dict[str, object]:
     List all UAE federal public holidays for a Gregorian year.
 
     Lunar holidays (Eid al-Fitr, Eid al-Adha, Hijri New Year, Mawlid,
-    Arafat Day) are returned with `provisional: true` until MoHRE
-    officially announces them roughly 10 days before the date. Entries
-    may carry an optional `note` with observance details.
+    Arafat Day) are returned with `provisional: true` until the relevant
+    MOHRE and FAHR observance circulars are published. Every lunar record
+    carries `official_observance_announced`; false identifies a religious-
+    date candidate rather than a confirmed day off.
 
     Args:
         year: Gregorian year. Currently 2026 and 2027 are shipped
@@ -38,13 +39,17 @@ async def uae_holidays(year: int = 2026) -> dict[str, object]:
 @mcp.tool
 async def uae_next_holiday(from_date_str: str | None = None) -> dict[str, object]:
     """
-    Find the next UAE public holiday on or after a reference date.
+    Find the next confirmed UAE public holiday on or after a reference date.
+
+    An earlier unannounced lunar-date candidate is returned separately as
+    `next_provisional_candidate`; it is not presented as a confirmed day off.
 
     Args:
         from_date_str: ISO date YYYY-MM-DD. Defaults to today.
 
     Returns:
-        Dict with `from_date`, `next_holiday`, and `days_away`.
+        Dict with `from_date`, confirmed `next_holiday`, `days_away`, and
+        provisional candidate metadata when relevant.
     """
     return await tools.uae_next_holiday(from_date_str=from_date_str)
 
@@ -58,8 +63,8 @@ async def is_uae_holiday(date_str: str) -> dict[str, object]:
         date_str: ISO date YYYY-MM-DD.
 
     Returns:
-        Dict with `date`, `is_holiday`, and `holiday` (the matching record
-        or None).
+        Dict with `date`, tri-state `is_holiday`, `determination`, and
+        `holiday`. `is_holiday` is null for an unannounced provisional date.
     """
     return await tools.is_uae_holiday(date_str=date_str)
 
@@ -86,7 +91,10 @@ _TOOLS: list[ToolMeta] = [
     ),
     ToolMeta(
         name="uae_next_holiday",
-        description="Find the next UAE public holiday from a reference date.",
+        description=(
+            "Find the next confirmed UAE public holiday and flag any earlier "
+            "provisional lunar-date candidate."
+        ),
         feature="holidays",
         tier=TIER_OPEN,
         tags=["uae", "holiday", "next", "upcoming", "soon", "vacation", "off"],

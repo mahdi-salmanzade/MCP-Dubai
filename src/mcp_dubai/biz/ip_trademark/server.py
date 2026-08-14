@@ -20,11 +20,14 @@ async def trademark_registration(
 
     The IP authority is MOET (Ministry of Economy and Tourism, formerly
     Ministry of Economy). Cabinet Resolution 102 of 2025 introduced new
-    fees with a 50% SME discount.
+    fees with a 50% reduction for members of the UAE National Programme for
+    SMEs.
 
     Args:
-        is_sme: True if the applicant qualifies for the 50% SME discount.
-        expedited: True for AED 2,250 one-day expedited examination.
+        is_sme: True only for a qualifying member of the UAE National
+            Programme for SMEs.
+        expedited: True to replace the AED 750 regular examination with the
+            AED 2,250 one-day expedited examination (AED 1,500 net surcharge).
     """
     return await tools.trademark_registration(is_sme=is_sme, expedited=expedited)
 

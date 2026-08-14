@@ -1,6 +1,7 @@
 {
   "domain": "halal",
   "knowledge_date": "2026-04-13",
+  "full_review_date": "2026-04-13",
   "volatility": "stable",
   "verify_at": "https://qc.moiat.gov.ae/en/open-data/halal",
   "source_brief_section": "6.10e",

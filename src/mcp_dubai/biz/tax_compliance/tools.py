@@ -85,30 +85,41 @@ async def corporate_tax_estimate(
 
     warnings: list[str] = []
 
+    qfzp_rules_applied = is_free_zone and qfzp_qualifying_pct > 0
+
     # SaaS warning per MD 229/2025
-    if is_free_zone and industry == "saas" and qfzp_qualifying_pct > 0:
+    if qfzp_rules_applied and industry == "saas":
         warnings.append(
             "CRITICAL: SaaS is NOT a Qualifying Activity under Ministerial "
             "Decision 229 of 2025. Most free zone SaaS revenue is taxed at "
-            "9% (above the AED 375,000 threshold), NOT the 0% QFZP rate. "
+            "9% with no AED 375,000 tax-free band, NOT the 0% QFZP rate. "
             "Treat your qfzp_qualifying_pct as 0 unless you have an explicit "
             "FTA ruling that says otherwise."
         )
 
-    # Calculate
-    taxable_above_threshold = max(0, annual_taxable_income_aed - free_band)
-
-    if is_free_zone and qfzp_qualifying_pct > 0:
-        qualifying_share = taxable_above_threshold * qfzp_qualifying_pct / 100
-        non_qualifying_share = taxable_above_threshold - qualifying_share
+    # A QFZP does not receive the ordinary AED 375,000 0% band. Its full
+    # taxable income is split between Qualifying Income at 0% and other
+    # taxable income at 9%. The ordinary band still applies to a non-QFZP.
+    if qfzp_rules_applied:
+        tax_free_band_applied = 0
+        taxable_at_rate_split = annual_taxable_income_aed
+        qualifying_share = taxable_at_rate_split * qfzp_qualifying_pct / 100
+        non_qualifying_share = taxable_at_rate_split - qualifying_share
         tax_qualifying = 0  # 0% on qualifying income
         tax_non_qualifying = int(non_qualifying_share * standard_rate)
         total_tax = tax_qualifying + tax_non_qualifying
+        warnings.append(
+            "QFZP treatment applied: the ordinary AED 375,000 0% band does not "
+            "apply, and a QFZP cannot elect Small Business Relief. Confirm all "
+            "QFZP conditions, including the de minimis test, with the FTA."
+        )
     else:
+        tax_free_band_applied = min(annual_taxable_income_aed, free_band)
+        taxable_at_rate_split = max(0, annual_taxable_income_aed - free_band)
         qualifying_share = 0
-        non_qualifying_share = taxable_above_threshold
+        non_qualifying_share = taxable_at_rate_split
         tax_qualifying = 0
-        tax_non_qualifying = int(taxable_above_threshold * standard_rate)
+        tax_non_qualifying = int(taxable_at_rate_split * standard_rate)
         total_tax = tax_non_qualifying
 
     effective_rate = (
@@ -118,11 +129,13 @@ async def corporate_tax_estimate(
     # Small business relief check
     sbr = ct.get("small_business_relief", {})
     sbr_threshold = int(sbr.get("revenue_threshold_aed", 3000000))
-    if annual_taxable_income_aed <= sbr_threshold:
+    sbr_period_end = str(sbr.get("available_through_periods_ending", "2029-12-31"))
+    if not qfzp_rules_applied and annual_taxable_income_aed <= sbr_threshold:
         warnings.append(
             f"You may qualify for Small Business Relief (Ministerial Decision "
-            f"73/2023) if your REVENUE is at or below AED {sbr_threshold:,}. "
-            f"Available through tax periods ending 31 December 2026."
+            f"73/2023, as amended by Ministerial Decision 131/2026) if your "
+            f"REVENUE is at or below AED {sbr_threshold:,}. Available for "
+            f"eligible tax periods ending on or before {sbr_period_end}."
         )
 
     return (
@@ -136,7 +149,12 @@ async def corporate_tax_estimate(
                     "industry": industry,
                 },
                 "tax_free_band_aed": free_band,
-                "taxable_above_threshold_aed": taxable_above_threshold,
+                "tax_free_band_applied_aed": tax_free_band_applied,
+                "qfzp_rules_applied": qfzp_rules_applied,
+                # Retained for backwards compatibility. Under QFZP rules no
+                # ordinary threshold applies, so this is the full taxable
+                # income passed to the qualifying/non-qualifying rate split.
+                "taxable_above_threshold_aed": taxable_at_rate_split,
                 "qualifying_income_aed": int(qualifying_share),
                 "non_qualifying_income_aed": int(non_qualifying_share),
                 "tax_on_qualifying_aed": tax_qualifying,
@@ -289,7 +307,7 @@ async def einvoicing_timeline() -> dict[str, object]:
     """
     Return the UAE e-invoicing regime: legislation, the PINT AE / DCTCE
     model, the phased rollout dates, the ASP appointment deadlines, the
-    pre-approved ASP register, published technical documents, and a short
+    current ASP accreditation register, published technical documents, and a short
     list of what to do now.
 
     The pilot phase went live on 1 July 2026 with voluntary adoption open
@@ -300,7 +318,8 @@ async def einvoicing_timeline() -> dict[str, object]:
     what_to_do_now = [
         "Appoint an accredited service provider (ASP): revenue at or above "
         "AED 50M must appoint by 30 October 2026, below AED 50M by "
-        "31 March 2027. Pick from the official MoF pre-approved register.",
+        "31 March 2027. Pick from the official MoF accredited/pre-approved "
+        "provider lists.",
         "Make sure your ERP or accounting system can emit PINT AE invoices "
         "and exchange them on the DCTCE 5-corner model.",
         "Consider joining the voluntary phase (open since 1 July 2026) to "

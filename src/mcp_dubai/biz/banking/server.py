@@ -74,20 +74,22 @@ async def dul_eligibility(
     free_zone: str | None = None,
 ) -> dict[str, object]:
     """
-    Check Dubai Unified Licence (DUL) fast-track eligibility.
+    Report Dubai Unified Licence (DUL) bank integration and coverage.
 
-    DUL unifies the trade license, Chamber registration, and Establishment
-    Card into one record. Cuts bank account onboarding to approximately
-    5 days for compatible setups.
+    DUL is issued across mainland and free zone businesses in Dubai. The
+    official 12 November 2025 announcement named seven integrated banks
+    and reported a 5-day average account-opening time. That average is not
+    a guarantee for an individual application.
 
     Args:
         bank_id: Bank id slug to check (e.g., "emirates_nbd", "fab", "ruya").
-        free_zone: Free zone name or slug to check (e.g., "DMCC", "JAFZA",
-            "IFZA").
+        free_zone: Dubai free zone name or slug. DUL coverage is not limited
+            to a short participant list.
 
     Returns:
-        Dict with `eligible`, `bank_status`, `zone_status`, and a summary
-        of all participating banks and zones.
+        Dict with a compatibility `eligible` flag, `bank_status`,
+        `zone_status`, and the dated official integration snapshot. Here,
+        `eligible` only means that the bank was named as integrated.
     """
     return await tools.dul_eligibility(bank_id=bank_id, free_zone=free_zone)
 
@@ -131,12 +133,12 @@ _TOOLS: list[ToolMeta] = [
     ToolMeta(
         name="dul_eligibility",
         description=(
-            "Check Dubai Unified Licence (DUL) fast-track eligibility for "
-            "a bank and free zone combination. DUL cuts onboarding to ~5 days."
+            "Check whether a bank was named as Dubai Unified Licence (DUL) "
+            "integrated and explain Dubai-wide business coverage."
         ),
         feature="banking",
         tier=TIER_BIZ,
-        tags=["dul", "fast track", "dubai unified licence", "5 days", "onboarding"],
+        tags=["dul", "integration", "dubai unified licence", "5 days", "onboarding"],
     ),
 ]
 

@@ -153,6 +153,8 @@ async def pro_services_estimate(
                     "max": retainer_total_max,
                 },
                 "what_a_pro_does": pro.get("what_a_pro_does", []),
+                "pricing_basis": pro.get("pricing_basis"),
+                "source_urls": pro.get("source_urls", []),
                 "inputs": {
                     "visas_per_year": visas_per_year,
                     "license_renewals_per_year": license_renewals_per_year,
@@ -199,11 +201,9 @@ async def legal_translation_estimate(
                 "estimated_cost_aed": {"min": cost_min, "max": cost_max},
                 "registry": lt.get("registry"),
                 "registry_url": lt.get("registry_url"),
-                "important": (
-                    "Only MOJ-licensed sworn translators are accepted by UAE "
-                    "courts, MOFA, RERA, and government counters. Always confirm "
-                    "the translator is on the MOJ registry before commissioning."
-                ),
+                "pricing_basis": lt.get("pricing_basis"),
+                "source_urls": lt.get("source_urls", []),
+                "important": lt.get("approved_translators_scope"),
             },
             knowledge=KNOWLEDGE,
         )
@@ -236,7 +236,7 @@ async def setup_timeline_estimate() -> dict[str, object]:
 
 
 async def common_founder_mistakes(category: str | None = None) -> dict[str, object]:
-    """List the 11 most common founder mistakes."""
+    """List the 10 curated founder mistakes."""
     mistakes = _list_block("common_mistakes")
     if category:
         needle = category.lower()

@@ -1,6 +1,7 @@
 {
   "domain": "ip_trademark",
-  "knowledge_date": "2026-04-13",
+  "knowledge_date": "2026-08-14",
+  "full_review_date": "2026-04-13",
   "volatility": "medium",
   "verify_at": "https://moet.gov.ae",
   "source_brief_section": "6.10d",
@@ -24,29 +25,42 @@
       "paid_inquiry_login": "UAE Pass required"
     },
     "registration": {
-      "fee_range_aed_min": 6700,
-      "fee_range_aed_max": 12000,
-      "fee_range_notes": "End-to-end (filing + publication + registration)",
-      "timeline_months_min": 8,
-      "timeline_months_max": 12,
+      "fee_range_aed_min": 6500,
+      "fee_range_aed_max": 6500,
+      "fee_range_notes": "Official government fees for one trademark class: examination AED 750, publication AED 750, and final registration AED 5,000. Agent, translation, notarisation, objection, late-payment, and multi-class costs are excluded.",
+      "government_fee_breakdown_aed": {
+        "regular_examination": 750,
+        "publication": 750,
+        "final_registration": 5000,
+        "regular_total": 6500
+      },
+      "examination_service_target_working_days": 20,
+      "opposition_period_days": 30,
+      "certificate_issuance_within_days_after_opposition_period": 30,
+      "timeline_note": "MOET targets 20 working days to study and decide the application. The mark is then published for a 30-day objection period; after that period, the final fee is due and the certificate is issued within 30 days. Objections, amendments, or late payment extend the process.",
       "process_steps": [
         "Trademark search (basic free, paid formal at AED 350)",
-        "Application filing on MOET portal",
-        "Examination by MOET (8 to 12 weeks)",
-        "Publication in Official Gazette",
-        "Opposition period (60 days)",
-        "Registration certificate issued"
+        "File the application on the MOET portal and pay the AED 750 regular examination fee",
+        "MOET studies the application and targets a decision within 20 working days",
+        "If accepted, pay AED 750 for publication in the official trademark bulletin",
+        "Wait through the 30-day objection period from the bulletin's issue date",
+        "Pay the AED 5,000 final registration fee; MOET issues the certificate within 30 days after the objection period"
+      ],
+      "source_urls": [
+        "https://www.moet.gov.ae/en/w/register-trademark%C2%A0?redirect=%2Fen%2Fuae-lifestyle",
+        "https://uaelegislation.gov.ae/en/legislations/1562"
       ]
     },
     "cabinet_resolution_102_2025": {
       "effective_from": "2025-11-14",
       "summary": "New fee schedule for trademark services.",
       "key_fees_aed": {
+        "regular_examination": 750,
         "expedited_one_day_examination": 2250,
         "appeal": 5000
       },
       "sme_discount_pct": 50,
-      "sme_discount_notes": "50% discount on most fees for qualifying SMEs."
+      "sme_discount_notes": "50% reduction in all trademark service fees for members of the UAE National Programme for Small and Medium Enterprises; ordinary SME status alone is not enough."
     },
     "wipo_madrid": {
       "uae_member": true,
@@ -63,7 +77,15 @@
     "gcc_patent": {
       "name": "GCC Patent Office",
       "url": "https://www.gccpo.org",
-      "notes": "Single application covers all 6 GCC member states."
+      "new_unitary_gcc_applications_accepted": false,
+      "unitary_filing_stopped_on": "2021-01-06",
+      "legacy_patents_note": "GCC applications filed before 6 January 2021 continue to be processed, and granted legacy patents remain valid across the six member states.",
+      "current_processing_note": "The GCC Patent Office later resumed examination services on behalf of Bahrain and Kuwait from 1 January 2023 and Qatar from 1 July 2023, but resulting rights are limited to the filing country's national territory rather than all six GCC states.",
+      "uae_filing_note": "A new UAE patent application must use the UAE national route or the UAE national phase of a PCT application; there is no new unitary six-state GCC filing route.",
+      "source_urls": [
+        "https://inspire.wipo.int/index.php/system/files/juri/GCC.pdf",
+        "https://gccpo.org/aboutusen/ShowNews?id=66"
+      ]
     }
   },
   "copyright": {
@@ -81,5 +103,7 @@
       "notes": "WIPO Global Brand Database is HTML, no public REST API."
     }
   },
-  "recommended_approach": "Ship reference tools with canonical URLs and the fee schedule. Build a calculator for the SME discount. Do not promise programmatic trademark search."
+  "recommended_approach": "Ship reference tools with canonical URLs and the fee schedule. Build a calculator for the SME discount. Do not promise programmatic trademark search.",
+  "previous_knowledge_date": "2026-04-13",
+  "last_refresh_scope": "Targeted correctness audit of 2026-08-14: corrected official trademark fees/timing and the post-2021 GCC patent filing position against official MOET, UAE legislation, GCCPO, and WIPO sources. Not a full re-verification of every field in this pack."
 }

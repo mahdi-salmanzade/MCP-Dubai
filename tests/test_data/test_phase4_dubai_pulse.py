@@ -7,7 +7,12 @@ import respx
 from httpx import Response
 
 from mcp_dubai._shared.constants import DUBAI_PULSE_API_BASE, DUBAI_PULSE_TOKEN_URL
+from mcp_dubai._shared.health import get_upstream_registry
 from mcp_dubai.data.dld import tools as dld_tools
+from mcp_dubai.data.dubai_pulse.client import (
+    DubaiPulseClient,
+    DubaiPulseResponseError,
+)
 from mcp_dubai.data.rta import tools as rta_tools
 
 
@@ -88,6 +93,76 @@ class TestValidationBeforeAuth:
         assert "name or license_number" in result["error"]
 
 
+class TestDubaiPulseClientValidation:
+    @pytest.mark.asyncio
+    async def test_query_rejects_invalid_pagination_before_auth(
+        self, clean_dubai_pulse_env: None
+    ) -> None:
+        client = DubaiPulseClient("dld", "dld_transactions-open-api")
+
+        with pytest.raises(ValueError, match="limit"):
+            await client.query(limit=0)
+        with pytest.raises(ValueError, match="offset"):
+            await client.query(offset=-1)
+
+    @pytest.mark.asyncio
+    async def test_query_rejects_filter_operators_before_auth(
+        self, clean_dubai_pulse_env: None
+    ) -> None:
+        client = DubaiPulseClient("dld", "dld_transactions-open-api")
+
+        with pytest.raises(ValueError, match="reserved query syntax"):
+            await client.query(filters={"area_name_en": "Marina AND amount=0"})
+        with pytest.raises(ValueError, match="filter key"):
+            await client.query(filters={"area;drop": "Marina"})
+
+    def test_rejects_unsafe_path_slugs(self) -> None:
+        with pytest.raises(ValueError, match="org"):
+            DubaiPulseClient("../dld", "dld_transactions-open-api")
+        with pytest.raises(ValueError, match="dataset"):
+            DubaiPulseClient("dld", "../../secrets")
+
+    @pytest.mark.asyncio
+    async def test_get_all_rejects_zero_page_size(self, clean_dubai_pulse_env: None) -> None:
+        client = DubaiPulseClient("dld", "dld_transactions-open-api")
+
+        with pytest.raises(ValueError, match="page_size"):
+            await client.get_all(page_size=0)
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_get_all_advances_by_records_and_honors_total(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        route = respx.get(f"{DUBAI_PULSE_API_BASE}/open/dld/dld_transactions-open-api").mock(
+            side_effect=[
+                Response(200, json={"data": [{"id": 1}, {"id": 2}], "total": 3}),
+                Response(200, json={"data": [{"id": 3}], "total": 3}),
+            ]
+        )
+        client = DubaiPulseClient("dld", "dld_transactions-open-api")
+
+        records = await client.get_all(max_records=10, page_size=2)
+
+        assert [record["id"] for record in records] == [1, 2, 3]
+        assert route.call_count == 2
+        assert route.calls[1].request.url.params["offset"] == "2"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_get_all_rejects_repeated_page(self, configured_dubai_pulse_env: None) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        repeated = {"data": [{"id": 1}, {"id": 2}], "total": 99}
+        respx.get(f"{DUBAI_PULSE_API_BASE}/open/dld/dld_transactions-open-api").mock(
+            return_value=Response(200, json=repeated)
+        )
+        client = DubaiPulseClient("dld", "dld_transactions-open-api")
+
+        with pytest.raises(DubaiPulseResponseError, match="repeated a page"):
+            await client.get_all(max_records=10, page_size=2)
+
+
 # ----------------------------------------------------------------------------
 # Happy path with mocked Dubai Pulse responses
 # ----------------------------------------------------------------------------
@@ -111,6 +186,104 @@ class TestHappyPath:
         transactions = data["transactions"]
         assert isinstance(transactions, list)
         assert transactions[0]["area_name_en"] == "Dubai Marina"
+        assert result["source"] == DUBAI_PULSE_API_BASE
+        assert result["retrieved_at"] is not None
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_dld_upstream_failure_is_structured(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        respx.get(f"{DUBAI_PULSE_API_BASE}/open/dld/dld_transactions-open-api").mock(
+            return_value=Response(503, text="temporarily unavailable")
+        )
+
+        result = await dld_tools.dld_search_transactions()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "upstream_error"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_dld_invalid_shape_is_structured(self, configured_dubai_pulse_env: None) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        respx.get(f"{DUBAI_PULSE_API_BASE}/open/dld/dld_transactions-open-api").mock(
+            return_value=Response(200, json={"data": {"unexpected": "object"}})
+        )
+
+        result = await dld_tools.dld_search_transactions()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "parse_error"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_dld_non_object_record_is_structured(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        respx.get(f"{DUBAI_PULSE_API_BASE}/open/dld/dld_transactions-open-api").mock(
+            return_value=Response(200, json={"data": ["junk"]})
+        )
+
+        result = await dld_tools.dld_search_transactions()
+
+        assert result["success"] is False
+        assert isinstance(result["error"], dict)
+        assert result["error"]["status"] == "parse_error"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_dld_rejects_more_records_than_requested(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        respx.get(f"{DUBAI_PULSE_API_BASE}/open/dld/dld_transactions-open-api").mock(
+            return_value=Response(200, json={"data": [{"id": 1}, {"id": 2}], "total": 2})
+        )
+
+        result = await dld_tools.dld_search_transactions(limit=1)
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "parse_error"
+        assert "requested limit 1" in str(error["reason"])
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_legitimate_lowercase_and_in_filter_is_allowed(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        route = respx.get(f"{DUBAI_PULSE_API_BASE}/open/dld/dld_transactions-open-api").mock(
+            return_value=Response(200, json={"data": []})
+        )
+
+        result = await dld_tools.dld_search_transactions(area="Dubai Parks and Resorts")
+
+        assert result["success"] is True
+        assert route.calls[0].request.url.params["filter"] == (
+            "area_name_en=Dubai Parks and Resorts"
+        )
+
+    @pytest.mark.asyncio
+    async def test_local_filter_rejection_does_not_poison_health(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        before = {item["name"]: item for item in get_upstream_registry().snapshot()}["dubai_pulse"]
+
+        result = await dld_tools.dld_search_transactions(area="Marina OR Palm")
+
+        after = {item["name"]: item for item in get_upstream_registry().snapshot()}["dubai_pulse"]
+        assert result["success"] is False
+        assert isinstance(result["error"], str)
+        assert after["failure_count"] == before["failure_count"]
 
     @pytest.mark.asyncio
     @respx.mock
@@ -128,6 +301,74 @@ class TestHappyPath:
 
         result = await rta_tools.rta_search_metro_stations(line="Red")
         assert result["success"] is True
+        assert result["source"] == DUBAI_PULSE_API_BASE
+        assert result["retrieved_at"] is not None
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_rta_upstream_failure_is_structured(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        respx.get(f"{DUBAI_PULSE_API_BASE}/open/rta/rta_metro_stations-open-api").mock(
+            return_value=Response(503, text="temporarily unavailable")
+        )
+
+        result = await rta_tools.rta_search_metro_stations()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "upstream_error"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_rta_invalid_shape_is_structured(self, configured_dubai_pulse_env: None) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        respx.get(f"{DUBAI_PULSE_API_BASE}/open/rta/rta_metro_stations-open-api").mock(
+            return_value=Response(200, json={"data": "not-a-list"})
+        )
+
+        result = await rta_tools.rta_search_metro_stations()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "parse_error"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_rta_non_object_record_is_structured(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        respx.get(f"{DUBAI_PULSE_API_BASE}/open/rta/rta_metro_stations-open-api").mock(
+            return_value=Response(200, json={"data": [42]})
+        )
+
+        result = await rta_tools.rta_search_metro_stations()
+
+        assert result["success"] is False
+        assert isinstance(result["error"], dict)
+        assert result["error"]["status"] == "parse_error"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_rta_rejects_more_records_than_requested(
+        self, configured_dubai_pulse_env: None
+    ) -> None:
+        respx.post(DUBAI_PULSE_TOKEN_URL).mock(return_value=Response(200, json=_token_payload()))
+        respx.get(f"{DUBAI_PULSE_API_BASE}/open/rta/rta_metro_stations-open-api").mock(
+            return_value=Response(200, json={"data": [{"id": 1}, {"id": 2}], "total": 2})
+        )
+
+        result = await rta_tools.rta_search_metro_stations(limit=1)
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "parse_error"
+        assert "requested limit 1" in str(error["reason"])
 
     @pytest.mark.asyncio
     @respx.mock
@@ -205,9 +446,11 @@ class TestRtaGtfsStaticUrl:
         assert data["archive_format"] == "7z"
         assert "py7zr" in str(data["extraction_hint"])
         assert "GTFS_20250823" in str(data["feed_version_note"])
+        assert "2026-08-14" in str(data["feed_version_note"])
         assert "fresher" in str(data["staleness_note"])
         assert data["query_api_auth_required"] is True
         assert data["gtfs_realtime_available"] is False
+        assert result["retrieved_at"] == "2026-08-14"
 
     @pytest.mark.asyncio
     async def test_transitland_mirror_marked_dead(self) -> None:

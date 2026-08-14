@@ -1,6 +1,7 @@
 {
   "domain": "dcde",
-  "knowledge_date": "2026-04-13",
+  "knowledge_date": "2026-08-14",
+  "full_review_date": "2026-04-13",
   "volatility": "medium",
   "verify_at": "https://www.dubaichamberdigital.com",
   "source_brief_section": "6.9",
@@ -22,10 +23,17 @@
     "standalone_membership": false,
     "summary": "DCDE has no standalone membership scheme as of April 2026. Founders engage via specific programs (Dubai Founders HQ, Antler, FRWRDx, Create Apps).",
     "dubai_chamber_of_commerce_separate": {
-      "mandatory_for": "Mainland commercial license holders (DET commercial activity)",
-      "annual_fee_aed_min": 700,
+      "mandatory_for": "DET licensees conducting listed commercial, industrial, agricultural, professional, or service activities, subject to statutory exemptions",
+      "free_zone_membership": "A free zone establishment may join after approval of its supervising free zone authority.",
+      "annual_fee_aed_min": 50,
       "annual_fee_aed_max": 2200,
-      "url": "https://www.dubaichamber.com"
+      "fee_note": "The official schedule varies by legal form, owner nationality, and activity; AED 50 and AED 2,200 are category endpoints, not universal fees.",
+      "url": "https://www.dubaichambers.com/en/membership-renewal",
+      "source_urls": [
+        "https://www.dubaichambers.com/en/membership-renewal",
+        "https://dlp.dubai.gov.ae/Legislation%20Reference/2022/Law%20No.%20%281%29%20of%202022%20Establishing%20the%20Dubai%20Chambers.html",
+        "https://dlp.dubai.gov.ae/Legislation%20Reference/2023/Dubai%20Chambers%20Board%20of%20Directors%20Resolution%20No.%20%284%29%20of%202023%20Regulating%20Membership%20in%20the%20Dubai%20Chambers.html"
+      ]
     }
   },
   "programs": [
@@ -68,7 +76,12 @@
       "name": "Create Apps Championship",
       "operator": "DCDE",
       "type": "global_competition",
-      "current_cycle": "Third cycle (Oct 2025 to May 2026)",
+      "current_cycle": {
+        "number": 3,
+        "status": "ongoing_finalist_phase",
+        "registration_status": "closed",
+        "finalist_teams": 12
+      },
       "prize_pool_usd": 720000,
       "categories": [
         "Best Youth App",
@@ -78,11 +91,13 @@
       ],
       "winner_prize_usd_per_category": 150000,
       "key_dates": {
-        "semi_finals": "13 April 2026",
-        "grand_finale": "11 May 2026 at Museum of the Future"
+        "registration_closed": "2025-12-28",
+        "semi_finals": "2026-04-13",
+        "finalists_announced": "2026-04-14",
+        "finals": "2026-10-07"
       },
-      "url": "https://createapps.ae",
-      "notes": "See createapps feature for full details."
+      "url": "https://createapps.ae/en/create-apps-championship",
+      "notes": "The official structured timeline schedules the finals for 7 October 2026, while a stale FAQ answer says April 2026. See the createapps feature for the full timeline and consistency warning."
     },
     {
       "id": "canva_partnership",
@@ -130,5 +145,7 @@
     "events_count": 36,
     "international_roadshows": 17,
     "source": "DCDE January 2026 press release"
-  }
+  },
+  "previous_knowledge_date": "2026-04-13",
+  "last_refresh_scope": "Targeted correctness audit of 2026-08-14: refreshed the duplicate Create Apps Championship record against the official structured timeline and corrected the separate Dubai Chamber of Commerce membership scope and fee floor against official sources. Not a full re-verification of every field in this pack."
 }

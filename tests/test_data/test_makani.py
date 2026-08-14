@@ -319,6 +319,29 @@ class TestMakaniValidate:
 
     @pytest.mark.asyncio
     @respx.mock
+    async def test_rejects_doctype_after_long_prefix(self) -> None:
+        malicious_xml = (
+            " " * 2049
+            + """<!DOCTYPE x [
+<!ENTITY injected '{&quot;IS_VALID&quot;:&quot;true&quot;}'>
+]>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Body>
+    <IsValidMakaniResponse xmlns="http://tempuri.org/">
+      <IsValidMakaniResult>&injected;</IsValidMakaniResult>
+    </IsValidMakaniResponse>
+  </s:Body>
+</s:Envelope>"""
+        )
+        respx.post(MAKANI_SOAP_ENDPOINT).mock(return_value=Response(200, text=malicious_xml))
+
+        result = await tools.makani_validate(makani_number="30032 95320")
+
+        assert result["success"] is False
+        assert "declares a DTD" in str(result["error"])
+
+    @pytest.mark.asyncio
+    @respx.mock
     async def test_503_returns_structured_upstream_error(self) -> None:
         respx.post(MAKANI_SOAP_ENDPOINT).mock(return_value=Response(503, text="busy"))
 

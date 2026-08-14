@@ -25,7 +25,8 @@ async def weather_uae_icao(
 
     Args:
         icao: ICAO code. Valid: OMDB (Dubai International), OMDW (Al Maktoum),
-            OMSJ (Sharjah), OMAA (Abu Dhabi), OMAL (Al Ain), OMRK (Ras Al Khaimah).
+            OMSJ (Sharjah), OMAA (Zayed International), OMAL (Al Ain),
+            OMRK (Ras Al Khaimah).
         include_taf: If True, fetch the TAF forecast as well.
 
     Returns:
@@ -50,7 +51,7 @@ _TOOLS: list[ToolMeta] = [
         name="weather_uae_icao",
         description=(
             "METAR (current weather) and TAF (forecast) for a UAE airport "
-            "(OMDB Dubai, OMDW Al Maktoum, OMSJ Sharjah, OMAA Abu Dhabi, "
+            "(OMDB Dubai, OMDW Al Maktoum, OMSJ Sharjah, OMAA Zayed International, "
             "OMAL Al Ain, OMRK RAK)."
         ),
         feature="aviation_weather",

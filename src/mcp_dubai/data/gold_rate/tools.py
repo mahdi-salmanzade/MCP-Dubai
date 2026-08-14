@@ -7,7 +7,7 @@ import httpx
 from mcp_dubai._shared.errors import now_iso, upstream_error_response
 from mcp_dubai._shared.health import mark_failure as mark_upstream_failure
 from mcp_dubai._shared.health import mark_success as mark_upstream_success
-from mcp_dubai._shared.http_client import HttpClientError, RateLimitError
+from mcp_dubai._shared.http_client import HttpClientError
 from mcp_dubai._shared.schemas import ToolResponse
 from mcp_dubai.data.gold_rate import constants
 from mcp_dubai.data.gold_rate.client import GoldRateClient
@@ -80,8 +80,6 @@ async def dubai_gold_rate() -> dict[str, object]:
     client = GoldRateClient()
     try:
         page = await client.fetch_page()
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_upstream_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)

@@ -10,7 +10,8 @@ Source: https://aviationweather.gov/data/api/
 Brief section: 5.6 (utilities, environment, immigration)
 
 UAE ICAOs covered: OMDB (Dubai International), OMDW (Al Maktoum),
-OMSJ (Sharjah), OMAA (Abu Dhabi), OMAL (Al Ain), OMRK (Ras Al Khaimah).
+OMSJ (Sharjah), OMAA (Zayed International), OMAL (Al Ain),
+OMRK (Ras Al Khaimah).
 """
 
 from __future__ import annotations

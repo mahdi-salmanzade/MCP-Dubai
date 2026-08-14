@@ -116,12 +116,19 @@ class TestFunding:
         assert "hub71" in ids
 
     @pytest.mark.asyncio
-    async def test_accelerator_search_free_only_excludes_paid(self) -> None:
+    async def test_accelerator_search_free_only_requires_explicit_free_status(self) -> None:
         result = await funding_tools.accelerator_search(free_only=True)
         data = result["data"]
         assert isinstance(data, dict)
-        ids = {a["id"] for a in data["accelerators"]}  # type: ignore[union-attr]
+        accelerators = data["accelerators"]
+        assert isinstance(accelerators, list)
+        ids = {a["id"] for a in accelerators}
         assert "astrolabs" not in ids
+        assert "in5" not in ids
+        assert "hub71" not in ids
+        assert ids == {"sheraa"}
+        assert all(a.get("is_free") is True for a in accelerators)
+        assert "unknown" in str(data["free_only_semantics"])
 
     @pytest.mark.asyncio
     async def test_accelerator_search_by_sector(self) -> None:
@@ -158,7 +165,63 @@ class TestFunding:
         data = result["data"]
         assert isinstance(data, dict)
         assert "MBRIF" in str(data["warning"])
+        assert "no direct funding" in str(data["warning"])
         assert data["count"] >= 3
+
+    @pytest.mark.asyncio
+    async def test_current_hub71_and_in5_records(self) -> None:
+        result = await funding_tools.accelerator_search()
+        data = result["data"]
+        assert isinstance(data, dict)
+        accelerators = {a["id"]: a for a in data["accelerators"]}  # type: ignore[union-attr]
+        in5 = accelerators["in5"]
+        hub71 = accelerators["hub71"]
+        assert in5["application_url"] == "https://infive.ae/"
+        assert in5["is_free"] is False
+        assert "in5 Science" in in5["sub_programs"]
+        assert hub71["application_url"].endswith("/access-programme/apply")
+        assert hub71["current_cohort"]["application_deadline"] == "2026-08-21"
+        assert hub71["current_cohort"]["application_deadline_status"] == "open"
+        assert hub71["current_cohort"]["post_deadline_applications_open"] is True
+
+        excluded = {item["name"] for item in data["excluded_with_reason"]}
+        assert {"AREA 2071", "AstroLabs"}.issubset(excluded)
+
+    @pytest.mark.asyncio
+    async def test_mbrif_and_dfdf_are_correctly_characterized(self) -> None:
+        result = await funding_tools.grant_programs()
+        data = result["data"]
+        assert isinstance(data, dict)
+        grants = {g["id"]: g for g in data["grants"]}  # type: ignore[union-attr]
+        mbrif = grants["mbrif"]
+        dfdf = grants["dfdf"]
+        assert mbrif["programs"]["innovation_accelerator"]["direct_funding"] is False
+        assert mbrif["programs"]["guarantee_scheme"]["direct_lender"] is False
+        assert dfdf["fund_size_aed"] == 1_000_000_000
+        assert dfdf["latest_dated_report_snapshot"]["total_investments"] == 30
+        assert dfdf["latest_dated_report_snapshot"]["publication_date"] == "2026-07-20"
+        assert dfdf["current_portfolio_listing_snapshot"]["listed_entities"] == 36
+        assert dfdf["current_portfolio_listing_snapshot"]["verified_as_of"] == "2026-08-14"
+        assert "commitments_aed" not in dfdf
+        assert dfdf["url"] == "https://dfdf.vc/"
+
+    @pytest.mark.asyncio
+    async def test_grant_programs_rejects_unknown_type(self) -> None:
+        result = await funding_tools.grant_programs(grant_type="loan_grant")
+        assert result["success"] is False
+        assert "interest_free_business_loans" in str(result["error"])
+
+    @pytest.mark.asyncio
+    async def test_repaired_vc_urls_and_knowledge_date(self) -> None:
+        result = await funding_tools.vc_list()
+        data = result["data"]
+        assert isinstance(data, dict)
+        vcs = {v["id"]: v for v in data["vcs"]}  # type: ignore[union-attr]
+        assert vcs["wamda_capital"]["url"] == "https://wamdacapital.com/"
+        assert vcs["shorooq"]["url"] == "https://www.shorooq.com/"
+        assert funding_tools.KNOWLEDGE.knowledge_date == "2026-08-14"
+        assert funding_tools.KNOWLEDGE.full_review_date == "2026-08-14"
+        assert funding_tools.KNOWLEDGE.last_refresh_scope is None
 
 
 class TestGovPortals:

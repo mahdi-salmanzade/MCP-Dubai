@@ -11,7 +11,6 @@ import pytest
 import respx
 from httpx import Response
 
-from mcp_dubai._shared.http_client import RateLimitError
 from mcp_dubai.data.al_adhan import constants, tools
 
 # ----------------------------------------------------------------------------
@@ -188,13 +187,29 @@ class TestPrayerTimesFor:
 
     @pytest.mark.asyncio
     @respx.mock
-    async def test_rate_limit_propagates_as_rate_limit_error(self) -> None:
+    async def test_rate_limit_returns_structured_error(self) -> None:
         respx.get(constants.TIMINGS_BY_CITY).mock(
             return_value=Response(429, text="Too Many Requests")
         )
 
-        with pytest.raises(RateLimitError):
-            await tools.prayer_times_for(city="Dubai")
+        result = await tools.prayer_times_for(city="Dubai")
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "rate_limited"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_malformed_success_payload_returns_structured_error(self) -> None:
+        respx.get(constants.TIMINGS_BY_CITY).mock(return_value=Response(200, text="not json"))
+
+        result = await tools.prayer_times_for(city="Dubai")
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "upstream_error"
 
 
 # ----------------------------------------------------------------------------

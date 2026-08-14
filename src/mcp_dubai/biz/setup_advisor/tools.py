@@ -22,11 +22,21 @@ from mcp_dubai.biz._data.loader import extract_knowledge, load_data_file
 # Sourced from free_zones.json's envelope so a single update flows through.
 # ----------------------------------------------------------------------------
 _FREE_ZONES_DATA = load_data_file("free_zones.json")
-KNOWLEDGE: KnowledgeMetadata = extract_knowledge(_FREE_ZONES_DATA)
+_BASE_KNOWLEDGE: KnowledgeMetadata = extract_knowledge(_FREE_ZONES_DATA)
 # Override with a setup_advisor specific verify_at since this tool spans
 # multiple domains.
 KNOWLEDGE = KnowledgeMetadata(
-    knowledge_date=KNOWLEDGE.knowledge_date,
+    knowledge_date="2026-08-14",
+    full_review_date=(_BASE_KNOWLEDGE.full_review_date or _BASE_KNOWLEDGE.knowledge_date),
+    previous_knowledge_date=(
+        _BASE_KNOWLEDGE.previous_knowledge_date or _BASE_KNOWLEDGE.knowledge_date
+    ),
+    last_refresh_scope=(
+        "Targeted correctness audit of 2026-08-14: replaced the unconditional mainland "
+        "B2C rule with the conditional DET licence or permit route under Dubai Executive "
+        "Council Resolution 11 of 2025, and removed unsupported ownership-structure advice. "
+        "Not a full re-verification of every setup rule."
+    ),
     volatility="high",
     verify_at="https://invest.dubai.ae",
     disclaimer=(
@@ -36,6 +46,12 @@ KNOWLEDGE = KnowledgeMetadata(
     ),
 )
 register_domain_knowledge("setup_advisor", KNOWLEDGE)
+
+_FREE_ZONE_MAINLAND_RESOLUTION_URL = (
+    "https://dlp.dubai.gov.ae/Legislation%20Reference/2025/"
+    "Executive%20Council%20Resolution%20No.%20(11)%20of%202025%20Regulating%20the%20"
+    "Conduct%20of%20Free%20Zone%20Establishments%E2%80%99%20Activities.html"
+)
 
 
 # ----------------------------------------------------------------------------
@@ -78,18 +94,47 @@ def _decide(
     reasoning: list[str] = []
     warnings: list[str] = []
     candidates: list[str] = []
+    local_trade_route: dict[str, Any] | None = None
 
-    # Rule 1: Local trade requirement forces mainland.
+    # Rule 1: Local trade needs a licensed onshore route, but mainland is not
+    # the only route. Resolution 11 of 2025 permits eligible Dubai free-zone
+    # establishments to obtain the applicable DET licence or permit.
     if needs_local_trade:
-        jurisdiction = "mainland"
+        jurisdiction = "mainland_or_eligible_free_zone"
         reasoning.append(
-            "Mainland (DET) is required to invoice mainland UAE B2C customers "
-            "directly without a local distributor or dual license."
+            "A DET mainland licence is often the simplest route for customer-facing "
+            "activity in Dubai. It is not automatically required merely because a "
+            "business invoices mainland customers: an eligible Dubai free-zone "
+            "establishment may instead obtain the applicable DET branch licence or "
+            "temporary activity permit under Executive Council Resolution 11 of 2025."
         )
         warnings.append(
-            "Mainland setup typically requires Ejari (registered tenancy) "
-            "before visa quota is granted. Budget for office cost on top of license."
+            "The free-zone route is conditional, not automatic. DET must list the activity "
+            "as eligible, the free-zone licence must remain valid, and the licensing and "
+            "sector authorities must approve the application where required."
         )
+        local_trade_route = {
+            "mainland_option": (
+                "Obtain the relevant DET mainland licence for the activity. This is often "
+                "the simpler route when most operations are onshore."
+            ),
+            "free_zone_option": (
+                "Keep the Dubai free-zone establishment and obtain the applicable DET "
+                "branch licence or temporary permit before conducting approved activities "
+                "outside the free zone."
+            ),
+            "det_fees_aed": {
+                "branch_licence_annual": 10000,
+                "temporary_permit": 5000,
+            },
+            "conditions": [
+                "The activity must be on the DET eligibility list for this route.",
+                "The free-zone licence and licensing-authority approval must remain valid.",
+                "Any sector regulator approval must be obtained where required.",
+                "Separate financial records must be kept for activities conducted onshore.",
+            ],
+            "source_urls": [_FREE_ZONE_MAINLAND_RESOLUTION_URL],
+        }
         cost_min = 12000
         cost_max = 30000
         timeline_weeks = "2 to 4"
@@ -120,7 +165,7 @@ def _decide(
         )
         warnings.append(
             "Meydan has documented bank account difficulties (founder reports). "
-            "Consider IFZA or Dubai South unless you have a specific reason for Meydan."
+            "Confirm current onboarding criteria with intended banks before incorporating."
         )
         candidates = ["IFZA", "Meydan", "Dubai South"]
         cost_min = 12500
@@ -200,8 +245,6 @@ def _decide(
         [
             "Bank account opening takes 1 to 16 weeks. Apply to 2 or 3 banks "
             "in parallel. Wio Business is fastest (1 to 3 days) for clean profiles.",
-            "Single-shareholder structures face more bank scrutiny. Adding a 2% "
-            "to 10% co-shareholder softens the bank profile.",
             "Budget AED 5,000 to 15,000 on top of the license for PRO services, "
             "MOFA attestation, and legal translation.",
         ]
@@ -215,7 +258,7 @@ def _decide(
         "Register for UAE Pass on day one",
     ]
 
-    return {
+    result: dict[str, Any] = {
         "jurisdiction": jurisdiction,
         "candidate_free_zones": candidates,
         "reasoning": reasoning,
@@ -232,6 +275,9 @@ def _decide(
             "industry": industry,
         },
     }
+    if local_trade_route is not None:
+        result["local_trade_route"] = local_trade_route
+    return result
 
 
 # ----------------------------------------------------------------------------

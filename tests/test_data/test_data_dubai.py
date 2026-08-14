@@ -6,6 +6,7 @@ import pytest
 import respx
 from httpx import Response
 
+from mcp_dubai._shared.constants import DATA_DUBAI_CATALOG_BASE, DUBAI_DATA_PORTAL_BASE
 from mcp_dubai.data.data_dubai import constants, tools
 
 # Fixtures are trimmed-down copies of live payloads captured 2026-07-02
@@ -53,13 +54,18 @@ def _dataset_item() -> dict[str, object]:
 
 
 def _search_payload() -> dict[str, object]:
+    items: list[dict[str, object]] = []
+    for offset in range(10):
+        item = _dataset_item()
+        item["id"] = 469745 + offset
+        items.append(item)
     return {
         "actions": {"updateBatch": {"method": "PUT"}},
         "facets": [],
-        "items": [_dataset_item()],
-        "lastPage": 11,
+        "items": items,
+        "lastPage": 3,
         "page": 1,
-        "pageSize": 2,
+        "pageSize": 10,
         "totalCount": 22,
     }
 
@@ -128,6 +134,58 @@ def _entities_payload() -> dict[str, object]:
     }
 
 
+def _page_payload(
+    items: list[dict[str, object]],
+    *,
+    total_count: int,
+    page: int,
+    page_size: int = 100,
+) -> dict[str, object]:
+    """Build one internally consistent Liferay page for pagination tests."""
+    return {
+        "items": items,
+        "lastPage": max(1, (total_count + page_size - 1) // page_size),
+        "page": page,
+        "pageSize": page_size,
+        "totalCount": total_count,
+    }
+
+
+def _theme_item(identifier: int) -> dict[str, object]:
+    return {
+        "id": identifier,
+        "title": f"Theme {identifier}",
+        "title_i18n": {},
+        "description": "",
+        "description_i18n": {},
+        "datasetCounts": "1",
+    }
+
+
+def _entity_item(identifier: int) -> dict[str, object]:
+    return {
+        "id": identifier,
+        "key": f"entity-{identifier}",
+        "title": f"Entity {identifier}",
+        "title_i18n": {},
+        "description": "",
+        "usages": "1",
+        "externalReferenceCode": f"erc-{identifier}",
+    }
+
+
+class TestDataDubaiConstants:
+    def test_catalog_base_is_derived_from_configurable_portal_base(self) -> None:
+        expected_catalog_base = f"{DUBAI_DATA_PORTAL_BASE.rstrip('/')}/o/c"
+        assert expected_catalog_base == DATA_DUBAI_CATALOG_BASE
+
+    def test_current_catalog_verification_totals(self) -> None:
+        assert constants.CATALOG_VERIFIED_DATE == "2026-08-14"
+        assert constants.DATASET_COUNT == 614
+        assert constants.THEME_COUNT == 11
+        assert constants.ISSUING_ENTITY_COUNT == 76
+
+
 class TestDataDubaiSearch:
     @pytest.mark.asyncio
     @respx.mock
@@ -145,7 +203,9 @@ class TestDataDubaiSearch:
         data = result["data"]
         assert isinstance(data, dict)
         assert data["total_count"] == 22
-        assert data["last_page"] == 11
+        assert data["page"] == 1
+        assert data["page_size"] == 10
+        assert data["last_page"] == 3
         datasets = data["datasets"]
         assert isinstance(datasets, list)
         dataset = datasets[0]
@@ -233,6 +293,138 @@ class TestDataDubaiSearch:
         assert isinstance(error, dict)
         assert error["status"] in {"upstream_blocked", "upstream_error"}
 
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_missing_items_is_structured_failure(self) -> None:
+        respx.get(constants.DATASETS_ENDPOINT).mock(
+            return_value=Response(200, json={"totalCount": 0})
+        )
+
+        result = await tools.data_dubai_search()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "items is not a list" in error["reason"]
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize("field", ["page", "pageSize", "lastPage"])
+    @respx.mock
+    async def test_missing_pagination_field_is_structured_failure(self, field: str) -> None:
+        payload = _search_payload()
+        payload.pop(field)
+        respx.get(constants.DATASETS_ENDPOINT).mock(return_value=Response(200, json=payload))
+
+        result = await tools.data_dubai_search(query="traffic")
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert field in error["reason"]
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize(
+        ("field", "value", "reason"),
+        [
+            ("page", 2, "requested page 1"),
+            ("pageSize", 9, "requested pageSize 10"),
+            ("lastPage", 11, "lastPage"),
+            ("page", True, "page is not an integer"),
+        ],
+    )
+    @respx.mock
+    async def test_inconsistent_pagination_is_structured_failure(
+        self,
+        field: str,
+        value: object,
+        reason: str,
+    ) -> None:
+        payload = _search_payload()
+        payload[field] = value
+        respx.get(constants.DATASETS_ENDPOINT).mock(return_value=Response(200, json=payload))
+
+        result = await tools.data_dubai_search(query="traffic")
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert reason in error["reason"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_overflowing_last_page_is_structured_failure(self) -> None:
+        body = b'{"totalCount":1,"page":1,"pageSize":10,"lastPage":1e1000,"items":[]}'
+        respx.get(constants.DATASETS_ENDPOINT).mock(
+            return_value=Response(200, content=body, headers={"content-type": "application/json"})
+        )
+
+        result = await tools.data_dubai_search(query="traffic")
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "lastPage" in error["reason"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_unfiltered_empty_envelope_is_failure(self) -> None:
+        payload = _page_payload([], total_count=0, page=1, page_size=10)
+        respx.get(constants.DATASETS_ENDPOINT).mock(return_value=Response(200, json=payload))
+
+        result = await tools.data_dubai_search()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "empty unfiltered catalog" in error["reason"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_filtered_zero_result_envelope_is_success(self) -> None:
+        payload = _page_payload([], total_count=0, page=1, page_size=10)
+        respx.get(constants.DATASETS_ENDPOINT).mock(return_value=Response(200, json=payload))
+
+        result = await tools.data_dubai_search(query="does-not-exist")
+
+        assert result["success"] is True
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["total_count"] == 0
+        assert data["datasets"] == []
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_filtered_incomplete_page_is_structured_failure(self) -> None:
+        payload = _page_payload([], total_count=1, page=1, page_size=10)
+        respx.get(constants.DATASETS_ENDPOINT).mock(return_value=Response(200, json=payload))
+
+        result = await tools.data_dubai_search(query="traffic")
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "should contain 1 items" in error["reason"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_zero_custom_counters_do_not_fall_back_to_legacy_values(self) -> None:
+        item = _dataset_item()
+        item["customViewCounts"] = 0
+        item["viewCount"] = "58"
+        item["customDownloadCount"] = 0
+        item["downloadCount"] = "14"
+        payload = _page_payload([item], total_count=1, page=1, page_size=10)
+        respx.get(constants.DATASETS_ENDPOINT).mock(return_value=Response(200, json=payload))
+
+        result = await tools.data_dubai_search(query="traffic")
+
+        data = result["data"]
+        assert isinstance(data, dict)
+        datasets = data["datasets"]
+        assert isinstance(datasets, list)
+        assert datasets[0]["view_count"] == 0
+        assert datasets[0]["download_count"] == 0
+
 
 class TestDataDubaiThemes:
     @pytest.mark.asyncio
@@ -287,6 +479,164 @@ class TestDataDubaiThemes:
         assert isinstance(error, dict)
         assert error["status"] in {"upstream_blocked", "upstream_error"}
 
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_empty_response_is_structured_failure(self) -> None:
+        respx.get(constants.THEMES_ENDPOINT).mock(return_value=Response(204))
+
+        result = await tools.data_dubai_themes()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "Empty response" in error["reason"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_empty_envelope_is_structured_failure(self) -> None:
+        payload = _page_payload([], total_count=0, page=1)
+        respx.get(constants.THEMES_ENDPOINT).mock(return_value=Response(200, json=payload))
+
+        result = await tools.data_dubai_themes()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "empty themes catalog" in error["reason"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_counter_overflow_is_structured_failure(self) -> None:
+        body = (
+            b'{"totalCount":1,"page":1,"pageSize":100,"lastPage":1,'
+            b'"items":[{"id":1,"datasetCounts":1e1000}]}'
+        )
+        respx.get(constants.THEMES_ENDPOINT).mock(
+            return_value=Response(200, content=body, headers={"content-type": "application/json"})
+        )
+
+        result = await tools.data_dubai_themes()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "datasetCounts" in error["reason"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_fetches_every_theme_page(self) -> None:
+        first_items = [_theme_item(identifier) for identifier in range(100)]
+        second_items = [_theme_item(100)]
+        first = respx.get(
+            constants.THEMES_ENDPOINT,
+            params={"page": "1", "pageSize": "100"},
+        ).mock(
+            return_value=Response(
+                200,
+                json=_page_payload(first_items, total_count=101, page=1),
+            )
+        )
+        second = respx.get(
+            constants.THEMES_ENDPOINT,
+            params={"page": "2", "pageSize": "100"},
+        ).mock(
+            return_value=Response(
+                200,
+                json=_page_payload(second_items, total_count=101, page=2),
+            )
+        )
+
+        result = await tools.data_dubai_themes()
+
+        assert first.called and second.called
+        assert result["success"] is True
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["total_count"] == 101
+        themes = data["themes"]
+        assert isinstance(themes, list)
+        assert len(themes) == 101
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_page_safety_limit_is_structured_failure(self) -> None:
+        first_items = [_theme_item(identifier) for identifier in range(100)]
+        payload = _page_payload(
+            first_items,
+            total_count=(constants.MAX_LIST_PAGES * constants.LIST_ALL_PAGE_SIZE) + 1,
+            page=1,
+        )
+        respx.get(constants.THEMES_ENDPOINT).mock(return_value=Response(200, json=payload))
+
+        result = await tools.data_dubai_themes()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "safety limit" in error["reason"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_repeated_item_across_pages_is_structured_failure(self) -> None:
+        first_items = [_theme_item(identifier) for identifier in range(100)]
+        repeated_item = _theme_item(0)
+        respx.get(
+            constants.THEMES_ENDPOINT,
+            params={"page": "1", "pageSize": "100"},
+        ).mock(
+            return_value=Response(
+                200,
+                json=_page_payload(first_items, total_count=101, page=1),
+            )
+        )
+        respx.get(
+            constants.THEMES_ENDPOINT,
+            params={"page": "2", "pageSize": "100"},
+        ).mock(
+            return_value=Response(
+                200,
+                json=_page_payload([repeated_item], total_count=101, page=2),
+            )
+        )
+
+        result = await tools.data_dubai_themes()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "Repeated item id" in error["reason"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_total_change_between_pages_is_structured_failure(self) -> None:
+        first_items = [_theme_item(identifier) for identifier in range(100)]
+        second_items = [_theme_item(100), _theme_item(101)]
+        respx.get(
+            constants.THEMES_ENDPOINT,
+            params={"page": "1", "pageSize": "100"},
+        ).mock(
+            return_value=Response(
+                200,
+                json=_page_payload(first_items, total_count=101, page=1),
+            )
+        )
+        respx.get(
+            constants.THEMES_ENDPOINT,
+            params={"page": "2", "pageSize": "100"},
+        ).mock(
+            return_value=Response(
+                200,
+                json=_page_payload(second_items, total_count=102, page=2),
+            )
+        )
+
+        result = await tools.data_dubai_themes()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "changed totalCount" in error["reason"]
+
 
 class TestDataDubaiEntities:
     @pytest.mark.asyncio
@@ -294,7 +644,7 @@ class TestDataDubaiEntities:
     async def test_no_filter_returns_all(self) -> None:
         route = respx.get(
             constants.ISSUING_ENTITIES_ENDPOINT,
-            params={"pageSize": "100"},
+            params={"page": "1", "pageSize": "100"},
         ).mock(return_value=Response(200, json=_entities_payload()))
 
         result = await tools.data_dubai_entities()
@@ -388,6 +738,69 @@ class TestDataDubaiEntities:
         error = result["error"]
         assert isinstance(error, dict)
         assert error["status"] in {"upstream_blocked", "upstream_error"}
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_non_object_response_is_structured_failure(self) -> None:
+        respx.get(constants.ISSUING_ENTITIES_ENDPOINT).mock(return_value=Response(200, json=[]))
+
+        result = await tools.data_dubai_entities()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "expected an object" in error["reason"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_empty_envelope_is_structured_failure(self) -> None:
+        payload = _page_payload([], total_count=0, page=1)
+        respx.get(constants.ISSUING_ENTITIES_ENDPOINT).mock(
+            return_value=Response(200, json=payload)
+        )
+
+        result = await tools.data_dubai_entities()
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert "empty issuing-entities catalog" in error["reason"]
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_fetches_every_entity_page_before_filtering(self) -> None:
+        first_items = [_entity_item(identifier) for identifier in range(100)]
+        second_items = [_entity_item(100)]
+        first = respx.get(
+            constants.ISSUING_ENTITIES_ENDPOINT,
+            params={"page": "1", "pageSize": "100"},
+        ).mock(
+            return_value=Response(
+                200,
+                json=_page_payload(first_items, total_count=101, page=1),
+            )
+        )
+        second = respx.get(
+            constants.ISSUING_ENTITIES_ENDPOINT,
+            params={"page": "2", "pageSize": "100"},
+        ).mock(
+            return_value=Response(
+                200,
+                json=_page_payload(second_items, total_count=101, page=2),
+            )
+        )
+
+        result = await tools.data_dubai_entities(search="Entity 100")
+
+        assert first.called and second.called
+        assert result["success"] is True
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["total_count"] == 101
+        assert data["matched_count"] == 1
+        entities = data["entities"]
+        assert isinstance(entities, list)
+        assert entities[0]["key"] == "entity-100"
 
 
 class TestDiscovery:

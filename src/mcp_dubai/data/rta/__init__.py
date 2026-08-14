@@ -2,7 +2,7 @@
 RTA: Roads and Transport Authority data via Dubai Pulse.
 
 Tier: 1 (Dubai Pulse OAuth required)
-Source: https://api.dubaipulse.gov.ae (canonical host going forward: apis.data.dubai)
+Source: https://apis.data.dubai
 Brief section: 5.2 (transport)
 
 Note: the GTFS static feed remains anonymously downloadable as a direct
@@ -22,5 +22,5 @@ FEATURE_META: dict[str, object] = {
     ),
     "tier": 1,
     "requires_auth": True,
-    "source_url": "https://api.dubaipulse.gov.ae",
+    "source_url": "https://apis.data.dubai",
 }

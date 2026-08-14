@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from mcp_dubai._shared.http_client import HttpClient
+from mcp_dubai._shared.http_client import HttpClient, HttpClientError
 from mcp_dubai.data.osm_overpass import constants
 
 
@@ -50,8 +50,24 @@ class OverpassClient:
                 constants.OVERPASS_ENDPOINT,
                 data={"data": query},
             )
-        payload = response.json()
-        elements = payload.get("elements", [])
-        if isinstance(elements, list):
-            return [dict(item) for item in elements if isinstance(item, dict)]
-        return []
+        if response.status_code == 204 or not response.content:
+            raise HttpClientError(f"Empty response from {constants.OVERPASS_ENDPOINT}")
+        try:
+            payload = response.json()
+        except ValueError as exc:
+            raise HttpClientError(f"Non-JSON body from {constants.OVERPASS_ENDPOINT}") from exc
+        if not isinstance(payload, dict):
+            raise HttpClientError(
+                f"Invalid JSON shape from {constants.OVERPASS_ENDPOINT}: expected an object"
+            )
+        elements = payload.get("elements")
+        if not isinstance(elements, list):
+            raise HttpClientError(
+                f"Invalid JSON shape from {constants.OVERPASS_ENDPOINT}: elements is not a list"
+            )
+        if any(not isinstance(item, dict) for item in elements):
+            raise HttpClientError(
+                f"Invalid JSON shape from {constants.OVERPASS_ENDPOINT}: "
+                "elements contains a non-object"
+            )
+        return [dict(item) for item in elements]

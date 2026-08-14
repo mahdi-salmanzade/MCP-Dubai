@@ -1,6 +1,7 @@
 {
   "domain": "founder_essentials",
-  "knowledge_date": "2026-04-13",
+  "knowledge_date": "2026-08-14",
+  "full_review_date": "2026-04-13",
   "volatility": "medium",
   "verify_at": "https://www.mofa.gov.ae/en/services/attestation",
   "source_brief_section": "6.10b",
@@ -28,7 +29,7 @@
       },
       {
         "step": 5,
-        "name": "Translation into Arabic by an MOJ-licensed sworn translator (if destination is a UAE court, RERA, or government counter)"
+        "name": "Translation into Arabic by an MOJ-registered legal translator if the receiving authority requires certified Arabic translation"
       }
     ],
     "fees": {
@@ -70,39 +71,70 @@
     "per_transaction_aed_max": 4000,
     "monthly_retainer_aed_min": 1500,
     "monthly_retainer_aed_max": 8000,
+    "pricing_basis": "Private-provider market estimate only. The ranges are not a government tariff, exclude government and third-party transaction fees, and vary by scope and provider. Obtain an itemised quote before budgeting.",
     "pro_vs_setup_consultant_vs_csp": "PRO handles operational paperwork after incorporation. Setup consultant handles incorporation itself. Corporate services provider does both plus accounting and compliance.",
-    "source_urls": []
+    "source_urls": [
+      "https://eservices.mohre.gov.ae/TasheelWeb/"
+    ]
   },
   "legal_translation": {
     "mandatory_for": [
-      "Documents submitted in Arabic to UAE courts",
-      "Documents submitted to MOFA, RERA, or government counters",
-      "Trade name reservation",
-      "MOA",
-      "Court filings",
-      "Contract execution",
-      "Tenancy contracts",
-      "Foreign degrees"
+      "Court filings or instruments when the receiving court requires an Arabic legal translation",
+      "Government submissions when the receiving authority requires a certified Arabic translation",
+      "Foreign-language records used in a regulated transaction when the receiving authority specifies legal translation"
     ],
     "approved_translators_only": true,
-    "registry": "Ministry of Justice MOJ-licensed sworn translators",
+    "approved_translators_scope": "Where legal translation is required, use a legal translator registered with the Ministry of Justice and confirm the receiving authority's current document rules.",
+    "registry": "Ministry of Justice registered legal translators",
     "registry_url": "https://www.moj.gov.ae/en/translators.aspx",
     "price_per_page_aed_min": 50,
     "price_per_page_aed_max": 150,
     "same_day_uplift_pct_min": 25,
     "same_day_uplift_pct_max": 50,
-    "source_urls": []
+    "pricing_basis": "Private-provider market estimate only. MOJ does not publish the AED 50 to 150 per-page range or the urgency uplift as an official tariff. Obtain a quote and confirm whether the receiving authority requires legal translation.",
+    "source_urls": [
+      "https://www.moj.gov.ae/en/translators.aspx",
+      "https://www.moj.gov.ae/en/services/services-categories/general/registration-of-legal-translator-a9314f86.aspx"
+    ]
   },
   "chamber_of_commerce": {
     "name": "Dubai Chamber of Commerce",
-    "mandatory_for": "Mainland commercial license holders (DET commercial activity)",
-    "annual_fee_aed_min": 700,
+    "mandatory_for": "DET licensees conducting listed commercial, industrial, agricultural, professional, or service activities, subject to statutory exemptions",
+    "statutory_exemptions": "The governing law permits exemptions for specified micro and small enterprises and manual professions and trades, as set by the Chamber's board resolution.",
+    "free_zone_membership": "A free zone establishment may join after approval of its supervising free zone authority.",
+    "annual_fee_aed_min": 50,
     "annual_fee_aed_max": 2200,
-    "fee_notes": "Tier from AED 700 floor to AED 2,200 top (banks and foreign branches at the top).",
+    "fee_schedule_as_of": "2026-07-05",
+    "annual_fee_categories": {
+      "national_establishments_specific_activity_aed": 700,
+      "general_trading_aed": {
+        "min": 1200,
+        "max": 2200
+      },
+      "banks_insurance_building_contractors_and_foreign_branches_aed": 2200,
+      "free_zone_companies_aed": 2200,
+      "hotels_related_financial_activities_and_insurance_brokers_aed": {
+        "min": 2000,
+        "max": 2200
+      },
+      "lawyers_auditors_and_consulting_engineers_aed": {
+        "min": 1000,
+        "max": 2200
+      },
+      "various_simple_trade_aed": 500,
+      "handicrafts_e_traders_and_intelaq_aed": 300,
+      "simple_handicrafts_aed": 50,
+      "branches_holding_principal_name_aed": {
+        "min": 100,
+        "max": 2200
+      }
+    },
+    "fee_exemption": "Eligible Mohammed Bin Rashid Establishment for SME Development members are exempt for five years.",
+    "fee_notes": "The official renewal schedule varies by legal form, owner nationality, and activity. Use the applicable category rather than treating AED 50 or AED 2,200 as a universal fee.",
     "certificate_of_origin": {
       "fee_aed": 100,
-      "turnaround": "approximately 2 hours",
-      "required_for": "Most non-GCC exports"
+      "turnaround": "application reviewed within 2 hours",
+      "purpose": "Certifies the origin of goods for export or re-export"
     },
     "three_chambers_post_2021": [
       "Dubai Chamber of Commerce",
@@ -110,8 +142,11 @@
       "Dubai Chamber of Digital Economy (DCDE)"
     ],
     "default_chamber_for_mainland_commercial": "Commerce",
-    "portal": "https://www.dubaichamber.com",
+    "portal": "https://www.dubaichambers.com/en/membership-renewal",
     "source_urls": [
+      "https://www.dubaichambers.com/en/membership-renewal",
+      "https://dlp.dubai.gov.ae/Legislation%20Reference/2022/Law%20No.%20%281%29%20of%202022%20Establishing%20the%20Dubai%20Chambers.html",
+      "https://dlp.dubai.gov.ae/Legislation%20Reference/2023/Dubai%20Chambers%20Board%20of%20Directors%20Resolution%20No.%20%284%29%20of%202023%20Regulating%20Membership%20in%20the%20Dubai%20Chambers.html",
       "https://www.dubaichambers.com/en/issuing-a-certificate-of-origin"
     ]
   },
@@ -147,9 +182,12 @@
     },
     {
       "id": "free_zone_mainland_invoice",
-      "title": "Forgetting that free zone companies cannot freely invoice mainland UAE B2C",
-      "impact": "Many founders set up in a free zone for the cheap license, then discover they cannot directly bill UAE consumers without a local distributor or dual license.",
-      "fix": "If you need to invoice mainland UAE B2C, choose mainland (DET) or use a free zone with dual-license capability."
+      "title": "Assuming a free zone licence automatically covers onshore activity",
+      "impact": "Invoicing a mainland customer is not by itself the legal test. A Dubai free zone establishment that conducts activity outside its free zone must use the applicable DET licence or permit route, and eligibility depends on the activity and required authority approvals.",
+      "fix": "Compare a mainland DET licence with the branch-licence or temporary-permit route under Dubai Executive Council Resolution 11 of 2025. Confirm the activity on DET's current eligibility list before trading onshore.",
+      "source_urls": [
+        "https://dlp.dubai.gov.ae/Legislation%20Reference/2025/Executive%20Council%20Resolution%20No.%20(11)%20of%202025%20Regulating%20the%20Conduct%20of%20Free%20Zone%20Establishments%E2%80%99%20Activities.html"
+      ]
     },
     {
       "id": "underbudget_pro_translation",
@@ -162,12 +200,6 @@
       "title": "Not budgeting for the 1 to 16 week bank account delay",
       "impact": "Founders cannot operate, pay employees, or process payments without a bank account.",
       "fix": "Apply to 2 or 3 banks in parallel. Consider Wio for fast onboarding while traditional banks process."
-    },
-    {
-      "id": "single_shareholder",
-      "title": "Using a single-shareholder structure when banks prefer 2+",
-      "impact": "Banks scrutinise sole-shareholder setups more heavily and reject them more often.",
-      "fix": "If feasible, add a co-founder or family member as a 2% to 10% shareholder to soften the bank profile."
     },
     {
       "id": "no_ejari_before_visa",
@@ -199,5 +231,7 @@
       "impact": "Joining the wrong chamber wastes the membership fee and provides irrelevant services.",
       "fix": "Mainland commercial license holders join Dubai Chamber of Commerce by default. International trade focus joins Dubai International Chamber. Tech/digital startups engage with DCDE through programs (no standalone membership)."
     }
-  ]
+  ],
+  "previous_knowledge_date": "2026-04-13",
+  "last_refresh_scope": "Targeted correctness audit of 2026-08-14: replaced the absolute free-zone B2C invoicing claim with the conditional DET licence or permit route under Dubai Executive Council Resolution 11 of 2025; removed unsupported co-shareholder banking advice; refreshed Dubai Chamber membership categories against official law and the current fee page; and added official PRO and legal-translator links while labelling private-market price ranges. Not a full re-verification of every field in this pack."
 }

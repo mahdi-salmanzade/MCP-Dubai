@@ -31,6 +31,9 @@ from datetime import UTC, datetime
 from threading import Lock
 from typing import Literal
 
+from mcp_dubai._shared.constants import DUBAI_PULSE_API_BASE
+from mcp_dubai._shared.errors import is_upstream_blocked
+
 Status = Literal[
     "unknown",
     "working",
@@ -61,7 +64,10 @@ class UpstreamState:
     last_success: str | None = None
     last_failure: str | None = None
     success_count: int = 0
+    # Lifetime failures remain useful for diagnostics, while degradation must
+    # be based only on failures since the most recent successful call.
     failure_count: int = 0
+    consecutive_failure_count: int = 0
     features: list[str] = field(default_factory=list)
 
     def as_dict(self) -> dict[str, object]:
@@ -75,6 +81,7 @@ class UpstreamState:
             "last_failure": self.last_failure,
             "success_count": self.success_count,
             "failure_count": self.failure_count,
+            "consecutive_failure_count": self.consecutive_failure_count,
             "features": list(self.features),
         }
 
@@ -126,6 +133,7 @@ class UpstreamRegistry:
             if state is None:
                 return
             state.success_count += 1
+            state.consecutive_failure_count = 0
             state.last_success = _now_iso()
             state.status = "working"
             state.reason = None
@@ -137,12 +145,12 @@ class UpstreamRegistry:
             if state is None:
                 return
             state.failure_count += 1
+            state.consecutive_failure_count += 1
             state.last_failure = _now_iso()
             state.reason = reason
-            lower = reason.lower()
-            if "cloudflare" in lower or "just a moment" in lower or "403" in lower:
+            if is_upstream_blocked(reason):
                 state.status = "blocked"
-            elif state.failure_count >= _DEGRADED_FAILURE_THRESHOLD:
+            elif state.consecutive_failure_count >= _DEGRADED_FAILURE_THRESHOLD:
                 state.status = "degraded"
 
     def snapshot(self) -> list[dict[str, object]]:
@@ -255,7 +263,7 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
             "endpoint": "www.centralbank.ae/umbraco/Surface/InterestRate",
             "requires_auth": False,
             "initial_status": "blocked",
-            "initial_reason": "Cloudflare bot protection active as of 2026-04-13.",
+            "initial_reason": "Cloudflare bot protection rechecked 2026-08-14 (HTTP 403).",
             "features": ["cbuae"],
         },
         {
@@ -264,7 +272,7 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
             "requires_auth": False,
             "initial_status": "blocked",
             "initial_reason": (
-                "Cloudflare bot protection still active as of 2026-07-02. "
+                "Cloudflare bot protection rechecked 2026-08-14 (HTTP 403). "
                 "The same FCSC datasets are browsable on bayanat.ae."
             ),
             "features": ["fcsc_ckan"],
@@ -277,6 +285,20 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
             "features": ["aviation_weather"],
         },
         {
+            "name": "currency",
+            "endpoint": "open.er-api.com",
+            "requires_auth": False,
+            "initial_status": "unknown",
+            "features": ["currency"],
+        },
+        {
+            "name": "open_meteo",
+            "endpoint": "api.open-meteo.com",
+            "requires_auth": False,
+            "initial_status": "unknown",
+            "features": ["open_meteo"],
+        },
+        {
             "name": "osm_overpass",
             "endpoint": "overpass-api.de",
             "requires_auth": False,
@@ -287,9 +309,9 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
             "name": "waqi",
             "endpoint": "api.waqi.info",
             "requires_auth": True,
-            "initial_status": "working" if waqi_token_present else "credentials_missing",
+            "initial_status": "unknown" if waqi_token_present else "credentials_missing",
             "initial_reason": (
-                None
+                "Token configured; no successful call observed yet."
                 if waqi_token_present
                 else "Set MCP_DUBAI_WAQI_TOKEN. Free signup at https://aqicn.org/data-platform/token/"
             ),
@@ -297,11 +319,11 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
         },
         {
             "name": "dubai_pulse",
-            "endpoint": "api.dubaipulse.gov.ae",
+            "endpoint": DUBAI_PULSE_API_BASE,
             "requires_auth": True,
-            "initial_status": "working" if pulse_creds_present else "credentials_missing",
+            "initial_status": "unknown" if pulse_creds_present else "credentials_missing",
             "initial_reason": (
-                None
+                "Credentials configured; no successful call observed yet."
                 if pulse_creds_present
                 else (
                     "Set MCP_DUBAI_PULSE_CLIENT_ID and MCP_DUBAI_PULSE_CLIENT_SECRET. "
@@ -332,7 +354,7 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
             "requires_auth": False,
             "initial_status": "working",
             "initial_reason": (
-                "Anonymous 7z download verified 2026-07-02. The old "
+                "Anonymous 7z download rechecked 2026-08-14. The old "
                 "transit.land mirror now returns 401."
             ),
             "features": ["rta"],
@@ -342,7 +364,7 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
             "endpoint": "api2.dfm.ae",
             "requires_auth": False,
             "initial_status": "working",
-            "initial_reason": "Undocumented anonymous JSON endpoints, verified 2026-07-02.",
+            "initial_reason": "Undocumented anonymous JSON endpoints, rechecked 2026-08-14.",
             "features": ["dfm"],
         },
         {
@@ -370,7 +392,7 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
             "initial_status": "working",
             "initial_reason": (
                 "Credential-free catalog metadata API on the portal that "
-                "replaced Dubai Pulse. Verified 2026-07-02."
+                "replaced Dubai Pulse. Rechecked 2026-08-14."
             ),
             "features": ["data_dubai"],
         },

@@ -8,7 +8,7 @@ import httpx
 
 from mcp_dubai._shared.errors import now_iso, upstream_error_response
 from mcp_dubai._shared.health import mark_failure, mark_success
-from mcp_dubai._shared.http_client import HttpClientError, RateLimitError
+from mcp_dubai._shared.http_client import HttpClientError
 from mcp_dubai._shared.schemas import ToolResponse
 from mcp_dubai.data.osm_overpass import constants
 from mcp_dubai.data.osm_overpass.client import OverpassClient
@@ -98,8 +98,6 @@ async def osm_search_poi(
             longitude=longitude,
             radius_meters=radius_meters,
         )
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)

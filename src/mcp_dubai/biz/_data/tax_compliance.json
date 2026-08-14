@@ -1,10 +1,11 @@
 {
   "domain": "tax_compliance",
-  "knowledge_date": "2026-07-25",
+  "knowledge_date": "2026-08-14",
+  "full_review_date": "2026-07-25",
   "volatility": "high",
   "verify_at": "https://tax.gov.ae",
   "source_brief_section": "6.4",
-  "disclaimer": "UAE tax rules changed materially through 2025/2026. From 1 January 2026 the VAT Law amendments (FDL 16/2025), the Tax Procedures Law amendments (FDL 17/2025), and the sweetened drinks tiered excise all apply, and a new AML law (FDL 10/2025) has been in force since 14 October 2025. The e-invoicing pilot went live on 1 July 2026; businesses with revenue at or above AED 50M must appoint an Accredited Service Provider by 30 October 2026 (Ministerial Resolution 66 of 2026). The unified late-payment penalty (Cabinet Decision 129 of 2025) took effect 14 April 2026. Always verify against the FTA and MoF portals before quoting figures.",
+  "disclaimer": "UAE tax rules changed materially through 2025/2026. From 1 January 2026 the VAT Law amendments (FDL 16/2025), the Tax Procedures Law amendments (FDL 17/2025), and the sweetened drinks tiered excise all apply, and a new AML law (FDL 10/2025) has been in force since 14 October 2025. Small Business Relief now covers eligible tax periods ending through 31 December 2029 under Ministerial Decision 131 of 2026. The e-invoicing pilot went live on 1 July 2026; businesses with revenue at or above AED 50M must appoint an Accredited Service Provider by 30 October 2026 (Ministerial Resolution 66 of 2026). Minimum excise prices for specified tobacco and vaping products apply from 1 September 2026 under Cabinet Decision 137 of 2026. The unified late-payment penalty (Cabinet Decision 129 of 2025) took effect 14 April 2026. Always verify against the FTA and MoF portals before quoting figures.",
   "currency": "AED",
   "corporate_tax": {
     "law": "Federal Decree-Law 47 of 2022",
@@ -16,23 +17,28 @@
     },
     "qfzp": {
       "name": "Qualifying Free Zone Person",
-      "summary": "Eligible free zone persons get 0% on Qualifying Income and 9% on the rest.",
+      "summary": "Eligible free zone persons get 0% on Qualifying Income and 9% on the rest. The ordinary AED 375,000 0% band and Small Business Relief do not apply to a QFZP.",
       "current_rules_source": "Ministerial Decision 229 of 2025",
       "replaced": "Ministerial Decision 265 of 2023",
       "saas_qualifying": false,
       "saas_note": "SaaS is NOT a Qualifying Activity. Most free zone SaaS revenue gets 9%, not 0%. This is critical for setup_advisor recommendations.",
       "de_minimis": "Lower of 5% of revenue or AED 5,000,000",
       "source_urls": [
-        "https://mof.gov.ae/wp-content/uploads/2025/09/EN-Ministerial-Decision-No.-229-of-2025-Regarding-Qualifying-Activities-and-Excluded-Activities.pdf"
+        "https://mof.gov.ae/wp-content/uploads/2025/09/EN-Ministerial-Decision-No.-229-of-2025-Regarding-Qualifying-Activities-and-Excluded-Activities.pdf",
+        "https://tax.gov.ae/Datafolder/Files/Guides/CT/Free%20Zone%20Persons%20-%2020%2005%202024%20final%20for%20GCD.pdf"
       ]
     },
     "small_business_relief": {
       "name": "Small Business Relief",
-      "law": "Ministerial Decision 73 of 2023",
+      "law": "Ministerial Decision 73 of 2023, as amended by Ministerial Decision 131 of 2026",
+      "amendment": "Ministerial Decision 131 of 2026",
       "revenue_threshold_aed": 3000000,
-      "available_through_periods_ending": "2026-12-31",
-      "summary": "Revenue under AED 3M qualifies for full relief through tax periods ending 31 December 2026.",
-      "extension_status_note": "As of July 2026 no extension has been announced. Relief ends for tax periods ending 31 December 2026 and standard corporate tax applies thereafter."
+      "applies_to_tax_periods_commencing_on_or_after": "2023-06-01",
+      "available_through_periods_ending": "2029-12-31",
+      "summary": "Eligible resident persons with revenue at or below AED 3M may elect Small Business Relief for tax periods beginning on or after 1 June 2023 and ending on or before 31 December 2029.",
+      "source_urls": [
+        "https://mof.gov.ae/wp-content/uploads/2026/08/Ministerial-Decision-No.-131-of-2026-Amending-Certain-Provisions-of-Ministerial-Decision-No.-73-of-2023-on-Small-Business-Relief-for-the-Purposes-of-Federal-Decree-Law-No.-47-of-2022-EN.pdf"
+      ]
     },
     "registration": {
       "deadline_law": "FTA Decision 3 of 2024",
@@ -265,6 +271,32 @@
         "https://mof.gov.ae/en/news/ministry-of-finance-announces-new-amendments-to-the-excise-tax-for-the-tiered-volumetric-model-on-sweetened-beverages/",
         "https://tax.gov.ae/en/media.centre/news/federal.tax.authority.clarifies.new.aspx"
       ]
+    },
+    "tobacco_and_vaping_minimum_excise_prices": {
+      "law": "Cabinet Decision 137 of 2026",
+      "issued_on": "2026-07-24",
+      "effective_from": "2026-09-01",
+      "repeals": "Cabinet Decision 55 of 2019",
+      "minimum_excise_prices": [
+        {
+          "products": "Cigarettes, including conventional and heated cigarettes",
+          "unit": "per cigarette",
+          "minimum_excise_price_aed": 0.4
+        },
+        {
+          "products": "Water-pipe tobacco, ready-to-use tobacco, and similar products",
+          "unit": "per gram",
+          "minimum_excise_price_aed": 0.1
+        },
+        {
+          "products": "Liquids used in electronic smoking devices and tools, whether or not containing nicotine",
+          "unit": "per millilitre",
+          "minimum_excise_price_aed": 1
+        }
+      ],
+      "source_urls": [
+        "https://mof.gov.ae/wp-content/uploads/2026/08/Cabinet-Decision-No.137-of-2026-on-Excise-Price-for-Tobacco-Products-and-Liquids-used-in-Electronic-Smoking-Devices-and-Tools-EN.pdf"
+      ]
     }
   },
   "e_invoicing": {
@@ -300,10 +332,12 @@
       }
     },
     "asp_register": {
-      "pre_approved_provider_count": 41,
-      "as_of": "2026-07-02",
-      "status": "41 pre-approved eInvoicing Service Providers on the official MoF register; pre-approval under Article 15 of Ministerial Decision 64 of 2025, final accreditation under Article 16 still pending",
-      "register_url": "https://mof.gov.ae/en/about-us/initiatives/einvoicing/pre-approved-einvoicing-service-providers/",
+      "pre_approved_provider_count": 42,
+      "accredited_provider_count": 38,
+      "under_final_assessment_count": 9,
+      "as_of": "2026-08-14",
+      "status": "The official MoF page lists 42 pre-approved providers, 38 accredited providers, and 9 providers under final accreditation assessment. The published lists overlap and should not be added together. Accreditation is under Article 16 of Ministerial Decision 64 of 2025.",
+      "register_url": "https://mof.gov.ae/en/about-us/initiatives/einvoicing/einvoicing-accredited-service-providers-asps/",
       "criteria_note": "Accreditation criteria updated by Ministerial Resolution 56 of 2026: active Peppol-certified service providers that passed OpenPeppol conformance testing, with the PSP product operational for at least 2 years."
     },
     "technical_docs": {
@@ -317,7 +351,7 @@
     "scope_note": "applies to B2B and B2G transactions; phased by revenue band",
     "source_urls": [
       "https://mof.gov.ae/en/about-us/initiatives/einvoicing/",
-      "https://mof.gov.ae/en/about-us/initiatives/einvoicing/pre-approved-einvoicing-service-providers/",
+      "https://mof.gov.ae/en/about-us/initiatives/einvoicing/einvoicing-accredited-service-providers-asps/",
       "https://tax.gov.ae",
       "https://www.deloitte.com/middle-east/en/services/tax/perspectives/uae-e-invoicing-asp-appointment-deadline-extended-but-go-live-remains-01012027.html"
     ]
@@ -327,13 +361,13 @@
     "law": "Cabinet Decision 129 of 2025",
     "effective_from": "2026-04-14",
     "annual_rate_pct": 14,
-    "basis": "flat 14% per annum on unpaid tax, accruing monthly, unifying the late-payment penalty across VAT, Excise and Corporate Tax (replacing the previous escalating monthly model)",
-    "note": "confirm the exact accrual mechanics and any caps with the FTA",
+    "basis": "14% per annum on unpaid tax, charged monthly at 14% divided by 12 for every month or part of a month, unifying the late-payment penalty across VAT, Excise and Corporate Tax (replacing the previous escalating monthly model)",
+    "note": "The calculator rounds any part month up to a whole charged month; confirm the exact calendar-month count with the FTA.",
     "source_urls": [
       "https://tax.gov.ae",
       "https://habibalmulla.com/articles/administrative-penalties-in-the-uae-the-2025-reform-and-the-shift-toward-a-unified-tax-penalty-regime/"
     ]
   },
-  "previous_knowledge_date": "2026-07-02",
-  "last_refresh_scope": "Targeted correctness audit of 2026-07-25: verified against the primary source and corrected. Not a full re-verification of every field in this pack."
+  "previous_knowledge_date": "2026-07-25",
+  "last_refresh_scope": "Targeted correctness audit of 2026-08-14: corrected QFZP tax-band and Small Business Relief treatment, refreshed Small Business Relief, excise minimum prices, the e-invoicing ASP register, and penalty/ESR wording against official sources. Not a full re-verification of every field in this pack."
 }

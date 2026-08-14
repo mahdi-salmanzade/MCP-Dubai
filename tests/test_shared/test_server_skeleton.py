@@ -32,6 +32,9 @@ class TestMetaTools:
         result = get_knowledge_status()
         assert isinstance(result, dict)
         assert "knowledge_date" in result
+        assert "latest_knowledge_date" in result
+        assert "oldest_knowledge_date" in result
+        assert "knowledge_date_semantics" in result
         assert "domains" in result
         assert "total_domains" in result
 
@@ -64,18 +67,26 @@ class TestMetaTools:
             "test_domain",
             KnowledgeMetadata(
                 knowledge_date="2026-04-13",
+                full_review_date="2025-12-01",
+                previous_knowledge_date="2026-01-01",
+                last_refresh_scope="Targeted fee update.",
                 volatility="high",
                 verify_at="https://example.ae",
             ),
         )
         result = get_knowledge_status()
         assert result["total_domains"] == 1
+        assert result["latest_full_review_date"] == "2025-12-01"
+        assert result["oldest_full_review_date"] == "2025-12-01"
         domains = result["domains"]
         assert isinstance(domains, dict)
         assert "test_domain" in domains
         info = domains["test_domain"]
         assert info["volatility"] == "high"
         assert info["verify_at"] == "https://example.ae"
+        assert info["full_review_date"] == "2025-12-01"
+        assert info["previous_knowledge_date"] == "2026-01-01"
+        assert info["last_refresh_scope"] == "Targeted fee update."
 
 
 class TestMetaToolDiscoveryRegistration:

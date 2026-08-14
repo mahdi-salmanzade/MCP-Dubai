@@ -7,9 +7,9 @@ Each biz/* module exposes a module-level `KNOWLEDGE` constant of type
 `get_knowledge_status()` meta-tool can return current freshness without
 duplicating the constants.
 
-When a quarterly re-verification sweep bumps the knowledge_date in
-`biz/setup_advisor/tools.py`, the change shows up in
-`get_knowledge_status()` automatically.
+When a full or targeted update changes a domain's knowledge metadata, the
+date, prior date, and declared scope show up in `get_knowledge_status()`
+automatically.
 """
 
 from __future__ import annotations

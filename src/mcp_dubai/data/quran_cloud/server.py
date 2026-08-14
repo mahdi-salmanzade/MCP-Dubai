@@ -69,6 +69,8 @@ async def quran_search(
     query: str,
     surah: str = "all",
     edition: str = "en",
+    limit: int = 25,
+    offset: int = 0,
 ) -> dict[str, object]:
     """
     Search the Quran for a phrase.
@@ -77,8 +79,21 @@ async def quran_search(
         query: Phrase to search for.
         surah: Surah number or "all".
         edition: Edition slug or language code (e.g., "en" or "ar").
+        limit: Maximum matches to return, from 1 to 100. Defaults to 25.
+        offset: Zero-based match offset for pagination.
+
+    Returns:
+        Dict with a bounded `matches` page plus `total`, `returned`,
+        `offset`, `next_offset`, and `truncated` pagination metadata.
+        `truncated` is true only when more matches remain after this page.
     """
-    return await tools.quran_search(query=query, surah=surah, edition=edition)
+    return await tools.quran_search(
+        query=query,
+        surah=surah,
+        edition=edition,
+        limit=limit,
+        offset=offset,
+    )
 
 
 _TOOLS: list[ToolMeta] = [

@@ -4,15 +4,15 @@ Hey there, and welcome to **MCP-Dubai**. Before you dive in, please take a minut
 
 ## 1. What this project is
 
-MCP-Dubai is an **independent, community-driven** open-source project. It is a Model Context Protocol (MCP) server that provides a unified interface to public Dubai and UAE government data sources.
+MCP-Dubai is an **independent, community-driven** open-source project. It is a Model Context Protocol (MCP) server that provides a unified interface to public Dubai and UAE government data sources plus curated business knowledge derived from publicly available sources.
 
 It is **not affiliated with, endorsed by, sponsored by, or officially connected to** the Government of Dubai, the United Arab Emirates, or any specific authority, including but not limited to DLD, RTA, KHDA, DSC, DHA, DET, DEWA, CBUAE, Dubai Pulse, or Dubai Now. We're just builders who want the region's open data to be easier to work with.
 
 This project is inspired by and modeled on [mcp-brasil](https://github.com/jxnxts/mcp-brasil).
 
-## 2. Public APIs only
+## 2. Public sources only
 
-MCP-Dubai only consumes APIs and datasets that are **already publicly available**. We do not:
+MCP-Dubai uses publicly available APIs and datasets and packages curated business knowledge from public sources. We do not:
 
 - Scrape content behind authentication walls
 - Circumvent rate limits, captchas, or access controls
@@ -23,17 +23,19 @@ If an endpoint requires a free public API key, you bring your own.
 
 ## 3. We don't own the data
 
-All data returned by this server is the property of its **respective publisher**. We just provide a convenient interface on top. We make no claim to the underlying datasets, APIs, or any rights associated with them.
+Underlying API data and third-party source material remain the property of their respective publishers. MCP-Dubai structures and summarizes that material but claims no ownership over the underlying facts, datasets, publications, names, or marks.
 
 ## 4. Best-effort accuracy
 
-Upstream APIs change. They get deprecated, renamed, rate-limited, or simply break, sometimes without warning. We do our best to keep integrations fresh, but we cannot guarantee that every tool will return correct, complete, or up-to-date results at every moment.
+Upstream APIs change, and curated business facts can become stale as laws, fees, deadlines, and program terms change. A pack's `knowledge_date` may reflect a targeted refresh rather than full re-verification; read its `last_refresh_scope` and verify consequential decisions with the named authority. We do our best to keep integrations and knowledge packs fresh, but we cannot guarantee that every tool will return correct, complete, or up-to-date results at every moment.
 
 **If something looks wrong, please don't assume malice. Open a GitHub issue.** We're a community project and we rely on you to tell us when things break.
 
 ## 5. No warranty (in plain English)
 
 This software is provided **"as is"**, under the MIT License. It might have bugs. It might go down. It might give you the wrong answer. Use it at your own risk, and don't build life-or-death systems on top of it without independent verification. We're not liable for anything that happens as a result of using it.
+
+Curated business, tax, legal, funding, intellectual-property, visa, tenancy, and cost-of-living content is general information, not legal, tax, financial, investment, or professional advice.
 
 ## 6. Trademarks and names
 
@@ -51,7 +53,7 @@ We provide the pipe. What flows through it and what you do with it is on you.
 
 ## 8. Personal data
 
-MCP-Dubai is a **stateless proxy**. It does **not** collect, store, log, or transmit personal user data. Your queries go to the upstream API and the response comes back. That's it. No analytics, no tracking, no telemetry baked in.
+MCP-Dubai does not intentionally persist tool inputs and does not add analytics, tracking, or telemetry. It must, however, transmit the inputs required for a live tool call to the named upstream API. Your MCP host, network, deployment runtime, and upstream provider may log requests under their own policies. Do not send personal or confidential data unless the selected upstream requires it and you have a lawful basis to do so.
 
 ## 9. Reporting a broken API or bad result
 
@@ -60,7 +62,7 @@ Found a tool that's returning errors, empty results, or nonsense? Please help us
 1. Go to the GitHub repo issues page: **https://github.com/mahdi-salmanzade/MCP-Dubai/issues**
 2. Click **"New Issue"**
 3. Include:
-   - The **tool name** (e.g., `rta_nol_balance`)
+   - The **tool name** (e.g., `rta_search_bus_routes`)
    - The **error message** or unexpected output
    - A **minimal reproduction** (the arguments you passed)
    - Optionally, the upstream endpoint if you know it

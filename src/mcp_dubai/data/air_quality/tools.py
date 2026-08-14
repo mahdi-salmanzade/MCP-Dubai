@@ -4,16 +4,36 @@ from __future__ import annotations
 
 from typing import Any
 
+import httpx
+
+from mcp_dubai._shared.errors import now_iso, upstream_error_response
+from mcp_dubai._shared.health import mark_failure, mark_success
+from mcp_dubai._shared.http_client import HttpClientError
 from mcp_dubai._shared.schemas import ToolResponse
 from mcp_dubai.data.air_quality import constants
 from mcp_dubai.data.air_quality.auth import waqi_availability
 from mcp_dubai.data.air_quality.client import WaqiClient
+
+_SOURCE = "api.waqi.info"
+_UPSTREAM = "waqi"
+_VERIFY_AT = "https://aqicn.org/api/"
 
 
 def _format_aqi_summary(data: dict[str, Any]) -> dict[str, object]:
     """Extract a friendly summary from a WAQI feed payload."""
     aqi = data.get("aqi")
     iaqi = data.get("iaqi", {})
+    city = data.get("city", {})
+    observed_at = data.get("time", {})
+    if (
+        not isinstance(iaqi, dict)
+        or not isinstance(city, dict)
+        or not isinstance(observed_at, dict)
+        or not isinstance(city.get("name"), str)
+        or not city.get("name")
+        or not isinstance(observed_at.get("iso"), str)
+    ):
+        raise ValueError("WAQI API returned an invalid station payload")
 
     pollutants: dict[str, float] = {}
     for key, value in iaqi.items():
@@ -24,12 +44,12 @@ def _format_aqi_summary(data: dict[str, Any]) -> dict[str, object]:
                 continue
 
     return {
-        "station_name": data.get("city", {}).get("name"),
+        "station_name": city.get("name"),
         "aqi": aqi,
         "category": _aqi_category(aqi) if isinstance(aqi, (int, float)) else None,
         "pollutants": pollutants,
         "dominant_pollutant": data.get("dominentpol"),
-        "time": data.get("time", {}).get("iso"),
+        "time": observed_at.get("iso"),
         "attribution": (
             "Air quality data from the World Air Quality Index project, "
             "https://aqicn.org. Free for non-commercial use, attribution required."
@@ -78,9 +98,18 @@ async def air_quality_dubai(
         )
 
     client = WaqiClient()
-    raw = await client.feed_by_station(f"dubai/{station}")
-    summary = _format_aqi_summary(raw)
-    return ToolResponse[dict[str, object]].ok(summary).model_dump()
+    try:
+        raw = await client.feed_by_station(constants.DUBAI_STATION_FEED_IDS[station])
+        summary = _format_aqi_summary(raw)
+    except (HttpClientError, httpx.HTTPError, RuntimeError, ValueError) as exc:
+        mark_failure(_UPSTREAM, str(exc))
+        return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
+    mark_success(_UPSTREAM)
+    return (
+        ToolResponse[dict[str, object]]
+        .ok(summary, source=_SOURCE, retrieved_at=now_iso())
+        .model_dump()
+    )
 
 
 async def air_quality_by_coords(
@@ -110,9 +139,18 @@ async def air_quality_by_coords(
         return ToolResponse[dict[str, object]].fail(error=avail).model_dump()
 
     client = WaqiClient()
-    raw = await client.feed_by_coords(latitude, longitude)
-    summary = _format_aqi_summary(raw)
-    return ToolResponse[dict[str, object]].ok(summary).model_dump()
+    try:
+        raw = await client.feed_by_coords(latitude, longitude)
+        summary = _format_aqi_summary(raw)
+    except (HttpClientError, httpx.HTTPError, RuntimeError, ValueError) as exc:
+        mark_failure(_UPSTREAM, str(exc))
+        return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
+    mark_success(_UPSTREAM)
+    return (
+        ToolResponse[dict[str, object]]
+        .ok(summary, source=_SOURCE, retrieved_at=now_iso())
+        .model_dump()
+    )
 
 
 async def air_quality_dubai_stations() -> dict[str, object]:
@@ -123,9 +161,17 @@ async def air_quality_dubai_stations() -> dict[str, object]:
             {
                 "count": len(constants.DUBAI_STATIONS),
                 "stations": [
-                    {"id": sid, "name": name} for sid, name in constants.DUBAI_STATIONS.items()
+                    {
+                        "id": sid,
+                        "name": name,
+                        "waqi_feed_id": constants.DUBAI_STATION_FEED_IDS[sid],
+                    }
+                    for sid, name in constants.DUBAI_STATIONS.items()
                 ],
-            }
+                "verified_at": "2026-08-14",
+            },
+            source="AQICN station pages",
+            retrieved_at=now_iso(),
         )
         .model_dump()
     )

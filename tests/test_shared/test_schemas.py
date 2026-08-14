@@ -24,12 +24,18 @@ class TestToolResponse:
     def test_ok_carries_knowledge_metadata(self) -> None:
         knowledge = KnowledgeMetadata(
             knowledge_date="2026-04-12",
+            full_review_date="2025-12-01",
+            previous_knowledge_date="2026-01-01",
+            last_refresh_scope="Targeted update of one fee table.",
             volatility="high",
             verify_at="https://example.ae",
         )
         response = ToolResponse[dict].ok({"x": 1}, knowledge=knowledge)
         assert response.knowledge is not None
         assert response.knowledge.knowledge_date == "2026-04-12"
+        assert response.knowledge.full_review_date == "2025-12-01"
+        assert response.knowledge.previous_knowledge_date == "2026-01-01"
+        assert response.knowledge.last_refresh_scope == "Targeted update of one fee table."
         assert response.knowledge.volatility == "high"
 
     def test_fail_with_string_error(self) -> None:

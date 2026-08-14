@@ -1,8 +1,8 @@
 name: Knowledge freshness
 
 # Content rot is the failure mode this project is most exposed to: seven packs
-# went 3.5 months stale before a human noticed. This job checks pack age on a
-# schedule and opens (or updates) a single tracking issue when any pack is
+# went 3.5 months stale before a human noticed. This job checks domain age on
+# a schedule and opens (or updates) a tracking issue when any full review is
 # overdue. It deliberately does NOT run on pull requests: a PR touching
 # unrelated code should not fail because a knowledge pack aged out.
 
@@ -14,18 +14,27 @@ on:
 
 permissions:
   contents: read
-  issues: write
+
+# Do not overlap scheduled and manually dispatched refresh checks.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   freshness:
     name: Check knowledge pack age
     runs-on: ubuntu-latest
+    outputs:
+      overdue: ${{ steps.report.outputs.overdue }}
+      report: ${{ steps.report.outputs.report }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
 
@@ -52,21 +61,33 @@ jobs:
       - name: Print report to the run log
         run: python scripts/check_knowledge_freshness.py
 
+  report-issue:
+    name: Report overdue knowledge packs
+    needs: freshness
+    if: needs.freshness.outputs.overdue == 'true'
+    runs-on: ubuntu-latest
+    # This job does not check out or execute repository code. Its sole purpose
+    # is to create or update the repository's freshness tracking issue.
+    permissions:
+      contents: read
+      issues: write  # Required to create or update the overdue knowledge-pack tracking issue.
+    steps:
       - name: Open or update the tracking issue
-        if: steps.report.outputs.overdue == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
-          REPORT: ${{ steps.report.outputs.report }}
+          REPORT: ${{ needs.freshness.outputs.report }}
         with:
           script: |
-            const title = 'Knowledge packs overdue for re-verification';
+            const title = 'Knowledge domains overdue for full review';
             const body = [
-              'One or more curated knowledge packs are past their freshness budget.',
+              'One or more knowledge domains are past their full-review budget.',
               '',
-              'Re-verify each overdue pack against its `verify_at` source, correct any',
-              'changed figures, then bump its `knowledge_date`. If a pack genuinely',
-              'moves more slowly than its declared `volatility` implies, downgrade the',
-              'volatility instead of repeatedly re-stamping it.',
+              'Re-verify each overdue domain in full against its `verify_at` source,',
+              'correct changed figures, then advance both `knowledge_date` and',
+              '`full_review_date`. A targeted update may advance `knowledge_date` but',
+              'must preserve `full_review_date`. If a domain genuinely moves more',
+              'slowly than its declared `volatility` implies, downgrade the volatility',
+              'instead of repeatedly re-stamping it.',
               '',
               '```',
               process.env.REPORT,

@@ -21,7 +21,9 @@ async def accelerator_search(
 
     Args:
         sector: Optional sector filter (e.g., "fintech", "tech", "media").
-        free_only: True to exclude paid accelerators (e.g., AstroLabs).
+        free_only: True to return only records explicitly verified free.
+            Paid, subsidized, equity-linked, and unknown-cost records are
+            excluded.
         location: Optional location filter (e.g., "Dubai", "Abu Dhabi").
     """
     return await tools.accelerator_search(sector=sector, free_only=free_only, location=location)
@@ -49,8 +51,10 @@ async def grant_programs(grant_type: str | None = None) -> dict[str, object]:
     List UAE government grant and funding support programs.
 
     Args:
-        grant_type: Optional type filter (guarantee_loan, venture_fund,
-            support_programs, loan_grant).
+        grant_type: Optional type filter
+            (accelerator_support_and_credit_guarantee, venture_fund,
+            support_programs_and_loan_route,
+            interest_free_business_loans_and_nonfinancial_support).
     """
     return await tools.grant_programs(grant_type=grant_type)
 
@@ -60,7 +64,7 @@ _TOOLS: list[ToolMeta] = [
         name="accelerator_search",
         description=(
             "Search UAE accelerators and incubators (in5, Hub71, DIFC "
-            "Innovation Hub, Dtec, AstroLabs, Sheraa)."
+            "Innovation Hub, Dtec, Dubai Future Accelerators, Sheraa, Bedayat)."
         ),
         feature="funding",
         tier=TIER_BIZ,
@@ -100,7 +104,10 @@ _TOOLS: list[ToolMeta] = [
     ),
     ToolMeta(
         name="grant_programs",
-        description="UAE government grant programs (MBRIF, DFDF, Dubai SME, Khalifa Fund).",
+        description=(
+            "UAE government funding and support programs (MBRIF, DFDF, "
+            "Dubai SME, Khalifa Fund), with direct-funding distinctions."
+        ),
         feature="funding",
         tier=TIER_BIZ,
         tags=[

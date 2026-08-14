@@ -29,6 +29,20 @@ class TestDcde:
         assert data["target"] == "600+ founders"
 
     @pytest.mark.asyncio
+    async def test_create_apps_duplicate_record_is_current(self) -> None:
+        result = await dcde_tools.dcde_programs(program_id="create_apps_championship")
+        data = result["data"]
+        assert isinstance(data, dict)
+        cycle = data["current_cycle"]
+        dates = data["key_dates"]
+        assert isinstance(cycle, dict)
+        assert isinstance(dates, dict)
+        assert cycle["status"] == "ongoing_finalist_phase"
+        assert cycle["registration_status"] == "closed"
+        assert dates["finals"] == "2026-10-07"
+        assert dcde_tools.KNOWLEDGE.knowledge_date == "2026-08-14"
+
+    @pytest.mark.asyncio
     async def test_unknown_program(self) -> None:
         result = await dcde_tools.dcde_programs(program_id="not_a_program")
         assert result["success"] is False
@@ -41,6 +55,11 @@ class TestDcde:
         membership = data["membership"]
         assert isinstance(membership, dict)
         assert membership["standalone_membership"] is False
+        commerce = membership["dubai_chamber_of_commerce_separate"]
+        assert commerce["annual_fee_aed_min"] == 50
+        assert commerce["annual_fee_aed_max"] == 2200
+        assert "statutory exemptions" in commerce["mandatory_for"]
+        assert any("membership-renewal" in url for url in commerce["source_urls"])
 
 
 class TestEvents:

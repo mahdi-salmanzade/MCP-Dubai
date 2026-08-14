@@ -27,9 +27,9 @@ class TestCorporateTaxEstimate:
     @pytest.mark.asyncio
     async def test_qfzp_qualifying_split(self) -> None:
         # AED 1,000,000 income, 80% qualifying:
-        # Above threshold: 625,000
-        # Qualifying: 500,000 -> 0%
-        # Non-qualifying: 125,000 -> 9% = 11,250
+        # QFZPs do not receive the ordinary AED 375,000 0% band.
+        # Qualifying: 800,000 -> 0%
+        # Non-qualifying: 200,000 -> 9% = 18,000
         result = await tools.corporate_tax_estimate(
             annual_taxable_income_aed=1000000,
             is_free_zone=True,
@@ -38,7 +38,30 @@ class TestCorporateTaxEstimate:
         )
         data = result["data"]
         assert isinstance(data, dict)
-        assert data["total_corporate_tax_aed"] == 11250
+        assert data["qfzp_rules_applied"] is True
+        assert data["tax_free_band_applied_aed"] == 0
+        assert data["taxable_above_threshold_aed"] == 1000000
+        assert data["qualifying_income_aed"] == 800000
+        assert data["non_qualifying_income_aed"] == 200000
+        assert data["total_corporate_tax_aed"] == 18000
+
+    @pytest.mark.asyncio
+    async def test_qfzp_has_no_threshold_or_small_business_relief(self) -> None:
+        result = await tools.corporate_tax_estimate(
+            annual_taxable_income_aed=300000,
+            is_free_zone=True,
+            qfzp_qualifying_pct=80,
+            industry="trading",
+        )
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["qualifying_income_aed"] == 240000
+        assert data["non_qualifying_income_aed"] == 60000
+        assert data["total_corporate_tax_aed"] == 5400
+        warnings = data["warnings"]
+        assert isinstance(warnings, list)
+        assert any("AED 375,000" in warning for warning in warnings)
+        assert not any("may qualify for Small Business Relief" in warning for warning in warnings)
 
     @pytest.mark.asyncio
     async def test_saas_qfzp_warning(self) -> None:
@@ -61,7 +84,9 @@ class TestCorporateTaxEstimate:
         assert isinstance(data, dict)
         warnings = data["warnings"]
         assert isinstance(warnings, list)
-        assert any("Small Business Relief" in w for w in warnings)
+        assert any(
+            "Small Business Relief" in w and "131/2026" in w and "2029-12-31" in w for w in warnings
+        )
 
     @pytest.mark.asyncio
     async def test_negative_income_returns_error(self) -> None:
@@ -241,11 +266,13 @@ class TestEInvoicing:
         assert isinstance(data, dict)
         register = data["asp_register"]
         assert isinstance(register, dict)
-        assert register["pre_approved_provider_count"] == 41
-        assert register["as_of"] == "2026-07-02"
+        assert register["pre_approved_provider_count"] == 42
+        assert register["accredited_provider_count"] == 38
+        assert register["under_final_assessment_count"] == 9
+        assert register["as_of"] == "2026-08-14"
         assert register["register_url"] == (
             "https://mof.gov.ae/en/about-us/initiatives/einvoicing/"
-            "pre-approved-einvoicing-service-providers/"
+            "einvoicing-accredited-service-providers-asps/"
         )
         assert "56 of 2026" in register["criteria_note"]
         docs = data["technical_docs"]
@@ -314,7 +341,9 @@ class TestKnowledge:
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
         assert knowledge["volatility"] == "high"
-        assert knowledge["knowledge_date"] == "2026-07-25"
+        assert knowledge["knowledge_date"] == "2026-08-14"
+        assert knowledge["previous_knowledge_date"] == "2026-07-25"
+        assert "Small Business Relief" in knowledge["last_refresh_scope"]
 
     def test_registers_with_knowledge_registry(self) -> None:
         import importlib
@@ -327,8 +356,8 @@ class TestKnowledge:
         assert meta is not None
 
 
-class TestCuratedPackJuly2026:
-    """Knowledge-only blocks refreshed for the 2026-07-02 pack."""
+class TestCuratedPackAugust2026:
+    """Knowledge-only blocks refreshed for the 2026-08-14 pack."""
 
     def _data(self) -> dict[str, object]:
         from mcp_dubai.biz._data.loader import load_data_file
@@ -337,7 +366,7 @@ class TestCuratedPackJuly2026:
 
     def test_knowledge_date_bumped(self) -> None:
         data = self._data()
-        assert data["knowledge_date"] == "2026-07-25"
+        assert data["knowledge_date"] == "2026-08-14"
 
     def test_tax_procedures_fdl_17_2025(self) -> None:
         data = self._data()
@@ -393,6 +422,18 @@ class TestCuratedPackJuly2026:
         assert "5g" in volumetric["exempt"]
         assert "Emirates Conformity Certificate" in volumetric["certification"]
         assert "1.09" in volumetric["certification"]
+
+    def test_tobacco_and_vaping_minimum_excise_prices(self) -> None:
+        data = self._data()
+        excise = data["excise"]
+        assert isinstance(excise, dict)
+        minimums = excise["tobacco_and_vaping_minimum_excise_prices"]
+        assert isinstance(minimums, dict)
+        assert minimums["law"] == "Cabinet Decision 137 of 2026"
+        assert minimums["effective_from"] == "2026-09-01"
+        prices = minimums["minimum_excise_prices"]
+        assert isinstance(prices, list)
+        assert [p["minimum_excise_price_aed"] for p in prices] == [0.4, 0.1, 1]
 
     def test_corporate_tax_2026_additions(self) -> None:
         data = self._data()

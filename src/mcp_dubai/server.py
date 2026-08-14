@@ -53,8 +53,9 @@ mcp: FastMCP = FastMCP(
         "language query to find the right tool, or `list_features` to see "
         "what is available. Business knowledge tools (setup, visas, tax, "
         "banking, funding) return a `knowledge_date` field so you can see "
-        "when each domain was last verified. Call `get_knowledge_status` to "
-        "see the freshness of every domain at once."
+        "the latest recorded update. Targeted updates also return their prior "
+        "date and exact scope. Call `get_knowledge_status` to see every domain "
+        "at once."
     ),
 )
 
@@ -244,21 +245,42 @@ def get_knowledge_status() -> dict[str, object]:
     Each `biz/*` feature registers its KnowledgeMetadata at import time via
     `register_domain_knowledge`. This meta-tool reads from that registry, so
     bumping a single per-domain `KNOWLEDGE` constant flows through here
-    automatically. The project-wide default date is in `_shared/constants.py`.
+    automatically. The project-wide constant records only the latest targeted
+    update; it never implies that every domain shares one review date.
 
     Returns:
-        Dict with `knowledge_date` (project default), `total_domains`, and
-        `domains` mapping each registered domain to its date, volatility,
+        Dict with latest-update and full-review date ranges, `total_domains`,
+        and `domains` mapping each registered domain to its dates, volatility,
         verify_at URL, and disclaimer.
     """
     registry = get_knowledge_registry()
     domains = registry.all()
+    domain_dates = [meta.knowledge_date for meta in domains.values()]
+    full_review_dates = [
+        meta.full_review_date for meta in domains.values() if meta.full_review_date is not None
+    ]
+    latest_date = max(domain_dates, default=KNOWLEDGE_DATE)
+    oldest_date = min(domain_dates, default=KNOWLEDGE_DATE)
+    latest_full_review_date = max(full_review_dates) if full_review_dates else None
+    oldest_full_review_date = min(full_review_dates) if full_review_dates else None
     return {
-        "knowledge_date": KNOWLEDGE_DATE,
+        # Keep knowledge_date for backwards compatibility, but make its
+        # latest-update semantics explicit and expose the range directly.
+        "knowledge_date": latest_date,
+        "latest_knowledge_date": latest_date,
+        "oldest_knowledge_date": oldest_date,
+        "latest_full_review_date": latest_full_review_date,
+        "oldest_full_review_date": oldest_full_review_date,
+        "knowledge_date_semantics": (
+            "latest recorded update; inspect each domain's full_review_date and last_refresh_scope"
+        ),
         "total_domains": len(domains),
         "domains": {
             name: {
                 "knowledge_date": meta.knowledge_date,
+                "full_review_date": meta.full_review_date,
+                "previous_knowledge_date": meta.previous_knowledge_date,
+                "last_refresh_scope": meta.last_refresh_scope,
                 "volatility": meta.volatility,
                 "verify_at": meta.verify_at,
                 "disclaimer": meta.disclaimer,
@@ -274,14 +296,18 @@ async def about() -> dict[str, object]:
     Return MCP-Dubai version, knowledge date, repo URL, and live tool count.
 
     Useful for clients that want to confirm which version of the package is
-    running and when the curated knowledge was last verified, without
-    having to scan the full tool catalogue.
+    running and the latest recorded curated-knowledge update, without having
+    to scan the full tool catalogue.
     """
     tool_list = await mcp.list_tools()
+    knowledge_status = get_knowledge_status()
     return {
         "package": "mcp-dubai",
         "version": PACKAGE_VERSION,
-        "knowledge_date": KNOWLEDGE_DATE,
+        "knowledge_date": knowledge_status["latest_knowledge_date"],
+        "oldest_knowledge_date": knowledge_status["oldest_knowledge_date"],
+        "oldest_full_review_date": knowledge_status["oldest_full_review_date"],
+        "knowledge_date_semantics": knowledge_status["knowledge_date_semantics"],
         "total_tools": len(tool_list),
         "repo": "https://github.com/mahdi-salmanzade/MCP-Dubai",
         "pypi": "https://pypi.org/project/mcp-dubai/",

@@ -4,24 +4,36 @@ from __future__ import annotations
 
 from datetime import date
 
-from mcp_dubai._shared.constants import KNOWLEDGE_DATE, uae_today
+from mcp_dubai._shared.constants import uae_today
 from mcp_dubai._shared.schemas import ToolResponse
-from mcp_dubai.data.holidays.data import DATASET_NOTES, HOLIDAYS_BY_YEAR
+from mcp_dubai.data.holidays.data import (
+    DATASET_NOTES,
+    HOLIDAY_DATA_DATE,
+    HOLIDAYS_BY_YEAR,
+    Holiday,
+)
 
-_SOURCE = "curated (u.ae federal holidays + MoHRE circulars)"
+_SOURCE = "curated (u.ae federal holidays + MOHRE/FAHR circulars)"
 
 
 def _parse_iso(value: str) -> date:
     return date.fromisoformat(value)
 
 
+def _is_provisional(holiday: Holiday) -> bool:
+    """Return whether a dated record is still only a calendar candidate."""
+    return (
+        holiday.get("provisional") is True or holiday.get("official_observance_announced") is False
+    )
+
+
 async def uae_holidays(year: int = 2026) -> dict[str, object]:
     """
     List all UAE federal public holidays for a given Gregorian year.
 
-    Lunar holidays are flagged as `provisional` until officially announced
-    by MoHRE roughly 10 days before the date. Individual entries may carry
-    an optional `note` with observance details (transferred days, sector
+    Lunar holidays are flagged as `provisional` until the relevant MOHRE and
+    FAHR observance circulars are published. Individual entries may carry an
+    optional `note` with observance details (transferred days, sector
     differences, pending circulars).
     """
     holidays = HOLIDAYS_BY_YEAR.get(year)
@@ -40,7 +52,7 @@ async def uae_holidays(year: int = 2026) -> dict[str, object]:
                     ),
                 },
                 source=_SOURCE,
-                retrieved_at=KNOWLEDGE_DATE,
+                retrieved_at=HOLIDAY_DATA_DATE,
             )
             .model_dump()
         )
@@ -50,7 +62,7 @@ async def uae_holidays(year: int = 2026) -> dict[str, object]:
         "holidays": list(holidays),
         "note": (
             "Lunar holidays (provisional=true) need to be re-verified against "
-            "MoHRE circulars closer to the date."
+            "MOHRE/FAHR circulars closer to the date."
         ),
     }
     dataset_note = DATASET_NOTES.get(year)
@@ -62,14 +74,14 @@ async def uae_holidays(year: int = 2026) -> dict[str, object]:
         .ok(
             payload,
             source=_SOURCE,
-            retrieved_at=KNOWLEDGE_DATE,
+            retrieved_at=HOLIDAY_DATA_DATE,
         )
         .model_dump()
     )
 
 
 async def uae_next_holiday(from_date_str: str | None = None) -> dict[str, object]:
-    """Return the next UAE public holiday on or after a reference date."""
+    """Return the next confirmed holiday and any earlier provisional candidate."""
     try:
         reference = _parse_iso(from_date_str) if from_date_str else uae_today()
     except ValueError as exc:
@@ -97,25 +109,45 @@ async def uae_next_holiday(from_date_str: str | None = None) -> dict[str, object
                     "warning": "No upcoming holidays in the curated dataset.",
                 },
                 source=_SOURCE,
-                retrieved_at=KNOWLEDGE_DATE,
+                retrieved_at=HOLIDAY_DATA_DATE,
             )
             .model_dump()
         )
 
     upcoming.sort(key=lambda h: h["date"])
-    next_h = upcoming[0]
-    days_away = (_parse_iso(next_h["date"]) - reference).days
+    confirmed = [holiday for holiday in upcoming if not _is_provisional(holiday)]
+    provisional = [holiday for holiday in upcoming if _is_provisional(holiday)]
+    next_h = confirmed[0] if confirmed else None
+    next_candidate = provisional[0] if provisional else None
+
+    payload: dict[str, object] = {
+        "from_date": reference.isoformat(),
+        "next_holiday": next_h,
+        "days_away": (
+            (_parse_iso(str(next_h["date"])) - reference).days if next_h is not None else None
+        ),
+        "next_provisional_candidate": next_candidate,
+        "candidate_days_away": (
+            (_parse_iso(str(next_candidate["date"])) - reference).days
+            if next_candidate is not None
+            else None
+        ),
+    }
+    if next_candidate is not None and (
+        next_h is None or str(next_candidate["date"]) <= str(next_h["date"])
+    ):
+        payload["warning"] = (
+            "An earlier lunar-date candidate is listed separately, but its public-holiday "
+            "observance has not been officially announced. Do not treat it as a confirmed "
+            "day off."
+        )
 
     return (
         ToolResponse[dict[str, object]]
         .ok(
-            {
-                "from_date": reference.isoformat(),
-                "next_holiday": next_h,
-                "days_away": days_away,
-            },
+            payload,
             source=_SOURCE,
-            retrieved_at=KNOWLEDGE_DATE,
+            retrieved_at=HOLIDAY_DATA_DATE,
         )
         .model_dump()
     )
@@ -150,16 +182,37 @@ async def is_uae_holiday(date_str: str) -> dict[str, object]:
 
     for holiday in year_holidays:
         if holiday["date"] == target.isoformat():
+            if _is_provisional(holiday):
+                return (
+                    ToolResponse[dict[str, object]]
+                    .ok(
+                        {
+                            "date": target.isoformat(),
+                            "is_holiday": None,
+                            "determination": "provisional_candidate",
+                            "holiday": holiday,
+                            "warning": (
+                                "This is a provisional lunar-date candidate. No official "
+                                "public-holiday observance has been announced, so the answer "
+                                "cannot yet be determined."
+                            ),
+                        },
+                        source=_SOURCE,
+                        retrieved_at=HOLIDAY_DATA_DATE,
+                    )
+                    .model_dump()
+                )
             return (
                 ToolResponse[dict[str, object]]
                 .ok(
                     {
                         "date": target.isoformat(),
                         "is_holiday": True,
+                        "determination": "confirmed",
                         "holiday": holiday,
                     },
                     source=_SOURCE,
-                    retrieved_at=KNOWLEDGE_DATE,
+                    retrieved_at=HOLIDAY_DATA_DATE,
                 )
                 .model_dump()
             )
@@ -170,10 +223,11 @@ async def is_uae_holiday(date_str: str) -> dict[str, object]:
             {
                 "date": target.isoformat(),
                 "is_holiday": False,
+                "determination": "not_listed",
                 "holiday": None,
             },
             source=_SOURCE,
-            retrieved_at=KNOWLEDGE_DATE,
+            retrieved_at=HOLIDAY_DATA_DATE,
         )
         .model_dump()
     )

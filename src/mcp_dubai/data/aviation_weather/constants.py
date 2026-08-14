@@ -13,7 +13,7 @@ UAE_AIRPORTS: Final[dict[str, str]] = {
     "OMDB": "Dubai International",
     "OMDW": "Al Maktoum International",
     "OMSJ": "Sharjah International",
-    "OMAA": "Abu Dhabi International",
+    "OMAA": "Zayed International Airport",
     "OMAL": "Al Ain International",
     "OMRK": "Ras Al Khaimah International",
 }

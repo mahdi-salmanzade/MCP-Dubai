@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import pytest
 
+from mcp_dubai._shared.constants import DUBAI_PULSE_API_BASE
 from mcp_dubai._shared.health import (
     UpstreamRegistry,
     get_upstream_registry,
@@ -40,6 +41,7 @@ class TestUpstreamRegistry:
         assert snap["status"] == "working"
         assert snap["reason"] is None
         assert snap["success_count"] == 1
+        assert snap["consecutive_failure_count"] == 0
         assert snap["last_success"] is not None
 
     def test_mark_failure_with_cloudflare_flips_to_blocked(self) -> None:
@@ -50,6 +52,22 @@ class TestUpstreamRegistry:
         assert snap["status"] == "blocked"
         assert "Just a moment" in str(snap["reason"])
 
+    def test_generic_503_degrades_only_after_three_failures(self) -> None:
+        reg = UpstreamRegistry()
+        reg.register("x", "example.com", initial_status="working")
+        reg.mark_failure("x", "HTTP 503 from example.com: temporarily unavailable")
+        assert reg.snapshot()[0]["status"] == "working"
+
+        reg.mark_failure("x", "HTTP 503 from example.com: temporarily unavailable")
+        reg.mark_failure("x", "HTTP 503 from example.com: temporarily unavailable")
+        assert reg.snapshot()[0]["status"] == "degraded"
+
+    def test_cloudflare_503_flips_to_blocked(self) -> None:
+        reg = UpstreamRegistry()
+        reg.register("x", "example.com", initial_status="working")
+        reg.mark_failure("x", "HTTP 503 from example.com: Cloudflare Just a moment...")
+        assert reg.snapshot()[0]["status"] == "blocked"
+
     def test_mark_failure_three_times_degrades(self) -> None:
         reg = UpstreamRegistry()
         reg.register("x", "example.com", initial_status="working")
@@ -59,6 +77,20 @@ class TestUpstreamRegistry:
         snap = reg.snapshot()[0]
         assert snap["status"] == "degraded"
         assert snap["failure_count"] == 3
+        assert snap["consecutive_failure_count"] == 3
+
+    def test_success_resets_only_consecutive_failure_count(self) -> None:
+        reg = UpstreamRegistry()
+        reg.register("x", "example.com", initial_status="working")
+        reg.mark_failure("x", "first")
+        reg.mark_failure("x", "second")
+        reg.mark_success("x")
+        reg.mark_failure("x", "after recovery")
+
+        snap = reg.snapshot()[0]
+        assert snap["status"] == "working"
+        assert snap["failure_count"] == 3
+        assert snap["consecutive_failure_count"] == 1
 
     def test_mark_unknown_upstream_is_silent(self) -> None:
         """mark_success / mark_failure must not raise for unregistered names."""
@@ -88,11 +120,22 @@ class TestBootstrap:
             "al_adhan",
             "cbuae_exchange",
             "cbuae_base_rate",
+            "currency",
             "fcsc_ckan",
             "dubai_pulse",
+            "open_meteo",
             "waqi",
             "khda_static",
         }.issubset(names)
+
+    def test_keyless_live_tools_have_matching_health_entries(self) -> None:
+        reset_upstream_registry()
+        snap = {u["name"]: u for u in get_upstream_registry().snapshot()}
+
+        assert snap["currency"]["features"] == ["currency"]
+        assert snap["currency"]["status"] == "unknown"
+        assert snap["open_meteo"]["features"] == ["open_meteo"]
+        assert snap["open_meteo"]["status"] == "unknown"
 
     def test_cbuae_base_rate_is_pre_marked_blocked(self) -> None:
         reset_upstream_registry()
@@ -114,19 +157,32 @@ class TestBootstrap:
         snap = {u["name"]: u for u in get_upstream_registry().snapshot()}
         assert snap["dubai_pulse"]["status"] == "credentials_missing"
         assert snap["dubai_pulse"]["requires_auth"] is True
+        assert snap["dubai_pulse"]["endpoint"] == DUBAI_PULSE_API_BASE
 
-    def test_dubai_pulse_working_when_env_set(self, monkeypatch: pytest.MonkeyPatch) -> None:
+    def test_dubai_pulse_unknown_until_called_when_env_set(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
         monkeypatch.setenv("MCP_DUBAI_PULSE_CLIENT_ID", "id")
         monkeypatch.setenv("MCP_DUBAI_PULSE_CLIENT_SECRET", "secret")
         reset_upstream_registry()
         snap = {u["name"]: u for u in get_upstream_registry().snapshot()}
-        assert snap["dubai_pulse"]["status"] == "working"
+        assert snap["dubai_pulse"]["status"] == "unknown"
+        assert "no successful call" in str(snap["dubai_pulse"]["reason"])
 
     def test_waqi_credentials_missing_without_token(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.delenv("MCP_DUBAI_WAQI_TOKEN", raising=False)
         reset_upstream_registry()
         snap = {u["name"]: u for u in get_upstream_registry().snapshot()}
         assert snap["waqi"]["status"] == "credentials_missing"
+
+    def test_waqi_unknown_until_called_when_token_set(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        monkeypatch.setenv("MCP_DUBAI_WAQI_TOKEN", "token")
+        reset_upstream_registry()
+        snap = {u["name"]: u for u in get_upstream_registry().snapshot()}
+        assert snap["waqi"]["status"] == "unknown"
+        assert "no successful call" in str(snap["waqi"]["reason"])
 
 
 class TestModuleHelpers:

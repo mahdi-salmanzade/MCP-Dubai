@@ -10,26 +10,24 @@ MCP-Dubai is designed so that each user obtains their own API keys. This keeps y
 
 | Env Variable | Required? | Cost | Unlocks | Time to Get |
 |---|---|---|---|---|
-| *(none)* | no | Free | **112 of 120 tools**: prayer times, Quran, exchange rates, weather, schools, OSM POIs, holidays, DFM market data, Makani, gold rates, the data.dubai catalog, every business advisor tool, both agent skills, and the meta tools | Instant |
+| *(none)* | no | Free | **112 of 120 tools require no credentials**: public-data tools, every business advisor tool, both agent skills, and meta tools. Live availability still depends on each upstream. | None |
 | `MCP_DUBAI_WAQI_TOKEN` | Optional | Free | Air quality readings (`air_quality_dubai`, `air_quality_by_coords`); the station list tool works without it | ~2 minutes |
-| `MCP_DUBAI_PULSE_CLIENT_ID` | Optional | Free | Tier 1 tools: DLD real estate + RTA transport (6 tools); more agencies planned in Phase 8 | ~14 days (approval) |
+| `MCP_DUBAI_PULSE_CLIENT_ID` | Optional | Free for entitled open datasets | Tier 1 tools: DLD real estate + RTA transport (6 tools); more agencies planned in Phase 8 | Manual approval; timing varies |
 | `MCP_DUBAI_PULSE_CLIENT_SECRET` | Optional | Free | (same as above, used together with CLIENT_ID) | (same as above) |
 | `MCP_DUBAI_CALENDARIFIC_KEY` | Optional | Free tier | Future: automated holiday calendar refresh | ~2 minutes |
 
-**Zero keys = 112 fully working tools.** Keys only unlock additional features.
+**Zero keys means 112 credential-free tools, not 112 guaranteed live tools.** The CBUAE base-rate tool and four FCSC tools are recorded as upstream-blocked as of 14 August 2026. They return structured errors, and adding a key does not bypass those blocks.
 
 ---
 
-## Tier 0: No Keys Needed (works immediately)
+## Credential-Free Tools (no setup)
 
-These 14 credential-free API integrations and 17 business knowledge modules require **zero configuration**:
+The server registers the following credential-free tools and knowledge modules with **zero configuration**. Upstream availability can still change.
 
-**Live APIs (anonymous):**
+**Anonymous upstreams:**
 - **Al-Adhan**: Prayer times, Qibla direction, Hijri/Gregorian conversion
 - **Quran Cloud**: Full Quran text and translations
-- **CBUAE**: Central Bank exchange rates (76 currencies against AED)
-- **FCSC CKAN**: UAE federal open data portal *(currently Cloudflare-blocked; returns structured error)*
-- **KHDA**: Dubai private school search by rating, curriculum, area, fees
+- **CBUAE exchange rates**: Central Bank exchange rates (76 currencies against AED)
 - **Aviation Weather**: METAR/TAF for all 6 UAE international airports
 - **Open-Meteo**: Human-friendly weather and forecasts for UAE cities
 - **ExchangeRate-API**: Everyday AED-base currency conversion
@@ -38,11 +36,19 @@ These 14 credential-free API integrations and 17 business knowledge modules requ
 - **Makani**: Dubai Municipality geo-addressing (Makani numbers, reverse geocoding)
 - **Dubai City of Gold**: DJG retail gold rates, AED per gram
 - **data.dubai catalog**: Dataset search across 76 Dubai government entities (metadata only)
+- **RTA GTFS archive**: Anonymous direct 7z download URL for the recorded static feed
+
+**Recorded blocked anonymous upstreams:**
+- **CBUAE base rate**: The InterestRate endpoint returns a structured `upstream_blocked` error
+- **FCSC CKAN**: All four federal dataset and FCA-trade wrappers return structured `upstream_blocked` errors
+
+**Bundled static/reference data:**
+- **KHDA**: Curated Dubai private school snapshot by rating, curriculum, area, and fees
 - **UAE Holidays**: Federal public holidays with provisional lunar date flagging
 
 **Curated business knowledge (static, no API):**
 - Setup Advisor, Free Zones, Visas, Banking, Founder Essentials, Tax Compliance, Compliance, Funding, Gov Portals, DCDE, Events, Parkin, IP/Trademark, Halal, Create Apps, Cost of Living, Tenancy
-- 56 tools total, all with source citations and knowledge freshness dates
+- 56 tools total. Every business response includes per-domain update metadata, including the prior date and targeted scope where declared; curated records include authoritative source URLs where available.
 
 Just install and run:
 ```bash
@@ -55,7 +61,7 @@ uvx mcp-dubai
 
 **What it unlocks:** Real-time air quality data (AQI, PM2.5, PM10, NO₂, SO₂, CO, O₃) for Dubai monitoring stations.
 
-**Cost:** Free forever. Default quota is 1,000 requests per second.
+**Cost:** A community API token is available without charge. Quotas and permitted uses are set by WAQI and may change, so review its current terms before deploying.
 
 **How to get it:**
 
@@ -122,13 +128,14 @@ Or in Claude Desktop config:
 
 ### Step 1: Create an account on data.dubai (formerly Dubai Pulse)
 
-> **Portal migration (verified 2026-07-02):** the Dubai Pulse portal
+> **Portal migration (re-checked 2026-08-14):** the Dubai Pulse portal
 > (www.dubaipulse.gov.ae) was decommissioned between December 2025 and
 > January 2026 and now redirects to [https://data.dubai](https://data.dubai),
 > run by the Dubai Data and Statistics Establishment. The API gateway moved
 > to `apis.data.dubai` with the same `/open/{entity}/{dataset}-open-api`
-> pattern; the legacy `api.dubaipulse.gov.ae` host still resolves and stays
-> the default base URL. Dataset slugs below are unchanged on the API side.
+> pattern; the legacy `api.dubaipulse.gov.ae` host still resolves, while
+> `apis.data.dubai` is now the project default. Dataset slugs below are
+> unchanged on the API side.
 
 1. Go to [https://data.dubai](https://data.dubai)
 2. Sign up / log in (you may need a UAE Pass or email registration)
@@ -137,30 +144,22 @@ Or in Claude Desktop config:
 
 Each dataset has its own access request. Find the dataset in the data.dubai catalog and follow its access request flow, agree to terms, and submit.
 
-**Recommended datasets to request first** (all labeled "open", all free; paths shown are the legacy Dubai Pulse slugs, which still identify the datasets on the API gateway):
+Request only the datasets you intend to use. These are the exact gateway identifiers queried by the six credentialed tools in the current source tree:
 
-| Dataset | Legacy URL path (dataset slug) | Agency |
+| Tool data | Agency | Gateway dataset slug |
 |---|---|---|
-| Real estate transactions | `/data/dld-transactions/dld_transactions-open-api` | DLD |
-| Land registry | `/data/dld-registration/dld_land_registry-open-api` | DLD |
-| Property developers | `/data/dld-registration/dld_developers-open` | DLD |
-| Free zone company licensing | `/data/dld-licenses/dld_free_zone_companies_licensing-open-api` | DLD |
-| DLD projects | `/data/dld-registration/dld_projects-open-api` | DLD |
-| Bus stops | `/data/rta-registers/rta_public_transportation_routes_stops-open` | RTA |
-| Taxi stand locations | `/data/rta-registers/rta_taxi_stand_locations-open-api` | RTA |
-| Private schools (live) | `/data/khda-registers/khda_dubai_private_schools-open-api` | KHDA |
-| Business licenses | `/data/ded-licenses/ded_license_master-open` | DET/DED |
-| Business permits | `/data/ded-permits/ded_permits-open` | DET/DED |
-| DEWA customer data | `/data/dewa-general/dewa_customers_master_data-open-api` | DEWA |
-| Dubai Pulse data catalog | `/data/smartdubai-general/smart_dubai_dubai_pulse_data_catalog_open-open-api` | Smart Dubai |
+| Sale transactions | DLD | `dld_transactions-open-api` |
+| Rent contracts | DLD | `dld_rent_contracts-open-api` |
+| Brokers | DLD | `dld_brokers-open-api` |
+| Metro stations | RTA | `rta_metro_stations-open-api` |
+| Bus routes | RTA | `rta_bus_routes-open-api` |
+| Salik tariff | RTA | `rta_salik_tariff-open-api` |
 
-**Tip:** Request all of them in one sitting. Each takes about 30 seconds.
+The client calls `https://apis.data.dubai/open/{agency}/{dataset-slug}`. Portal labels, access entitlements, and available datasets can change, so confirm each requested dataset in the current catalog rather than relying on an old Dubai Pulse `/data/...` URL.
 
 ### Step 3: Wait for approval
 
-Dubai Pulse states confirmation within 14 days. Open datasets are often approved faster. You will receive **two separate emails**:
-- Email 1: Your **API Key** (this is your `client_id`)
-- Email 2: Your **API Secret** (this is your `client_secret`)
+Approval timing and credential delivery vary by dataset and account. Follow the current instructions shown by data.dubai and do not plan around a fixed approval SLA. When issued, the API key maps to `client_id` and the API secret maps to `client_secret`.
 
 ### Step 4: Set your credentials
 
@@ -192,10 +191,10 @@ You don't need to do anything manually. MCP-Dubai handles token generation and r
 
 1. MCP-Dubai sends your `client_id` and `client_secret` to:
    ```
-   POST https://api.dubaipulse.gov.ae/oauth/client_credential/accesstoken?grant_type=client_credentials
+   POST https://apis.data.dubai/oauth/client_credential/accesstoken?grant_type=client_credentials
    Body: client_id={API Key}&client_secret={API Secret}
    ```
-2. Receives a Bearer token (valid ~30 minutes)
+2. Receives a Bearer token and honours the returned `expires_in` value (falling back to 30 minutes if the field is absent)
 3. Includes `Authorization: Bearer {token}` on every API call
 4. Auto-refreshes when the token expires
 
@@ -205,7 +204,7 @@ You don't need to do anything manually. MCP-Dubai handles token generation and r
 
 | Problem | Solution |
 |---|---|
-| Never received the emails | Check spam/junk folders. Both emails come separately. Contact `help@digitaldubai.ae` or call 600 56 0000 |
+| Credentials were not issued | Check the request status in data.dubai and use the current support channel shown by the portal |
 | Token expired errors | MCP-Dubai auto-refreshes. If persistent, check that your credentials are correct |
 | 403 / Access Denied on a specific dataset | You need to request access to each dataset individually. Go to that dataset's page and click "Get Access" |
 | Credentials work but no data | Some datasets are empty or rarely updated. Check `last_updated` in the response |
@@ -240,7 +239,7 @@ These environment variables tune MCP-Dubai's behavior but don't require any exte
 
 | Variable | Default | What it does |
 |---|---|---|
-| `MCP_DUBAI_PULSE_API_BASE` | `https://api.dubaipulse.gov.ae` | Override Dubai Pulse API base URL (for the data.dubai migration) |
+| `MCP_DUBAI_PULSE_API_BASE` | `https://apis.data.dubai` | Override the data.dubai API base URL |
 | `MCP_DUBAI_DATA_PORTAL_BASE` | `https://data.dubai` | Override portal URL |
 | `MCP_DUBAI_LOG_LEVEL` | `INFO` | Log verbosity (`DEBUG`, `INFO`, `WARNING`, `ERROR`) |
 | `MCP_DUBAI_HTTP_TIMEOUT` | `30.0` | HTTP timeout in seconds |
@@ -260,6 +259,7 @@ See [.env.example](./.env.example) at the repo root for a copy-pasteable templat
 - **Never share your Dubai Pulse credentials.** They are issued to you personally and usage is tracked.
 - **WAQI tokens are tied to your email.** Don't share them in public repos or issues.
 - **MCP-Dubai never sends your credentials anywhere** except the official API endpoints listed above.
+- **HTTP dependency logs are suppressed and credential-bearing query values are redacted** in both CLI and embedded use. Do not remove that protection or add raw request tracing in production.
 - If you suspect a credential has been compromised, revoke it at the original provider and generate a new one.
 
 ---

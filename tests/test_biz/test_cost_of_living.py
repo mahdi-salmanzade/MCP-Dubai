@@ -250,29 +250,29 @@ class TestFuelPriceGuide:
         assert "u.ae" in data["verify_at"]
 
     @pytest.mark.asyncio
-    async def test_july_2026_snapshot_figures(self) -> None:
+    async def test_august_2026_snapshot_figures(self) -> None:
         result = await tools.fuel_price_guide()
         data = result["data"]
         assert isinstance(data, dict)
-        snapshot = data["july_2026_snapshot"]
+        snapshot = data["august_2026_snapshot"]
         assert isinstance(snapshot, dict)
-        assert snapshot["effective_from"] == "2026-07-01"
-        assert snapshot["super_98"] == 3.4
-        assert snapshot["special_95"] == 3.29
-        assert snapshot["e_plus_91"] == 3.21
-        assert snapshot["diesel"] == 3.6
+        assert snapshot["effective_from"] == "2026-08-01"
+        assert snapshot["super_98"] == 3.6
+        assert snapshot["special_95"] == 3.49
+        assert snapshot["e_plus_91"] == 3.41
+        assert snapshot["diesel"] == 3.8
 
     @pytest.mark.asyncio
-    async def test_july_dropped_from_june_reference(self) -> None:
+    async def test_august_increased_from_july_reference(self) -> None:
         result = await tools.fuel_price_guide()
         data = result["data"]
         assert isinstance(data, dict)
-        june = data["june_2026_reference"]
-        july = data["july_2026_snapshot"]
-        assert isinstance(june, dict)
+        august = data["august_2026_snapshot"]
+        july = data["july_2026_reference"]
+        assert isinstance(august, dict)
         assert isinstance(july, dict)
         for grade in ("super_98", "special_95", "e_plus_91", "diesel"):
-            assert july[grade] < june[grade]
+            assert august[grade] == pytest.approx(july[grade] + 0.2)
 
 
 class TestKnowledge:
@@ -281,7 +281,7 @@ class TestKnowledge:
         result = await tools.cost_of_living_overview()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-07-02"
+        assert knowledge["knowledge_date"] == "2026-08-14"
         assert knowledge["volatility"] == "high"
 
     def test_registers_with_knowledge_registry(self) -> None:

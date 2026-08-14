@@ -1,10 +1,11 @@
 {
   "domain": "free_zones",
-  "knowledge_date": "2026-07-02",
+  "knowledge_date": "2026-08-14",
+  "full_review_date": "2026-07-02",
   "volatility": "high",
-  "verify_at": "https://www.dubaichamber.com/en/digital",
+  "verify_at": "https://www.dubai.ae/investing/starting-a-business/free-zones-in-dubai",
   "source_brief_section": "6.2",
-  "disclaimer": "Free zone pricing is indicative and changes annually. Verify with the official free zone website before quoting figures to a founder.",
+  "disclaimer": "Free zone pricing is indicative and changes annually. Verify with the official free zone website before quoting figures to a founder. The canonical authority links added on 2026-08-14 identify primary sources but do not constitute a full re-verification of every price, visa quota, office rule, or banking field.",
   "currency": "AED",
   "renewal_note": "Renewal cost is roughly equal to or slightly less than first-year setup. The myth that renewal is 20-30% higher is incorrect. Cost compounding over time comes from facility rent escalation and 2-to-3-year visa renewal cycles.",
   "freezone_to_mainland": {
@@ -31,14 +32,14 @@
       }
     ],
     "phase_one_scope": "Non-regulated activities only (tech, consultancy, design, professional services, trading). Regulated sectors (finance, healthcare, education, real estate) are deferred to a later phase.",
-    "regularisation_deadline": "2026-03-03",
-    "regularisation_status": "The one-year regularisation deadline for free zone firms already operating onshore passed on 2026-03-03. A one-time extension (to March 2027 at most) was available only if applied for before the deadline. Firms operating onshore without a permit after that date face fines and licence suspension.",
+    "regularisation_deadline": "2026-03-21",
+    "regularisation_status": "Article 13 required existing free zone establishments conducting activity in mainland Dubai to regularise within one year from the Resolution's effective date. Article 15 made the Resolution effective on publication in Official Gazette issue 707, published 21 March 2025, producing a 21 March 2026 deadline. The Director General may grant one extension for the same period where necessary; this pack does not assert that an extension is automatic or that a particular establishment received one. Confirm current status with DET before relying on the deadline.",
     "tax_note": "Mainland-sourced revenue is subject to 9% corporate tax with mandatory separate financial records.",
     "source_urls": [
-      "https://mediaoffice.ae/ar/news/2025/october/08-10/dubai-launches-free-zone-mainland-operating-permit",
+      "https://www.mediaoffice.ae/en/news/2025/october/08-10/dubai-launches-free-zone-mainland-operating-permit",
       "https://dlp.dubai.gov.ae/Legislation%20Reference/2025/Executive%20Council%20Resolution%20No.%20(11)%20of%202025%20Regulating%20the%20Conduct%20of%20Free%20Zone%20Establishments%E2%80%99%20Activities.html",
-      "https://www.reedsmith.com/our-insights/blogs/viewpoints/102l0qt/new-era-for-free-zone-mainland-integration-dubais-executive-council-resolution/",
-      "https://virtuzone.com/blog/free-zone-mainland-operating-permit/"
+      "https://legal.dubai.gov.ae/OfficialGazette/2025/OGD-2025-707.pdf",
+      "https://slc.dubai.gov.ae/en/legislation-portal/detail?id=0900000a80372d09"
     ]
   },
   "developments_2026": [
@@ -193,7 +194,9 @@
         "marketing-led setup"
       ],
       "website": "https://www.meydanfz.ae",
-      "source_urls": []
+      "source_urls": [
+        "https://www.meydanfz.ae/launch-your-business"
+      ]
     },
     {
       "id": "dubai_south",
@@ -238,7 +241,9 @@
         "near-airport operations"
       ],
       "website": "https://www.dubaisouth.ae",
-      "source_urls": []
+      "source_urls": [
+        "https://www.dubaisouth.ae/en"
+      ]
     },
     {
       "id": "dafza",
@@ -282,7 +287,9 @@
         "premium positioning"
       ],
       "website": "https://www.dafza.ae",
-      "source_urls": []
+      "source_urls": [
+        "https://www.dafz.ae/en"
+      ]
     },
     {
       "id": "dso_dtec",
@@ -327,7 +334,9 @@
         "early-stage with coworking + incubation"
       ],
       "website": "https://dtec.ae",
-      "source_urls": []
+      "source_urls": [
+        "https://dtec.ae/"
+      ]
     },
     {
       "id": "tecom",
@@ -373,7 +382,10 @@
         "training institutes"
       ],
       "website": "https://tecom.ae",
-      "source_urls": []
+      "source_urls": [
+        "https://tecomgroup.ae/how-to-setup",
+        "https://dda.gov.ae/en/about/tecom-group"
+      ]
     },
     {
       "id": "dmcc",
@@ -411,17 +423,18 @@
       "banking": {
         "acceptance": "easy",
         "tag": "founder_report",
-        "notes": "Most-awarded free zone globally. Almost all UAE banks are comfortable with DMCC entities. On the DUL fast-track participant list."
+        "notes": "Established free zone with broad bank familiarity. DUL coverage is Dubai-wide rather than a special programme limited to selected free zones."
       },
       "restrictions": [],
       "best_for": [
         "commodities trading",
         "professional services",
-        "premium positioning",
-        "DUL fast-track"
+        "premium positioning"
       ],
       "website": "https://www.dmcc.ae",
-      "source_urls": []
+      "source_urls": [
+        "https://dmcc.ae/business/set-up-a-new-business"
+      ]
     },
     {
       "id": "difc_innovation",
@@ -526,7 +539,9 @@
         "regulated fintech"
       ],
       "website": "https://www.difc.com",
-      "source_urls": []
+      "source_urls": [
+        "https://www.difc.com/business"
+      ]
     },
     {
       "id": "jafza",
@@ -563,7 +578,7 @@
       "banking": {
         "acceptance": "easy",
         "tag": "founder_report",
-        "notes": "Largest free zone in MENA. On the DUL fast-track participant list. Banks are very comfortable with JAFZA entities."
+        "notes": "Large industrial and logistics free zone with broad bank familiarity. DUL coverage is Dubai-wide rather than a special programme limited to selected free zones."
       },
       "restrictions": [],
       "best_for": [
@@ -573,7 +588,9 @@
         "import-export at scale"
       ],
       "website": "https://www.jafza.ae",
-      "source_urls": []
+      "source_urls": [
+        "https://www.jafza.ae/business-setup/company-formation/"
+      ]
     },
     {
       "id": "dhcc",
@@ -623,7 +640,9 @@
         "healthcare tech"
       ],
       "website": "https://www.dhcc.ae",
-      "source_urls": []
+      "source_urls": [
+        "https://www.dhcc.ae/business"
+      ]
     },
     {
       "id": "dpc_dsc",
@@ -668,7 +687,10 @@
         "media studios"
       ],
       "website": "https://www.dpc.ae",
-      "source_urls": []
+      "source_urls": [
+        "https://dpc.ae/",
+        "https://dda.gov.ae/en/about/tecom-group"
+      ]
     }
   ],
   "offshore": [
@@ -685,7 +707,10 @@
         "international structuring",
         "Dubai-domiciled offshore"
       ],
-      "website": "https://www.jafza.ae"
+      "website": "https://www.jafza.ae",
+      "source_urls": [
+        "https://www.jafza.ae/business-setup/company-formation/"
+      ]
     },
     {
       "id": "rak_icc",
@@ -699,7 +724,12 @@
         "asset holding",
         "international structuring"
       ],
-      "website": "https://www.rakicc.com"
+      "website": "https://www.rakicc.com",
+      "source_urls": [
+        "https://www.rakicc.com/"
+      ]
     }
-  ]
+  ],
+  "previous_knowledge_date": "2026-07-02",
+  "last_refresh_scope": "Targeted correctness audit of 2026-08-14: corrected the Resolution 11 of 2025 regularisation deadline from the Official Gazette publication date, removed the unsupported pre-deadline extension condition, added canonical authority URLs to the zone and offshore records, and corrected DUL coverage wording for DMCC and JAFZA. Not a full re-verification of pricing, visa quotas, office rules, banking acceptance, or development claims."
 }

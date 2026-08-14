@@ -1,6 +1,7 @@
 {
   "domain": "createapps",
-  "knowledge_date": "2026-07-25",
+  "knowledge_date": "2026-08-14",
+  "full_review_date": "2026-07-25",
   "volatility": "medium",
   "verify_at": "https://createapps.ae",
   "source_brief_section": "6.11",
@@ -73,23 +74,29 @@
           }
         ]
       },
-      "cycle_status": "Cycle 3 has CONCLUDED. It ran October 2025 to May 2026; the semi-finals (13 April 2026) and the grand finale (11 May 2026, Museum of the Future) are both in the past. Do not present these as upcoming dates.",
-      "concluded_cycle": {
+      "cycle_status": "Cycle 3 is ongoing in its finalist phase. Registration closed on 28 December 2025, 12 finalists were announced on 14 April 2026, and the official structured timeline schedules the finals for 7 October 2026.",
+      "current_cycle": {
         "number": 3,
-        "starts": "2025-10",
-        "ends": "2026-05",
-        "status": "concluded"
+        "starts": "2025-10-12",
+        "finals": "2026-10-07",
+        "status": "ongoing_finalist_phase",
+        "registration_status": "closed",
+        "finalist_teams": 12
       },
-      "cycle_3_key_dates_past": {
-        "semi_finals": "2026-04-13",
-        "grand_finale": "2026-05-11",
-        "grand_finale_venue": "Museum of the Future"
+      "cycle_3_timeline": {
+        "competition_launch_and_registration_open": "2025-10-12",
+        "live_workshops": "2025-10-29 to 2025-12-04",
+        "registration_close": "2025-12-28",
+        "application_submission_deadline": "2026-01-04T12:00:00+04:00",
+        "semifinalists_announced": "2026-01-30",
+        "high_potential_masterclass": "2026-02-02",
+        "tech_accelerator_starts": "2026-03-02",
+        "semi_final_day": "2026-04-13",
+        "finalists_announced": "2026-04-14",
+        "finals": "2026-10-07"
       },
-      "next_cycle": {
-        "number": 4,
-        "status": "NOT ANNOUNCED as of 2026-07-25",
-        "note": "No cycle 4 dates, prize pool or category list has been published on createapps.ae as of 2026-07-25. Treat the cycle 3 prize pool and categories as historical precedent, not as the current offer. Check createapps.ae for the opening of the next intake."
-      }
+      "official_page_consistency_note": "The page's structured Competition Timeline schedules the finals for 7 October 2026, while a stale FAQ answer says the competition concludes in April 2026. This pack treats the detailed structured timeline as current, flags the inconsistency, and recommends reconfirming the final date before travel.",
+      "source_url": "https://createapps.ae/en/create-apps-championship"
     },
     {
       "id": "emirati_training_academy",
@@ -133,7 +140,7 @@
       "Longevity and growth potential"
     ],
     "application_url": "https://createapps.ae/en/registration",
-    "tip": "Cycle 3 grand finale is 11 May 2026 at Museum of the Future. Submission window for cycle 3 closed in late 2025; check createapps.ae for the next cycle window."
+    "tip": "Cycle 3 registration and submissions are closed. The current structured timeline schedules the finals for 7 October 2026, although a stale FAQ still says April 2026; finalists should reconfirm the date directly before travel."
   },
   "contact": {
     "email": "via createapps.ae contact form (Cloudflare-obfuscated)",
@@ -145,6 +152,6 @@
     "sitemap": "https://createapps.ae/sitemap.xml",
     "notes": "Liferay-style sitemap with 13 per-layout sub-sitemaps. No public REST API or RSS feed."
   },
-  "previous_knowledge_date": "2026-04-13",
-  "last_refresh_scope": "Targeted correctness audit of 2026-07-25: verified against the primary source and corrected. Not a full re-verification of every field in this pack."
+  "previous_knowledge_date": "2026-07-25",
+  "last_refresh_scope": "Targeted correctness audit of 2026-08-14: refreshed Cycle 3 registration status, current finalist phase, and the official structured timeline; flagged the page's stale FAQ inconsistency. Not a full re-verification of every field in this pack."
 }

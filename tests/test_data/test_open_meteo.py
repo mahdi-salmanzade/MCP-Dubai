@@ -95,16 +95,28 @@ class TestUaeWeather:
 
     @pytest.mark.asyncio
     @respx.mock
-    async def test_handles_empty_body(self) -> None:
+    async def test_empty_body_returns_structured_error(self) -> None:
         respx.get(constants.FORECAST_ENDPOINT).mock(return_value=Response(200, content=b""))
 
         result = await tools.uae_weather(city="Dubai")
 
-        assert result["success"] is True
-        data = result["data"]
-        assert isinstance(data, dict)
-        assert data["current"] is None
-        assert data["today"] is None
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "upstream_error"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_missing_current_block_returns_structured_error(self) -> None:
+        respx.get(constants.FORECAST_ENDPOINT).mock(
+            return_value=Response(200, json={"timezone": "Asia/Dubai", "daily": {}})
+        )
+
+        result = await tools.uae_weather(city="Dubai")
+
+        assert result["success"] is False
+        assert isinstance(result["error"], dict)
+        assert result["error"]["status"] == "upstream_error"
 
     @pytest.mark.asyncio
     @respx.mock

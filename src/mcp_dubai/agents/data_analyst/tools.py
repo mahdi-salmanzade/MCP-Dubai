@@ -18,6 +18,7 @@ from mcp_dubai._shared.schemas import KnowledgeMetadata, ToolResponse
 
 KNOWLEDGE: KnowledgeMetadata = KnowledgeMetadata(
     knowledge_date="2026-04-13",
+    full_review_date="2026-04-13",
     volatility="medium",
     verify_at="https://github.com/mahdi-salmanzade/MCP-Dubai",
     disclaimer=(
@@ -81,7 +82,7 @@ PLAN_TEMPLATES: dict[str, list[dict[str, Any]]] = {
         },
         {
             "tool": "common_founder_mistakes",
-            "purpose": "List the 11 most common mistakes",
+            "purpose": "List the 10 curated founder mistakes",
             "args_template": {},
         },
     ],
@@ -281,9 +282,15 @@ async def synthesize_report(
     body_parts.append("This report draws on the following MCP-Dubai knowledge domains:")
     body_parts.append("")
     for name, meta in sorted(domains.items()):
-        body_parts.append(
-            f"- **{name}**: verified {meta.knowledge_date}, volatility {meta.volatility}"
+        line = (
+            f"- **{name}**: latest recorded update {meta.knowledge_date}, "
+            f"volatility {meta.volatility}"
         )
+        if meta.full_review_date:
+            line += f"; full review {meta.full_review_date}"
+        if meta.last_refresh_scope:
+            line += f"; targeted scope: {meta.last_refresh_scope}"
+        body_parts.append(line)
     body_parts.append("")
     body_parts.append("Always verify quoted figures with the official source before acting.")
 

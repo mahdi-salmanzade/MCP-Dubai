@@ -16,6 +16,7 @@ from mcp_dubai._shared.schemas import KnowledgeMetadata, ToolResponse
 
 KNOWLEDGE: KnowledgeMetadata = KnowledgeMetadata(
     knowledge_date="2026-04-13",
+    full_review_date="2026-04-13",
     volatility="stable",
     verify_at="https://u.ae",
     disclaimer=(

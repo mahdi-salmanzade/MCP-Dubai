@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
-from mcp_dubai._shared.constants import KNOWLEDGE_DATE
 from mcp_dubai._shared.schemas import ToolResponse
-from mcp_dubai.data.khda.snapshot import SCHOOLS, VALID_RATINGS
+from mcp_dubai.data.khda.snapshot import (
+    SCHOOLS,
+    SNAPSHOT_DATE,
+    TARGETED_CORRECTION_DATE,
+    VALID_RATINGS,
+)
 
 _SOURCE = "KHDA curated snapshot"
 
@@ -12,15 +16,20 @@ _SOURCE = "KHDA curated snapshot"
 def _fail(error: str) -> dict[str, object]:
     return (
         ToolResponse[dict[str, object]]
-        .fail(error=error, source=_SOURCE, retrieved_at=KNOWLEDGE_DATE)
+        .fail(error=error, source=_SOURCE, retrieved_at=TARGETED_CORRECTION_DATE)
         .model_dump()
     )
 
 
 def _ok(data: dict[str, object]) -> dict[str, object]:
+    payload: dict[str, object] = {
+        "full_snapshot_date": SNAPSHOT_DATE,
+        "targeted_correction_date": TARGETED_CORRECTION_DATE,
+        **data,
+    }
     return (
         ToolResponse[dict[str, object]]
-        .ok(data, source=_SOURCE, retrieved_at=KNOWLEDGE_DATE)
+        .ok(payload, source=_SOURCE, retrieved_at=TARGETED_CORRECTION_DATE)
         .model_dump()
     )
 
@@ -69,6 +78,8 @@ async def khda_search_school(
             "schools": results,
             "note": (
                 "Curated subset of well-known Dubai schools for fast lookup. "
+                "The full ratings and fees snapshot is dated 2026-04-14; a targeted "
+                "jurisdiction/location correction was applied 2026-08-14. "
                 "Contributions to expand coverage from the live KHDA XLSX at "
                 "https://web.khda.gov.ae/en/Resources/KHDA-data-statistics are welcome."
             ),
@@ -79,10 +90,25 @@ async def khda_search_school(
 async def khda_list_curricula() -> dict[str, object]:
     """List all unique curricula present in the snapshot."""
     curricula = sorted({s["curriculum"] for s in SCHOOLS})
-    return _ok({"count": len(curricula), "curricula": curricula})
+    return _ok(
+        {
+            "count": len(curricula),
+            "curricula": curricula,
+            "note": "Full school attributes are from the 2026-04-14 curated snapshot.",
+        }
+    )
 
 
 async def khda_list_areas() -> dict[str, object]:
     """List all unique areas present in the snapshot."""
     areas = sorted({s["area"] for s in SCHOOLS})
-    return _ok({"count": len(areas), "areas": areas})
+    return _ok(
+        {
+            "count": len(areas),
+            "areas": areas,
+            "note": (
+                "Full school attributes are from the 2026-04-14 curated snapshot. "
+                "A jurisdiction/location correction was applied 2026-08-14."
+            ),
+        }
+    )

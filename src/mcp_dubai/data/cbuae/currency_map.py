@@ -7,7 +7,7 @@ tool response bilingual so clients can match on the ISO code without
 having to recognise Arabic strings. Unknown names still pass through as
 `currency_ar` so a new entry never silently drops a row.
 
-Verified against the live response on 2026-04-13. Add new entries when
+Verified against the live response on 2026-08-14. Add new entries when
 CBUAE lists additional currencies.
 """
 
@@ -42,6 +42,7 @@ ARABIC_TO_ISO: Final[dict[str, tuple[str, str]]] = {
     "فورنت هنغاري": ("HUF", "Hungarian Forint"),
     "روبية اندونيسية": ("IDR", "Indonesian Rupiah"),
     "روبية هندية": ("INR", "Indian Rupee"),
+    "روبية نيبالية": ("NPR", "Nepalese Rupee"),
     "كرونة آيسلندية": ("ISK", "Icelandic Krona"),
     "دينار أردني": ("JOD", "Jordanian Dinar"),
     "ين ياباني": ("JPY", "Japanese Yen"),

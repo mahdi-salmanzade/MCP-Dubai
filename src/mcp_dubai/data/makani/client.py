@@ -12,11 +12,12 @@ the same typed errors as the shared client.
 from __future__ import annotations
 
 import json
-import xml.etree.ElementTree as ET
+import re
+from html import escape
 from typing import Any
-from xml.sax.saxutils import escape
 
 import httpx
+from lxml import etree
 
 from mcp_dubai._shared.constants import (
     HTTP_DEFAULT_TIMEOUT_SECONDS,
@@ -30,6 +31,7 @@ _ENVELOPE_TEMPLATE = (
     '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">'
     "<s:Body>{body}</s:Body></s:Envelope>"
 )
+_DOCTYPE_RE = re.compile(r"<!DOCTYPE", re.IGNORECASE)
 
 
 class MakaniClient:
@@ -100,18 +102,24 @@ def _raise_for_status(response: httpx.Response) -> None:
 
 def _extract_result(operation: str, xml_text: str) -> dict[str, Any]:
     """Pull the JSON string out of `<OperationName>Result` and decode it."""
-    # stdlib ElementTree never fetches external entities, so this response is
-    # not an XXE risk. It does expand INTERNAL entities, which is the "billion
-    # laughs" quadratic-blowup vector. A legitimate Makani SOAP response carries
-    # no DTD, so refusing any doctype closes that off without adding defusedxml.
-    if "<!DOCTYPE" in xml_text[:2048].upper():
+    # A legitimate Makani SOAP response carries no DTD. Refuse one before
+    # parsing, then independently disable DTD loading, network access, entity
+    # resolution, and huge trees in lxml. The two layers protect against both
+    # external-entity access and entity-expansion resource exhaustion.
+    if _DOCTYPE_RE.search(xml_text) is not None:
         raise HttpClientError(
             "Makani SOAP response declares a DTD, which a legitimate response "
             "never does. Refusing to parse it (entity-expansion guard)."
         )
     try:
-        root = ET.fromstring(xml_text)
-    except ET.ParseError as exc:
+        parser = etree.XMLParser(
+            load_dtd=False,
+            no_network=True,
+            resolve_entities=False,
+            huge_tree=False,
+        )
+        root = etree.fromstring(xml_text.encode(), parser=parser)
+    except etree.XMLSyntaxError as exc:
         raise HttpClientError(f"Malformed SOAP response from Makani: {exc}") from exc
 
     element = root.find(f".//{{{constants.MAKANI_SOAP_NAMESPACE}}}{operation}Result")

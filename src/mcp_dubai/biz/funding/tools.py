@@ -35,6 +35,12 @@ VALID_SECTORS = {
     "design",
     "general",
 }
+VALID_GRANT_TYPES = {
+    "accelerator_support_and_credit_guarantee",
+    "interest_free_business_loans_and_nonfinancial_support",
+    "support_programs_and_loan_route",
+    "venture_fund",
+}
 
 
 async def accelerator_search(
@@ -47,7 +53,9 @@ async def accelerator_search(
 
     Args:
         sector: Optional sector filter (substring on best_for and tags).
-        free_only: True to exclude paid accelerators (e.g., AstroLabs).
+        free_only: True to return only accelerators explicitly verified with
+            ``is_free: true``. Records with paid, equity-linked, subsidized,
+            or unknown cost are excluded.
         location: Optional location filter (e.g., "Dubai", "Abu Dhabi").
     """
     accelerators = _list("accelerators")
@@ -63,7 +71,7 @@ async def accelerator_search(
             if needle not in best_for_str:
                 continue
 
-        if free_only and acc.get("tier") == "paid_accelerator":
+        if free_only and acc.get("is_free") is not True:
             continue
 
         if location:
@@ -79,11 +87,16 @@ async def accelerator_search(
             {
                 "count": len(matching),
                 "accelerators": matching,
+                "excluded_with_reason": _list("accelerators_excluded_with_reason"),
                 "filters": {
                     "sector": sector,
                     "free_only": free_only,
                     "location": location,
                 },
+                "free_only_semantics": (
+                    "Only records explicitly verified as is_free=true are included; "
+                    "unknown, subsidized, paid, and equity-linked programs are excluded."
+                ),
             },
             knowledge=KNOWLEDGE,
         )
@@ -163,12 +176,25 @@ async def grant_programs(
     List UAE government grant and funding support programs.
 
     Args:
-        grant_type: Optional filter, e.g., "guarantee_loan", "venture_fund",
-            "support_programs", "loan_grant".
+        grant_type: Optional filter, e.g.,
+            "accelerator_support_and_credit_guarantee", "venture_fund",
+            "support_programs_and_loan_route", or
+            "interest_free_business_loans_and_nonfinancial_support".
     """
     grants = _list("grants")
     matching = grants
     if grant_type:
+        if grant_type not in VALID_GRANT_TYPES:
+            return (
+                ToolResponse[dict[str, object]]
+                .fail(
+                    error=(
+                        f"grant_type must be one of {sorted(VALID_GRANT_TYPES)}, got {grant_type!r}"
+                    ),
+                    knowledge=KNOWLEDGE,
+                )
+                .model_dump()
+            )
         matching = [g for g in grants if g.get("type") == grant_type]
 
     return (
@@ -179,9 +205,10 @@ async def grant_programs(
                 "grants": matching,
                 "filter": {"grant_type": grant_type},
                 "warning": (
-                    "MBRIF AED 5M figure from the original brief is unverified. "
-                    "Third-party sources cite up to AED 2M interest-free loans. "
-                    "Verify directly with MBRIF before quoting."
+                    "MBRIF's Innovation Accelerator provides no direct funding. "
+                    "Its separate Guarantee Scheme facilitates bank finance "
+                    "through a government-backed credit guarantee; Accelerator "
+                    "membership does not guarantee support from that scheme."
                 ),
             },
             knowledge=KNOWLEDGE,

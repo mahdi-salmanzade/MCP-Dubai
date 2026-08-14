@@ -9,7 +9,7 @@ import httpx
 
 from mcp_dubai._shared.errors import now_iso, upstream_error_response
 from mcp_dubai._shared.health import mark_failure, mark_success
-from mcp_dubai._shared.http_client import HttpClientError, RateLimitError
+from mcp_dubai._shared.http_client import HttpClientError
 from mcp_dubai._shared.schemas import ToolResponse
 from mcp_dubai.data.quran_cloud import constants
 from mcp_dubai.data.quran_cloud.client import QuranCloudClient
@@ -39,9 +39,7 @@ async def _run(coro: Awaitable[Any]) -> dict[str, object]:
     """Run an awaitable client call and wrap the result in the envelope."""
     try:
         result = await coro
-    except RateLimitError:
-        raise
-    except (HttpClientError, httpx.HTTPError) as exc:
+    except (HttpClientError, httpx.HTTPError, RuntimeError, ValueError) as exc:
         mark_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
     mark_success(_UPSTREAM)
@@ -101,6 +99,8 @@ async def quran_search(
     query: str,
     surah: str = "all",
     edition: str = "en",
+    limit: int = constants.DEFAULT_SEARCH_LIMIT,
+    offset: int = 0,
 ) -> dict[str, object]:
     """
     Search the Quran for a phrase.
@@ -109,8 +109,22 @@ async def quran_search(
         query: The phrase to search for.
         surah: Surah number or "all".
         edition: Edition slug or language code (e.g., "en", "ar").
+        limit: Maximum matches to return, from 1 to 100.
+        offset: Zero-based match offset for pagination.
     """
     if not query:
         return _fail("query must not be empty")
+    if not 1 <= limit <= constants.MAX_SEARCH_LIMIT:
+        return _fail(f"limit must be 1 to {constants.MAX_SEARCH_LIMIT}, got {limit}")
+    if offset < 0:
+        return _fail(f"offset must be at least 0, got {offset}")
     client = QuranCloudClient()
-    return await _run(client.search(query=query, surah_filter=surah, edition=edition))
+    return await _run(
+        client.search(
+            query=query,
+            surah_filter=surah,
+            edition=edition,
+            limit=limit,
+            offset=offset,
+        )
+    )

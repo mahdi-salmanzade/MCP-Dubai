@@ -115,9 +115,10 @@ _TOOLS: list[ToolMeta] = [
     ToolMeta(
         name="dfm_list_securities",
         description=(
-            "Search or list the ~450 securities on the Dubai Financial "
+            "Search or list the 475 securities on the Dubai Financial "
             "Market by symbol or name substring (max 50 results, reports "
-            "total). Keyless; not investment advice."
+            "total; catalog count rechecked 2026-08-14). Keyless; not "
+            "investment advice."
         ),
         feature="dfm",
         tier=TIER_OPEN,

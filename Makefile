@@ -1,4 +1,4 @@
-.PHONY: install dev test lint format typecheck check clean run registry-check freshness
+.PHONY: install dev test lint format format-check typecheck check clean run registry-check freshness
 
 install:
 	pip install -e .
@@ -15,12 +15,15 @@ lint:
 format:
 	ruff format src tests scripts
 
+format-check:
+	ruff format --check src tests scripts
+
 typecheck:
 	mypy src
 
-check: lint typecheck test freshness
+check: lint format-check typecheck test freshness
 
-# Report which curated knowledge packs are overdue for re-verification.
+# Report which knowledge domains are overdue for a full review.
 # Informational by default; add --strict to make it exit non-zero.
 freshness:
 	python scripts/check_knowledge_freshness.py
@@ -36,4 +39,4 @@ run:
 # Validate server.json against the MCP Registry schema without publishing.
 # Install the CLI first: brew install mcp-publisher
 registry-check:
-	mcp-publisher publish --dry-run
+	mcp-publisher validate server.json

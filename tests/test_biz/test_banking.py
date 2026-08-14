@@ -68,6 +68,7 @@ class TestBankRecommendation:
         warnings = data["warnings"]
         assert isinstance(warnings, list)
         assert any("crypto" in w.lower() or "high-risk" in w for w in warnings)
+        assert not any("shareholder" in w.lower() for w in warnings)
 
     @pytest.mark.asyncio
     async def test_tier_filter_digital(self) -> None:
@@ -139,33 +140,37 @@ class TestOpenFinance:
 
 class TestDulEligibility:
     @pytest.mark.asyncio
-    async def test_emirates_nbd_dmcc_eligible(self) -> None:
+    async def test_emirates_nbd_is_integrated_and_dmcc_is_covered(self) -> None:
         result = await tools.dul_eligibility(bank_id="emirates_nbd", free_zone="DMCC")
         data = result["data"]
         assert isinstance(data, dict)
         assert data["eligible"] is True
-        assert data["bank_status"] == "participating"
-        assert data["zone_status"] == "participating"
+        assert data["bank_status"] == "integrated"
+        assert data["zone_status"] == "covered_if_dubai"
 
     @pytest.mark.asyncio
-    async def test_wio_not_participating(self) -> None:
+    async def test_wio_is_not_in_dated_official_bank_list(self) -> None:
         result = await tools.dul_eligibility(bank_id="wio")
         data = result["data"]
         assert isinstance(data, dict)
-        assert data["bank_status"] == "not_participating"
+        assert data["bank_status"] == "not_listed_in_official_announcement"
         assert data["eligible"] is False
 
     @pytest.mark.asyncio
-    async def test_summary_lists_participants(self) -> None:
+    async def test_summary_lists_integrated_banks_and_caveat(self) -> None:
         result = await tools.dul_eligibility()
         data = result["data"]
         assert isinstance(data, dict)
         summary = data["dul_summary"]
         assert isinstance(summary, dict)
-        participating = summary["participating_banks"]
-        assert isinstance(participating, list)
-        assert "Emirates NBD" in participating
-        assert "ruya" in participating
+        integrated = summary["integrated_banks"]
+        assert isinstance(integrated, list)
+        assert "Emirates NBD" in integrated
+        assert "ruya" in integrated
+        assert summary["average_onboarding_days"] == 5
+        assert "All businesses in Dubai" in summary["coverage"]
+        assert "not a service-level guarantee" in summary["caveat"]
+        assert any("mediaoffice.ae" in url for url in summary["source_urls"])
 
 
 class TestKnowledge:
@@ -174,7 +179,9 @@ class TestKnowledge:
         result = await tools.list_banks()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-07-02"
+        assert knowledge["knowledge_date"] == "2026-08-14"
+        assert knowledge["previous_knowledge_date"] == "2026-07-02"
+        assert "unsupported claim" in knowledge["last_refresh_scope"]
         assert knowledge["volatility"] == "medium"
 
     def test_registers_with_knowledge_registry(self) -> None:

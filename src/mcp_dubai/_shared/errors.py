@@ -10,11 +10,25 @@ reaches the client as a structured ToolResponse.fail() envelope.
 
 from __future__ import annotations
 
+import re
 from datetime import UTC, datetime
 from typing import Any
 
 from mcp_dubai._shared.http_client import HttpClientError, RateLimitError
 from mcp_dubai._shared.schemas import ToolResponse
+
+_HTTP_FORBIDDEN_RE = re.compile(r"\bHTTP\s+403\b", re.IGNORECASE)
+_BOT_BLOCK_MARKERS = ("cloudflare", "just a moment")
+
+
+def is_upstream_blocked(reason: str, *, status_code: int | None = None) -> bool:
+    """Return whether an error has concrete HTTP 403 or bot-block evidence."""
+    normalized_reason = reason.casefold()
+    return (
+        status_code == 403
+        or _HTTP_FORBIDDEN_RE.search(reason) is not None
+        or any(marker in normalized_reason for marker in _BOT_BLOCK_MARKERS)
+    )
 
 
 def now_iso() -> str:
@@ -34,9 +48,9 @@ def upstream_error_response(
     Convert an upstream exception to a ToolResponse.fail() dict.
 
     Classifies common upstream failures so the MCP client can render a
-    useful message instead of a raw traceback. Cloudflare bot-protection
-    pages and 403/503 responses are surfaced as `upstream_blocked`, rate
-    limits as `rate_limited`, and everything else as `upstream_error`.
+    useful message instead of a raw traceback. HTTP 403 and responses with
+    Cloudflare bot-protection evidence are surfaced as `upstream_blocked`,
+    rate limits as `rate_limited`, and everything else as `upstream_error`.
     """
     reason = str(error)
     resolved_status = status or _classify(error, reason)
@@ -81,10 +95,10 @@ def cloudflare_blocked_response(
 def _classify(error: Exception, reason: str) -> str:
     if isinstance(error, RateLimitError):
         return "rate_limited"
+    status_code = getattr(error, "status_code", None)
+    if is_upstream_blocked(reason, status_code=status_code):
+        return "upstream_blocked"
     if isinstance(error, HttpClientError):
-        status_code = getattr(error, "status_code", None)
-        if status_code in (403, 503) or "Just a moment" in reason:
-            return "upstream_blocked"
         return "upstream_error"
     if "timeout" in reason.lower() or "timed out" in reason.lower():
         return "upstream_timeout"

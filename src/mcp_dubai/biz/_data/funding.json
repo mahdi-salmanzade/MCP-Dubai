@@ -1,167 +1,291 @@
 {
   "domain": "funding",
-  "knowledge_date": "2026-04-13",
+  "knowledge_date": "2026-08-14",
+  "full_review_date": "2026-08-14",
   "volatility": "high",
-  "verify_at": "https://hub71.com",
+  "verify_at": "https://www.hub71.com/program/access-programme/apply",
   "source_brief_section": "6.7",
-  "disclaimer": "Cohort dates, ticket sizes, and active VC strategies change frequently. Verify each program directly before applying.",
-  "currency": "AED",
+  "disclaimer": "Programme availability, cohort dates, prices, fund strategies, and application criteria change frequently. Verify the current terms with each official source before applying, investing, relocating, or budgeting.",
+  "amount_convention": "Amounts retain the currency published by the official source. No exchange-rate conversions are inferred.",
+  "accelerators_note": "The accelerators array is a legacy finder category that also includes incubators, innovation ecosystems, and challenge programmes. Each record states its actual programme type and cost status.",
+  "government_programs_note": "The grants array is a legacy API key. Its records include non-financial support, equity investment, credit guarantees, and loans; they are not necessarily grants.",
+  "full_review_note": "Full record-by-record primary-source review completed 2026-08-14. Every retained field and exclusion was reviewed; unsupported tickets and mandates were removed, live Hub71 and Dubai SME deadlines and DFDF metrics were refreshed, misclassified entries were moved to exclusions, and Bedayat was added.",
   "accelerators": [
     {
       "id": "in5",
       "name": "in5",
       "operator": "TECOM Group",
       "location": "Dubai",
+      "programme_type": "subsidized_incubator",
       "sub_programs": [
         "in5 Tech",
         "in5 Media",
-        "in5 Design"
+        "in5 Design",
+        "in5 Science"
       ],
-      "tier": "free_office_visa",
-      "cost_aed": 0,
+      "is_free": false,
       "benefits": [
-        "Free office and meeting space",
-        "Free trade license",
-        "Free visa allocation",
-        "Mentorship",
-        "Investor introductions",
-        "Discounts on TECOM services"
+        "Subsidized Dubai Development Authority licence and workspace options",
+        "Mentorship and investor introductions",
+        "Workshops, networking, and specialized facilities",
+        "No equity taken and no direct funding provided by in5"
       ],
       "best_for": [
         "tech",
         "media",
         "design",
+        "science",
         "early-stage"
       ],
-      "application_url": "https://www.in5.ae",
-      "notes": "Default Dubai accelerator for tech, media, and design founders. Cohort-based, application is competitive.",
-      "source_urls": []
+      "application_url": "https://infive.ae/",
+      "application_process": "Online application followed by steering-committee review; no fixed year-round availability claim is made.",
+      "pricing_snapshot": {
+        "as_of": "2026-08-14",
+        "licence_aed_per_year_years_1_to_3": 1000,
+        "coworking_desk_aed_by_year": [
+          15000,
+          18000,
+          21000
+        ],
+        "dedicated_office_aed_by_year": [
+          40000,
+          45000,
+          50000
+        ],
+        "full_licence_aed_per_year_after_maximum_three_year_incubation": 15000,
+        "establishment_card_aed": 2000,
+        "personnel_sponsorship_agreement_aed_per_person": 2500,
+        "personnel_sponsorship_agreement_waiver": "Waived for up to four visas during the first three years; establishment-card and visa charges remain payable.",
+        "visa_aed_out_of_country": 1630,
+        "visa_aed_in_country": 3130,
+        "note": "Published subsidized prices are not a free licence, office, or visa package. Third-party charges and terms can change."
+      },
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://infive.ae/business-setup/",
+        "https://infive.ae/faqs/"
+      ]
     },
     {
       "id": "hub71",
-      "name": "Hub71",
-      "operator": "Mubadala / ADQ / ADGM",
+      "name": "Hub71 Access Programme",
+      "operator": "Hub71, backed by Abu Dhabi Department of Economic Development and Mubadala and based in ADGM",
       "location": "Abu Dhabi",
-      "tier": "premium_cohort",
+      "programme_type": "equity_linked_acceleration_programme",
+      "is_free": false,
       "benefits": [
-        "Free housing for selected startups",
-        "Free office space",
-        "Health insurance",
-        "Access to Mubadala / ADQ network",
-        "Investor matchmaking"
+        "AED 250,000 in flexible in-kind incentives",
+        "AED 250,000 cash in exchange for equity through a SAFE",
+        "High-performing startups committed to Abu Dhabi may receive a further AED 250,000 cash for additional equity",
+        "Access to service providers and Hub71's corporate, government, and investor ecosystem"
       ],
       "best_for": [
-        "growth-stage tech",
+        "pre-seed",
+        "seed",
+        "series A",
         "fintech",
         "AI",
         "cleantech"
       ],
-      "application_url": "https://hub71.com",
-      "current_cohort": "Cohort 20 applications close 2 August 2026, programme starts February 2027.",
-      "notes": "Tier-1 program in the UAE for tech founders. Highly competitive.",
+      "application_url": "https://www.hub71.com/program/access-programme/apply",
+      "current_cohort": {
+        "number": 20,
+        "application_deadline": "2026-08-21",
+        "application_deadline_status": "open",
+        "status_as_of": "2026-08-14",
+        "programme_starts": "2027-02",
+        "programme_duration_months": 12,
+        "post_deadline_applications_open": true,
+        "post_deadline_note": "Applications submitted after the Cohort 20 deadline are considered for the next cohort."
+      },
+      "relocation_requirement": "At least one founder is expected to relocate long-term and build a team in Abu Dhabi.",
+      "equity_terms_note": "The official programme pages state that cash is provided through a SAFE in exchange for equity but do not publish a universal valuation cap, discount, or equity percentage.",
+      "verified_as_of": "2026-08-14",
       "source_urls": [
-        "https://hub71.com"
+        "https://www.hub71.com/program/access-programme/apply",
+        "https://www.hub71.com/program/access-programme",
+        "https://www.hub71.com/faqs"
       ]
     },
     {
       "id": "difc_innovation_hub",
       "name": "DIFC Innovation Hub",
       "operator": "Dubai International Financial Centre",
-      "location": "DIFC",
-      "tier": "fintech_specialist",
-      "sub_programs": [
-        "DIFC FinTech Hive"
-      ],
+      "location": "DIFC, Dubai",
+      "programme_type": "innovation_ecosystem_and_licensing",
+      "is_free": false,
       "benefits": [
-        "DIFC Innovation Licence at subsidised rate",
-        "Access to DFSA",
-        "Cohort-based mentorship",
-        "Investor day"
+        "Innovation Licence route for qualifying technology and innovation businesses",
+        "Workspace and access to an innovation ecosystem",
+        "Partner-specific innovation programmes whose terms vary"
       ],
       "best_for": [
         "fintech",
         "regtech",
         "insurtech",
-        "wealthtech"
+        "wealthtech",
+        "technology"
       ],
-      "application_url": "https://www.difc.com/business/innovation-hub",
-      "notes": "The fintech path. DIFC FinTech Hive is the original cohort program, still running."
+      "application_url": "https://www.difc.com/business/establish-a-business/innovation-licence",
+      "pricing_snapshot": {
+        "as_of": "2026-08-14",
+        "innovation_licence_usd_per_year": 1500,
+        "licence_period_years": "2 to 5",
+        "registration_fee_usd": 100,
+        "flexi_desk_usd_per_month_excluding_vat": 500,
+        "note": "An Innovation Licence does not authorize regulated financial services; separate DFSA authorization is required where applicable."
+      },
+      "programme_status_note": "The current Innovation Hub page lists partner-specific programmes. No current general DIFC FinTech Hive cohort was verified.",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.difc.com/ecosystem/innovation-hub",
+        "https://www.difc.com/business/establish-a-business/innovation-licence",
+        "https://assets.difc.com/v1/media/edge/images/dubaiintern0078-difcexperie96c5-production-3253/media/project/difcexperiences/difc/difcwebsite/documents/business-section-documents/documents-for-spaces-and-offices/difc-innovation-licence-setup-guide.pdf"
+      ]
     },
     {
       "id": "dtec",
       "name": "Dtec",
-      "operator": "Dubai Silicon Oasis",
+      "operator": "Dubai Integrated Economic Zones Authority",
       "location": "Dubai Silicon Oasis",
-      "tier": "coworking_incubation",
+      "programme_type": "technology_startup_campus_and_business_setup",
+      "is_free": false,
       "benefits": [
-        "Coworking space",
-        "DSO free zone licence options",
-        "Mentorship",
-        "Community events"
+        "Coworking and office options",
+        "Dubai Silicon Oasis licence and company-setup support",
+        "Community events, workshops, and mentoring"
       ],
       "best_for": [
-        "bootstrapped tech",
-        "early-stage",
-        "deep tech"
+        "technology",
+        "innovative technology",
+        "early-stage"
       ],
-      "application_url": "https://dtec.ae"
+      "application_url": "https://dtec.ae/",
+      "pricing_snapshot": {
+        "as_of": "2026-08-14",
+        "flexi_desk_aed_year_1": 18000,
+        "fixed_desk_aed_year_1": 24200,
+        "furnished_private_office_aed_year_1_from": 47820,
+        "unfurnished_private_office_aed_year_1_from": 62500,
+        "note": "Displayed year-one plans are paid. Funding opportunities, where available, are separate and are not guaranteed by taking a Dtec workspace or licence."
+      },
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://dtec.ae/",
+        "https://dtec.ae/faqs/",
+        "https://dtec.ae/coworking/"
+      ]
     },
     {
       "id": "dfa",
       "name": "Dubai Future Accelerators",
       "operator": "Dubai Future Foundation",
       "location": "Dubai",
-      "tier": "government_challenge",
+      "programme_type": "government_challenge_and_co_creation_platform",
+      "is_free": null,
+      "cost_status": "No universal public participation fee, equity term, or cash-award term was verified; terms are challenge-specific.",
       "benefits": [
-        "Government partner matching",
-        "POC funding",
-        "Pilot deployment with Dubai entities"
+        "Connections to participating government and private-sector problem owners",
+        "Challenge-specific co-creation, validation, and potential pilot opportunities"
       ],
       "best_for": [
-        "growth-stage",
         "govtech",
-        "smart city"
+        "smart city",
+        "challenge-specific technology"
       ],
-      "application_url": "https://www.dubaifuture.ae",
-      "notes": "Cohort-based partnership program with Dubai government entities."
-    },
-    {
-      "id": "area_2071",
-      "name": "Area 2071",
-      "operator": "Dubai Future Foundation",
-      "location": "Emirates Towers",
-      "tier": "ecosystem_hub",
-      "best_for": [
-        "future tech",
-        "AI",
-        "blockchain",
-        "space"
-      ],
-      "application_url": "https://area2071.ae"
-    },
-    {
-      "id": "astrolabs",
-      "name": "AstroLabs",
-      "operator": "Private",
-      "location": "DMCC",
-      "tier": "paid_accelerator",
-      "best_for": [
-        "scale-ups expanding to MENA",
-        "Saudi market entry"
-      ],
-      "notes": "Paid accelerator with strong workspace and Saudi expansion track. NOT free."
+      "application_url": "https://www.dubaifuture.ae/initiatives/future-design-and-acceleration/dubai-future-accelerators/",
+      "application_status": "The official page lists open challenges; eligibility, deliverables, and commercial terms vary by challenge.",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.dubaifuture.ae/initiatives/future-design-and-acceleration/dubai-future-accelerators/"
+      ]
     },
     {
       "id": "sheraa",
       "name": "Sheraa S3",
       "operator": "Sharjah Entrepreneurship Center",
       "location": "Sharjah",
-      "tier": "regional_alternative",
-      "best_for": [
-        "early-stage",
-        "cohort-based"
+      "programme_type": "equity_free_scale_programme",
+      "is_free": true,
+      "free_status_scope": "No participation fee and no equity. The first-year SRTIP licence and coworking are covered, but selected startups must maintain a Sharjah licence for at least two years and later licence costs are not covered.",
+      "programme_duration_months": 4,
+      "benefits": [
+        "Growth support, mentorship, and ecosystem access",
+        "First-year SRTIP licence and coworking"
       ],
-      "application_url": "https://sheraa.ae"
+      "best_for": [
+        "market-ready startups",
+        "early traction",
+        "revenue",
+        "edtech",
+        "sustainability",
+        "advanced manufacturing",
+        "creative industries"
+      ],
+      "application_url": "https://www.startups.sheraa.ae/s3-program",
+      "current_status": {
+        "status": "closed_or_next_cycle_unannounced",
+        "status_as_of": "2026-08-14",
+        "latest_verified_application_deadline": "2025-09-07",
+        "latest_verified_programme_period": "2025-10 to 2026-02",
+        "note": "The official page explicitly describes S3 as neither an incubator nor an accelerator. No later public application cycle was verified."
+      },
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.startups.sheraa.ae/s3-program"
+      ]
+    },
+    {
+      "id": "bedayat",
+      "name": "Bedayat Incubator and Accelerator",
+      "operator": "SEE Institute",
+      "location": "The Sustainable City, Dubai",
+      "programme_type": "sustainability_incubator_and_accelerator",
+      "is_free": null,
+      "cost_status": "No universal public participation fee, equity, or cash-funding terms were verified.",
+      "benefits": [
+        "Sustainability-focused programmes and workshops",
+        "Living Lab testing and validation",
+        "Mentor and ecosystem connections",
+        "Facilitation of access to grants and funding without a funding guarantee"
+      ],
+      "best_for": [
+        "sustainability",
+        "climate",
+        "social impact",
+        "environmental impact",
+        "early-stage"
+      ],
+      "application_url": "https://www.seeinstitute.ae/start-up-application/",
+      "application_status": "An official application form is available; no fixed public cohort deadline was verified.",
+      "eligibility_note": "Applicants should address The Sustainable City's social, environmental, or economic sustainability pillars and cannot simultaneously participate in another incubator or accelerator.",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.seeinstitute.ae/bedayat-incubator-accelerator/",
+        "https://www.seeinstitute.ae/start-up-application/",
+        "https://www.dubai.ae/investing/starting-a-business/business-incubators-in-dubai"
+      ]
+    }
+  ],
+  "accelerators_excluded_with_reason": [
+    {
+      "name": "AREA 2071",
+      "reason": "The current Dubai Future Foundation page describes a co-creation and innovation space with facilities and startup-licence support, not a discrete accelerator with a fixed cohort or funding offer. It is excluded from the accelerator finder to avoid misclassification.",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.dubaifuture.ae/initiatives/future-design-and-acceleration/area-2071/",
+        "https://www.dubaifuture.ae/terms-of-service-area-2071/"
+      ]
+    },
+    {
+      "name": "AstroLabs",
+      "reason": "AstroLabs currently presents paid market-entry, business-setup, growth, and workspace services rather than a general open funding accelerator. It is excluded from the accelerator finder; individual market-entry programmes have their own terms.",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://astrolabs.com/solutions/profile/startups",
+        "https://astrolabs.com/market-entry-programs",
+        "https://astrolabs.com/business-setup-in-uae"
+      ]
     }
   ],
   "vcs": [
@@ -169,26 +293,46 @@
       "id": "beco_capital",
       "name": "BECO Capital",
       "stage_focus": [
+        "Pre-seed",
         "Seed",
-        "Series A"
+        "Series A",
+        "Series B",
+        "Series B+"
       ],
-      "ticket_aed_min": 1000000,
-      "ticket_aed_max": 20000000,
+      "stage_scope": "Fund IV invests from pre-seed through Series A; the Growth Fund invests from Series B through pre-IPO.",
       "sectors": [
+        "sector-agnostic",
+        "construction tech",
         "fintech",
-        "marketplace",
-        "saas",
-        "consumer"
+        "proptech",
+        "consumer and retail tech",
+        "application software",
+        "AI"
       ],
       "geo": [
-        "MENA"
+        "Gulf",
+        "UAE",
+        "Saudi Arabia"
       ],
-      "notable_portfolio": [
-        "Property Finder",
-        "Careem",
-        "Kitopi"
+      "current_funds": [
+        {
+          "name": "BECO Fund IV",
+          "fund_size_usd": 120000000,
+          "stage": "Pre-seed through Series A"
+        },
+        {
+          "name": "BECO Growth Fund",
+          "fund_size_usd": 250000000,
+          "stage": "Series B through pre-IPO",
+          "average_investment_usd": 20000000
+        }
       ],
-      "url": "https://www.becocapital.com"
+      "url": "https://www.becocapital.com/",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.becocapital.com/beco-capital-raises-370-million-to-back-founders-from-pre-seed-to-ipo-in-the-gulf/",
+        "https://www.becocapital.com/becos-investment-manifesto/"
+      ]
     },
     {
       "id": "wamda_capital",
@@ -197,74 +341,99 @@
         "Seed",
         "Series A"
       ],
-      "ticket_aed_min": 1000000,
-      "ticket_aed_max": 15000000,
+      "stage_scope": "The active Wamda Seed vehicle targets sector-agnostic Seed to Series A technology startups. Fund I is fully deployed and harvesting.",
       "sectors": [
-        "mena tech",
-        "saas",
-        "marketplace"
+        "sector-agnostic technology"
       ],
       "geo": [
-        "MENA"
+        "MENAPT"
       ],
-      "url": "https://www.wamda.com/wamdacapital"
+      "fund_structure": "Early-stage evergreen investment entity",
+      "url": "https://wamdacapital.com/",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://wamdacapital.com/our-story/",
+        "https://wamdacapital.com/"
+      ]
     },
     {
       "id": "mevp",
       "name": "MEVP (Middle East Venture Partners)",
-      "stage_focus": [
-        "Seed",
-        "Series A",
-        "Series B"
-      ],
-      "ticket_aed_min": 2000000,
-      "ticket_aed_max": 50000000,
       "sectors": [
+        "AI",
         "fintech",
-        "marketplace",
-        "saas"
+        "saas",
+        "healthtech",
+        "edtech",
+        "logistics",
+        "ecommerce",
+        "on-demand services",
+        "marketplaces",
+        "Web3",
+        "proptech"
       ],
       "geo": [
-        "MENA"
+        "MENATP"
       ],
-      "url": "https://www.mevp.com"
+      "current_fund": {
+        "name": "Middle East Venture Fund IV",
+        "launch_year": 2023,
+        "published_size_usd": 105000000,
+        "ticket_usd_min": 3000000,
+        "ticket_usd_max": 5000000,
+        "stage_note": "The current Fund IV index does not publish a concise round-stage mandate."
+      },
+      "url": "https://mevp.com/",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://mevp.com/funds"
+      ]
     },
     {
       "id": "shorooq",
       "name": "Shorooq Partners",
       "stage_focus": [
-        "Seed",
-        "Series A"
+        "Pre-seed"
       ],
+      "stage_scope": "The current equity page says Shorooq invests across diverse stages and explicitly says it can invest as early as idea or pre-seed; it does not publish a single firm-wide round range.",
       "sectors": [
-        "fintech",
-        "platforms",
-        "saas"
+        "sector-diverse"
       ],
       "geo": [
-        "MENA"
+        "Middle East and North Africa"
       ],
-      "url": "https://www.shorooq.io"
+      "url": "https://www.shorooq.com/",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.shorooq.com/what-we-do/equity-venture-capital",
+        "https://www.shorooq.com/portfolio"
+      ]
     },
     {
       "id": "global_ventures",
       "name": "Global Ventures",
       "stage_focus": [
-        "Seed",
-        "Series A",
-        "Series B"
+        "Series B+"
       ],
+      "stage_scope": "The current official site describes a growth-stage focus; Series B+ is a finder normalization, not a quoted round boundary.",
       "sectors": [
-        "healthtech",
         "fintech",
+        "healthtech",
         "edtech",
-        "logistics"
+        "agritech",
+        "enterprise saas"
       ],
       "geo": [
-        "MENA",
+        "emerging markets",
+        "Middle East",
         "Africa"
       ],
-      "url": "https://www.global.vc"
+      "url": "https://www.global.vc/",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.global.vc/",
+        "https://www.global.vc/founders"
+      ]
     },
     {
       "id": "cotu",
@@ -273,135 +442,310 @@
         "Pre-seed",
         "Seed"
       ],
+      "stage_scope": "COTU aims to be the first institutional cheque, investing as early as pre-seed, mostly at seed, sometimes at late seed, and rarely entering at Series A.",
+      "ticket_usd_min": 150000,
+      "ticket_usd_max": 2000000,
+      "ticket_scope": "Initial cheque; additional capital is reserved for follow-ons.",
       "sectors": [
-        "MENA tech"
+        "sector-agnostic technology"
       ],
       "geo": [
-        "MENA"
+        "GCC",
+        "Egypt",
+        "Lebanon",
+        "Jordan"
       ],
-      "notes": "Early-stage, founder-friendly."
+      "url": "https://www.cotu.vc/",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.cotu.vc/our-manifesto",
+        "https://www.cotu.vc/copy-of-our-purpose"
+      ]
     },
     {
       "id": "500_global_mena",
       "name": "500 Global MENA",
-      "stage_focus": [
-        "Pre-seed",
-        "Seed"
-      ],
+      "stage_scope": "The regional platform spans multiple dedicated funds and programmes. Its current overview describes team experience from pre-seed to pre-IPO, not one universal active-fund stage mandate.",
       "sectors": [
-        "fintech",
-        "saas",
-        "marketplace"
+        "technology",
+        "sector-diverse"
       ],
       "geo": [
         "MENA"
       ],
-      "url": "https://500.co"
+      "url": "https://500.co/mena",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://500.co/mena",
+        "https://500.co/strategy"
+      ]
     },
     {
       "id": "mubadala_capital",
-      "name": "Mubadala Capital",
-      "stage_focus": [
-        "Series B+"
-      ],
-      "ticket_aed_min": 50000000,
+      "name": "Mubadala Capital Ventures",
+      "stage_scope": "The Ventures platform backs early- and growth-stage companies; no universal round boundary or ticket is published on the current overview.",
       "sectors": [
-        "growth equity",
-        "tech",
-        "infrastructure"
+        "technology",
+        "healthcare",
+        "AI",
+        "next-generation compute",
+        "biotechnology",
+        "digital health"
       ],
       "geo": [
         "Global"
       ],
-      "url": "https://www.mubadalacapital.ae"
+      "url": "https://www.mubadalacapital.ae/ventures",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.mubadalacapital.ae/ventures"
+      ]
     },
     {
       "id": "venturesouq",
       "name": "VentureSouq",
-      "stage_focus": [
-        "Pre-seed",
-        "Seed"
-      ],
+      "stage_scope": "Stage is fund-specific and is not stated on the current manager overview; the Global Seed Fund is marked deployed.",
       "sectors": [
         "fintech",
-        "saas",
-        "consumer"
+        "climatetech"
       ],
       "geo": [
-        "MENA"
+        "Global"
       ],
-      "url": "https://venturesouq.com"
+      "manager_location_note": "MENA-based manager with a global portfolio.",
+      "url": "https://www.venturesouq.com/",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.venturesouq.com/",
+        "https://www.venturesouq.com/contact"
+      ]
     },
     {
       "id": "nuwa_capital",
       "name": "Nuwa Capital",
-      "stage_focus": [
-        "Seed",
-        "Series A"
+      "stage_scope": "The current portfolio groups companies as Early and Growth but the current site does not publish a precise firm-wide round or ticket mandate.",
+      "sectors": [
+        "sector-diverse technology"
       ],
       "geo": [
         "MENA"
       ],
-      "url": "https://nuwacapital.com"
+      "offices": [
+        "Dubai",
+        "Riyadh",
+        "Cairo"
+      ],
+      "url": "https://www.nuwacapital.io/",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.nuwacapital.io/who-we-are",
+        "https://www.nuwacapital.io/portfolio"
+      ]
     },
     {
       "id": "raed_ventures",
       "name": "RAED Ventures",
-      "stage_focus": [
-        "Seed",
-        "Series A"
+      "stage_scope": "The current application page says early-stage companies; exact round bounds and a universal ticket are not published.",
+      "sectors": [
+        "fintech",
+        "ecommerce",
+        "logistics",
+        "edtech",
+        "digital health",
+        "enterprise",
+        "entertainment",
+        "retailtech",
+        "AI and machine learning",
+        "saas",
+        "marketplaces"
       ],
       "geo": [
         "MENA"
       ],
-      "url": "https://www.raed.vc"
+      "url": "https://raed.vc/",
+      "application_url": "https://raed.vc/apply/",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://raed.vc/apply/",
+        "https://raed.vc/about/"
+      ]
     }
   ],
   "vcs_excluded_with_reason": [
     {
       "name": "Cypress Growth Capital",
-      "reason": "Dallas-based royalty firm focused on US Southwest software. NOT a MENA VC. Frequently misattributed."
+      "reason": "Its current investment criteria require a US-headquartered B2B software or technology-enabled services company. Its royalty-based growth capital is not a MENA-focused VC mandate.",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.cypressgrowthcapital.com/growth-capital/investment-focus",
+        "https://www.cypressgrowthcapital.com/growth-capital/non-dilutive-growth-capital"
+      ]
     },
     {
       "name": "Techstars Dubai",
-      "reason": "Status uncertain post-2024 Techstars rationalization. Verify before quoting."
+      "reason": "No Dubai accelerator appears in Techstars' current official accelerator or location directory. A separate Emirates NBD AI and fintech Acceleration-to-Enterprise partnership was announced on 2026-07-07, but no public open Dubai cohort with standard accelerator terms was verified.",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.techstars.com/accelerators",
+        "https://www.techstars.com/locations",
+        "https://www.techstars.com/newsroom/techstars-partners-with-emirates-nbd-to-accelerate-enterprise-grade-ai-and-fintech-solutions-across-menat"
+      ]
     }
   ],
   "grants": [
     {
       "id": "mbrif",
       "name": "Mohammed Bin Rashid Innovation Fund (MBRIF)",
-      "type": "guarantee_loan",
-      "amount_aed_max": 2000000,
-      "amount_notes": "Up to AED 2,000,000 in interest-free loans (per third-party sources, brief originally cited AED 5,000,000 which is unverified). Verify directly with MBRIF.",
-      "eligibility": "UAE-based innovative SMEs",
-      "url": "https://www.mbrif.ae",
-      "warning": "AED 5M figure from the brief is unverified."
+      "type": "accelerator_support_and_credit_guarantee",
+      "programs": {
+        "innovation_accelerator": {
+          "support_type": "non_financial_accelerator",
+          "duration_months": 9,
+          "direct_funding": false,
+          "participation_fee": false,
+          "takes_equity": false,
+          "eligibility_summary": "Market-stage or later innovators with a UAE presence or an intention to establish one; programme selection criteria apply.",
+          "application_status": "The official site has a live Apply call to action but publishes no dated cohort deadline.",
+          "summary": "Members receive coaching, expertise, partner and investor connections; neither the Accelerator nor MBRIF provides members direct funding."
+        },
+        "guarantee_scheme": {
+          "support_type": "government_backed_credit_guarantee",
+          "direct_lender": false,
+          "operator": "Emirates Development Bank",
+          "takes_equity": false,
+          "summary": "A separate programme that facilitates bank finance through a government-backed credit guarantee. Accelerator membership does not guarantee support from the scheme."
+        }
+      },
+      "priority_sectors": [
+        "technology",
+        "education",
+        "water",
+        "transport",
+        "clean energy",
+        "health",
+        "space"
+      ],
+      "latest_cohort_snapshot": {
+        "cohort": 11,
+        "members": 21,
+        "announcement_date": "2026-01-22"
+      },
+      "url": "https://mbrif.ae/",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://mbrif.ae/faq-2/",
+        "https://mbrif.ae/program-selection-2/",
+        "https://mbrif.ae/accelerator-2/",
+        "https://mbrif.ae/mbrif-welcomes-11th-cohort-of-innovators-into-the-innovation-accelerator-program/"
+      ]
     },
     {
       "id": "dfdf",
       "name": "Dubai Future District Fund",
       "type": "venture_fund",
       "fund_size_aed": 1000000000,
-      "commitments_aed": 6055000000,
-      "portfolio_count": 190,
-      "portfolio_notes": "Backs early-stage and growth tech, plus fund-of-funds commitments to MENA VCs.",
-      "url": "https://www.dfdf.ae"
+      "fund_size_characterization": "Published fund size",
+      "fund_structure": "Evergreen fund-of-funds and direct-investment platform",
+      "investment_stages": "Early to growth",
+      "sectors": [
+        "proptech",
+        "healthtech",
+        "logistics tech",
+        "deeptech",
+        "circular economy",
+        "Web3"
+      ],
+      "latest_dated_report_snapshot": {
+        "report_period": "2025",
+        "publication_date": "2026-07-20",
+        "total_investments": 30,
+        "venture_capital_funds": 11,
+        "direct_startup_investments": 19,
+        "new_commitments_during_2025": 8
+      },
+      "current_portfolio_listing_snapshot": {
+        "verified_as_of": "2026-08-14",
+        "listed_entities": 36,
+        "direct_investments": 20,
+        "fund_of_funds": 16,
+        "method": "Derived count of entries on the official current portfolio listing.",
+        "reconciliation_note": "The live listing is newer and uses a different snapshot than the 2025 annual-report headline; the two totals are intentionally not merged."
+      },
+      "url": "https://dfdf.vc/",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://dfdf.vc/about/",
+        "https://dfdf.vc/companies/",
+        "https://dfdf.vc/press-releases/dubai-future-district-fund-unveils-annual-report-begins-to-unlock-d33-verticals-with-proptech-milestones-and-sets-strategic-vision-for-2026-2/"
+      ]
     },
     {
       "id": "dubai_sme",
-      "name": "Dubai SME (Mohammed Bin Rashid Establishment for SME Development)",
-      "type": "support_programs",
-      "url": "https://www.sme.ae",
-      "notes": "Programs for Emirati-owned SMEs. Includes Hamdan Innovation Incubator and various sector-specific tracks."
+      "name": "Dubai SME / Dubai Founders HQ",
+      "type": "support_programs_and_loan_route",
+      "operator": "Dubai Department of Economy and Tourism",
+      "url": "https://dubaifoundershq.com/en",
+      "programs": {
+        "hi2_tech_incubator": {
+          "support_type": "incubator",
+          "direct_funding": false,
+          "is_free_if_accepted": true,
+          "duration_weeks": 16,
+          "cohort_size": 20,
+          "delivery": "Hybrid",
+          "application_deadline": "2026-08-31",
+          "application_deadline_status": "open",
+          "status_as_of": "2026-08-14",
+          "programme_starts": "2026-10",
+          "demo_day": "2027-02",
+          "eligibility_summary": "UAE resident aged 18 or older; at least one Emirati co-founder or team member; a technology idea or MVP less than two years old; full programme commitment required."
+        },
+        "mohammed_bin_rashid_fund_for_smes": {
+          "support_type": "business_loan_route",
+          "is_grant": false,
+          "eligibility_summary": "The current registration route states 100% UAE-national ownership and management, a project under five years old, applicant age 21 or older, and credit-scheme conditions."
+        }
+      },
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.dubaifoundershq.com/en/launch-your-business/incubators-in-dubai/hamdan-innovation-incubator/hi2-incubator-programme",
+        "https://dubaifoundershq.com/en/about",
+        "https://www.dubaidet.gov.ae/en/newsroom/press-releases/hamdan-innovation-incubator-hi2",
+        "https://dubaifoundershq.com/en/fund-your-business/the-fund",
+        "https://thefund.ae/auth/register"
+      ]
     },
     {
       "id": "khalifa_fund",
       "name": "Khalifa Fund for Enterprise Development",
-      "type": "loan_grant",
-      "location": "Abu Dhabi",
-      "url": "https://www.khalifafund.ae",
-      "notes": "Abu Dhabi-based but some programs UAE-wide for Emirati entrepreneurs."
+      "type": "interest_free_business_loans_and_nonfinancial_support",
+      "location": "Abu Dhabi emirate",
+      "funding_type": "Medium-term interest-free business loans",
+      "funding_eligibility_summary": "Emirati entrepreneurs aged 21 to 60 with an operational business in Abu Dhabi emirate; product-specific criteria and final approval apply.",
+      "priority_sectors": [
+        "healthcare",
+        "education",
+        "agriculture",
+        "ICT",
+        "tourism",
+        "manufacturing",
+        "innovative projects"
+      ],
+      "funding_products_snapshot": {
+        "as_of": "2026-08-14",
+        "microfinance_loan_aed_max": 500000,
+        "small_loan_manufacturing_aed_max": 2000000,
+        "small_loan_other_sectors_aed_max": 1000000,
+        "expansion_loan_manufacturing_aed_max": 3000000,
+        "expansion_loan_other_sectors_aed_max": 2000000,
+        "note": "Agriculture and scale-up facilities are also listed. Limits, cost-coverage ratios, repayment periods, and eligibility vary by product."
+      },
+      "url": "https://www.khalifafund.ae/services/funding-scheme/",
+      "verified_as_of": "2026-08-14",
+      "source_urls": [
+        "https://www.khalifafund.ae/services/funding-scheme/",
+        "https://www.khalifafund.ae/faq/"
+      ]
     }
   ]
 }

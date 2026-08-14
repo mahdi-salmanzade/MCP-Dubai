@@ -7,7 +7,7 @@ same datasets as `dld_*-open-api` over the standard OAuth2
 client_credentials flow.
 
 Tier: 1 (Dubai Pulse OAuth required)
-Source: https://api.dubaipulse.gov.ae (legacy host, still resolves)
+Source: https://apis.data.dubai
 Brief section: 5.1 (real estate, DLD, Ejari, Trakheesi)
 
 Migration note (verified 2026-07-02): the Dubai Pulse portal
@@ -28,5 +28,5 @@ FEATURE_META: dict[str, object] = {
     ),
     "tier": 1,
     "requires_auth": True,
-    "source_url": "https://api.dubaipulse.gov.ae",
+    "source_url": "https://apis.data.dubai",
 }

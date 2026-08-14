@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from mcp_dubai._shared.http_client import HttpClient
+from mcp_dubai._shared.http_client import HttpClient, HttpClientError
 from mcp_dubai.data.open_meteo import constants
 
 
@@ -43,6 +43,21 @@ class OpenMeteoClient:
         async with HttpClient() as client:
             response = await client.get(constants.FORECAST_ENDPOINT, params=params)
         if response.status_code == 204 or not response.content:
-            return {}
-        payload = response.json()
-        return dict(payload) if isinstance(payload, dict) else {}
+            raise HttpClientError(f"Empty response from {constants.FORECAST_ENDPOINT}")
+        try:
+            payload = response.json()
+        except ValueError as exc:
+            raise HttpClientError(f"Non-JSON body from {constants.FORECAST_ENDPOINT}") from exc
+        if not isinstance(payload, dict):
+            raise HttpClientError(
+                f"Invalid JSON shape from {constants.FORECAST_ENDPOINT}: expected an object"
+            )
+        if include_current and not isinstance(payload.get("current"), dict):
+            raise HttpClientError(
+                f"Invalid JSON shape from {constants.FORECAST_ENDPOINT}: current is missing"
+            )
+        if include_daily and not isinstance(payload.get("daily"), dict):
+            raise HttpClientError(
+                f"Invalid JSON shape from {constants.FORECAST_ENDPOINT}: daily is missing"
+            )
+        return dict(payload)

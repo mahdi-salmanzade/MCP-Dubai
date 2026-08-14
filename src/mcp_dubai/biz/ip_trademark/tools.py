@@ -26,28 +26,31 @@ async def trademark_registration(
     Return UAE trademark registration steps, fees, and timeline.
 
     Args:
-        is_sme: True if the applicant qualifies for the 50% SME discount
-            under Cabinet Resolution 102 of 2025.
+        is_sme: True only if the applicant is a member of the UAE National
+            Programme for SMEs and qualifies for its 50% fee reduction under
+            Cabinet Resolution 102 of 2025.
         expedited: True for the AED 2,250 one-day expedited examination.
     """
     trademark = _block("trademark")
     registration = trademark.get("registration", {})
     cr_102 = trademark.get("cabinet_resolution_102_2025", {})
 
-    fee_min = int(registration.get("fee_range_aed_min", 6700))
-    fee_max = int(registration.get("fee_range_aed_max", 12000))
+    fee_min = int(registration.get("fee_range_aed_min", 6500))
+    fee_max = int(registration.get("fee_range_aed_max", 6500))
 
-    expedited_fee = 0
+    expedited_surcharge = 0
     if expedited:
         cr_fees = cr_102.get("key_fees_aed", {}) if isinstance(cr_102, dict) else {}
-        expedited_fee = int(cr_fees.get("expedited_one_day_examination", 2250))
+        regular_examination = int(cr_fees.get("regular_examination", 750))
+        expedited_examination = int(cr_fees.get("expedited_one_day_examination", 2250))
+        expedited_surcharge = expedited_examination - regular_examination
 
     discount_pct = 0
     if is_sme and isinstance(cr_102, dict):
         discount_pct = int(cr_102.get("sme_discount_pct", 50))
 
-    final_min = fee_min + expedited_fee
-    final_max = fee_max + expedited_fee
+    final_min = fee_min + expedited_surcharge
+    final_max = fee_max + expedited_surcharge
     if discount_pct > 0:
         final_min = int(final_min * (100 - discount_pct) / 100)
         final_max = int(final_max * (100 - discount_pct) / 100)
@@ -59,14 +62,25 @@ async def trademark_registration(
                 "authority": _block("authority"),
                 "search": trademark.get("search"),
                 "process_steps": registration.get("process_steps", []),
-                "timeline_months_min": registration.get("timeline_months_min"),
-                "timeline_months_max": registration.get("timeline_months_max"),
+                "government_fee_breakdown_aed": registration.get(
+                    "government_fee_breakdown_aed", {}
+                ),
+                "examination_service_target_working_days": registration.get(
+                    "examination_service_target_working_days"
+                ),
+                "opposition_period_days": registration.get("opposition_period_days"),
+                "certificate_issuance_within_days_after_opposition_period": registration.get(
+                    "certificate_issuance_within_days_after_opposition_period"
+                ),
+                "timeline_note": registration.get("timeline_note"),
                 "estimated_total_aed": {"min": final_min, "max": final_max},
                 "expedited_examination": expedited,
+                "expedited_examination_surcharge_aed": expedited_surcharge,
                 "is_sme": is_sme,
                 "sme_discount_applied_pct": discount_pct if discount_pct else 0,
                 "cabinet_resolution_102_2025": cr_102,
                 "wipo_madrid": trademark.get("wipo_madrid"),
+                "source_urls": registration.get("source_urls", []),
             },
             knowledge=KNOWLEDGE,
         )

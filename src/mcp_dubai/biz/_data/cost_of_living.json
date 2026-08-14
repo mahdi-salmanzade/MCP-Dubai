@@ -1,6 +1,7 @@
 {
   "domain": "cost_of_living",
-  "knowledge_date": "2026-07-02",
+  "knowledge_date": "2026-08-14",
+  "full_review_date": "2026-07-02",
   "volatility": "high",
   "verify_at": "https://dubailand.gov.ae",
   "currency": "AED",
@@ -176,25 +177,25 @@
     "update_frequency": "monthly",
     "unit": "aed_per_litre",
     "mechanism": "The UAE Fuel Price Committee announces retail fuel prices monthly (typically on the last day of the month), effective the 1st of the following month.",
-    "july_2026_snapshot": {
+    "august_2026_snapshot": {
+      "effective_from": "2026-08-01",
+      "super_98": 3.6,
+      "special_95": 3.49,
+      "e_plus_91": 3.41,
+      "diesel": 3.8
+    },
+    "july_2026_reference": {
       "effective_from": "2026-07-01",
       "super_98": 3.4,
       "special_95": 3.29,
       "e_plus_91": 3.21,
       "diesel": 3.6
     },
-    "june_2026_reference": {
-      "effective_from": "2026-06-01",
-      "super_98": 3.95,
-      "special_95": 3.83,
-      "e_plus_91": 3.76,
-      "diesel": 4.33
-    },
-    "trend_note": "July 2026 brought a sharp drop (petrol down up to AED 0.55/L and diesel down AED 0.73/L month on month) after four consecutive monthly rises across H1 2026 driven by the February-June 2026 Strait of Hormuz disruption. Treat any cached snapshot as stale after the 1st of the month.",
+    "trend_note": "August 2026 prices increased by AED 0.20 per litre across Super 98, Special 95, E-Plus 91, and diesel compared with July. Treat any cached snapshot as stale after the first day of a new month.",
     "verify_at": "https://u.ae/en/information-and-services/environment-and-energy/water-and-energy/energy-and-fuel-prices",
     "source_urls": [
       "https://u.ae/en/information-and-services/environment-and-energy/water-and-energy/energy-and-fuel-prices",
-      "https://www.khaleejtimes.com/business/energy/uae-petrol-diesel-prices-july-2026-announced"
+      "https://www.thenationalnews.com/business/energy/2026/07/31/uae-petrol-prices-to-rise-in-august-amid-wild-oil-market-swings/"
     ]
   },
   "schooling": {
@@ -243,5 +244,7 @@
       "https://www.pacificprime.com/blog/dubai-insurance-uae-medical-insurance-prices.html",
       "https://insurancehub.ae/blog/health-insurance-cost-uae-2026-by-age-emirate"
     ]
-  }
+  },
+  "previous_knowledge_date": "2026-07-02",
+  "last_refresh_scope": "Targeted correctness audit of 2026-08-14: refreshed the monthly fuel-price snapshot and prior-month comparison. Not a full re-verification of every field in this pack."
 }

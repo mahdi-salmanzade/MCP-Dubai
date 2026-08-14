@@ -9,7 +9,7 @@ returns. It carries:
 - `error`: a string OR a structured dict (used by Pattern 2 for missing
   Dubai Pulse credentials).
 - `knowledge`: optional KnowledgeMetadata for biz/* tools, so the LLM can
-  see when the underlying knowledge was last verified.
+  see the latest recorded update and whether it covered the whole domain.
 """
 
 from __future__ import annotations
@@ -49,7 +49,28 @@ class KnowledgeMetadata(BaseModel):
 
     knowledge_date: str = Field(
         default=KNOWLEDGE_DATE,
-        description="Date this knowledge was last verified, in YYYY-MM-DD format.",
+        description=(
+            "Latest recorded update date in YYYY-MM-DD format. A targeted update may cover "
+            "only the fields named by last_refresh_scope."
+        ),
+    )
+    full_review_date: str | None = Field(
+        default=None,
+        description=(
+            "Date in YYYY-MM-DD format when the entire domain was last reviewed. "
+            "Unlike knowledge_date, a targeted update does not advance this date."
+        ),
+    )
+    previous_knowledge_date: str | None = Field(
+        default=None,
+        description="Prior top-level knowledge date when the latest update was targeted.",
+    )
+    last_refresh_scope: str | None = Field(
+        default=None,
+        description=(
+            "Exact scope of the latest targeted update. None means no narrower scope is "
+            "declared by the knowledge source."
+        ),
     )
     volatility: str = Field(
         default="medium",
@@ -84,8 +105,10 @@ class ToolResponse(BaseModel, Generic[T]):
     "curated" for bundled knowledge packs, or a specific provider label).
     `retrieved_at` is an ISO-8601 UTC timestamp marking when the data was
     read. For live API calls this is the moment of the HTTP response; for
-    curated biz packs it is the domain's `knowledge_date` so every tool
-    exposes a uniform freshness field regardless of type.
+    curated biz packs it can be the domain's latest recorded
+    `knowledge_date` so every tool exposes a uniform update field regardless
+    of type. Read `full_review_date` and `last_refresh_scope` before treating
+    the latest update as a full-domain verification.
     """
 
     model_config = ConfigDict(arbitrary_types_allowed=True)

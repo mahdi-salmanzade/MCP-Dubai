@@ -102,7 +102,7 @@ async def fuel_price_guide() -> dict[str, object]:
     """
     Monthly UAE fuel prices in AED per litre (Super 98, Special 95,
     E-Plus 91, diesel): the Fuel Price Committee mechanism, the latest
-    monthly snapshot, and the H1 2026 volatility trend.
+    August 2026 snapshot, and the July 2026 comparison.
     """
     return await tools.fuel_price_guide()
 

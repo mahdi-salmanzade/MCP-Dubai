@@ -11,7 +11,7 @@ from __future__ import annotations
 import json
 from functools import lru_cache
 from importlib.resources import files
-from typing import Any
+from typing import Any, cast
 
 from mcp_dubai._shared.schemas import KnowledgeMetadata
 
@@ -50,9 +50,7 @@ def load_data_file(filename: str) -> dict[str, Any]:
         raise DataLoadError(f"Invalid JSON in {filename}: {exc}") from exc
     if not isinstance(data, dict):
         raise DataLoadError(f"{filename} must be a JSON object at the top level")
-    copied = _deep_copy(data)
-    assert isinstance(copied, dict)  # for mypy: _deep_copy preserves the dict shape
-    return copied
+    return cast(dict[str, Any], _deep_copy(data))
 
 
 def extract_knowledge(data: dict[str, Any]) -> KnowledgeMetadata:
@@ -61,8 +59,14 @@ def extract_knowledge(data: dict[str, Any]) -> KnowledgeMetadata:
     curated JSON file. Defaults are filled in from the project-wide
     constants if a file omits any field.
     """
+    previous_date = data.get("previous_knowledge_date")
+    refresh_scope = data.get("last_refresh_scope")
+    full_review_date = data.get("full_review_date")
     return KnowledgeMetadata(
         knowledge_date=str(data.get("knowledge_date", "")),
+        full_review_date=str(full_review_date) if full_review_date else None,
+        previous_knowledge_date=str(previous_date) if previous_date else None,
+        last_refresh_scope=str(refresh_scope) if refresh_scope else None,
         volatility=str(data.get("volatility", "medium")),
         verify_at=str(data.get("verify_at", "")),
         disclaimer=str(

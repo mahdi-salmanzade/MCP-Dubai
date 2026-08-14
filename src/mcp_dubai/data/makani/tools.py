@@ -9,7 +9,7 @@ import httpx
 from mcp_dubai._shared.errors import now_iso, upstream_error_response
 from mcp_dubai._shared.health import mark_failure as mark_upstream_failure
 from mcp_dubai._shared.health import mark_success as mark_upstream_success
-from mcp_dubai._shared.http_client import HttpClientError, RateLimitError
+from mcp_dubai._shared.http_client import HttpClientError
 from mcp_dubai._shared.schemas import ToolResponse
 from mcp_dubai.data.makani.client import MakaniClient
 
@@ -102,8 +102,6 @@ async def makani_reverse_geocode(latitude: float, longitude: float) -> dict[str,
     client = MakaniClient()
     try:
         payload = await client.get_makani_info_from_coord(latitude, longitude)
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_upstream_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
@@ -166,8 +164,6 @@ async def makani_details(makani_number: str) -> dict[str, object]:
     client = MakaniClient()
     try:
         payload = await client.get_makani_details(formatted)
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_upstream_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
@@ -221,8 +217,6 @@ async def makani_validate(makani_number: str) -> dict[str, object]:
     client = MakaniClient()
     try:
         payload = await client.is_valid_makani(formatted)
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_upstream_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)

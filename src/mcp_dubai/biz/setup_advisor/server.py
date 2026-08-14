@@ -28,18 +28,19 @@ async def setup_advisor(
 
     Cross-references curated free zones, visas, banks, and tax rules
     (the headline biz/* feature). Returns a ToolResponse envelope with a
-    structured recommendation: jurisdiction (mainland, free zone, or
-    offshore), candidate free zones, reasoning, warnings, estimated cost
-    range, timeline, and next steps. Always returns a `knowledge` block
-    with date, volatility, verify_at, and disclaimer.
+    structured recommendation: jurisdiction (mainland, an eligible free
+    zone with the applicable DET licence or permit, or offshore), candidate
+    free zones, reasoning, warnings, estimated cost range, timeline, and
+    next steps. Always returns a `knowledge` block with its latest recorded
+    date, any targeted scope, volatility, verify_at, and disclaimer.
 
     Args:
         activity: Business activity description (e.g., "SaaS", "consulting",
             "trading", "ecommerce").
         budget_aed: Total first-year budget in AED for setup, license,
             visas, and bank account.
-        needs_local_trade: True if the business needs to invoice mainland
-            UAE consumers (B2C) directly without a local distributor.
+        needs_local_trade: True if the business expects to conduct
+            customer-facing or other licensed activity onshore in Dubai.
         needs_visa: True if the founder needs a UAE residence visa from
             this license.
         visa_count: How many visas the company needs in total.
@@ -52,7 +53,8 @@ async def setup_advisor(
         ToolResponse envelope. On success, `data` carries `jurisdiction`,
         `candidate_free_zones`, `reasoning`, `warnings`,
         `estimated_setup_cost_aed`, `estimated_timeline_weeks`, and
-        `next_steps`.
+        `next_steps`. Local-trade requests also carry `local_trade_route`
+        with DET conditions, fees, and the official legislation source.
     """
     return await tools.setup_advisor(
         activity=activity,

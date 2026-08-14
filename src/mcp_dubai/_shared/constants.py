@@ -2,8 +2,9 @@
 Global constants for MCP-Dubai.
 
 All base URLs are env-overridable so the Dubai Pulse to data.dubai migration
-can be handled without code changes. The KNOWLEDGE_DATE constant is the
-project-wide freshness stamp surfaced through `get_knowledge_status()`.
+can be handled without code changes. The KNOWLEDGE_DATE constant records the
+latest targeted knowledge update; it is not a claim that every pack was
+reviewed on that date.
 """
 
 from __future__ import annotations
@@ -28,8 +29,9 @@ PACKAGE_VERSION: str = _read_package_version()
 # ----------------------------------------------------------------------------
 # Project freshness
 # ----------------------------------------------------------------------------
-# Bumped when the curated business knowledge files are re-verified.
-KNOWLEDGE_DATE: str = "2026-07-02"
+# Bumped when at least one curated knowledge source is materially re-verified.
+# Consumers must inspect per-domain dates through get_knowledge_status().
+KNOWLEDGE_DATE: str = "2026-08-14"
 
 
 # ----------------------------------------------------------------------------
@@ -37,7 +39,7 @@ KNOWLEDGE_DATE: str = "2026-07-02"
 # ----------------------------------------------------------------------------
 DUBAI_PULSE_API_BASE: str = os.getenv(
     "MCP_DUBAI_PULSE_API_BASE",
-    "https://api.dubaipulse.gov.ae",
+    "https://apis.data.dubai",
 )
 DUBAI_PULSE_TOKEN_URL: str = f"{DUBAI_PULSE_API_BASE}/oauth/client_credential/accesstoken"
 # Token TTL is documented as 30 minutes by Dubai Pulse.
@@ -46,12 +48,14 @@ DUBAI_PULSE_TOKEN_TTL_SECONDS: int = 1800
 DUBAI_PULSE_TOKEN_REFRESH_BUFFER_SECONDS: int = 60
 
 # ----------------------------------------------------------------------------
-# Dubai data portal (web/HTML, used for documentation links only)
+# Dubai data portal (web/HTML and anonymous metadata catalog)
 # ----------------------------------------------------------------------------
 DUBAI_DATA_PORTAL_BASE: str = os.getenv(
     "MCP_DUBAI_DATA_PORTAL_BASE",
     "https://data.dubai",
 )
+# Credential-free Liferay Objects catalog API exposed by the portal.
+DATA_DUBAI_CATALOG_BASE: str = f"{DUBAI_DATA_PORTAL_BASE.rstrip('/')}/o/c"
 
 # ----------------------------------------------------------------------------
 # Timezone
@@ -83,7 +87,7 @@ AVIATION_WEATHER_BASE: str = "https://aviationweather.gov/api/data"
 OVERPASS_BASE: str = "https://overpass-api.de/api/interpreter"
 # RTA GTFS static feed: the old transit.land mirror started returning 401 in
 # 2026 (Transitland now requires an API token). The Dubai Pulse direct
-# download below still serves anonymously (verified 2026-07-02): a ~10 MB
+# download below still serves anonymously (rechecked 2026-08-14): a ~10 MB
 # 7-zip archive (not a plain zip) containing the GTFS text files.
 RTA_GTFS_DOWNLOAD_URL: str = (
     "https://www.dubaipulse.gov.ae/dataset/73765e8f-e8c4-443c-9687-288072ed9d12/"
@@ -92,7 +96,7 @@ RTA_GTFS_DOWNLOAD_URL: str = (
 # Open-Meteo: keyless human-friendly weather and forecast (no token, no signup).
 OPEN_METEO_BASE: str = "https://api.open-meteo.com/v1"
 # Dubai Financial Market: anonymous JSON market-data endpoints behind the
-# dfm.ae website (undocumented, best-effort). Verified 2026-07-02.
+# dfm.ae website (undocumented, best-effort). Rechecked 2026-08-14.
 DFM_API_BASE: str = "https://api2.dfm.ae"
 # Makani (Dubai Municipality geo-addressing): anonymous public SOAP service.
 # Attribution to Dubai Municipality is required by the service licence.
@@ -100,10 +104,6 @@ MAKANI_SOAP_ENDPOINT: str = "https://www.makani.ae/MakaniPublicDataService/Makan
 # Dubai City of Gold (Dubai Jewellery Group): retail gold rates page,
 # server-rendered HTML, updated three times daily (09:00, 13:30, 18:00 UAE).
 GOLD_RATE_PAGE: str = "https://dubaicityofgold.com/"
-# data.dubai catalog: credential-free Liferay Objects JSON API on the portal
-# that replaced Dubai Pulse (metadata only; dataset APIs need credentials).
-DATA_DUBAI_CATALOG_BASE: str = "https://data.dubai/o/c"
-
 # ----------------------------------------------------------------------------
 # Free-key third parties (require a free signup)
 # ----------------------------------------------------------------------------
@@ -117,7 +117,7 @@ UAE_ICAO_CODES: tuple[str, ...] = (
     "OMDB",  # Dubai International
     "OMDW",  # Al Maktoum International
     "OMSJ",  # Sharjah International
-    "OMAA",  # Abu Dhabi International
+    "OMAA",  # Zayed International Airport
     "OMAL",  # Al Ain International
     "OMRK",  # Ras Al Khaimah International
 )

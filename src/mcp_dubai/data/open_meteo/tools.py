@@ -8,7 +8,7 @@ import httpx
 
 from mcp_dubai._shared.errors import now_iso, upstream_error_response
 from mcp_dubai._shared.health import mark_failure, mark_success
-from mcp_dubai._shared.http_client import HttpClientError, RateLimitError
+from mcp_dubai._shared.http_client import HttpClientError
 from mcp_dubai._shared.schemas import ToolResponse
 from mcp_dubai.data.open_meteo import constants
 from mcp_dubai.data.open_meteo.client import OpenMeteoClient
@@ -141,8 +141,6 @@ async def uae_weather(city: str = "Dubai") -> dict[str, object]:
         payload = await client.forecast(
             latitude, longitude, include_current=True, include_daily=True, forecast_days=1
         )
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
@@ -187,8 +185,6 @@ async def uae_weather_forecast(city: str = "Dubai", days: int = 7) -> dict[str, 
         payload = await client.forecast(
             latitude, longitude, include_current=False, include_daily=True, forecast_days=horizon
         )
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
@@ -233,8 +229,6 @@ async def weather_by_coords(
         payload = await client.forecast(
             latitude, longitude, include_current=True, include_daily=True, forecast_days=horizon
         )
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)

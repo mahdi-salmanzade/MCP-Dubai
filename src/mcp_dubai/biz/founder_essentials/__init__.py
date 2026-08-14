@@ -11,7 +11,7 @@ FEATURE_META: dict[str, object] = {
     "name": "founder_essentials",
     "description": (
         "Document attestation, PRO services, legal translation, Chamber of "
-        "Commerce membership, realistic timelines, and the 11 most common "
+        "Commerce membership, realistic timelines, and 10 common "
         "founder mistakes that break Dubai setups."
     ),
     "tier": 2,

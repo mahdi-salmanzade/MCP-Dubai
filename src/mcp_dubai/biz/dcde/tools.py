@@ -63,8 +63,9 @@ async def chamber_membership() -> dict[str, object]:
     """
     Return Dubai chamber membership rules.
 
-    DCDE has no standalone membership scheme. Dubai Chamber of Commerce
-    membership is mandatory for mainland commercial license holders.
+    DCDE has no standalone membership scheme. Separate Dubai Chamber of
+    Commerce membership depends on the licensed activity and statutory
+    exemptions; free zone establishments may join with authority approval.
     """
     return (
         ToolResponse[dict[str, object]]

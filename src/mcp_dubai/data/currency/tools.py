@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from typing import Any
 
 import httpx
@@ -9,7 +10,7 @@ import httpx
 from mcp_dubai._shared.errors import now_iso, upstream_error_response
 from mcp_dubai._shared.health import mark_failure as mark_upstream_failure
 from mcp_dubai._shared.health import mark_success as mark_upstream_success
-from mcp_dubai._shared.http_client import HttpClientError, RateLimitError
+from mcp_dubai._shared.http_client import HttpClientError
 from mcp_dubai._shared.schemas import ToolResponse
 from mcp_dubai.data.currency.client import CurrencyClient
 
@@ -58,8 +59,6 @@ async def currency_rates(base: str = "AED") -> dict[str, object]:
     client = CurrencyClient()
     try:
         payload = await client.latest(code)
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_upstream_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
@@ -98,8 +97,8 @@ async def currency_convert(
         Dict with `amount`, `from`, `to`, `rate`, and `converted_amount`
         (rounded to 2 decimal places).
     """
-    if amount < 0:
-        return _fail(f"amount must be >= 0, got {amount}")
+    if not math.isfinite(amount) or amount < 0:
+        return _fail(f"amount must be finite and >= 0, got {amount}")
 
     src = from_currency.strip().upper()
     dst = to_currency.strip().upper()
@@ -107,8 +106,6 @@ async def currency_convert(
     client = CurrencyClient()
     try:
         payload = await client.latest(src)
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_upstream_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)

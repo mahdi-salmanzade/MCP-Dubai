@@ -129,6 +129,24 @@ class TestOsmSearchPoi:
         assert isinstance(data, dict)
         assert data["count"] == 1
 
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_malformed_elements_return_structured_error(self) -> None:
+        respx.post(constants.OVERPASS_ENDPOINT).mock(
+            return_value=Response(200, json={"elements": "not-a-list"})
+        )
+
+        result = await tools.osm_search_poi(
+            latitude=25.0,
+            longitude=55.0,
+            category="restaurant",
+        )
+
+        assert result["success"] is False
+        error = result["error"]
+        assert isinstance(error, dict)
+        assert error["status"] == "upstream_error"
+
 
 class TestOsmListCategories:
     @pytest.mark.asyncio

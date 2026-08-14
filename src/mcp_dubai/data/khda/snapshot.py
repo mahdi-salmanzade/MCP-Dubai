@@ -8,13 +8,18 @@ URL below (contributions welcome).
 Each rating uses KHDA's published categories:
 "Outstanding" > "Very Good" > "Good" > "Acceptable" > "Weak" > "Very Weak"
 
-Knowledge date: 2026-04-14.
+Full snapshot date: 2026-04-14.
+Targeted correction: 2026-08-14 (removed a non-Dubai school and corrected
+Delhi Private School Dubai's area). This was not a full ratings/fees refresh.
 Source: https://web.khda.gov.ae/en/Resources/KHDA-data-statistics
 """
 
 from __future__ import annotations
 
 from typing import Final, TypedDict
+
+SNAPSHOT_DATE: Final[str] = "2026-04-14"
+TARGETED_CORRECTION_DATE: Final[str] = "2026-08-14"
 
 
 class School(TypedDict):
@@ -130,16 +135,6 @@ SCHOOLS: Final[list[School]] = [
         "website": "https://www.rafflesis.com",
     },
     {
-        "name": "Sharjah English School",
-        "area": "Sharjah",
-        "curriculum": "British",
-        "rating": "Good",
-        "fees_min_aed": 27000,
-        "fees_max_aed": 55000,
-        "grades": "FS1 to Year 13",
-        "website": "https://www.sesmail.com",
-    },
-    {
         "name": "Al Salam Private School",
         "area": "Al Mizhar",
         "curriculum": "American",
@@ -161,7 +156,7 @@ SCHOOLS: Final[list[School]] = [
     },
     {
         "name": "Delhi Private School Dubai",
-        "area": "Al Quoz",
+        "area": "Jabal Ali First",
         "curriculum": "Indian / CBSE",
         "rating": "Outstanding",
         "fees_min_aed": 9000,

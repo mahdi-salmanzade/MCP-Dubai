@@ -36,10 +36,11 @@ class DfmClient:
 
     async def stocks(self) -> list[dict[str, Any]]:
         """
-        Fetch every listed security (~450 records, ~47 fields each).
+        Fetch every listed security (475 records as of 2026-08-14).
 
         The server ignores query parameters, so callers filter client-side.
-        The ticker symbol lives in `id`; `name` is null upstream today.
+        The ticker symbol lives in `id`; `name` was null for all records when
+        rechecked on 2026-08-14.
         """
         async with HttpClient() as client:
             response = await client.get(constants.STOCKS_URL)

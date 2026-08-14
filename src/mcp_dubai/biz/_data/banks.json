@@ -1,6 +1,7 @@
 {
   "domain": "banking",
-  "knowledge_date": "2026-07-02",
+  "knowledge_date": "2026-08-14",
+  "full_review_date": "2026-07-02",
   "volatility": "medium",
   "verify_at": "https://www.centralbank.ae",
   "source_brief_section": "6.5",
@@ -16,7 +17,6 @@
       "Single non-resident shareholder",
       "Crypto, forex, or other high-risk industry exposure",
       "No UAE address proof",
-      "Sole shareholder structure (banks prefer 2+)",
       "Activity code mismatched with intended business model"
     ],
     "documents_required": [
@@ -32,9 +32,13 @@
   },
   "dul": {
     "name": "Dubai Unified Licence",
-    "description": "Unifies the trade license, Chamber registration, and Establishment Card into one record. Shares data with banks via a government-sanctioned feed. Cuts bank account onboarding to approximately 5 days for compatible setups.",
-    "as_of": "2026-04",
-    "participating_banks": [
+    "description": "A unified digital identity issued to businesses in Dubai, including mainland and free zone companies. The official 12 November 2025 update reported that average business bank-account opening time had fallen from 65 days to 5 days and named seven banks already integrated with DUL.",
+    "as_of": "2025-11-12",
+    "coverage": "All businesses in Dubai, including mainland and free zone companies",
+    "average_onboarding_days": 5,
+    "previous_average_onboarding_days": 65,
+    "average_note": "The 5-day figure is a reported programme-wide average, not a service-level guarantee for an individual bank or applicant.",
+    "integrated_banks": [
       "Emirates NBD",
       "Emirates Islamic",
       "Mashreq",
@@ -43,22 +47,12 @@
       "Emirates Development Bank",
       "ruya"
     ],
-    "non_participating_banks": [
-      "Wio",
-      "Zand",
-      "HSBC",
-      "Standard Chartered",
-      "Citi",
-      "RAKBANK",
-      "ADCB",
-      "ADIB"
-    ],
-    "participating_free_zones": [
-      "DMCC",
-      "JAFZA",
-      "IFZA"
-    ],
-    "source_urls": []
+    "bank_list_note": "A bank absent from the 12 November 2025 announcement is not proven to be non-integrated; confirm current integration with DET or the bank.",
+    "source_urls": [
+      "https://www.mediaoffice.ae/en/news/2025/november/12-11/dubai-unified-licence",
+      "https://www.mediaoffice.ae/en/news/2023/December/11-12/Dubai-Department-of-Economy-and-Tourism-launches-Dubai-Unified-Licence",
+      "https://www.jafza.ae/resource-centre/guides/the-dubai-unified-license/"
+    ]
   },
   "open_finance": {
     "name": "Al Tareq",
@@ -166,7 +160,7 @@
       "free_zones_supported": "Most free zones, app-first",
       "tier": "digital",
       "tag": "founder_report",
-      "notes": "Best for solo founders with clean profiles. App-only, no physical branches. Not on the DUL fast-track participant list as of July 2026. Islamic banking platform in development (announced March 2026, subject to regulatory approval). June 2026 Geidea partnership distributes Wio Business accounts and SME financing to Geidea merchants. FY2025 revenue AED 1.24 billion; 120,000+ businesses report Wio as their main business banking partner."
+      "notes": "Best for solo founders with clean profiles. App-only, no physical branches. Islamic banking platform in development (announced March 2026, subject to regulatory approval). June 2026 Geidea partnership distributes Wio Business accounts and SME financing to Geidea merchants. FY2025 revenue AED 1.24 billion; 120,000+ businesses report Wio as their main business banking partner."
     },
     {
       "id": "mashreq_neobiz",
@@ -182,7 +176,7 @@
       "free_zones_supported": "Wide coverage; integrated with mainland setup",
       "tier": "digital",
       "tag": "founder_report",
-      "notes": "Digital arm of Mashreq. Often integrated with mainland setup flows. Mashreq parent is on the DUL participant list."
+      "notes": "Digital arm of Mashreq. Often integrated with mainland setup flows. Mashreq was named in the official 12 November 2025 DUL integration announcement."
     },
     {
       "id": "zand",
@@ -196,7 +190,7 @@
       "crypto_friendly": false,
       "tier": "digital",
       "tag": "founder_report",
-      "notes": "Newer digital bank. Smaller customer base, less coverage in founder forums. Not on DUL list."
+      "notes": "Newer digital bank. Smaller customer base, less coverage in founder forums."
     },
     {
       "id": "ruya",
@@ -210,7 +204,7 @@
       "crypto_friendly": false,
       "tier": "digital",
       "tag": "founder_report",
-      "notes": "Digital Islamic bank. On the DUL fast-track participant list."
+      "notes": "Digital Islamic bank. Named in the official 12 November 2025 DUL integration announcement."
     },
     {
       "id": "emirates_nbd",
@@ -224,7 +218,7 @@
       "crypto_friendly": false,
       "tier": "traditional",
       "tag": "founder_report",
-      "notes": "Largest UAE bank by branch network. Comfortable with most setups but slower onboarding than digital. On the DUL fast-track participant list."
+      "notes": "Largest UAE bank by branch network. Comfortable with most setups but slower onboarding than digital. Named in the official 12 November 2025 DUL integration announcement."
     },
     {
       "id": "rakbank",
@@ -238,7 +232,7 @@
       "crypto_friendly": false,
       "tier": "traditional",
       "tag": "founder_report",
-      "notes": "Most SME-friendly traditional bank by reputation. Not on DUL participant list."
+      "notes": "Most SME-friendly traditional bank by reputation."
     },
     {
       "id": "cbd",
@@ -252,7 +246,7 @@
       "crypto_friendly": false,
       "tier": "traditional",
       "tag": "founder_report",
-      "notes": "On the DUL fast-track participant list."
+      "notes": "Named in the official 12 November 2025 DUL integration announcement."
     },
     {
       "id": "adcb",
@@ -266,7 +260,7 @@
       "crypto_friendly": false,
       "tier": "traditional",
       "tag": "founder_report",
-      "notes": "Traditional. Not on DUL participant list."
+      "notes": "Traditional."
     },
     {
       "id": "fab",
@@ -280,7 +274,7 @@
       "crypto_friendly": false,
       "tier": "traditional",
       "tag": "founder_report",
-      "notes": "Largest UAE bank by assets. On the DUL fast-track participant list."
+      "notes": "Largest UAE bank by assets. Named in the official 12 November 2025 DUL integration announcement."
     },
     {
       "id": "adib",
@@ -293,7 +287,7 @@
       "crypto_friendly": false,
       "tier": "traditional",
       "tag": "founder_report",
-      "notes": "Traditional Islamic bank. Not on DUL participant list."
+      "notes": "Traditional Islamic bank."
     },
     {
       "id": "hsbc",
@@ -306,7 +300,7 @@
       "crypto_friendly": false,
       "tier": "international",
       "tag": "founder_report",
-      "notes": "International, slowest onboarding, highest minimums. Not on DUL list."
+      "notes": "International, slowest onboarding, highest minimums."
     },
     {
       "id": "standard_chartered",
@@ -319,7 +313,7 @@
       "crypto_friendly": false,
       "tier": "international",
       "tag": "founder_report",
-      "notes": "International, very strict KYC. SME tier unconfirmed (no public schedule). Not on DUL list."
+      "notes": "International, very strict KYC. SME tier unconfirmed (no public schedule)."
     },
     {
       "id": "citi",
@@ -332,7 +326,7 @@
       "crypto_friendly": false,
       "tier": "international",
       "tag": "founder_report",
-      "notes": "Effectively corporate-only. No real SME tier. Not on DUL list."
+      "notes": "Effectively corporate-only. No real SME tier."
     },
     {
       "id": "liv",
@@ -381,5 +375,7 @@
     {
       "name": "2Checkout"
     }
-  ]
+  ],
+  "previous_knowledge_date": "2026-07-02",
+  "last_refresh_scope": "Targeted correctness audit of 2026-08-14: removed the unsupported claim that banks generally prefer two or more shareholders; corrected DUL from a hard bank/free-zone eligibility list to the official Dubai-wide coverage and named-bank integration snapshot; and added primary DUL sources. Not a full re-verification of bank onboarding times, balances, or other fields in this pack."
 }

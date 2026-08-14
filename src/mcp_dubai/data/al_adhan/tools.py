@@ -12,12 +12,13 @@ cleanly to JSON for the MCP wire format.
 from __future__ import annotations
 
 from datetime import date
+from typing import cast
 
 import httpx
 
 from mcp_dubai._shared.errors import now_iso, upstream_error_response
 from mcp_dubai._shared.health import mark_failure, mark_success
-from mcp_dubai._shared.http_client import HttpClientError, RateLimitError
+from mcp_dubai._shared.http_client import HttpClientError
 from mcp_dubai._shared.schemas import ToolResponse
 from mcp_dubai.data.al_adhan import constants
 from mcp_dubai.data.al_adhan.client import AlAdhanClient
@@ -79,10 +80,7 @@ async def prayer_times_for(
         if latitude is not None and longitude is not None:
             result = await client.get_timings_by_coords(latitude, longitude, on_date)
         else:
-            assert city is not None  # narrowed above
-            result = await client.get_timings_by_city(city, country, on_date)
-    except RateLimitError:
-        raise
+            result = await client.get_timings_by_city(cast(str, city), country, on_date)
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
@@ -108,8 +106,6 @@ async def prayer_times_calendar(
     client = AlAdhanClient(method=method, school=school)
     try:
         days = await client.get_calendar_by_city(city, country, month, year)
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
@@ -128,8 +124,6 @@ async def qibla_direction(latitude: float, longitude: float) -> dict[str, object
     client = AlAdhanClient()
     try:
         result = await client.get_qibla(latitude, longitude)
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
@@ -149,8 +143,6 @@ async def hijri_to_gregorian(day: int, month: int, year: int) -> dict[str, objec
     hijri_str = f"{day:02d}-{month:02d}-{year:04d}"
     try:
         result = await client.hijri_to_gregorian(hijri_str)
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
@@ -170,8 +162,6 @@ async def gregorian_to_hijri(day: int, month: int, year: int) -> dict[str, objec
     gregorian_str = f"{day:02d}-{month:02d}-{year:04d}"
     try:
         result = await client.gregorian_to_hijri(gregorian_str)
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)

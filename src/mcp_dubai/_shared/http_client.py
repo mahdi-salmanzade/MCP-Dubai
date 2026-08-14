@@ -14,6 +14,7 @@ single place to tune backoff for the whole project.
 from __future__ import annotations
 
 import logging
+import re
 from types import TracebackType
 from typing import Any
 
@@ -32,6 +33,110 @@ from mcp_dubai._shared.constants import (
 )
 
 logger = logging.getLogger(__name__)
+
+_ERROR_EXCERPT_SCAN_LIMIT = 4096
+_ERROR_EXCERPT_OUTPUT_LIMIT = 200
+_SENSITIVE_NAME_RE = re.compile(r"[^a-z0-9]+")
+_SENSITIVE_NAMES = frozenset(
+    {
+        "accesstoken",
+        "apikey",
+        "authorization",
+        "clientsecret",
+        "proxyauthorization",
+        "refreshtoken",
+        "subscriptionkey",
+        "token",
+    }
+)
+_SENSITIVE_ASSIGNMENT_RE = re.compile(
+    r"(?i)((?:access[_-]?token|api[_-]?key|authorization|client[_-]?secret|"
+    r"proxy[_-]?authorization|refresh[_-]?token|subscription[_-]?key|token)"
+    r"[\"']?\s*[:=]\s*[\"']?)[^&,\s\"'<>}]+"
+)
+_BEARER_TOKEN_RE = re.compile(r"(?i)(\bbearer\s+)[a-z0-9._~+/=-]+")
+
+
+class _CredentialRedactionFilter(logging.Filter):
+    """Remove query and bearer credentials from dependency log records."""
+
+    _mcp_dubai_credential_filter = True
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        try:
+            rendered = record.getMessage()
+        except Exception:
+            return True
+        rendered = _SENSITIVE_ASSIGNMENT_RE.sub(r"\1[REDACTED]", rendered)
+        rendered = _BEARER_TOKEN_RE.sub(r"\1[REDACTED]", rendered)
+        record.msg = rendered
+        record.args = ()
+        return True
+
+
+def protect_http_dependency_logging() -> None:
+    """Install safe defaults for HTTPX/HTTPCore in CLI and embedded use."""
+    logger_names = {"httpx", "httpcore"}
+    logger_names.update(
+        name
+        for name in logging.Logger.manager.loggerDict
+        if name.startswith("httpx.") or name.startswith("httpcore.")
+    )
+    for name in logger_names:
+        dependency_logger = logging.getLogger(name)
+        if dependency_logger.getEffectiveLevel() < logging.WARNING:
+            dependency_logger.setLevel(logging.WARNING)
+        if not any(
+            getattr(log_filter, "_mcp_dubai_credential_filter", False)
+            for log_filter in dependency_logger.filters
+        ):
+            dependency_logger.addFilter(_CredentialRedactionFilter())
+
+
+# The package supports direct import and mounting, which bypasses the CLI's
+# logging setup. Protect dependency logs as soon as the shared client loads.
+protect_http_dependency_logging()
+
+
+def _is_sensitive_name(name: str) -> bool:
+    normalized = _SENSITIVE_NAME_RE.sub("", name.casefold())
+    return normalized in _SENSITIVE_NAMES or normalized.endswith("token")
+
+
+def _redact_error_excerpt(response: httpx.Response) -> str:
+    """Return a short response-body excerpt with request credentials removed."""
+    excerpt = response.text[:_ERROR_EXCERPT_SCAN_LIMIT]
+
+    # Redact the concrete values from sensitive request query parameters and
+    # headers first. This also catches an upstream that echoes a credential
+    # without its original ``token=`` or ``Authorization:`` label.
+    secret_values: set[str] = {
+        value
+        for key, value in response.url.params.multi_items()
+        if value and _is_sensitive_name(key)
+    }
+    if response.request is not None:
+        for key, value in response.request.headers.multi_items():
+            if not value or not _is_sensitive_name(key):
+                continue
+            secret_values.add(value)
+
+            # Authorization values include an authentication scheme. An
+            # upstream may echo only the credential, rather than the complete
+            # ``Bearer <credential>`` header, so redact both representations.
+            normalized_key = _SENSITIVE_NAME_RE.sub("", key.casefold())
+            if normalized_key in {"authorization", "proxyauthorization"}:
+                parts = value.split(maxsplit=1)
+                if len(parts) == 2 and parts[1]:
+                    secret_values.add(parts[1])
+    for secret in sorted(secret_values, key=len, reverse=True):
+        excerpt = excerpt.replace(secret, "[REDACTED]")
+
+    # Also handle credentials echoed by an upstream under a conventional key,
+    # even if that value was not present in the outgoing URL or headers.
+    excerpt = _SENSITIVE_ASSIGNMENT_RE.sub(r"\1[REDACTED]", excerpt)
+    excerpt = _BEARER_TOKEN_RE.sub(r"\1[REDACTED]", excerpt)
+    return excerpt[:_ERROR_EXCERPT_OUTPUT_LIMIT]
 
 
 class HttpClientError(Exception):
@@ -144,18 +249,22 @@ class HttpClient:
         return response
 
     def _raise_for_status(self, response: httpx.Response) -> None:
+        if response.status_code < 400:
+            return
+
         # Never interpolate the raw URL into an exception: query strings can
         # carry secrets (the WAQI air-quality upstream takes ?token=<key>), and
         # these messages reach both the server log and the MCP client, which
         # means they reach the LLM's context.
         safe_url = response.url.copy_with(query=None)
+        safe_excerpt = _redact_error_excerpt(response)
         if response.status_code == 429:
             raise RateLimitError(
-                f"Rate limited by {safe_url}: {response.text[:200]}",
+                f"Rate limited by {safe_url}: {safe_excerpt}",
                 status_code=429,
             )
         if response.status_code >= 400:
             raise HttpClientError(
-                f"HTTP {response.status_code} from {safe_url}: {response.text[:200]}",
+                f"HTTP {response.status_code} from {safe_url}: {safe_excerpt}",
                 status_code=response.status_code,
             )

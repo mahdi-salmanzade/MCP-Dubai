@@ -13,6 +13,11 @@ def _configure_logging() -> None:
         level=level,
         format="%(asctime)s %(name)s %(levelname)s %(message)s",
     )
+    # HTTPX logs complete request URLs at INFO, including WAQI's query token.
+    # The shared helper also runs on direct package imports for mounted use.
+    from mcp_dubai._shared.http_client import protect_http_dependency_logging
+
+    protect_http_dependency_logging()
 
 
 def main() -> None:

@@ -6,7 +6,7 @@ import httpx
 
 from mcp_dubai._shared.errors import now_iso, upstream_error_response
 from mcp_dubai._shared.health import mark_failure, mark_success
-from mcp_dubai._shared.http_client import HttpClientError, RateLimitError
+from mcp_dubai._shared.http_client import HttpClientError
 from mcp_dubai._shared.schemas import ToolResponse
 from mcp_dubai.data.aviation_weather import constants
 from mcp_dubai.data.aviation_weather.client import AviationWeatherClient
@@ -55,8 +55,6 @@ async def weather_uae_icao(
         taf_records: list[dict[str, object]] = []
         if include_taf:
             taf_records = await client.get_taf([code])
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)
@@ -84,8 +82,6 @@ async def weather_uae_all(include_taf: bool = False) -> dict[str, object]:
         taf_records: list[dict[str, object]] = []
         if include_taf:
             taf_records = await client.get_taf(codes)
-    except RateLimitError:
-        raise
     except (HttpClientError, httpx.HTTPError) as exc:
         mark_failure(_UPSTREAM, str(exc))
         return upstream_error_response(exc, verify_at=_VERIFY_AT, source=_SOURCE)

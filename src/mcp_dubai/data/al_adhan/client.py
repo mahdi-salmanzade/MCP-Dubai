@@ -9,9 +9,13 @@ no MCP concerns. Easy to unit test against respx mocks.
 from __future__ import annotations
 
 from datetime import date
+from typing import Any, TypeVar
+
+import httpx
+from pydantic import BaseModel, ValidationError
 
 from mcp_dubai._shared.constants import uae_today
-from mcp_dubai._shared.http_client import HttpClient
+from mcp_dubai._shared.http_client import HttpClient, HttpClientError
 from mcp_dubai.data.al_adhan import constants
 from mcp_dubai.data.al_adhan.schemas import (
     CalendarDay,
@@ -19,6 +23,29 @@ from mcp_dubai.data.al_adhan.schemas import (
     QiblaResponse,
     TimingsResponse,
 )
+
+_ModelT = TypeVar("_ModelT", bound=BaseModel)
+
+
+def _response_data(response: httpx.Response, endpoint: str) -> Any:
+    """Decode the required Al-Adhan response envelope."""
+    if response.status_code == 204 or not response.content:
+        raise HttpClientError(f"Empty response from {endpoint}")
+    try:
+        payload = response.json()
+    except ValueError as exc:
+        raise HttpClientError(f"Non-JSON body from {endpoint}") from exc
+    if not isinstance(payload, dict) or "data" not in payload:
+        raise HttpClientError(f"Invalid JSON shape from {endpoint}: missing data")
+    return payload["data"]
+
+
+def _validate(model: type[_ModelT], data: Any, endpoint: str) -> _ModelT:
+    """Convert Pydantic validation failures into the shared upstream error type."""
+    try:
+        return model.model_validate(data)
+    except ValidationError as exc:
+        raise HttpClientError(f"Invalid JSON shape from {endpoint}") from exc
 
 
 class AlAdhanClient:
@@ -60,8 +87,11 @@ class AlAdhanClient:
         }
         async with HttpClient() as client:
             response = await client.get(constants.TIMINGS_BY_CITY, params=params)
-        payload = response.json()
-        return TimingsResponse.model_validate(payload["data"])
+        return _validate(
+            TimingsResponse,
+            _response_data(response, constants.TIMINGS_BY_CITY),
+            constants.TIMINGS_BY_CITY,
+        )
 
     async def get_timings_by_coords(
         self,
@@ -79,8 +109,11 @@ class AlAdhanClient:
         }
         async with HttpClient() as client:
             response = await client.get(constants.TIMINGS, params=params)
-        payload = response.json()
-        return TimingsResponse.model_validate(payload["data"])
+        return _validate(
+            TimingsResponse,
+            _response_data(response, constants.TIMINGS),
+            constants.TIMINGS,
+        )
 
     async def get_calendar_by_city(
         self,
@@ -100,29 +133,30 @@ class AlAdhanClient:
         }
         async with HttpClient() as client:
             response = await client.get(constants.CALENDAR_BY_CITY, params=params)
-        payload = response.json()
-        return [CalendarDay.model_validate(day) for day in payload["data"]]
+        data = _response_data(response, constants.CALENDAR_BY_CITY)
+        if not isinstance(data, list):
+            raise HttpClientError(
+                f"Invalid JSON shape from {constants.CALENDAR_BY_CITY}: data is not a list"
+            )
+        return [_validate(CalendarDay, day, constants.CALENDAR_BY_CITY) for day in data]
 
     async def get_qibla(self, latitude: float, longitude: float) -> QiblaResponse:
         """Compass bearing from a lat/lon to Mecca."""
         url = f"{constants.QIBLA}/{latitude}/{longitude}"
         async with HttpClient() as client:
             response = await client.get(url)
-        payload = response.json()
-        return QiblaResponse.model_validate(payload["data"])
+        return _validate(QiblaResponse, _response_data(response, url), url)
 
     async def hijri_to_gregorian(self, hijri_ddmmyyyy: str) -> DateConversion:
         """Convert a Hijri date string (DD-MM-YYYY) to a Gregorian date."""
         url = f"{constants.HIJRI_TO_GREGORIAN}/{hijri_ddmmyyyy}"
         async with HttpClient() as client:
             response = await client.get(url)
-        payload = response.json()
-        return DateConversion.model_validate(payload["data"])
+        return _validate(DateConversion, _response_data(response, url), url)
 
     async def gregorian_to_hijri(self, gregorian_ddmmyyyy: str) -> DateConversion:
         """Convert a Gregorian date string (DD-MM-YYYY) to a Hijri date."""
         url = f"{constants.GREGORIAN_TO_HIJRI}/{gregorian_ddmmyyyy}"
         async with HttpClient() as client:
             response = await client.get(url)
-        payload = response.json()
-        return DateConversion.model_validate(payload["data"])
+        return _validate(DateConversion, _response_data(response, url), url)
