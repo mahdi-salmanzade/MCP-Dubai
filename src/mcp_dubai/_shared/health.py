@@ -255,7 +255,7 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
             "endpoint": "www.centralbank.ae/umbraco/Surface/Exchange",
             "requires_auth": False,
             "initial_status": "working",
-            "initial_reason": "Scraper updated in v0.1.2 for the new three-cell Arabic DOM.",
+            "initial_reason": "English/Arabic parser verified on 2026-09-05; all 77 currencies mapped.",
             "features": ["cbuae"],
         },
         {
@@ -263,7 +263,7 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
             "endpoint": "www.centralbank.ae/umbraco/Surface/InterestRate",
             "requires_auth": False,
             "initial_status": "blocked",
-            "initial_reason": "Cloudflare bot protection rechecked 2026-08-14 (HTTP 403).",
+            "initial_reason": "Cloudflare bot protection rechecked 2026-09-05 (HTTP 403).",
             "features": ["cbuae"],
         },
         {
@@ -272,7 +272,7 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
             "requires_auth": False,
             "initial_status": "blocked",
             "initial_reason": (
-                "Cloudflare bot protection rechecked 2026-08-14 (HTTP 403). "
+                "Cloudflare bot protection rechecked 2026-09-05 (HTTP 403). "
                 "The same FCSC datasets are browsable on bayanat.ae."
             ),
             "features": ["fcsc_ckan"],
@@ -352,9 +352,9 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
             "name": "rta_gtfs",
             "endpoint": "www.dubaipulse.gov.ae (direct file download)",
             "requires_auth": False,
-            "initial_status": "working",
+            "initial_status": "degraded",
             "initial_reason": (
-                "Anonymous 7z download rechecked 2026-08-14. The old "
+                "Anonymous download was intermittent on 2026-09-05 (HTTP 400, then valid 7z via the apex-host redirect). The old "
                 "transit.land mirror now returns 401."
             ),
             "features": ["rta"],
@@ -364,7 +364,7 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
             "endpoint": "api2.dfm.ae",
             "requires_auth": False,
             "initial_status": "working",
-            "initial_reason": "Undocumented anonymous JSON endpoints, rechecked 2026-08-14.",
+            "initial_reason": "Undocumented anonymous JSON endpoints, rechecked 2026-09-05.",
             "features": ["dfm"],
         },
         {
@@ -392,7 +392,7 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
             "initial_status": "working",
             "initial_reason": (
                 "Credential-free catalog metadata API on the portal that "
-                "replaced Dubai Pulse. Rechecked 2026-08-14."
+                "replaced Dubai Pulse. Rechecked 2026-09-05."
             ),
             "features": ["data_dubai"],
         },

@@ -68,7 +68,7 @@ class TestIpTrademark:
         assert gcc["new_unitary_gcc_applications_accepted"] is False
         assert gcc["unitary_filing_stopped_on"] == "2021-01-06"
         assert "UAE national route" in gcc["uae_filing_note"]
-        assert ip_tools.KNOWLEDGE.knowledge_date == "2026-08-14"
+        assert ip_tools.KNOWLEDGE.knowledge_date == "2026-09-05"
 
     @pytest.mark.asyncio
     async def test_ip_protection_invalid_type(self) -> None:

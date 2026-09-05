@@ -97,14 +97,11 @@ def test_verify_at_is_an_https_url(name: str, pack: dict[str, object]) -> None:
     )
 
 
-def test_freshness_script_covers_all_domains_and_preserves_full_review_age(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
+def test_freshness_script_covers_all_domains_and_preserves_full_review_age() -> None:
     """The script owns the budgets; this guards against the two drifting apart."""
     from scripts import check_knowledge_freshness as freshness
 
     assert freshness.MAX_AGE_DAYS == {"high": 100, "medium": 190, "stable": 365}
-    monkeypatch.setattr(freshness, "_today", lambda: date(2026, 8, 14))
     audit_rows = freshness.audit()
     assert len(audit_rows) == 19
     assert {row["source_kind"] for row in audit_rows} == {"json", "code"}
@@ -115,7 +112,7 @@ def test_freshness_script_covers_all_domains_and_preserves_full_review_age(
     tax = rows["tax_compliance.json"]
     assert tax["targeted_refresh"] is True
     assert tax["full_review_date"] == "2026-07-25"
-    assert tax["previous_knowledge_date"] == "2026-07-25"
+    assert tax["previous_knowledge_date"] == "2026-08-14"
     assert "QFZP" in str(tax["last_refresh_scope"])
 
     # A targeted update does not mask an old full-pack review.

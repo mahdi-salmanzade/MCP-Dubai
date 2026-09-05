@@ -60,4 +60,24 @@ class OpenMeteoClient:
             raise HttpClientError(
                 f"Invalid JSON shape from {constants.FORECAST_ENDPOINT}: daily is missing"
             )
+        current = payload.get("current")
+        if include_current and isinstance(current, dict):
+            self._validate_weather_code(current.get("weather_code"))
+        daily = payload.get("daily")
+        if include_daily and isinstance(daily, dict) and "weather_code" in daily:
+            codes = daily["weather_code"]
+            if not isinstance(codes, list):
+                raise HttpClientError("Open-Meteo daily weather_code must be a list")
+            for code in codes:
+                self._validate_weather_code(code)
         return dict(payload)
+
+    @staticmethod
+    def _validate_weather_code(code: object) -> None:
+        """A missing code is allowed; malformed codes must not crash summaries."""
+        if code is not None and (
+            isinstance(code, bool)
+            or not isinstance(code, int | float)
+            or (isinstance(code, float) and not code.is_integer())
+        ):
+            raise HttpClientError("Open-Meteo weather_code must be an integer or null")

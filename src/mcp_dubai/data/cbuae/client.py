@@ -3,17 +3,18 @@ CBUAE client.
 
 Parses HTML responses from undocumented Umbraco endpoints. The exchange
 rate endpoint returns a full HTML page that embeds a single table where
-each row has three cells: a decorative empty cell, an Arabic currency
+each row has three cells: a decorative empty cell, a currency
 name, and a rate cell marked `class="... value"`. The parser anchors on
-the `value` class so it is resilient to column reordering. Arabic names
-are translated to ISO 4217 codes via `currency_map.ARABIC_TO_ISO`.
+the `value` class so it is resilient to column reordering. Arabic and English
+names are translated to ISO codes via the currency map.
 
-Verified against the live response on 2026-04-13. We use lxml because it
+Verified against the live response on 2026-09-05. We use lxml because it
 tolerates malformed fragments better than html.parser.
 """
 
 from __future__ import annotations
 
+import math
 import re
 from datetime import date
 from typing import Any
@@ -22,6 +23,7 @@ from lxml import html
 
 from mcp_dubai._shared.http_client import HttpClient
 from mcp_dubai.data.cbuae import constants
+from mcp_dubai.data.cbuae.currency_map import ARABIC_BY_ISO
 from mcp_dubai.data.cbuae.currency_map import lookup as lookup_currency
 
 # Matches plain decimals like 3.6725 and scientific notation like 3E-06.
@@ -34,7 +36,8 @@ def _parse_rate(text: str) -> float | None:
     if match is None:
         return None
     try:
-        return float(match.group(0))
+        rate = float(match.group(0))
+        return rate if math.isfinite(rate) and rate > 0 else None
     except ValueError:
         return None
 
@@ -78,12 +81,11 @@ class CbuaeClient:
             </tr>
 
         We anchor on `td.value` for the rate cell, take the preceding
-        sibling cell as the Arabic currency name, and translate that name
+        sibling cell as the currency name, and translate that name
         to an ISO 4217 code and English label via `lookup_currency`.
         Rows without a `value` cell (header rows, layout rows) are
-        skipped. Rows with an unrecognised Arabic name still pass through
-        with `iso_code` and `currency` set to `None` so we never silently
-        drop data.
+        skipped. Unknown names pass through under their original language
+        with a null ISO code so we never silently drop data.
         """
         if not html_fragment.strip():
             return []
@@ -118,17 +120,20 @@ class CbuaeClient:
             if name_cell is None:
                 continue
 
-            arabic_name = (name_cell.text_content() or "").strip()
-            if not arabic_name:
+            source_name = " ".join((name_cell.text_content() or "").split())
+            if not source_name:
                 continue
 
-            iso_code, english_name = lookup_currency(arabic_name)
+            iso_code, english_name = lookup_currency(source_name)
+            is_arabic = re.search(r"[\u0600-\u06ff]", source_name) is not None
+            arabic_name = source_name if is_arabic else ARABIC_BY_ISO.get(iso_code or "")
             rows.append(
                 {
-                    "currency": english_name,
+                    "currency": english_name or (None if is_arabic else source_name),
                     "currency_ar": arabic_name,
                     "iso_code": iso_code,
                     "rate_aed": rate_value,
+                    "source_currency": source_name,
                 }
             )
 
@@ -150,7 +155,9 @@ class CbuaeClient:
                 "raw": text[:200],
             }
 
-        match = re.search(r"-?\d+(?:\.\d+)?", text)
+        # A plain numeric fragment is valid; an arbitrary page containing a
+        # year, support number or error code is not a base-rate observation.
+        match = re.fullmatch(r"-?\d+(?:\.\d+)?", text)
         if match:
             return {
                 "base_rate_percent": float(match.group(0)),

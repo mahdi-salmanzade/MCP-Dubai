@@ -17,8 +17,13 @@ from mcp_dubai._shared.knowledge import (
 from mcp_dubai._shared.schemas import KnowledgeMetadata, ToolResponse
 
 KNOWLEDGE: KnowledgeMetadata = KnowledgeMetadata(
-    knowledge_date="2026-04-13",
+    knowledge_date="2026-09-05",
     full_review_date="2026-04-13",
+    previous_knowledge_date="2026-04-13",
+    last_refresh_scope=(
+        "Corrected tax-plan inputs and jurisdiction assumptions; removed fixed-year and "
+        "fixed-count claims; report freshness now uses only caller-declared source domains."
+    ),
     volatility="medium",
     verify_at="https://github.com/mahdi-salmanzade/MCP-Dubai",
     disclaimer=(
@@ -60,7 +65,7 @@ PLAN_TEMPLATES: dict[str, list[dict[str, Any]]] = {
             "purpose": "Recommend the right visa for the founder profile",
             "args_template": {
                 "profile": "founder",
-                "has_uae_trade_license": True,
+                "has_uae_trade_license": "<has_uae_trade_license>",
             },
         },
         {
@@ -73,16 +78,21 @@ PLAN_TEMPLATES: dict[str, list[dict[str, Any]]] = {
         },
         {
             "tool": "corporate_tax_estimate",
-            "purpose": "Estimate annual corporate tax exposure",
+            "purpose": (
+                "Estimate corporate tax using taxable income after adjustments, not revenue; "
+                "confirm the entity's jurisdiction and qualifying-income share first"
+            ),
             "args_template": {
-                "annual_taxable_income_aed": "<projected_revenue>",
-                "is_free_zone": True,
+                "annual_taxable_income_aed": "<annual_taxable_income_aed>",
+                "is_free_zone": "<is_free_zone>",
+                "is_qfzp": "<is_qfzp>",
+                "qfzp_qualifying_pct": "<qfzp_qualifying_pct>",
                 "industry": "<industry>",
             },
         },
         {
             "tool": "common_founder_mistakes",
-            "purpose": "List the 10 curated founder mistakes",
+            "purpose": "List the current curated founder mistakes",
             "args_template": {},
         },
     ],
@@ -106,7 +116,7 @@ PLAN_TEMPLATES: dict[str, list[dict[str, Any]]] = {
     "compliance_checkup": [
         {
             "tool": "esr_status",
-            "purpose": "Confirm ESR is no longer required (DEAD post-2022)",
+            "purpose": "Check ESR cessation and any surviving historical-period obligations",
             "args_template": {},
         },
         {
@@ -149,7 +159,7 @@ PLAN_TEMPLATES: dict[str, list[dict[str, Any]]] = {
         {
             "tool": "uae_holidays",
             "purpose": "Show the calendar so the founder can plan around it",
-            "args_template": {"year": 2026},
+            "args_template": {"year": "<year>"},
         },
         {
             "tool": "prayer_times_for",
@@ -241,6 +251,7 @@ async def list_plan_categories() -> dict[str, object]:
 async def synthesize_report(
     title: str,
     sections: list[dict[str, object]] | None = None,
+    domains_referenced: list[str] | None = None,
 ) -> dict[str, object]:
     """
     Build a structured Markdown report skeleton from named sections.
@@ -248,16 +259,30 @@ async def synthesize_report(
     Args:
         title: Report title.
         sections: List of {heading, body} dicts. Each becomes an H2 section.
+        domains_referenced: Names of knowledge domains actually used in the
+            supplied sections. Omit if the source domains are unknown.
 
     Returns:
         A Markdown report string the LLM can present directly. Includes a
-        knowledge block at the bottom with the project's knowledge_date and
-        the freshness of every domain that contributed to the report.
+        knowledge block with the dates of the caller-declared source domains.
     """
     if not title.strip():
         return ToolResponse[dict[str, object]].fail(error="title must not be empty").model_dump()
 
+    registry = get_knowledge_registry()
+    registered_domains = registry.all()
+    selected_names = sorted(set(domains_referenced or []))
+    unknown = [name for name in selected_names if name not in registered_domains]
+    if unknown:
+        return (
+            ToolResponse[dict[str, object]]
+            .fail(error=f"Unknown knowledge domains: {', '.join(unknown)}")
+            .model_dump()
+        )
+    domains = {name: registered_domains[name] for name in selected_names}
+
     sections = sections or []
+    section_count = 0
     body_parts: list[str] = [f"# {title}", ""]
     for section in sections:
         if not isinstance(section, dict):
@@ -266,20 +291,24 @@ async def synthesize_report(
         body = str(section.get("body", "")).strip()
         if not heading:
             continue
+        section_count += 1
         body_parts.append(f"## {heading}")
         body_parts.append("")
         if body:
             body_parts.append(body)
             body_parts.append("")
 
-    # Append a freshness footer reading from the registry.
-    registry = get_knowledge_registry()
-    domains = registry.all()
+    # Only the caller knows which tools supplied the report's content.
+    # Registry membership alone is not evidence that a domain contributed.
     body_parts.append("---")
     body_parts.append("")
     body_parts.append("## Knowledge freshness")
     body_parts.append("")
-    body_parts.append("This report draws on the following MCP-Dubai knowledge domains:")
+    body_parts.append(
+        "The caller identified these MCP-Dubai knowledge domains as sources:"
+        if domains
+        else "No source domains were supplied; the freshness of this report is unverified."
+    )
     body_parts.append("")
     for name, meta in sorted(domains.items()):
         line = (
@@ -302,8 +331,8 @@ async def synthesize_report(
             {
                 "markdown": markdown,
                 "title": title,
-                "section_count": len(sections),
-                "domains_referenced": sorted(domains.keys()),
+                "section_count": section_count,
+                "domains_referenced": selected_names,
             },
             knowledge=KNOWLEDGE,
         )
@@ -355,7 +384,7 @@ async def analyze_setup_decision(
             "step": 3,
             "tool": "qfzp_check",
             "args": {"industry": industry, "is_free_zone": True},
-            "purpose": "Confirm whether QFZP 0% applies (SaaS does NOT qualify)",
+            "purpose": "Check QFZP rules for the free-zone option; apply only if that option is selected",
         },
         {
             "step": 4,
@@ -367,13 +396,13 @@ async def analyze_setup_decision(
             "step": 5,
             "tool": "common_founder_mistakes",
             "args": {},
-            "purpose": "List the 11 mistakes to warn the founder about",
+            "purpose": "List the current curated founder mistakes",
         },
         {
             "step": 6,
             "tool": "setup_timeline_estimate",
             "args": {},
-            "purpose": "Show realistic 1 to 16 week banking timeline",
+            "purpose": "Read the current setup and banking timeline estimates",
         },
     ]
 
@@ -385,7 +414,8 @@ async def analyze_setup_decision(
                 "step_count": len(plan),
                 "synthesis_instructions": (
                     "Execute steps 1 to 6 in order. Then call synthesize_report "
-                    "with sections: 'Recommendation', 'Free Zone Shortlist', "
+                    "with the domains_referenced actually used and sections: "
+                    "'Recommendation', 'Free Zone Shortlist', "
                     "'Tax Treatment', 'Banking', 'Mistakes to Avoid', and "
                     "'Timeline'. The final report should be ~600 words."
                 ),

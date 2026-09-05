@@ -20,7 +20,7 @@ FEATURE_META: dict[str, object] = {
     "name": "khda",
     "description": (
         "Dubai private schools directory: curriculum, area, KHDA inspection "
-        "rating, fees range, contact info. Curated snapshot from KHDA XLSX."
+        "rating, indicative fees and contact info. Hand-curated subset with dated corrections against KHDA records."
     ),
     "tier": 0,
     "requires_auth": False,

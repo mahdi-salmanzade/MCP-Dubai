@@ -16,6 +16,14 @@ from mcp_dubai._shared.discovery import (
 
 
 class TestExpandText:
+    def test_federal_ministry_does_not_expand_to_dubai_department(self) -> None:
+        ministry = expand_text("MOET").lower()
+        department = expand_text("DET").lower()
+        assert "ministry of economy and tourism" in ministry
+        assert "department of economy and tourism" not in ministry
+        assert "department of economy and tourism" in department
+        assert "ministry of economy and tourism" not in department
+
     def test_arabic_query_picks_up_english_equivalents(self) -> None:
         result = expand_text("تأشيرة ذهبية")
         assert "golden visa" in result.lower()

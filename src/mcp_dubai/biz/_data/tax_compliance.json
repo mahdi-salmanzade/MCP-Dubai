@@ -1,11 +1,11 @@
 {
   "domain": "tax_compliance",
-  "knowledge_date": "2026-08-14",
+  "knowledge_date": "2026-09-05",
   "full_review_date": "2026-07-25",
   "volatility": "high",
   "verify_at": "https://tax.gov.ae",
   "source_brief_section": "6.4",
-  "disclaimer": "UAE tax rules changed materially through 2025/2026. From 1 January 2026 the VAT Law amendments (FDL 16/2025), the Tax Procedures Law amendments (FDL 17/2025), and the sweetened drinks tiered excise all apply, and a new AML law (FDL 10/2025) has been in force since 14 October 2025. Small Business Relief now covers eligible tax periods ending through 31 December 2029 under Ministerial Decision 131 of 2026. The e-invoicing pilot went live on 1 July 2026; businesses with revenue at or above AED 50M must appoint an Accredited Service Provider by 30 October 2026 (Ministerial Resolution 66 of 2026). Minimum excise prices for specified tobacco and vaping products apply from 1 September 2026 under Cabinet Decision 137 of 2026. The unified late-payment penalty (Cabinet Decision 129 of 2025) took effect 14 April 2026. Always verify against the FTA and MoF portals before quoting figures.",
+  "disclaimer": "UAE tax rules changed materially through 2025/2026. From 1 January 2026 the VAT Law amendments (FDL 16/2025), the Tax Procedures Law amendments (FDL 17/2025), and the sweetened drinks tiered excise all apply, and a new AML law (FDL 10/2025) has been in force since 14 October 2025. Small Business Relief now covers eligible tax periods ending through 31 December 2029 under Ministerial Decision 131 of 2026. The e-invoicing pilot went live on 1 July 2026; businesses with revenue at or above AED 50M must appoint an Accredited Service Provider by 30 October 2026 (Ministerial Resolution 66 of 2026). Minimum excise prices for specified tobacco and vaping products apply from 1 September 2026 under Cabinet Decision 137 of 2026. The unified late-payment penalty (Cabinet Decision 129 of 2025) took effect 14 April 2026. Always verify against the FTA and MoF portals before quoting figures. September 2026 refresh adds Pillar Two Information Return rules (MD 133/2026), the FTA VAT directive inventory and supply-verification decision, and the latest ASP register snapshot.",
   "currency": "AED",
   "corporate_tax": {
     "law": "Federal Decree-Law 47 of 2022",
@@ -21,7 +21,7 @@
       "current_rules_source": "Ministerial Decision 229 of 2025",
       "replaced": "Ministerial Decision 265 of 2023",
       "saas_qualifying": false,
-      "saas_note": "SaaS is NOT a Qualifying Activity. Most free zone SaaS revenue gets 9%, not 0%. This is critical for setup_advisor recommendations.",
+      "saas_note": "SaaS is not itself a named Qualifying Activity. Qualification depends on the counterparty, excluded activities and any qualifying intellectual-property income; do not assume all SaaS revenue is non-qualifying. QFZPs do not receive the ordinary AED 375,000 band on non-qualifying taxable income.",
       "de_minimis": "Lower of 5% of revenue or AED 5,000,000",
       "source_urls": [
         "https://mof.gov.ae/wp-content/uploads/2025/09/EN-Ministerial-Decision-No.-229-of-2025-Regarding-Qualifying-Activities-and-Excluded-Activities.pdf",
@@ -64,12 +64,22 @@
       "applies_to": "MNE groups with consolidated revenue at or above EUR 750 million",
       "effective_from": "2025-01-01",
       "registration_status": {
-        "status": "DMTT registration opened on the EmaraTax portal (reported mid-June 2026); no registration deadline announced yet and comprehensive filing guidance is pending. Verify with the FTA.",
+        "status": "DMTT registration opened on EmaraTax (reported mid-June 2026). Ministerial Decision 133 of 2026 now identifies Pillar Two Information Return filers; it does not itself specify a registration deadline. Confirm registration and operational filing requirements with the FTA.",
         "first_return_expected_due": "2027-06-30",
         "first_return_note": "First top-up tax return (for FY ending 31 December 2025) is expected due 30 June 2027 under an 18-month transitional window. Verify with the FTA.",
         "source_urls": [
           "https://mof.gov.ae/uae-domestic-minimum-top-up-tax/",
           "https://www.deloitte.com/middle-east/en/services/tax/perspectives/uae-pillar-two-registration-updates.html"
+        ]
+      },
+      "information_return": {
+        "law": "Ministerial Decision 133 of 2026",
+        "issued_on": "2026-08-03",
+        "applies_to_fiscal_years_starting_on_or_after": "2025-01-01",
+        "summary": "Requires Pillar Two Information Returns for in-scope UAE constituent entities (excluding investment entities), UAE joint ventures and JV subsidiaries, and UAE-created stateless reverse hybrids. A designated local entity may file on behalf of covered entities.",
+        "foreign_filing_relief": "Local filing is relieved where a qualifying return is filed by an ultimate parent or designated filing entity in a jurisdiction with a qualifying competent authority agreement effective for the reporting year; the FTA must still be notified of the filing entity identity and location.",
+        "source_urls": [
+          "https://mof.gov.ae/wp-content/uploads/2026/08/Ministerial-Decision-No133-of-2026-on-Pillar-Two-Information-Return-EN.pdf"
         ]
       }
     },
@@ -120,6 +130,46 @@
       "source_urls": [
         "https://mof.gov.ae/en/news/ministry-of-finance-to-implement-vat-law-amendments-starting-january-2026/",
         "https://www.dlapiper.com/en/insights/publications/gulf-tax-insights/2025/gulf-tax-insights-december-2025/uae-announces-amendments-to-vat-law-effective-1-january-2026"
+      ]
+    },
+    "directives_2026": {
+      "binding_basis": "Article 54 bis of the Tax Procedures Law provides for directives binding on the FTA and taxpayers within scope.",
+      "directives": [
+        {
+          "number": 1,
+          "topic": "Judicial expert services"
+        },
+        {
+          "number": 2,
+          "topic": "VAT adjustments after a registrant exits a tax group"
+        },
+        {
+          "number": 3,
+          "topic": "Conversion of digital currency values into AED"
+        },
+        {
+          "number": 4,
+          "topic": "Fees and charges in life insurance and life reinsurance contracts"
+        },
+        {
+          "number": 5,
+          "topic": "Valuation of deemed supplies of services"
+        }
+      ],
+      "note": "The FTA VAT legislation register lists these five directives published in July 2026. Apply each directive using its original text; this inventory does not reproduce detailed transaction treatments.",
+      "source_urls": [
+        "https://tax.gov.ae/en/legislation/vat.aspx",
+        "https://tax.gov.ae/Datafolder/Files/Legislation/2025/Federal%20Decree-Law%20No.%2028%20of%202022%20-%20publishing%2003%2012%202025.pdf"
+      ]
+    },
+    "supply_verification_2026": {
+      "law": "FTA Decision 13 of 2026",
+      "issued_on": "2026-07-22",
+      "published_on": "2026-08-20",
+      "subject": "Measures, procedures and conditions for verifying the validity and integrity of supplies.",
+      "review_note": "Listed on the official FTA VAT legislation register. The linked decision returned a maintenance page during this audit, so its operative requirements and commencement date are not asserted here.",
+      "source_urls": [
+        "https://tax.gov.ae/en/legislation/vat.aspx"
       ]
     }
   },
@@ -180,7 +230,7 @@
       "max": 100000000
     },
     "historical_note": "FDL 10/2025 replaces the Federal Decree-Law 20 of 2018 regime; FDL 20/2018 remains relevant only as a historical reference for pre-October-2025 matters.",
-    "regulator": "UAE Financial Intelligence Unit (FIU)",
+    "regulator": "Activity-specific supervisory authority; MOET supervises the listed DNFBP sectors in mainland UAE and commercial free zones.",
     "portal": "goAML",
     "dnfbp_categories": [
       "Real estate brokers",
@@ -189,7 +239,8 @@
       "Corporate service providers"
     ],
     "source_urls": [
-      "https://uaelegislation.gov.ae/en/legislations/3314"
+      "https://uaelegislation.gov.ae/en/legislations/3314",
+      "https://www.moet.gov.ae/documents/20121/465917/DNFBP%2BGuidelines%2B-%2BMarch%2B2026.pdf"
     ],
     "vara": {
       "name": "Virtual Assets Regulatory Authority of Dubai",
@@ -203,7 +254,8 @@
           "https://rulebooks.vara.ae/rulebook/virtual-asset-issuance-rulebook"
         ]
       }
-    }
+    },
+    "reporting_authority": "UAE Financial Intelligence Unit (FIU), through goAML"
   },
   "ubo": {
     "name": "Ultimate Beneficial Owner",
@@ -217,7 +269,7 @@
       "structure": "Graduated per violation: written warning for a first breach, up to AED 50,000 for a second, up to AED 100,000 for a third, plus possible licence suspension.",
       "max_aed": 100000
     },
-    "summary": "All UAE companies must maintain a UBO register and file with their licensing authority. 25% threshold for direct or indirect ownership."
+    "summary": "In-scope UAE legal persons must maintain and file beneficial-owner information with their registrar. The 25% ownership/voting test is supplemented by control tests; government-owned and financial-free-zone exceptions require separate treatment."
   },
   "data_protection": {
     "uae_pdpl": {
@@ -332,11 +384,11 @@
       }
     },
     "asp_register": {
-      "pre_approved_provider_count": 42,
-      "accredited_provider_count": 38,
-      "under_final_assessment_count": 9,
-      "as_of": "2026-08-14",
-      "status": "The official MoF page lists 42 pre-approved providers, 38 accredited providers, and 9 providers under final accreditation assessment. The published lists overlap and should not be added together. Accreditation is under Article 16 of Ministerial Decision 64 of 2025.",
+      "pre_approved_provider_count": null,
+      "accredited_provider_count": 50,
+      "under_final_assessment_count": 7,
+      "as_of": "2026-09-05",
+      "status": "The official MoF page lists 50 accredited providers and 7 pre-approved providers under final accreditation assessment. It no longer publishes the separate overall pre-approved list counted in the August snapshot; that count is unknown, not zero. Final assessment is not full accreditation.",
       "register_url": "https://mof.gov.ae/en/about-us/initiatives/einvoicing/einvoicing-accredited-service-providers-asps/",
       "criteria_note": "Accreditation criteria updated by Ministerial Resolution 56 of 2026: active Peppol-certified service providers that passed OpenPeppol conformance testing, with the PSP product operational for at least 2 years."
     },
@@ -368,6 +420,6 @@
       "https://habibalmulla.com/articles/administrative-penalties-in-the-uae-the-2025-reform-and-the-shift-toward-a-unified-tax-penalty-regime/"
     ]
   },
-  "previous_knowledge_date": "2026-07-25",
-  "last_refresh_scope": "Targeted correctness audit of 2026-08-14: corrected QFZP tax-band and Small Business Relief treatment, refreshed Small Business Relief, excise minimum prices, the e-invoicing ASP register, and penalty/ESR wording against official sources. Not a full re-verification of every field in this pack."
+  "previous_knowledge_date": "2026-08-14",
+  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: refreshed the MoF ASP register to 50 accredited and 7 in final assessment; added MD 133/2026 Pillar Two Information Return rules, the official VAT directive inventory and the August supply-verification decision; corrected SaaS/QFZP, FIU/supervisor and UBO-scope wording; synchronized explicit zero-qualifying-income QFZP estimation and strict VAT threshold boundaries. Not a full re-verification of every field in this pack."
 }

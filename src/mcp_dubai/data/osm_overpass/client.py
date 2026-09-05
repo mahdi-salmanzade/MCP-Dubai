@@ -60,6 +60,8 @@ class OverpassClient:
             raise HttpClientError(
                 f"Invalid JSON shape from {constants.OVERPASS_ENDPOINT}: expected an object"
             )
+        if payload.get("remark"):
+            raise HttpClientError("Overpass returned an error remark; results may be incomplete")
         elements = payload.get("elements")
         if not isinstance(elements, list):
             raise HttpClientError(
@@ -70,4 +72,8 @@ class OverpassClient:
                 f"Invalid JSON shape from {constants.OVERPASS_ENDPOINT}: "
                 "elements contains a non-object"
             )
+        if any(
+            item.get("tags") is not None and not isinstance(item["tags"], dict) for item in elements
+        ):
+            raise HttpClientError("Overpass element tags must be an object")
         return [dict(item) for item in elements]

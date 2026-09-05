@@ -100,8 +100,8 @@ class DataDubaiClient:
         Search the dataset catalog by free-text query.
 
         The endpoint is `/datasets/` with `search`, `page`, and `pageSize`
-        query params. An empty query returns the full catalog (614 datasets
-        as of 2026-08-14). The response is a Liferay page envelope with
+        query params. An empty query returns the full catalog (610 datasets
+        as of 2026-09-05). The response is a Liferay page envelope with
         `totalCount`, `page`, `pageSize`, `lastPage`, and `items`.
         """
         params: dict[str, Any] = {"page": page, "pageSize": page_size}
@@ -118,7 +118,7 @@ class DataDubaiClient:
 
     async def list_themes(self) -> dict[str, Any]:
         """
-        List every catalog theme (11 as of 2026-08-14).
+        List every catalog theme (11 as of 2026-09-05).
 
         The current count fits in one request; additional pages are followed.
         """
@@ -126,7 +126,7 @@ class DataDubaiClient:
 
     async def list_issuing_entities(self) -> dict[str, Any]:
         """
-        List every issuing entity (76 as of 2026-08-14).
+        List every issuing entity (75 as of 2026-09-05).
 
         The current count fits in one pageSize=100 request (verified:
         totalCount 76, lastPage 1); additional pages are followed.

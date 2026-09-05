@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from typing import Any
 
 from mcp_dubai._shared.knowledge import register_domain_knowledge
@@ -44,25 +45,23 @@ async def rera_rent_increase(
 
     The slab is chosen by how far the current rent sits below the area
     average market rent (the RERA Rent Index). The decree describes the
-    bands as "less than 10% below", "11-20% below", and so on, which leaves
-    the exact percentages (10, 20, 30, 40) ambiguous at the boundaries.
-    We resolve the boundaries deterministically as:
-        gap < 10            -> 0% max increase
-        10 <= gap <= 20     -> 5%
+    first band as "up to ten percent" below the average, inclusive of 10%.
+    The intervals used for the estimate are:
+        gap <= 10          -> 0% max increase
+        10 < gap <= 20     -> 5%
         20 < gap <= 30      -> 10%
         30 < gap <= 40      -> 15%
         gap > 40            -> 20%
-    So a gap of exactly 10% maps to 5% (the "11-20%" band), and a gap of
-    exactly 20% stays in that same band. If the current rent is at or above
+    A gap of exactly 20% stays in the 5% band. If the current rent is at or above
     the area average, the gap is non-positive and the max increase is 0%.
     """
-    if current_annual_rent <= 0:
+    if not math.isfinite(current_annual_rent) or current_annual_rent <= 0:
         return (
             ToolResponse[dict[str, object]]
             .fail(error=f"current_annual_rent must be > 0, got {current_annual_rent}")
             .model_dump()
         )
-    if area_average_rent <= 0:
+    if not math.isfinite(area_average_rent) or area_average_rent <= 0:
         return (
             ToolResponse[dict[str, object]]
             .fail(error=f"area_average_rent must be > 0, got {area_average_rent}")
@@ -74,10 +73,10 @@ async def rera_rent_increase(
 
     gap_pct = (area_average_rent - current_annual_rent) / area_average_rent * 100
 
-    # Boundary choice documented in the docstring above.
-    if gap_pct < 10:
+    # DLD's Tenancy Guide includes exactly 10% in the no-increase band.
+    if gap_pct <= 10:
         max_increase_pct = 0
-        band = "less than 10% below"
+        band = "up to 10% below"
     elif gap_pct <= 20:
         max_increase_pct = 5
         band = "11-20% below"
@@ -130,7 +129,7 @@ async def rental_dispute_guide(annual_rent: float | None = None) -> dict[str, ob
     If annual_rent is given, also compute the filing fee as 3.5% of annual
     rent clamped to the AED 500 floor and AED 20,000 cap.
     """
-    if annual_rent is not None and annual_rent <= 0:
+    if annual_rent is not None and (not math.isfinite(annual_rent) or annual_rent <= 0):
         return (
             ToolResponse[dict[str, object]]
             .fail(error=f"annual_rent must be > 0 when provided, got {annual_rent}")

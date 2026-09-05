@@ -146,8 +146,8 @@ class TestSetupAdvisorEnvelope:
         assert isinstance(knowledge, dict)
         assert knowledge["volatility"] == "high"
         assert knowledge["verify_at"] == "https://invest.dubai.ae"
-        assert knowledge["knowledge_date"] == "2026-08-14"
-        assert knowledge["previous_knowledge_date"] == "2026-07-02"
+        assert knowledge["knowledge_date"] == "2026-09-05"
+        assert knowledge["previous_knowledge_date"] == "2026-08-14"
         assert "Resolution 11 of 2025" in knowledge["last_refresh_scope"]
         assert "disclaimer" in knowledge
 
@@ -226,8 +226,8 @@ class TestSetupAdvisorDiscovery:
         registry = get_knowledge_registry()
         meta = registry.get("setup_advisor")
         assert meta is not None
-        assert meta.knowledge_date == "2026-08-14"
-        assert meta.previous_knowledge_date == "2026-07-02"
+        assert meta.knowledge_date == "2026-09-05"
+        assert meta.previous_knowledge_date == "2026-08-14"
         assert meta.last_refresh_scope is not None
         assert meta.volatility == "high"
 
@@ -243,3 +243,20 @@ class TestSetupAdvisorDiscovery:
         )
         assert results
         assert results[0].name == "setup_advisor"
+
+
+class TestSeptemberRouteChecks:
+    @pytest.mark.asyncio
+    async def test_low_budget_cannot_bypass_crypto_regulation(self) -> None:
+        result = await tools.setup_advisor(
+            activity="crypto exchange", budget_aed=10000, needs_visa=False, industry="crypto"
+        )
+        assert any("VARA" in reason for reason in result["data"]["reasoning"])
+        assert result["data"]["budget_assessment"]["below_indicative_minimum"] is True
+
+    @pytest.mark.asyncio
+    async def test_saas_warning_survives_low_budget_branch(self) -> None:
+        result = await tools.setup_advisor(activity="software", budget_aed=15000, industry="saas")
+        assert any(
+            "QFZP" in warning and "without" in warning for warning in result["data"]["warnings"]
+        )

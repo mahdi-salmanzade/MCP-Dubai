@@ -69,7 +69,7 @@ async def fcsc_search_dataset(
 
 async def fcsc_get_dataset(dataset_id: str) -> dict[str, object]:
     """Get full metadata for a specific FCSC dataset."""
-    if not dataset_id:
+    if not dataset_id.strip():
         return _fail("dataset_id must not be empty")
 
     client = FcscCkanClient()

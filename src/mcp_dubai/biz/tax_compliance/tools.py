@@ -44,6 +44,7 @@ async def corporate_tax_estimate(
     is_free_zone: bool = False,
     qfzp_qualifying_pct: int = 0,
     industry: str = "general",
+    is_qfzp: bool | None = None,
 ) -> dict[str, object]:
     """
     Estimate UAE corporate tax liability.
@@ -53,8 +54,10 @@ async def corporate_tax_estimate(
         is_free_zone: True if the entity is in a free zone.
         qfzp_qualifying_pct: Percentage of income that is Qualifying
             Activity income (0 to 100). Only used if is_free_zone is True.
-        industry: Industry category. SaaS triggers a critical warning
-            since it is NOT a Qualifying Activity.
+        industry: Industry category. SaaS triggers an income-classification
+            warning because qualification depends on the specific transaction.
+        is_qfzp: Explicit QFZP status. If omitted, positive qualifying
+            income in a free zone retains the legacy QFZP assumption.
 
     Returns:
         Tax breakdown with thresholds, qualifying split, and effective rate.
@@ -77,6 +80,12 @@ async def corporate_tax_estimate(
             .fail(error=f"industry must be one of {sorted(VALID_INDUSTRIES)}, got {industry!r}")
             .model_dump()
         )
+    if (is_qfzp is True and not is_free_zone) or (is_qfzp is False and qfzp_qualifying_pct > 0):
+        return (
+            ToolResponse[dict[str, object]]
+            .fail(error="QFZP status must match free-zone status and qualifying income.")
+            .model_dump()
+        )
 
     ct = _block("corporate_tax")
     thresholds = ct.get("thresholds", {})
@@ -85,16 +94,19 @@ async def corporate_tax_estimate(
 
     warnings: list[str] = []
 
-    qfzp_rules_applied = is_free_zone and qfzp_qualifying_pct > 0
+    qfzp_rules_applied = is_free_zone and (
+        is_qfzp if is_qfzp is not None else qfzp_qualifying_pct > 0
+    )
+    if is_free_zone and is_qfzp is None and qfzp_qualifying_pct == 0:
+        warnings.append(
+            "Ordinary tax treatment is assumed. Set is_qfzp=True if QFZP status "
+            "applies even with zero Qualifying Income; its ordinary tax-free band is zero."
+        )
 
     # SaaS warning per MD 229/2025
     if qfzp_rules_applied and industry == "saas":
         warnings.append(
-            "CRITICAL: SaaS is NOT a Qualifying Activity under Ministerial "
-            "Decision 229 of 2025. Most free zone SaaS revenue is taxed at "
-            "9% with no AED 375,000 tax-free band, NOT the 0% QFZP rate. "
-            "Treat your qfzp_qualifying_pct as 0 unless you have an explicit "
-            "FTA ruling that says otherwise."
+            str(ct.get("qfzp", {}).get("saas_note", "Verify SaaS income classification."))
         )
 
     # A QFZP does not receive the ordinary AED 375,000 0% band. Its full
@@ -147,6 +159,7 @@ async def corporate_tax_estimate(
                     "is_free_zone": is_free_zone,
                     "qfzp_qualifying_pct": qfzp_qualifying_pct,
                     "industry": industry,
+                    "is_qfzp": is_qfzp,
                 },
                 "tax_free_band_aed": free_band,
                 "tax_free_band_applied_aed": tax_free_band_applied,
@@ -163,6 +176,7 @@ async def corporate_tax_estimate(
                 "effective_rate_pct": round(effective_rate, 2),
                 "warnings": warnings,
                 "law": ct.get("law", "Federal Decree-Law 47 of 2022"),
+                "pillar_two_dmtt": ct.get("pillar_two_dmtt", {}),
             },
             knowledge=KNOWLEDGE,
         )
@@ -193,21 +207,23 @@ async def vat_filing_calendar(
     )
     deadline_day = int(vat.get("filing_deadline_day_of_month", 28))
 
-    if annual_revenue_aed >= mandatory:
+    if annual_revenue_aed > mandatory:
         registration = "mandatory"
         registration_reason = (
-            f"Annual revenue at or above AED {mandatory:,} requires mandatory VAT registration."
+            f"Taxable supplies and imports above AED {mandatory:,} in the past "
+            "12 months trigger mandatory VAT registration under the resident-business test."
         )
-    elif annual_revenue_aed >= voluntary:
+    elif annual_revenue_aed > voluntary:
         registration = "voluntary_eligible"
         registration_reason = (
-            f"Annual revenue between AED {voluntary:,} and AED {mandatory:,} "
-            "qualifies for voluntary VAT registration."
+            f"Taxable supplies and imports above AED {voluntary:,} and no more than "
+            f"AED {mandatory:,} meet the retrospective voluntary registration threshold."
         )
     else:
         registration = "not_required"
         registration_reason = (
-            f"Annual revenue below AED {voluntary:,} does not require VAT registration."
+            f"The supplied amount does not exceed AED {voluntary:,}. It does not "
+            "meet the retrospective turnover threshold; other registration tests may apply."
         )
 
     frequency = "monthly" if annual_revenue_aed >= monthly_threshold else "quarterly"
@@ -219,6 +235,15 @@ async def vat_filing_calendar(
                 "annual_revenue_aed": annual_revenue_aed,
                 "registration": registration,
                 "registration_reason": registration_reason,
+                "assessment_scope": (
+                    "For this screening, annual_revenue_aed must represent taxable supplies "
+                    "and imports over the preceding 12 months. The next-30-days test, "
+                    "voluntary taxable-expense route and non-resident rules require separate "
+                    "assessment. Filing frequency is indicative; use the FTA-assigned period."
+                ),
+                "source_urls": [
+                    "https://www.tax.gov.ae/en/taxes/Vat/vat.topics/registration.for.vat.aspx"
+                ],
                 "filing_frequency": frequency,
                 "filing_deadline_day_of_month": deadline_day,
                 "rate_pct": vat.get("rate_pct", 5),
@@ -228,6 +253,8 @@ async def vat_filing_calendar(
                     "monthly_filing_at_aed_revenue": monthly_threshold,
                 },
                 "amendments_2026": amendments,
+                "directives_2026": vat.get("directives_2026", {}),
+                "supply_verification_2026": vat.get("supply_verification_2026", {}),
                 "portal": "EmaraTax (https://eservices.tax.gov.ae)",
             },
             knowledge=KNOWLEDGE,
@@ -258,12 +285,8 @@ async def qfzp_check(
         verdict = "not_eligible"
         reason = "QFZP is only available to free zone entities."
     elif industry == "saas":
-        verdict = "not_qualifying"
-        reason = (
-            "SaaS is NOT a Qualifying Activity under Ministerial Decision "
-            "229 of 2025. Free zone SaaS revenue is taxed at 9% above the "
-            "AED 375,000 threshold, not the 0% QFZP rate."
-        )
+        verdict = "verify"
+        reason = str(qfzp.get("saas_note", "Verify SaaS income classification."))
     elif industry in {"trading", "logistics", "manufacturing"}:
         verdict = "potentially_qualifying"
         reason = (
@@ -275,8 +298,8 @@ async def qfzp_check(
         verdict = "verify"
         reason = (
             "Verify your specific activity against the Qualifying Activities "
-            "list in Ministerial Decision 229 of 2025. Most professional "
-            "services are NOT qualifying."
+            "list in Ministerial Decision 229 of 2025. Income classification "
+            "also depends on the counterparty and excluded activities."
         )
 
     return (
@@ -290,6 +313,7 @@ async def qfzp_check(
                 "current_rules_source": qfzp.get("current_rules_source"),
                 "de_minimis": qfzp.get("de_minimis"),
                 "law": ct.get("law"),
+                "source_urls": qfzp.get("source_urls", []),
             },
             knowledge=KNOWLEDGE,
         )
@@ -318,8 +342,8 @@ async def einvoicing_timeline() -> dict[str, object]:
     what_to_do_now = [
         "Appoint an accredited service provider (ASP): revenue at or above "
         "AED 50M must appoint by 30 October 2026, below AED 50M by "
-        "31 March 2027. Pick from the official MoF accredited/pre-approved "
-        "provider lists.",
+        "31 March 2027. Pick from the official MoF fully accredited provider list; "
+        "pre-approval or final assessment alone is not full accreditation.",
         "Make sure your ERP or accounting system can emit PINT AE invoices "
         "and exchange them on the DCTCE 5-corner model.",
         "Consider joining the voluntary phase (open since 1 July 2026) to "

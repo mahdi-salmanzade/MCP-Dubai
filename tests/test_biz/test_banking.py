@@ -30,6 +30,8 @@ class TestBankDetails:
         assert data["name"] == "Wio Business"
         assert data["onboarding_days_min"] == 1
         assert data["onboarding_days_max"] == 3
+        assert data["monthly_fee_aed"] == 99
+        assert data["pricing_status"] == "official_published_schedule"
 
     @pytest.mark.asyncio
     async def test_unknown_bank_returns_error(self) -> None:
@@ -69,6 +71,20 @@ class TestBankRecommendation:
         assert isinstance(warnings, list)
         assert any("crypto" in w.lower() or "high-risk" in w for w in warnings)
         assert not any("shareholder" in w.lower() for w in warnings)
+        assert not any("none of the listed" in w.lower() for w in warnings)
+
+    @pytest.mark.asyncio
+    async def test_missing_balance_cannot_match_a_zero_budget(self) -> None:
+        result = await tools.bank_recommendation(budget_min_balance_aed=0, limit=20)
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert all(bank["min_balance_aed"] == 0 for bank in data["banks"])
+        assert "adib" not in {bank["id"] for bank in data["banks"]}
+
+    @pytest.mark.asyncio
+    async def test_negative_balance_budget_is_rejected(self) -> None:
+        result = await tools.bank_recommendation(budget_min_balance_aed=-1)
+        assert result["success"] is False
 
     @pytest.mark.asyncio
     async def test_tier_filter_digital(self) -> None:
@@ -179,9 +195,9 @@ class TestKnowledge:
         result = await tools.list_banks()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-08-14"
-        assert knowledge["previous_knowledge_date"] == "2026-07-02"
-        assert "unsupported claim" in knowledge["last_refresh_scope"]
+        assert knowledge["knowledge_date"] == "2026-09-05"
+        assert knowledge["previous_knowledge_date"] == "2026-08-14"
+        assert "Wio Business paid plan fees" in knowledge["last_refresh_scope"]
         assert knowledge["volatility"] == "medium"
 
     def test_registers_with_knowledge_registry(self) -> None:

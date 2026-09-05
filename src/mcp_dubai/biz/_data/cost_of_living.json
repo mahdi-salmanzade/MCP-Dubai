@@ -1,6 +1,6 @@
 {
   "domain": "cost_of_living",
-  "knowledge_date": "2026-08-14",
+  "knowledge_date": "2026-09-05",
   "full_review_date": "2026-07-02",
   "volatility": "high",
   "verify_at": "https://dubailand.gov.ae",
@@ -68,10 +68,22 @@
     "verified_unchanged_as_of": "2026-07-02",
     "verified_unchanged_note": "Tariff slabs and the 5% residential housing fee verified unchanged as of this date.",
     "electricity_slabs_fils_per_kwh": [
-      { "range": "0-2000", "fils": 23 },
-      { "range": "2001-4000", "fils": 28 },
-      { "range": "4001-6000", "fils": 32 },
-      { "range": "above 6000", "fils": 38 }
+      {
+        "range": "0-2000",
+        "fils": 23
+      },
+      {
+        "range": "2001-4000",
+        "fils": 28
+      },
+      {
+        "range": "4001-6000",
+        "fils": 32
+      },
+      {
+        "range": "above 6000",
+        "fils": 38
+      }
     ],
     "electricity_slab_note": "confirm higher slabs on the DEWA tariff calculator",
     "water_first_slab_aed_per_imperial_gallon": 0.035,
@@ -119,10 +131,22 @@
       "chicken_per_kg": [12, 18]
     },
     "chain_price_tiers": [
-      { "chain": "Union Coop", "vs_carrefour": "around 15-20% below Carrefour" },
-      { "chain": "Lulu", "vs_carrefour": "around 10-15% below Carrefour" },
-      { "chain": "Carrefour", "vs_carrefour": "mid-market baseline" },
-      { "chain": "Spinneys / Waitrose", "vs_carrefour": "premium" }
+      {
+        "chain": "Union Coop",
+        "vs_carrefour": "around 15-20% below Carrefour"
+      },
+      {
+        "chain": "Lulu",
+        "vs_carrefour": "around 10-15% below Carrefour"
+      },
+      {
+        "chain": "Carrefour",
+        "vs_carrefour": "mid-market baseline"
+      },
+      {
+        "chain": "Spinneys / Waitrose",
+        "vs_carrefour": "premium"
+      }
     ],
     "source_urls": [
       "https://www.moet.gov.ae/en/essential-goods-prices-platform",
@@ -139,22 +163,32 @@
         "two_zones": 5,
         "three_plus_zones": 7.5
       },
-      "daily_cap_aed": 14,
       "monthly_pass_aed": {
         "one_zone": 140,
         "two_adjacent": 230,
         "all_zones": 350
       },
       "red_paper_ticket_aed": "2 + fare",
-      "blue_concession_card_aed": 70
+      "blue_concession_card_aed": 70,
+      "daily_cap_note": "No automatic AED 14 daily cap is substantiated by the current RTA fare table. E-purse journeys and purchased travel passes are distinct products.",
+      "source_urls": [
+        "https://www.rta.ae/wps/portal/rta/ae/public-transport/Nol-Fares"
+      ],
+      "longer_pass_note": "30-, 90- and 365-day travel passes require a registered silver or gold card; anonymous cards support the 7-day pass only."
     },
     "salik": {
       "status": "official",
       "effective_from": "2025-01-31",
       "gates": 10,
-      "peak_windows": ["06:00-10:00", "16:00-20:00"],
+      "peak_windows": [
+        "06:00-10:00",
+        "16:00-20:00"
+      ],
       "peak_toll_aed": 6.3,
-      "off_peak_windows": ["10:00-16:00", "20:00-01:00"],
+      "off_peak_windows": [
+        "10:00-16:00",
+        "20:00-01:00"
+      ],
       "off_peak_toll_aed": 4.2,
       "free_window": "01:00-06:00",
       "free_toll_aed": 0,
@@ -191,12 +225,23 @@
       "e_plus_91": 3.21,
       "diesel": 3.6
     },
-    "trend_note": "August 2026 prices increased by AED 0.20 per litre across Super 98, Special 95, E-Plus 91, and diesel compared with July. Treat any cached snapshot as stale after the first day of a new month.",
+    "trend_note": "September 2026 petrol prices rose AED 0.20 per litre and diesel rose AED 0.50 per litre compared with August. Earlier snapshots are historical; verify again for October.",
     "verify_at": "https://u.ae/en/information-and-services/environment-and-energy/water-and-energy/energy-and-fuel-prices",
     "source_urls": [
       "https://u.ae/en/information-and-services/environment-and-energy/water-and-energy/energy-and-fuel-prices",
-      "https://www.thenationalnews.com/business/energy/2026/07/31/uae-petrol-prices-to-rise-in-august-amid-wild-oil-market-swings/"
-    ]
+      "https://www.thenationalnews.com/business/energy/2026/07/31/uae-petrol-prices-to-rise-in-august-amid-wild-oil-market-swings/",
+      "https://www.wam.ae/en/article/c20f0j8-uae-fuel-price-committee-announces-prices-for"
+    ],
+    "september_2026_snapshot": {
+      "effective_from": "2026-09-01",
+      "super_98": 3.8,
+      "special_95": 3.69,
+      "e_plus_91": 3.61,
+      "diesel": 4.3
+    },
+    "latest_snapshot_key": "september_2026_snapshot",
+    "latest_month": "2026-09",
+    "verified_as_of": "2026-09-05"
   },
   "schooling": {
     "volatility": "medium",
@@ -245,6 +290,6 @@
       "https://insurancehub.ae/blog/health-insurance-cost-uae-2026-by-age-emirate"
     ]
   },
-  "previous_knowledge_date": "2026-07-02",
-  "last_refresh_scope": "Targeted correctness audit of 2026-08-14: refreshed the monthly fuel-price snapshot and prior-month comparison. Not a full re-verification of every field in this pack."
+  "previous_knowledge_date": "2026-08-14",
+  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: added the September 2026 Fuel Price Committee rates from WAM, retained earlier months as history, and removed the unsupported automatic Nol daily-cap claim after checking the RTA fare table. Rent, grocery, utility and insurance estimates were inspected but not re-verified. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

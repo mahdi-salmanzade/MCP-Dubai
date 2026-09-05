@@ -40,7 +40,7 @@ class TestDcde:
         assert cycle["status"] == "ongoing_finalist_phase"
         assert cycle["registration_status"] == "closed"
         assert dates["finals"] == "2026-10-07"
-        assert dcde_tools.KNOWLEDGE.knowledge_date == "2026-08-14"
+        assert dcde_tools.KNOWLEDGE.knowledge_date == "2026-09-05"
 
     @pytest.mark.asyncio
     async def test_unknown_program(self) -> None:
@@ -132,7 +132,7 @@ class TestEvents:
         assert dates["end"] == "2026-12-10"
 
     def test_knowledge_date_refreshed(self) -> None:
-        assert events_tools.KNOWLEDGE.knowledge_date == "2026-07-02"
+        assert events_tools.KNOWLEDGE.knowledge_date == "2026-09-05"
 
 
 class TestParkin:

@@ -9,6 +9,19 @@ from mcp_dubai.agents.data_analyst import tools
 
 class TestPlanQuery:
     @pytest.mark.asyncio
+    async def test_tax_plan_requires_taxable_income_and_actual_jurisdiction(self) -> None:
+        result = await tools.plan_query(category="founder_setup")
+        data = result["data"]
+        assert isinstance(data, dict)
+        steps = data["steps"]
+        assert isinstance(steps, list)
+        tax = next(step for step in steps if step["tool"] == "corporate_tax_estimate")
+        assert tax["args_template"]["annual_taxable_income_aed"] == "<annual_taxable_income_aed>"
+        assert tax["args_template"]["is_free_zone"] == "<is_free_zone>"
+        assert tax["args_template"]["is_qfzp"] == "<is_qfzp>"
+        assert "projected_revenue" not in str(tax)
+
+    @pytest.mark.asyncio
     async def test_founder_setup_plan(self) -> None:
         result = await tools.plan_query(
             category="founder_setup",
@@ -101,7 +114,7 @@ class TestSynthesizeReport:
                 volatility="high",
             ),
         )
-        result = await tools.synthesize_report(title="X")
+        result = await tools.synthesize_report(title="X", domains_referenced=["test_dom"])
         data = result["data"]
         assert isinstance(data, dict)
         markdown = data["markdown"]
@@ -111,6 +124,24 @@ class TestSynthesizeReport:
         assert "full review 2025-12-01" in markdown
         assert "targeted scope: Targeted fee update." in markdown
         assert "verified 2026-04-13" not in markdown
+
+    @pytest.mark.asyncio
+    async def test_report_does_not_claim_unprovided_sources(self) -> None:
+        result = await tools.synthesize_report(
+            title="Notes",
+            sections=[{"body": "Missing heading"}, {"heading": "Only rendered section"}],
+        )
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["domains_referenced"] == []
+        assert data["section_count"] == 1
+        assert "freshness of this report is unverified" in str(data["markdown"])
+
+    @pytest.mark.asyncio
+    async def test_report_rejects_unknown_source_domain(self) -> None:
+        result = await tools.synthesize_report(title="Notes", domains_referenced=["invented"])
+        assert result["success"] is False
+        assert "invented" in str(result["error"])
 
     @pytest.mark.asyncio
     async def test_empty_title_returns_error(self) -> None:

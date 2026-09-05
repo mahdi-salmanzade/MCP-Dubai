@@ -1,6 +1,6 @@
 {
   "domain": "parkin",
-  "knowledge_date": "2026-07-02",
+  "knowledge_date": "2026-09-05",
   "full_review_date": "2026-07-02",
   "volatility": "medium",
   "verify_at": "https://parkin.ae",
@@ -29,8 +29,14 @@
     "off_peak_aed_per_hour_min": 2,
     "off_peak_aed_per_hour_max": 4,
     "peak_windows": [
-      {"start": "08:00", "end": "10:00"},
-      {"start": "16:00", "end": "20:00"}
+      {
+        "start": "08:00",
+        "end": "10:00"
+      },
+      {
+        "start": "16:00",
+        "end": "20:00"
+      }
     ],
     "free_periods": [
       "Sundays (all day)",
@@ -62,9 +68,22 @@
     ]
   },
   "zones": {
-    "confirmed": ["A", "B", "C", "D", "E", "F"],
-    "unverified": ["G", "H", "I", "J", "K"],
-    "unverified_note": "Zone letters G through K appear in third-party sources but need first-party confirmation from parkin.ae.",
+    "confirmed": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H"
+    ],
+    "unverified": [
+      "I",
+      "J",
+      "K"
+    ],
+    "unverified_note": "The official subscription page confirms Dubai Hills 631G and Dubai Silicon Oasis H. Other retained letters still need current first-party confirmation.",
     "new_paid_areas_2026": [
       {
         "area": "International City",
@@ -82,6 +101,9 @@
     "new_paid_areas_2026_source_urls": [
       "https://www.khaleejtimes.com/uae/paid-parking-dubai-international-city",
       "https://www.timeoutdubai.com/news/discovery-gardens-paid-parking-2026"
+    ],
+    "source_urls": [
+      "https://parkin.ae/subscription"
     ]
   },
   "mall_parking": {
@@ -118,28 +140,29 @@
     "real_time_availability": "No public real-time availability API. Parkin holds it internally."
   },
   "rta_fares": {
-    "as_of": "2025",
+    "as_of": "2026-09-05",
     "silver_nol": {
       "1_zone_aed": 3,
       "2_zone_aed": 5,
       "3_plus_zone_aed": 7.5
-    },
-    "daily_caps_aed": {
-      "silver_blue": 14,
-      "gold": 20,
-      "gold_daily_pass": 40
     },
     "transfer_window_minutes": 30,
     "transfer_note": "30-minute multi-modal transfer rule applies (metro to bus, bus to tram, etc.).",
     "unlimited_passes_regular_aed": {
       "7_day": 110,
       "30_day": 350,
-      "90_day": 1050,
-      "365_day": 4100
+      "90_day": 830,
+      "365_day": 2670
     },
     "gold_class_multiplier": 2.0,
     "fare_calculator_api": false,
-    "gtfs_fares_status": "rta_gtfs-open feed may include fare_attributes.txt and fare_rules.txt. UNVERIFIED. Download the 7z to confirm."
+    "gtfs_fares_status": "rta_gtfs-open feed may include fare_attributes.txt and fare_rules.txt. UNVERIFIED. Download the 7z to confirm.",
+    "pass_scope": "All-zone regular-class passes. Registered cards are required for 30-, 90-, and 365-day passes; anonymous silver/gold cards support 7-day passes only.",
+    "daily_cap_note": "The current RTA fare table does not establish an automatic daily cap. Do not confuse e-purse fares with separately purchased travel-pass products.",
+    "source_urls": [
+      "https://www.rta.ae/wps/portal/rta/ae/public-transport/Nol-Fares"
+    ],
+    "gold_class_note": "Gold surcharge applies on metro and tram; there is no separate Gold bus seating product."
   },
   "nol_cards": [
     {
@@ -158,7 +181,7 @@
       "type": "Gold",
       "card_cost_aed": 25,
       "credit_aed": 19,
-      "best_for": "Premium Gold Class metro and bus seating"
+      "best_for": "Gold Class metro and tram travel"
     },
     {
       "type": "Blue (personalized)",
@@ -182,5 +205,7 @@
       "nol.rta.ae web portal"
     ],
     "dubai_pulse_nol_dataset": "None published"
-  }
+  },
+  "previous_knowledge_date": "2026-07-02",
+  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: corrected all-zone RTA 90-day and annual pass prices, removed unsupported automatic daily caps and Gold bus seating, and confirmed zones G/H from Parkin subscriptions. Parkin tariff/VAT/cashless/mall claims retain the prior review and require separate live confirmation. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

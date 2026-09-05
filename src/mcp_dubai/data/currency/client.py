@@ -34,14 +34,26 @@ class CurrencyClient:
         if not isinstance(payload, dict):
             raise HttpClientError(f"Invalid JSON shape from {url}: expected an object")
         if payload.get("result") == "success":
+            if payload.get("base_code") != base:
+                raise HttpClientError(
+                    f"Invalid JSON shape from {url}: base currency does not match"
+                )
             rates = payload.get("rates")
-            if not isinstance(rates, dict) or any(
-                not isinstance(code, str)
-                or isinstance(rate, bool)
-                or not isinstance(rate, int | float)
-                or not math.isfinite(rate)
-                or rate < 0
-                for code, rate in rates.items()
-            ):
+            try:
+                valid_rates = (
+                    isinstance(rates, dict)
+                    and bool(rates)
+                    and all(
+                        isinstance(code, str)
+                        and not isinstance(rate, bool)
+                        and isinstance(rate, int | float)
+                        and math.isfinite(rate)
+                        and rate > 0
+                        for code, rate in rates.items()
+                    )
+                )
+            except OverflowError:
+                valid_rates = False
+            if not valid_rates:
                 raise HttpClientError(f"Invalid JSON shape from {url}: rates are malformed")
         return dict(payload)

@@ -1,6 +1,6 @@
 {
   "domain": "ip_trademark",
-  "knowledge_date": "2026-08-14",
+  "knowledge_date": "2026-09-05",
   "full_review_date": "2026-04-13",
   "volatility": "medium",
   "verify_at": "https://moet.gov.ae",
@@ -64,9 +64,13 @@
     },
     "wipo_madrid": {
       "uae_member": true,
-      "acceded_on": "2021-12-28",
-      "summary": "UAE acceded to the Madrid Protocol on 28 December 2021. Third GCC country after Oman and Bahrain.",
-      "founder_relevance": "Founders can use international trademark filing via WIPO Madrid System once they have a UAE base mark."
+      "acceded_on": "2021-09-28",
+      "summary": "The UAE deposited its Madrid Protocol accession on 28 September 2021; the Protocol entered into force for the UAE on 28 December 2021.",
+      "founder_relevance": "Founders can use international trademark filing via WIPO Madrid System once they have a UAE base mark.",
+      "in_force_since": "2021-12-28",
+      "source_urls": [
+        "https://www.wipo.int/en/web/madrid-system/w/news/2021/news_0026"
+      ]
     }
   },
   "patent": {
@@ -104,6 +108,17 @@
     }
   },
   "recommended_approach": "Ship reference tools with canonical URLs and the fee schedule. Build a calculator for the SME discount. Do not promise programmatic trademark search.",
-  "previous_knowledge_date": "2026-04-13",
-  "last_refresh_scope": "Targeted correctness audit of 2026-08-14: corrected official trademark fees/timing and the post-2021 GCC patent filing position against official MOET, UAE legislation, GCCPO, and WIPO sources. Not a full re-verification of every field in this pack."
+  "previous_knowledge_date": "2026-08-14",
+  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: reconfirmed MOET trademark fees and service target, corrected Madrid accession versus entry-into-force dates, and added the UAE Locarno Agreement accession and forthcoming 6 October 2026 entry into force from WIPO. Not a full re-verification of every field in this pack.",
+  "industrial_design": {
+    "locarno_agreement": {
+      "accession_date": "2026-07-06",
+      "in_force_from": "2026-10-06",
+      "status_as_of_2026_09_05": "Accession deposited; entry into force upcoming.",
+      "note": "The Locarno Agreement provides the international classification for industrial designs; accession does not itself grant design protection.",
+      "source_urls": [
+        "https://www.wipo.int/wipolex/en/treaties/ShowResults?code=AE"
+      ]
+    }
+  }
 }

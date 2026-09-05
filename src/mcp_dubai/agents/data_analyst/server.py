@@ -45,19 +45,23 @@ async def list_plan_categories() -> dict[str, object]:
 async def synthesize_report(
     title: str,
     sections: list[dict[str, object]] | None = None,
+    domains_referenced: list[str] | None = None,
 ) -> dict[str, object]:
     """
     Build a structured Markdown report from named sections.
 
-    The output includes a knowledge-freshness footer that lists every
-    domain the report draws on with its current verified date and
-    volatility tag.
+    The freshness footer lists only caller-declared source domains with
+    their recorded update and full-review dates. Omitted sources leave
+    report freshness unverified.
 
     Args:
         title: Report title.
         sections: List of {heading, body} dicts. Each becomes an H2 section.
+        domains_referenced: Knowledge domain names actually used in the report.
     """
-    return await tools.synthesize_report(title=title, sections=sections)
+    return await tools.synthesize_report(
+        title=title, sections=sections, domains_referenced=domains_referenced
+    )
 
 
 @mcp.tool

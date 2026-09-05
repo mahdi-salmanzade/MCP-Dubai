@@ -10,7 +10,7 @@ in this feature is applied client-side.
         {"id": "2026-07-02T15:00:00", "change": -19.48,
          "changepercentage": -0.324, "value": 5990.59, "volume": 120701866}
 
-    GET /mw/v1/stocks   -> 475 securities as of 2026-08-14
+    GET /mw/v1/stocks   -> 458 securities as of 2026-09-05
         (id is the ticker symbol; `name` was null for all records on that date).
 """
 

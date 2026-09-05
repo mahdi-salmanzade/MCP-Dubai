@@ -133,6 +133,12 @@ async def bank_recommendation(
             .fail(error=f"limit must be 1 to 20, got {limit}")
             .model_dump()
         )
+    if budget_min_balance_aed is not None and budget_min_balance_aed < 0:
+        return (
+            ToolResponse[dict[str, object]]
+            .fail(error="budget_min_balance_aed must be non-negative")
+            .model_dump()
+        )
 
     high_risk_industries = {"crypto", "forex", "jewelry", "used_cars", "msb"}
     if industry in high_risk_industries:
@@ -150,20 +156,17 @@ async def bank_recommendation(
         if tier and bank.get("tier") != tier:
             continue
 
-        # Min balance filter
+        # A missing balance cannot establish that an account fits the budget.
         if budget_min_balance_aed is not None:
-            min_bal = bank.get("min_balance_aed", 0)
-            if isinstance(min_bal, (int, float)) and min_bal > budget_min_balance_aed:
+            min_bal = bank.get("min_balance_aed")
+            if not isinstance(min_bal, (int, float)) or min_bal > budget_min_balance_aed:
                 continue
 
-        # High-risk industries: warn that no bank officially welcomes them
-        # but still return the digital banks first.
-
-        # Compute a score: lower onboarding days + lower min balance wins
+        # Rank recorded estimates without treating unknown balances as free.
         days_min = bank.get("onboarding_days_min", 14)
-        min_bal_val = bank.get("min_balance_aed", 0)
+        min_bal_val = bank.get("min_balance_aed")
         days_min_val = days_min if isinstance(days_min, (int, float)) else 14
-        min_bal_num = min_bal_val if isinstance(min_bal_val, (int, float)) else 0
+        min_bal_num = min_bal_val if isinstance(min_bal_val, (int, float)) else float("inf")
         score: float = float(days_min_val) * 1000 + float(min_bal_num)
         if speed_priority:
             score = float(days_min_val) * 5000  # weight speed heavily
@@ -177,7 +180,12 @@ async def bank_recommendation(
                 "onboarding_days_min": bank.get("onboarding_days_min"),
                 "onboarding_days_max": bank.get("onboarding_days_max"),
                 "min_balance_aed": bank.get("min_balance_aed"),
-                "crypto_friendly": bank.get("crypto_friendly", False),
+                "monthly_fee_aed": bank.get("monthly_fee_aed"),
+                "monthly_fee_scope": bank.get("monthly_fee_scope"),
+                "pricing_status": bank.get("pricing_status"),
+                "crypto_friendly": bank.get("crypto_friendly"),
+                "crypto_status_note": bank.get("crypto_status_note"),
+                "source_urls": bank.get("source_urls", []),
                 "notes": bank.get("notes", ""),
                 "_score": score,
             }
@@ -188,12 +196,16 @@ async def bank_recommendation(
 
     if is_high_risk:
         warnings.append(
-            "None of the listed UAE banks officially welcome high-risk "
-            "industries (crypto, forex, jewelry, used cars, money service "
-            "businesses) as of April 2026. Prepare extensive source-of-funds "
-            "documentation and expect 8 to 16 week onboarding."
+            "High-risk industry onboarding is bank-, licence- and applicant-specific. "
+            "Zand publishes institutional digital-asset custody services, but this "
+            "does not guarantee acceptance of every crypto business. Confirm your "
+            "activity with the bank and prepare source-of-funds documentation."
         )
-    warnings.append("Apply to 2 or 3 banks in parallel to hedge onboarding risk.")
+    warnings.append(
+        "Ranking uses recorded onboarding and balance estimates; legacy founder "
+        "reports are not current bank commitments. Confirm the exact account plan, "
+        "monthly fees, minimum balance and eligibility before applying."
+    )
 
     return (
         ToolResponse[dict[str, object]]

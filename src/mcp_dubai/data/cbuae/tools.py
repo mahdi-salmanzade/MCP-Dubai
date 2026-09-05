@@ -121,6 +121,15 @@ async def cbuae_base_rate() -> dict[str, object]:
             source=_SOURCE,
         )
 
+    if result.get("base_rate_percent") is None:
+        mark_failure(_UPSTREAM_BASE_RATE, "parse_error: no base rate in response")
+        return upstream_error_response(
+            ValueError("CBUAE response did not contain a base rate"),
+            status="parse_error",
+            verify_at="https://www.centralbank.ae/en/monetary-policy/base-rate/",
+            source=_SOURCE,
+        )
+
     mark_success(_UPSTREAM_BASE_RATE)
     return (
         ToolResponse[dict[str, object]]

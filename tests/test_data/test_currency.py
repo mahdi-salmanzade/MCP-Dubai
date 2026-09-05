@@ -30,6 +30,43 @@ def _rates_payload(
 class TestCurrencyClient:
     @pytest.mark.asyncio
     @respx.mock
+    @pytest.mark.parametrize("rates", [{}, {"AED": 0}, {"AED": 10**400}])
+    async def test_rejects_invalid_exchange_rates(self, rates: dict[str, float]) -> None:
+        respx.get(_latest_url("AED")).mock(
+            return_value=Response(200, json=_rates_payload(rates=rates))
+        )
+
+        result = await tools.currency_rates()
+
+        assert result["success"] is False
+        assert result["error"]["status"] == "upstream_error"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_rejects_wrong_base_currency(self) -> None:
+        respx.get(_latest_url("AED")).mock(
+            return_value=Response(200, json=_rates_payload(base="USD"))
+        )
+
+        result = await tools.currency_convert(100)
+
+        assert result["success"] is False
+        assert "base currency does not match" in str(result["error"])
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_conversion_rejects_overflow(self) -> None:
+        respx.get(_latest_url("AED")).mock(
+            return_value=Response(200, json=_rates_payload(rates={"IDR": 4000.0}))
+        )
+
+        result = await tools.currency_convert(1e308, to_currency="IDR")
+
+        assert result["success"] is False
+        assert "numeric range" in str(result["error"])
+
+    @pytest.mark.asyncio
+    @respx.mock
     @pytest.mark.parametrize(
         ("response", "message"),
         [

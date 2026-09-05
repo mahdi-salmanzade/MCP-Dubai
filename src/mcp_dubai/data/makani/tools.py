@@ -56,9 +56,12 @@ def _parse_latlng(raw: object) -> tuple[float | None, float | None]:
     if len(parts) != 2:
         return None, None
     try:
-        return float(parts[0]), float(parts[1])
+        latitude, longitude = float(parts[0]), float(parts[1])
     except ValueError:
         return None, None
+    if not -90 <= latitude <= 90 or not -180 <= longitude <= 180:
+        return None, None
+    return latitude, longitude
 
 
 # Arabic-Indic and Extended Arabic-Indic digits, transliterated to ASCII so

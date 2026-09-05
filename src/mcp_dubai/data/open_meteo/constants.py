@@ -113,6 +113,8 @@ def describe_weather_code(code: object) -> str | None:
     """Map a WMO weather code to a human description, tolerating floats/None."""
     if isinstance(code, bool):
         return None
+    if isinstance(code, float) and not code.is_integer():
+        return None
     if isinstance(code, (int, float)):
         return WMO_WEATHER_CODES.get(int(code), "Unknown")
     return None

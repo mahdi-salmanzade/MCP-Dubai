@@ -1,11 +1,11 @@
 {
   "domain": "banking",
-  "knowledge_date": "2026-08-14",
+  "knowledge_date": "2026-09-05",
   "full_review_date": "2026-07-02",
   "volatility": "medium",
   "verify_at": "https://www.centralbank.ae",
   "source_brief_section": "6.5",
-  "disclaimer": "Bank onboarding rules and minimum balances change. Founder reports for rejection rates are NOT official statistics. None of the listed banks officially welcome crypto/VARA-licensed entities as of April 2026.",
+  "disclaimer": "Bank account plans, fees, minimum balances and onboarding decisions vary by product and applicant. Founder-reported timings and balances are estimates, not official bank commitments. Digital-asset services and corporate onboarding require bank-specific assessment.",
   "currency": "AED",
   "process_summary": {
     "typical_timeline_weeks_min": 1,
@@ -13,7 +13,6 @@
     "fastest_path": "Wio Business: 1 to 3 days for clean profiles",
     "slowest_path": "International banks (HSBC, StanChart, Citi): 6 to 16 weeks for SME accounts",
     "common_rejection_reasons": [
-      "Free zone bias (Meydan in particular)",
       "Single non-resident shareholder",
       "Crypto, forex, or other high-risk industry exposure",
       "No UAE address proof",
@@ -28,7 +27,8 @@
       "Business plan",
       "Source of funds documentation",
       "Tax residency certificate (sometimes)"
-    ]
+    ],
+    "pricing_and_timeline_note": "Except where a dated official source is attached to an individual field or record, onboarding estimates and minimum balances below are legacy founder reports and have not been re-verified on 5 September 2026. Obtain the current product tariff before budgeting."
   },
   "dul": {
     "name": "Dubai Unified Licence",
@@ -155,12 +155,33 @@
       "onboarding_days_min": 1,
       "onboarding_days_max": 3,
       "min_balance_aed": 0,
-      "monthly_fee_aed": 0,
-      "crypto_friendly": false,
+      "monthly_fee_aed": 99,
+      "crypto_friendly": null,
       "free_zones_supported": "Most free zones, app-first",
       "tier": "digital",
       "tag": "founder_report",
-      "notes": "Best for solo founders with clean profiles. App-only, no physical branches. Islamic banking platform in development (announced March 2026, subject to regulatory approval). June 2026 Geidea partnership distributes Wio Business accounts and SME financing to Geidea merchants. FY2025 revenue AED 1.24 billion; 120,000+ businesses report Wio as their main business banking partner."
+      "notes": "Best for solo founders with clean profiles. App-only, no physical branches. Islamic banking platform in development (announced March 2026, subject to regulatory approval). June 2026 Geidea partnership distributes Wio Business accounts and SME financing to Geidea merchants. FY2025 revenue AED 1.24 billion; 120,000+ businesses report Wio as their main business banking partner.",
+      "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
+      "pricing_status": "official_published_schedule",
+      "monthly_fee_scope": "Essential plan; published fee includes applicable VAT. Grow plan is AED 249 per month.",
+      "pricing_plans": [
+        {
+          "name": "Essential",
+          "monthly_fee_aed": 99,
+          "min_balance_aed": 0
+        },
+        {
+          "name": "Grow",
+          "monthly_fee_aed": 249,
+          "min_balance_aed": 0
+        }
+      ],
+      "pricing_verified_as_of": "2026-09-05",
+      "source_urls": [
+        "https://wio.io/business",
+        "https://www.wio.io/business-fees.pdf"
+      ],
+      "onboarding_note": "The current official website advertises processing in 3 working days; the 1 to 3 day numerical range is a legacy founder estimate, not a guarantee."
     },
     {
       "id": "mashreq_neobiz",
@@ -171,12 +192,14 @@
       "onboarding_days_min": 7,
       "onboarding_days_max": 14,
       "min_balance_aed": 25000,
-      "monthly_fee_aed": 0,
-      "crypto_friendly": false,
+      "monthly_fee_aed": null,
+      "crypto_friendly": null,
       "free_zones_supported": "Wide coverage; integrated with mainland setup",
       "tier": "digital",
       "tag": "founder_report",
-      "notes": "Digital arm of Mashreq. Often integrated with mainland setup flows. Mashreq was named in the official 12 November 2025 DUL integration announcement."
+      "notes": "Digital arm of Mashreq. Often integrated with mainland setup flows. Mashreq was named in the official 12 November 2025 DUL integration announcement.",
+      "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
+      "pricing_status": "legacy_founder_report_unverified"
     },
     {
       "id": "zand",
@@ -186,11 +209,18 @@
       "onboarding_days_min": 7,
       "onboarding_days_max": 14,
       "min_balance_aed": 0,
-      "monthly_fee_aed": 0,
-      "crypto_friendly": false,
+      "monthly_fee_aed": null,
+      "crypto_friendly": true,
       "tier": "digital",
       "tag": "founder_report",
-      "notes": "Newer digital bank. Smaller customer base, less coverage in founder forums."
+      "notes": "Digital bank offering corporate banking and institutional digital-asset custody. Confirm product eligibility, charges, and onboarding requirements with Zand.",
+      "crypto_status_note": "Zand publicly offers VARA-regulated institutional digital-asset custody and has announced partnerships with regulated virtual-asset businesses. This does not guarantee a business account for every crypto applicant.",
+      "pricing_status": "legacy_founder_report_unverified",
+      "source_urls": [
+        "https://www.zand.ae/en/products/digital-asset-custody",
+        "https://www.zand.ae/en/news/tokinvest-and-zand-bank-partner-to-unlock-the-future-of-tokenised-investing-in-dubai"
+      ],
+      "digital_asset_services_verified_as_of": "2026-09-05"
     },
     {
       "id": "ruya",
@@ -200,11 +230,13 @@
       "onboarding_days_min": 7,
       "onboarding_days_max": 14,
       "min_balance_aed": 0,
-      "monthly_fee_aed": 0,
-      "crypto_friendly": false,
+      "monthly_fee_aed": null,
+      "crypto_friendly": null,
       "tier": "digital",
       "tag": "founder_report",
-      "notes": "Digital Islamic bank. Named in the official 12 November 2025 DUL integration announcement."
+      "notes": "Digital Islamic bank. Named in the official 12 November 2025 DUL integration announcement.",
+      "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
+      "pricing_status": "legacy_founder_report_unverified"
     },
     {
       "id": "emirates_nbd",
@@ -214,11 +246,13 @@
       "onboarding_days_min": 21,
       "onboarding_days_max": 42,
       "min_balance_aed": 100000,
-      "monthly_fee_aed": 0,
-      "crypto_friendly": false,
+      "monthly_fee_aed": null,
+      "crypto_friendly": null,
       "tier": "traditional",
       "tag": "founder_report",
-      "notes": "Largest UAE bank by branch network. Comfortable with most setups but slower onboarding than digital. Named in the official 12 November 2025 DUL integration announcement."
+      "notes": "Largest UAE bank by branch network. Comfortable with most setups but slower onboarding than digital. Named in the official 12 November 2025 DUL integration announcement.",
+      "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
+      "pricing_status": "legacy_founder_report_unverified"
     },
     {
       "id": "rakbank",
@@ -228,11 +262,13 @@
       "onboarding_days_min": 14,
       "onboarding_days_max": 28,
       "min_balance_aed": 50000,
-      "monthly_fee_aed": 0,
-      "crypto_friendly": false,
+      "monthly_fee_aed": null,
+      "crypto_friendly": null,
       "tier": "traditional",
       "tag": "founder_report",
-      "notes": "Most SME-friendly traditional bank by reputation."
+      "notes": "Most SME-friendly traditional bank by reputation.",
+      "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
+      "pricing_status": "legacy_founder_report_unverified"
     },
     {
       "id": "cbd",
@@ -243,10 +279,12 @@
       "onboarding_days_min": 14,
       "onboarding_days_max": 28,
       "min_balance_aed": 50000,
-      "crypto_friendly": false,
+      "crypto_friendly": null,
       "tier": "traditional",
       "tag": "founder_report",
-      "notes": "Named in the official 12 November 2025 DUL integration announcement."
+      "notes": "Named in the official 12 November 2025 DUL integration announcement.",
+      "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
+      "pricing_status": "legacy_founder_report_unverified"
     },
     {
       "id": "adcb",
@@ -257,10 +295,12 @@
       "onboarding_days_min": 21,
       "onboarding_days_max": 42,
       "min_balance_aed": 50000,
-      "crypto_friendly": false,
+      "crypto_friendly": null,
       "tier": "traditional",
       "tag": "founder_report",
-      "notes": "Traditional."
+      "notes": "Traditional.",
+      "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
+      "pricing_status": "legacy_founder_report_unverified"
     },
     {
       "id": "fab",
@@ -271,10 +311,12 @@
       "onboarding_days_min": 21,
       "onboarding_days_max": 42,
       "min_balance_aed": 100000,
-      "crypto_friendly": false,
+      "crypto_friendly": null,
       "tier": "traditional",
       "tag": "founder_report",
-      "notes": "Largest UAE bank by assets. Named in the official 12 November 2025 DUL integration announcement."
+      "notes": "Largest UAE bank by assets. Named in the official 12 November 2025 DUL integration announcement.",
+      "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
+      "pricing_status": "legacy_founder_report_unverified"
     },
     {
       "id": "adib",
@@ -284,10 +326,12 @@
       "onboarding_speed_label": "3 to 6 weeks",
       "onboarding_days_min": 21,
       "onboarding_days_max": 42,
-      "crypto_friendly": false,
+      "crypto_friendly": null,
       "tier": "traditional",
       "tag": "founder_report",
-      "notes": "Traditional Islamic bank."
+      "notes": "Traditional Islamic bank.",
+      "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
+      "pricing_status": "legacy_founder_report_unverified"
     },
     {
       "id": "hsbc",
@@ -297,10 +341,12 @@
       "onboarding_days_min": 42,
       "onboarding_days_max": 84,
       "min_balance_aed": 100000,
-      "crypto_friendly": false,
+      "crypto_friendly": null,
       "tier": "international",
       "tag": "founder_report",
-      "notes": "International, slowest onboarding, highest minimums."
+      "notes": "International, slowest onboarding, highest minimums.",
+      "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
+      "pricing_status": "legacy_founder_report_unverified"
     },
     {
       "id": "standard_chartered",
@@ -310,10 +356,12 @@
       "onboarding_days_min": 42,
       "onboarding_days_max": 112,
       "min_balance_aed": 200000,
-      "crypto_friendly": false,
+      "crypto_friendly": null,
       "tier": "international",
       "tag": "founder_report",
-      "notes": "International, very strict KYC. SME tier unconfirmed (no public schedule)."
+      "notes": "International, very strict KYC. SME tier unconfirmed (no public schedule).",
+      "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
+      "pricing_status": "legacy_founder_report_unverified"
     },
     {
       "id": "citi",
@@ -323,10 +371,12 @@
       "onboarding_days_min": 42,
       "onboarding_days_max": 112,
       "min_balance_aed": 250000,
-      "crypto_friendly": false,
+      "crypto_friendly": null,
       "tier": "international",
       "tag": "founder_report",
-      "notes": "Effectively corporate-only. No real SME tier."
+      "notes": "Effectively corporate-only. No real SME tier.",
+      "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
+      "pricing_status": "legacy_founder_report_unverified"
     },
     {
       "id": "liv",
@@ -335,21 +385,29 @@
       "ownership": "Emirates NBD",
       "onboarding_speed_label": "n/a for business",
       "min_balance_aed": 0,
-      "crypto_friendly": false,
+      "crypto_friendly": null,
       "tier": "digital",
       "tag": "founder_report",
-      "notes": "Liv is retail-only. Business banking goes through ENBD parent. Listed here for disambiguation."
+      "notes": "Liv is retail-only. Business banking goes through ENBD parent. Listed here for disambiguation.",
+      "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
+      "pricing_status": "legacy_founder_report_unverified"
     }
   ],
   "payment_gateways": [
     {
       "name": "Stripe",
-      "live_in_uae_since": "2023-04",
-      "notes": "Live in UAE since April 2023."
+      "live_in_uae_since": "2021-04",
+      "notes": "Official UAE launch announced on 5 April 2021.",
+      "source_urls": [
+        "https://stripe.com/newsroom/news/stripe-launches-uae"
+      ]
     },
     {
       "name": "Checkout.com",
-      "notes": "Headquartered in Dubai."
+      "notes": "Headquartered in London, with a Checkout MENA legal entity in Dubai Internet City.",
+      "source_urls": [
+        "https://www.checkout.com/contact-us"
+      ]
     },
     {
       "name": "Network International (N-Genius)"
@@ -376,6 +434,6 @@
       "name": "2Checkout"
     }
   ],
-  "previous_knowledge_date": "2026-07-02",
-  "last_refresh_scope": "Targeted correctness audit of 2026-08-14: removed the unsupported claim that banks generally prefer two or more shareholders; corrected DUL from a hard bank/free-zone eligibility list to the official Dubai-wide coverage and named-bank integration snapshot; and added primary DUL sources. Not a full re-verification of bank onboarding times, balances, or other fields in this pack."
+  "previous_knowledge_date": "2026-08-14",
+  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: corrected Wio Business paid plan fees against its official schedule, replaced unsupported zero monthly fees elsewhere with unknown, removed the blanket crypto exclusion in light of Zand institutional custody, labelled legacy pricing/onboarding limits explicitly, and corrected Stripe launch year and Checkout.com headquarters from their primary sources. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

@@ -1,9 +1,9 @@
 {
   "domain": "halal",
-  "knowledge_date": "2026-04-13",
+  "knowledge_date": "2026-09-05",
   "full_review_date": "2026-04-13",
   "volatility": "stable",
-  "verify_at": "https://qc.moiat.gov.ae/en/open-data/halal",
+  "verify_at": "https://moiat.gov.ae/en/programs/halal",
   "source_brief_section": "6.10e",
   "disclaimer": "Halal certification rules and accredited body lists change. Verify with MOIAT directly before quoting figures.",
   "currency": "AED",
@@ -12,24 +12,24 @@
     "short_name": "MOIAT",
     "absorbed": "ESMA (Emirates Authority for Standardization and Metrology) was absorbed into MOIAT in 2020. The halal scheme moved with it.",
     "url": "https://moiat.gov.ae",
-    "open_data_url": "https://qc.moiat.gov.ae/en/open-data/halal",
+    "open_data_url": "https://moiat.gov.ae/en/programs/halal",
     "warning": "ESMA is no longer an active authority. Do not refer founders to ESMA for halal certification."
   },
   "standards": [
     {
       "id": "uae_s_gso_2055_1",
-      "code": "UAE.S GSO 2055-1",
+      "code": "UAE.S 2055-1",
       "scope": "General requirements for halal food"
     },
     {
       "id": "uae_s_gso_2055_2",
-      "code": "UAE.S GSO 2055-2",
-      "scope": "Halal slaughter of permitted animals"
+      "code": "UAE.S 2055-2",
+      "scope": "General requirements for halal certification bodies"
     },
     {
       "id": "uae_s_gso_2055_4",
-      "code": "UAE.S GSO 2055-4",
-      "scope": "Other halal product standards"
+      "code": "UAE.S 2055-4",
+      "scope": "Requirements for halal cosmetics and personal care products"
     },
     {
       "id": "uae_s_993",
@@ -41,31 +41,44 @@
   "halal_mark": {
     "name": "UAE Halal Mark",
     "type": "single_unified",
-    "notes": "Single UAE Halal Mark used across all halal-certified products. Issued by MOIAT-accredited bodies."
+    "notes": "The Halal National Mark is optional. Product halal certification and permission to use the national mark are separate requirements; consult MOIAT and a registered certification body for the applicable product scope.",
+    "optional": true,
+    "source_urls": [
+      "https://moiat.gov.ae/en/programs/halal"
+    ]
   },
   "products_requiring_certification": [
-    "Food (meat, dairy, processed foods, beverages)",
-    "Cosmetics",
-    "Pharmaceuticals",
-    "Clothing (in some cases)",
-    "Slaughtered animals"
+    "Food products and ingredients subject to the UAE halal control scheme",
+    "Cosmetics and personal care products presented as halal",
+    "Slaughterhouses and slaughtered animals within the applicable halal scheme"
   ],
   "certification_bodies": {
-    "directory_url": "https://qc.moiat.gov.ae/en/open-data/halal",
+    "directory_url": "https://moiat.gov.ae/en/programs/halal/registered-halal-certification-bodies",
     "type": "html_only",
     "directories_published": [
       "Registered Halal Certification Bodies (HCBs)",
       "Approved Accreditation Bodies",
       "Approved slaughterhouses"
     ],
-    "api_status": "No public API. HTML directory only. No product-level lookup."
+    "api_status": "MOIAT publishes an online directory of registered bodies and their status and scope. No documented public product-verification API was identified in this review."
   },
   "hcb_registration": {
     "fee_per_domain_aed": 1000,
     "certificate_fee_aed": 1000,
     "total_aed": 2000,
     "timeline_working_days": 10,
-    "notes": "Fees for Halal Certification Bodies registering with MOIAT."
+    "notes": "AED 2,000 covers one registration domain plus one certificate. Each additional domain costs AED 1,000; accreditation and assessor expenses can be additional. These are certification-body registration fees, not a product certification quote.",
+    "source_urls": [
+      "https://www.moiat.gov.ae/en/services/registration-of-halal-certification-bodies"
+    ]
   },
-  "recommended_approach": "Curated reference data plus a scheduled scrape of the HCB directory. No real-time API exists. Do not promise product-level certification lookup."
+  "recommended_approach": "Curated reference data plus a scheduled scrape of the HCB directory. No real-time API exists. Do not promise product-level certification lookup.",
+  "certification_scope_note": "These are scheme categories, not a statement that every food, cosmetic, medicine, or textile must carry halal certification or the optional National Mark. Confirm the product, ingredients, claims, and import requirements with MOIAT.",
+  "source_urls": [
+    "https://moiat.gov.ae/en/programs/halal",
+    "https://moiat.gov.ae/en/programs/halal/registered-halal-certification-bodies",
+    "https://www.moiat.gov.ae/en/services/registration-of-halal-certification-bodies"
+  ],
+  "previous_knowledge_date": "2026-04-13",
+  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: corrected the 2055-2 and 2055-4 standard scopes, distinguished optional National Mark use from product certification, refreshed MOIAT directory links, and clarified per-domain HCB fees against MOIAT sources. Not a full re-verification of every field in this pack."
 }

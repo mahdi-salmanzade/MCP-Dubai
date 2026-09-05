@@ -263,8 +263,12 @@ class DubaiPulseAuth:
 
         try:
             expires_in = int(payload.get("expires_in", DUBAI_PULSE_TOKEN_TTL_SECONDS))
-        except (TypeError, ValueError):
+        except (TypeError, ValueError, OverflowError):
             expires_in = DUBAI_PULSE_TOKEN_TTL_SECONDS
+        # Never let malformed or arbitrarily large upstream integers overflow
+        # monotonic arithmetic or retain a bearer token indefinitely. Refreshing
+        # earlier than a longer advertised expiry remains safe.
+        expires_in = min(expires_in, DUBAI_PULSE_TOKEN_TTL_SECONDS)
         self._token_cache = TokenCache(
             access_token=access_token,
             expires_at_monotonic=time.monotonic() + max(expires_in, 0),

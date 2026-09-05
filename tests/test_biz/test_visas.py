@@ -50,7 +50,9 @@ class TestVisaDetails:
         assert isinstance(data, dict)
         eligibility = data["eligibility"]
         assert isinstance(eligibility, list)
-        assert any("30,000" in e and "BASIC" in e for e in eligibility)
+        assert any("30,000" in e and "6 months" in e for e in eligibility)
+        assert any("nomination" in e for e in eligibility)
+        assert all("24 months" not in e for e in eligibility)
 
     @pytest.mark.asyncio
     async def test_property_investor_2yr_july_2026_rules(self) -> None:
@@ -124,13 +126,15 @@ class TestVisaDetails:
         assert "May 2026" in ai_note
 
     @pytest.mark.asyncio
-    async def test_virtual_working_six_month_bank_statements(self) -> None:
+    async def test_virtual_working_uses_published_evidence_and_entry_fees(self) -> None:
         result = await tools.visa_details("virtual_working")
         data = result["data"]
         assert isinstance(data, dict)
         eligibility = data["eligibility"]
         assert isinstance(eligibility, list)
-        assert any("Six consecutive months" in e for e in eligibility)
+        assert "does not specify" in data["income_evidence_note"]
+        assert data["cost_aed_min"] == 210
+        assert "entry visa" in data["cost_notes"]
         # Income floor stays at the officially published USD 3,500.
         assert any("USD 3,500" in e for e in eligibility)
         # Higher-threshold claims stay flagged as unconfirmed.
@@ -270,7 +274,8 @@ class TestGoldenVisaCheck:
         assert data["any_eligible"] is False
         not_eligible = data["not_eligible"]
         assert isinstance(not_eligible, list)
-        assert any("BASIC" in n["criterion"] for n in not_eligible)
+        assert any("skilled-professional" in n["criterion"] for n in not_eligible)
+        assert data["requires_authority_approval"] is True
 
     @pytest.mark.asyncio
     async def test_property_eligible(self) -> None:
@@ -303,7 +308,7 @@ class TestKnowledgeRegistration:
         result = await tools.list_visa_types()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-07-25"
+        assert knowledge["knowledge_date"] == "2026-09-05"
 
     def test_registers_with_knowledge_registry(self) -> None:
         import importlib
@@ -314,7 +319,7 @@ class TestKnowledgeRegistration:
         importlib.reload(visas_tools)
         meta = get_knowledge_registry().get("visas")
         assert meta is not None
-        assert meta.knowledge_date == "2026-07-25"
+        assert meta.knowledge_date == "2026-09-05"
 
 
 class TestCuratedPackSections:
@@ -334,3 +339,25 @@ class TestCuratedPackSections:
         assert len(grand_tours) == 1
         assert grand_tours[0]["status"] == "expected_not_live"
         assert "Q4 2026" in grand_tours[0]["note"]
+
+
+class TestSeptemberValidation:
+    @pytest.mark.asyncio
+    async def test_duration_minimum_excludes_shorter_residencies(self) -> None:
+        result = await tools.visa_recommend(
+            profile="founder",
+            has_uae_trade_license=True,
+            monthly_salary_aed=35000,
+            duration_years_min=10,
+        )
+        assert [v["id"] for v in result["data"]["candidates"]] == ["golden_specialized_talent"]
+
+    @pytest.mark.asyncio
+    async def test_negative_optional_inputs_rejected(self) -> None:
+        assert (await tools.visa_recommend(profile="freelancer", annual_income_aed=-1))[
+            "success"
+        ] is False
+        assert (await tools.visa_recommend(profile="tourist", duration_years_min=-1))[
+            "success"
+        ] is False
+        assert (await tools.golden_visa_check(project_value_aed=-1))["success"] is False

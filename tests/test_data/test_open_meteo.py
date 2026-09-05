@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+
 import pytest
 import respx
 from httpx import Response
@@ -50,6 +52,26 @@ def _forecast_payload(days: int = 1, with_current: bool = True) -> dict[str, obj
 
 
 class TestOpenMeteoClient:
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize("code", [float("nan"), float("inf"), True, 1.5, "clear"])
+    @pytest.mark.parametrize("block", ["current", "daily"])
+    async def test_malformed_weather_code_returns_structured_failure(
+        self, code: object, block: str
+    ) -> None:
+        payload = _forecast_payload()
+        section = payload[block]
+        assert isinstance(section, dict)
+        section["weather_code"] = [code] if block == "daily" else code
+        respx.get(constants.FORECAST_ENDPOINT).mock(
+            return_value=Response(200, content=json.dumps(payload))
+        )
+
+        result = await tools.uae_weather()
+
+        assert result["success"] is False
+        assert result["error"]["status"] == "upstream_error"
+
     @pytest.mark.asyncio
     @respx.mock
     @pytest.mark.parametrize(

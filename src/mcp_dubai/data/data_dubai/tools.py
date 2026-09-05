@@ -169,8 +169,8 @@ async def data_dubai_search(
 
     Args:
         query: Free-text search over titles, descriptions, and keywords.
-            Empty string lists the full catalog (614 datasets as of
-            2026-08-14).
+            Empty string lists the full catalog (610 datasets as of
+            2026-09-05).
         page: 1-based page number.
         page_size: Datasets per page, 1 to 100.
 
@@ -241,7 +241,7 @@ async def data_dubai_entities(search: str = "") -> dict[str, object]:
     List data.dubai issuing entities, optionally filtered (no credentials).
 
     The upstream endpoint has no server-side search, so the filter runs
-    client-side over the full entity list (76 records as of 2026-08-14).
+    client-side over the full entity list (75 records as of 2026-09-05).
 
     Args:
         search: Case-insensitive substring matched against each entity's

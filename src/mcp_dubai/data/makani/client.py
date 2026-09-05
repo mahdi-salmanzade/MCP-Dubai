@@ -130,4 +130,17 @@ def _extract_result(operation: str, xml_text: str) -> dict[str, Any]:
         payload = json.loads(element.text)
     except json.JSONDecodeError as exc:
         raise HttpClientError(f"Non-JSON payload inside Makani {operation}Result: {exc}") from exc
-    return dict(payload) if isinstance(payload, dict) else {}
+    if not isinstance(payload, dict):
+        raise HttpClientError(f"Makani {operation}Result must contain a JSON object")
+    if "DATA" not in payload:
+        if operation == "IsValidMakani":
+            valid = payload.get("IS_VALID")
+            if not isinstance(valid, bool) and (
+                not isinstance(valid, str) or valid.strip().lower() not in {"true", "false"}
+            ):
+                raise HttpClientError("Makani validation response has no valid IS_VALID field")
+        else:
+            records = payload.get("MAKANI_INFO")
+            if not isinstance(records, list) or any(not isinstance(row, dict) for row in records):
+                raise HttpClientError("Makani response MAKANI_INFO must be a list of objects")
+    return dict(payload)

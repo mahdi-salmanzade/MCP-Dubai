@@ -40,8 +40,8 @@ async def attestation_guide(
     """
     Walk through the UAE attestation chain for a foreign document.
 
-    The UAE is NOT a Hague Apostille member as of April 2026. Foreign
-    documents still require the full 5-step legalization chain.
+    Requirements depend on document origin, type, mission and receiving
+    authority. Return the illustrative chain with current MoFA route guidance.
     """
     if document_type not in VALID_DOCUMENT_TYPES:
         return (
@@ -74,15 +74,19 @@ async def attestation_guide(
                 "home_country": home_country,
                 "is_commercial": is_commercial,
                 "legalization_chain": chain,
+                "legalization_chain_note": attestation.get("legalization_chain_note"),
+                "digital_attestation": attestation.get("digital_attestation"),
                 "estimated_mofa_fee_aed": fee_aed,
+                "fee_scope_note": fees.get("scope_note"),
+                "source_urls": attestation.get("source_urls", []),
                 "timeline_weeks_min": attestation.get("timeline_weeks_min"),
                 "timeline_weeks_max": attestation.get("timeline_weeks_max"),
                 "portals": attestation.get("portals", []),
                 "tip": (
-                    "Start the chain in the home country before flying. "
-                    "MOFAIC accepts walk-in or online submission once the "
-                    "document has been through the home country chain and the "
-                    "UAE embassy."
+                    "Check the issuing-country UAE mission and the receiving "
+                    "authority before arranging attestation. MoFA determines the "
+                    "digital or approved-courier route for eligible UAE-issued "
+                    "documents; foreign documents follow mission-specific procedures."
                 ),
             },
             knowledge=KNOWLEDGE,

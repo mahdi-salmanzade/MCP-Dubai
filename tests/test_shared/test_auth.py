@@ -164,11 +164,14 @@ class TestTokenFetch:
 
     @pytest.mark.asyncio
     @respx.mock
-    async def test_invalid_expiry_uses_default_ttl(self, configured_dubai_pulse_env: None) -> None:
+    @pytest.mark.parametrize("expiry", ['"not-a-number"', "1e999", str(10**400)])
+    async def test_invalid_expiry_uses_default_ttl(
+        self, configured_dubai_pulse_env: None, expiry: str
+    ) -> None:
         route = respx.post(DUBAI_PULSE_TOKEN_URL).mock(
             return_value=Response(
                 200,
-                json={"access_token": "cached-token", "expires_in": "not-a-number"},
+                content='{"access_token": "cached-token", "expires_in": ' + expiry + "}",
             )
         )
 

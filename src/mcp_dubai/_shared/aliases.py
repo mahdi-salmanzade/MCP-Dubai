@@ -63,10 +63,10 @@ EQUIVALENCE_SETS: Final[tuple[tuple[str, ...], ...]] = (
     (
         "ded",
         "det",
-        "moet",
         "department of economy and tourism",
         "دائرة الاقتصاد والسياحة",
     ),
+    ("moet", "ministry of economy and tourism", "وزارة الاقتصاد والسياحة"),
     (
         "rta",
         "roads and transport authority",

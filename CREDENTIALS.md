@@ -16,7 +16,7 @@ MCP-Dubai is designed so that each user obtains their own API keys. This keeps y
 | `MCP_DUBAI_PULSE_CLIENT_SECRET` | Optional | Free | (same as above, used together with CLIENT_ID) | (same as above) |
 | `MCP_DUBAI_CALENDARIFIC_KEY` | Optional | Free tier | Future: automated holiday calendar refresh | ~2 minutes |
 
-**Zero keys means 112 credential-free tools, not 112 guaranteed live tools.** The CBUAE base-rate tool and four FCSC tools are recorded as upstream-blocked as of 14 August 2026. They return structured errors, and adding a key does not bypass those blocks.
+**Zero keys means 112 credential-free tools, not 112 guaranteed live tools.** The CBUAE base-rate tool and four FCSC tools are recorded as upstream-blocked as of 5 September 2026. They return structured errors, and adding a key does not bypass those blocks.
 
 ---
 

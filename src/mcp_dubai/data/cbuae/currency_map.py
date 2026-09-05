@@ -1,13 +1,14 @@
 """
-Arabic currency name to ISO 4217 code and English label mapping.
+Arabic and English currency names to ISO codes and canonical labels.
 
-The CBUAE Umbraco exchange-rate endpoint returns currency names in Arabic
-only, with no code column. Translating them back to ISO codes keeps the
+The CBUAE Umbraco exchange-rate endpoint can return Arabic or English
+names, with no code column. Translating them back to ISO codes keeps the
 tool response bilingual so clients can match on the ISO code without
 having to recognise Arabic strings. Unknown names still pass through as
 `currency_ar` so a new entry never silently drops a row.
 
-Verified against the live response on 2026-08-14. Add new entries when
+Verified against all 77 English rows in the live response on 2026-09-05.
+The earlier Arabic mappings are retained. Add new entries when
 CBUAE lists additional currencies.
 """
 
@@ -97,9 +98,59 @@ ARABIC_TO_ISO: Final[dict[str, tuple[str, str]]] = {
 }
 
 
-def lookup(arabic_name: str) -> tuple[str | None, str | None]:
-    """Return (iso_code, english_name) for an Arabic currency name, or (None, None)."""
-    entry = ARABIC_TO_ISO.get(arabic_name.strip())
-    if entry is None:
-        return (None, None)
-    return entry
+_CANONICAL_BY_ISO: Final[dict[str, str]] = dict(ARABIC_TO_ISO.values())
+ARABIC_BY_ISO: Final[dict[str, str]] = {
+    iso: arabic_name for arabic_name, (iso, _) in ARABIC_TO_ISO.items()
+}
+_ENGLISH_TO_ISO: Final[dict[str, str]] = {
+    name.casefold(): iso for iso, name in ARABIC_TO_ISO.values()
+}
+# Exact spelling variants in the official English feed, including upstream
+# abbreviations and the "Bahrani" spelling. Avoid fuzzy currency matching.
+_ENGLISH_TO_ISO.update(
+    {
+        "bangladesh taka": "BDT",
+        "bahrani dinar": "BHD",
+        "belarus rouble": "BYN",
+        "chinese yuan - offshore": "CNH",
+        "egypt pound": "EGP",
+        "gb pound": "GBP",
+        "hongkong dollar": "HKD",
+        "indonesia rupiah": "IDR",
+        "iceland krona": "ISK",
+        "jordan dinar": "JOD",
+        "kenya shilling": "KES",
+        "korean won": "KRW",
+        "kazakhstan tenge": "KZT",
+        "lebanon pound": "LBP",
+        "sri lanka rupee": "LKR",
+        "macedonia denar": "MKD",
+        "malaysia ringgit": "MYR",
+        "newzealand dollar": "NZD",
+        "peru sol": "PEN",
+        "philippine piso": "PHP",
+        "pakistan rupee": "PKR",
+        "russia rouble": "RUB",
+        "trin tob dollar": "TTD",
+        "tanzania shilling": "TZS",
+        "uganda shilling": "UGX",
+        "vietnam dong": "VND",
+        "yemen rial": "YER",
+        "south africa rand": "ZAR",
+        "azerbaijan manat": "AZN",
+        "israeli new shekel": "ILS",
+        "turkmen manat": "TMT",
+    }
+)
+
+
+def lookup(currency_name: str) -> tuple[str | None, str | None]:
+    """Return (iso_code, english_name) for an Arabic or English feed label."""
+    normalized = " ".join(currency_name.split())
+    entry = ARABIC_TO_ISO.get(normalized)
+    if entry is not None:
+        return entry
+    iso = _ENGLISH_TO_ISO.get(normalized.casefold())
+    if iso is not None:
+        return iso, _CANONICAL_BY_ISO[iso]
+    return (None, None)

@@ -121,7 +121,10 @@ async def currency_convert(
         return _fail(f"Unknown or unsupported target currency code: {dst}")
 
     rate = float(rates[dst])
-    converted = round(amount * rate, 2)
+    converted = amount * rate
+    if not math.isfinite(converted):
+        return _fail("converted amount exceeds the supported numeric range; use a smaller amount")
+    converted = round(converted, 2)
     return _ok(
         {
             "amount": amount,

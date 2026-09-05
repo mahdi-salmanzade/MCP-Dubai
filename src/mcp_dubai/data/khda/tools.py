@@ -79,7 +79,8 @@ async def khda_search_school(
             "note": (
                 "Curated subset of well-known Dubai schools for fast lookup. "
                 "The full ratings and fees snapshot is dated 2026-04-14; a targeted "
-                "jurisdiction/location correction was applied 2026-08-14. "
+                "ratings/curriculum/location correction was applied 2026-09-05. "
+                "Per-record verified_fields identify the reviewed attributes; fees remain indicative. "
                 "Contributions to expand coverage from the live KHDA XLSX at "
                 "https://web.khda.gov.ae/en/Resources/KHDA-data-statistics are welcome."
             ),
@@ -108,7 +109,8 @@ async def khda_list_areas() -> dict[str, object]:
             "areas": areas,
             "note": (
                 "Full school attributes are from the 2026-04-14 curated snapshot. "
-                "A jurisdiction/location correction was applied 2026-08-14."
+                "Selected ratings, curricula and locations were corrected 2026-09-05; "
+                "see per-record verified_fields. Fees were not refreshed."
             ),
         }
     )

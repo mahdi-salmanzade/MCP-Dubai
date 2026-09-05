@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 import respx
 from httpx import Response
@@ -67,6 +69,30 @@ SAMPLE_BASE_RATE_HTML = """
 
 
 class TestExchangeRatesParser:
+    def test_live_english_feed_maps_every_currency(self) -> None:
+        fixture = Path(__file__).parents[1] / "fixtures" / "cbuae-rates-en-2026-09-05.html"
+        rows = CbuaeClient._parse_currency_table(fixture.read_text())
+
+        assert len(rows) == 77
+        assert all(row["iso_code"] and row["currency"] and row["currency_ar"] for row in rows)
+        assert len({row["iso_code"] for row in rows}) == 77
+        usd = next(row for row in rows if row["iso_code"] == "USD")
+        assert usd["source_currency"] == "US Dollar"
+        assert usd["currency_ar"] == "دولار امريكي"
+        assert usd["rate_aed"] == pytest.approx(3.6725)
+
+    def test_unknown_english_name_is_not_reported_as_arabic(self) -> None:
+        fragment = '<table><tr><td>Unknown Currency</td><td class="value">1.5</td></tr></table>'
+        row = CbuaeClient._parse_currency_table(fragment)[0]
+        assert row["currency"] == "Unknown Currency"
+        assert row["currency_ar"] is None
+        assert row["iso_code"] is None
+
+    @pytest.mark.parametrize("rate", ["1e999", "-1", "0"])
+    def test_invalid_rate_is_not_a_successful_observation(self, rate: str) -> None:
+        fragment = f'<table><tr><td>US Dollar</td><td class="value">{rate}</td></tr></table>'
+        assert CbuaeClient._parse_currency_table(fragment) == []
+
     def test_skips_header_row(self) -> None:
         """The header row has no value class and must not become a rate."""
         rows = CbuaeClient._parse_currency_table(SAMPLE_RATES_HTML)
@@ -180,6 +206,22 @@ class TestCbuaeExchangeRatesTool:
 
 
 class TestCurrencyMap:
+    @pytest.mark.parametrize(
+        ("label", "iso"),
+        [
+            ("GB Pound", "GBP"),
+            ("Bahrani Dinar", "BHD"),
+            ("Belarus Rouble", "BYN"),
+            ("Chinese Yuan - Offshore", "CNH"),
+            ("Israeli new shekel", "ILS"),
+            ("  newzealand\u00a0 Dollar  ", "NZD"),
+        ],
+    )
+    def test_english_source_variants(self, label: str, iso: str) -> None:
+        from mcp_dubai.data.cbuae.currency_map import lookup
+
+        assert lookup(label)[0] == iso
+
     def test_lookup_returns_iso_and_english(self) -> None:
         from mcp_dubai.data.cbuae.currency_map import ARABIC_TO_ISO, lookup
 
@@ -226,6 +268,17 @@ class TestCbuaeBaseRateTool:
 
 
 class TestCbuaeUpstreamFailures:
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize("body", ["", "<html>Service unavailable in 2026</html>"])
+    async def test_base_rate_does_not_report_an_error_page_as_a_rate(self, body: str) -> None:
+        respx.get(constants.KEY_INTEREST_RATE).mock(return_value=Response(200, text=body))
+
+        result = await tools.cbuae_base_rate()
+
+        assert result["success"] is False
+        assert result["error"]["status"] == "parse_error"
+
     @pytest.mark.asyncio
     @respx.mock
     async def test_exchange_rates_empty_parse_returns_parse_error(self) -> None:

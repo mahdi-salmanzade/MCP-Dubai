@@ -2,7 +2,7 @@
 
 The base URL lives in the shared constants module because the Dubai Pulse
 to data.dubai migration is tracked project-wide. Endpoints verified
-2026-08-14:
+2026-09-05:
 
     GET {base}/datasets/?search=<q>&page=<n>&pageSize=<n>
     GET {base}/themes/
@@ -23,13 +23,13 @@ DATASETS_ENDPOINT: Final[str] = f"{DATA_DUBAI_CATALOG_BASE}/datasets/"
 THEMES_ENDPOINT: Final[str] = f"{DATA_DUBAI_CATALOG_BASE}/themes/"
 ISSUING_ENTITIES_ENDPOINT: Final[str] = f"{DATA_DUBAI_CATALOG_BASE}/issuingentities/"
 
-# Current catalog totals from the 2026-08-14 verification.
-CATALOG_VERIFIED_DATE: Final[str] = "2026-08-14"
-DATASET_COUNT: Final[int] = 614
+# Current catalog totals from the 2026-09-05 verification.
+CATALOG_VERIFIED_DATE: Final[str] = "2026-09-05"
+DATASET_COUNT: Final[int] = 610
 THEME_COUNT: Final[int] = 11
-ISSUING_ENTITY_COUNT: Final[int] = 76
+ISSUING_ENTITY_COUNT: Final[int] = 75
 
-# The current 76 entities and 11 themes fit in one generous page. The client
+# The current 75 entities and 11 themes fit in one generous page. The client
 # still follows pagination so growth cannot silently truncate either list.
 LIST_ALL_PAGE_SIZE: Final[int] = 100
 # Guard against an upstream pagination loop or an unexpectedly huge response.

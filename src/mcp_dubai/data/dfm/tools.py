@@ -190,7 +190,7 @@ async def dfm_list_securities(search: str = "") -> dict[str, object]:
     Args:
         search: Optional substring matched case-insensitively against each
             security's symbol or name (the upstream returns null names as
-            of 2026-08-14, so symbol is the practical filter). Empty lists
+            of 2026-09-05, so symbol is the practical filter). Empty lists
             the first 50 securities alphabetically.
 
     Returns:

@@ -159,10 +159,16 @@ class TestOsmSearchPoi:
 
     @pytest.mark.asyncio
     @respx.mock
-    async def test_malformed_elements_return_structured_error(self) -> None:
-        respx.post(constants.OVERPASS_ENDPOINT).mock(
-            return_value=Response(200, json={"elements": "not-a-list"})
-        )
+    @pytest.mark.parametrize(
+        "payload",
+        [
+            {"elements": "not-a-list"},
+            {"elements": [{"id": 1, "tags": ["name", "test"]}]},
+            {"elements": [], "remark": "runtime error: Query timed out"},
+        ],
+    )
+    async def test_malformed_elements_return_structured_error(self, payload: object) -> None:
+        respx.post(constants.OVERPASS_ENDPOINT).mock(return_value=Response(200, json=payload))
 
         result = await tools.osm_search_poi(
             latitude=25.0,

@@ -65,8 +65,26 @@ class TestCompareFreeZones:
         free_zones = data["free_zones"]
         assert isinstance(free_zones, list)
         for fz in free_zones:
-            cost = fz.get("initial_license_aed", 0)
-            assert cost == 0 or cost <= 15000
+            cost = fz["initial_license_aed"]
+            assert cost is not None and 0 < cost <= 15000
+            assert fz["price_requires_quote"] is False
+
+    @pytest.mark.asyncio
+    async def test_zero_budget_does_not_treat_unknown_prices_as_free(self) -> None:
+        result = await tools.compare_free_zones(budget_aed=0, limit=20)
+        assert result["data"]["free_zones"] == []
+        result = await tools.list_free_zones()
+        dtec = next(z for z in result["data"]["free_zones"] if z["id"] == "dso_dtec")
+        assert dtec["initial_license_aed"] is None
+
+    @pytest.mark.asyncio
+    async def test_free_text_activity_does_not_exclude_suitable_zones(self) -> None:
+        result = await tools.compare_free_zones(activity="software development", limit=20)
+        assert any(z["id"] == "ifza" for z in result["data"]["free_zones"])
+
+    @pytest.mark.asyncio
+    async def test_negative_budget_fails(self) -> None:
+        assert (await tools.compare_free_zones(budget_aed=-1))["success"] is False
 
     @pytest.mark.asyncio
     async def test_no_budget_returns_all_within_limit(self) -> None:
@@ -175,9 +193,9 @@ class TestKnowledgeMetadata:
         result = await tools.list_free_zones()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-08-14"
-        assert knowledge["previous_knowledge_date"] == "2026-07-02"
-        assert "regularisation deadline" in knowledge["last_refresh_scope"]
+        assert knowledge["knowledge_date"] == "2026-09-05"
+        assert knowledge["previous_knowledge_date"] == "2026-08-14"
+        assert "quote-only licence prices" in knowledge["last_refresh_scope"]
         assert knowledge["volatility"] == "high"
 
 

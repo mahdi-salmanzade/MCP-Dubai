@@ -54,7 +54,7 @@ async def visa_recommend(
         profile: One of: founder, salaried_employee, freelancer,
             remote_worker, investor, real_estate_investor,
             specialized_talent, spouse_or_dependent, retiree, tourist.
-        monthly_salary_aed: Monthly basic salary in AED, if relevant.
+        monthly_salary_aed: Monthly salary in AED for preliminary screening.
         annual_income_aed: Annual income in AED for freelancer profiles.
         has_uae_employer: True if there is a UAE-registered employer.
         has_uae_trade_license: True if the user already holds a UAE
@@ -84,17 +84,18 @@ async def golden_visa_check(
     project_value_aed: int | None = None,
 ) -> dict[str, object]:
     """
-    Check eligibility for the main Golden Visa categories.
+    Screen financial thresholds for Golden Visa routes; this is not final eligibility.
 
     Args:
-        monthly_salary_aed: Basic monthly salary for the specialized talent
-            category. Must be at least AED 30,000 (verified over the prior
-            24 months as of early 2026).
+        monthly_salary_aed: Monthly salary for skilled-professional screening.
+            AED 30,000 is the published threshold; qualification, employment
+            and evidence requirements must also be met.
         real_estate_value_aed: UAE property value for the investor category.
             Must be at least AED 2,000,000 in approved areas.
         project_value_aed: Business project value for the entrepreneur
             category. Must be at least AED 500,000 in technical / future
-            fields with Ministry of Economy or accredited incubator approval.
+            fields under the published ICP route, with auditor and
+            authority/incubator evidence. Dubai has different route criteria.
     """
     return await tools.golden_visa_check(
         monthly_salary_aed=monthly_salary_aed,

@@ -132,7 +132,7 @@ class TestKhdaListAreas:
         data = _data(result)
         assert data["full_snapshot_date"] == SNAPSHOT_DATE
         assert data["targeted_correction_date"] == TARGETED_CORRECTION_DATE
-        assert "2026-08-14" in str(data["note"])
+        assert "2026-09-05" in str(data["note"])
 
 
 class TestDiscovery:

@@ -193,6 +193,75 @@ class TestFcaTradeStats:
 class TestFcscUpstreamFailures:
     @pytest.mark.asyncio
     @respx.mock
+    @pytest.mark.parametrize("payload", [[], None, "html", {"success": "true", "result": {}}])
+    async def test_malformed_envelope_returns_structured_error(self, payload: object) -> None:
+        respx.get(constants.PACKAGE_SEARCH).mock(return_value=Response(200, json=payload))
+
+        result = await tools.fcsc_search_dataset()
+
+        assert result["success"] is False
+        assert result["error"]["status"] == "upstream_error"
+
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize(
+        "result_block",
+        [
+            None,
+            [],
+            {},
+            {"count": True, "results": []},
+            {"count": 1, "results": ["bad"]},
+            {"count": 0, "results": [{}]},
+        ],
+    )
+    async def test_malformed_search_result_is_not_successful_empty_data(
+        self, result_block: object
+    ) -> None:
+        respx.get(constants.PACKAGE_SEARCH).mock(
+            return_value=Response(200, json={"success": True, "result": result_block})
+        )
+
+        result = await tools.fcsc_search_dataset()
+
+        assert result["success"] is False
+
+    @pytest.mark.asyncio
+    @respx.mock
+    async def test_search_enforces_requested_rows(self) -> None:
+        respx.get(constants.PACKAGE_SEARCH).mock(
+            return_value=Response(200, json=_ckan_search_payload())
+        )
+
+        result = await tools.fcsc_search_dataset(rows=1)
+
+        assert result["data"]["count"] == 2
+        assert len(result["data"]["results"]) == 1
+
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize("result_block", [None, {}, [42], [""]])
+    async def test_organizations_rejects_invalid_items(self, result_block: object) -> None:
+        respx.get(constants.ORGANIZATION_LIST).mock(
+            return_value=Response(200, json={"success": True, "result": result_block})
+        )
+
+        result = await tools.fcsc_list_organizations()
+
+        assert result["success"] is False
+
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize("payload", [{"success": True}, {"success": True, "result": []}])
+    async def test_dataset_rejects_missing_or_wrong_result(self, payload: object) -> None:
+        respx.get(constants.PACKAGE_SHOW).mock(return_value=Response(200, json=payload))
+
+        result = await tools.fcsc_get_dataset("test")
+
+        assert result["success"] is False
+
+    @pytest.mark.asyncio
+    @respx.mock
     async def test_search_dataset_403_returns_structured_error(self) -> None:
         respx.get(constants.PACKAGE_SEARCH).mock(
             return_value=Response(403, text="Just a moment...")

@@ -181,10 +181,10 @@ class TestDataDubaiConstants:
         assert expected_catalog_base == DATA_DUBAI_CATALOG_BASE
 
     def test_current_catalog_verification_totals(self) -> None:
-        assert constants.CATALOG_VERIFIED_DATE == "2026-08-14"
-        assert constants.DATASET_COUNT == 614
+        assert constants.CATALOG_VERIFIED_DATE == "2026-09-05"
+        assert constants.DATASET_COUNT == 610
         assert constants.THEME_COUNT == 11
-        assert constants.ISSUING_ENTITY_COUNT == 76
+        assert constants.ISSUING_ENTITY_COUNT == 75
 
 
 class TestDataDubaiSearch:

@@ -26,15 +26,14 @@ _BASE_KNOWLEDGE: KnowledgeMetadata = extract_knowledge(_FREE_ZONES_DATA)
 # Override with a setup_advisor specific verify_at since this tool spans
 # multiple domains.
 KNOWLEDGE = KnowledgeMetadata(
-    knowledge_date="2026-08-14",
+    knowledge_date="2026-09-05",
     full_review_date=(_BASE_KNOWLEDGE.full_review_date or _BASE_KNOWLEDGE.knowledge_date),
-    previous_knowledge_date=(
-        _BASE_KNOWLEDGE.previous_knowledge_date or _BASE_KNOWLEDGE.knowledge_date
-    ),
+    previous_knowledge_date="2026-08-14",
     last_refresh_scope=(
-        "Targeted correctness audit of 2026-08-14: replaced the unconditional mainland "
-        "B2C rule with the conditional DET licence or permit route under Dubai Executive "
-        "Council Resolution 11 of 2025, and removed unsupported ownership-structure advice. "
+        "Targeted correctness audit of 2026-09-05: preserved the Resolution 11 of 2025 "
+        "conditional route; corrected QFZP/SaaS wording, prevented low budgets from "
+        "bypassing virtual-asset regulation, removed blanket crypto-bank exclusion, "
+        "and exposed indicative budget shortfalls. "
         "Not a full re-verification of every setup rule."
     ),
     volatility="high",
@@ -140,7 +139,7 @@ def _decide(
         timeline_weeks = "2 to 4"
 
     # Rule 2: No visa needed + low budget = offshore
-    elif not needs_visa and budget_aed < 15000:
+    elif not needs_visa and budget_aed < 15000 and industry != "crypto":
         jurisdiction = "offshore"
         reasoning.append(
             "Offshore (RAK ICC or JAFZA Offshore) is the cheapest path when "
@@ -156,7 +155,7 @@ def _decide(
         timeline_weeks = "1 to 3"
 
     # Rule 3: Tight budget steers to cheap free zones
-    elif budget_aed < 20000:
+    elif budget_aed < 20000 and industry != "crypto":
         jurisdiction = "free_zone"
         reasoning.append(
             "A budget under AED 20,000 fits a cheap mainstream free zone like "
@@ -201,27 +200,22 @@ def _decide(
             "expect heavy KYC."
         )
         warnings.append(
-            "DIFC ADGM is regulated separately. None of the listed retail "
-            "banks officially welcome crypto/VARA-licensed entities as of "
-            "April 2026. Bank account opening will be the hardest step."
+            "DIFC and ADGM are regulated separately. Crypto banking depends on the "
+            "licensed activity, bank and product; obtain current onboarding "
+            "criteria from the intended bank before incorporating."
         )
         candidates = ["VARA-aware free zone (consult specialist)"]
         cost_min = 50000
         cost_max = 250000
         timeline_weeks = "8 to 24"
 
-    # Rule 6: SaaS specifically - call out the QFZP exclusion
+    # Rule 6: SaaS-specific jurisdiction shortlist
     elif industry == "saas":
         jurisdiction = "free_zone"
         reasoning.append(
             "SaaS works well in any general free zone (IFZA, Meydan, DSO/Dtec, "
             "TECOM, DMCC). Choose based on budget, visa needs, and whether you "
             "need premium positioning."
-        )
-        warnings.append(
-            "CRITICAL TAX NOTE: SaaS is NOT a Qualifying Activity under MD "
-            "229/2025. Most free zone SaaS revenue is taxed at 9% corporate "
-            "tax (above the AED 375,000 threshold), not the 0% QFZP rate."
         )
         candidates = ["IFZA", "DSO Dtec", "TECOM (DIC)", "DMCC"]
         cost_min = 12500
@@ -239,6 +233,21 @@ def _decide(
         cost_min = 12500
         cost_max = 50000
         timeline_weeks = "1 to 3"
+
+    if industry == "saas":
+        warnings.append(
+            "SaaS is not itself a named Qualifying Activity under MD 229/2025. "
+            "QFZP treatment depends on the customer, excluded activities and any "
+            "qualifying intellectual-property income. A QFZP pays 9% on non-qualifying "
+            "taxable income without the ordinary AED 375,000 band. An ordinary "
+            "taxable person applies the normal bands and available reliefs."
+        )
+
+    if budget_aed < cost_min:
+        warnings.append(
+            f"The supplied budget of AED {budget_aed:,} is below this route's "
+            f"indicative minimum of AED {cost_min:,}; no affordable setup is confirmed."
+        )
 
     # Cross-cutting warnings that always apply
     warnings.extend(
@@ -264,6 +273,11 @@ def _decide(
         "reasoning": reasoning,
         "warnings": warnings,
         "estimated_setup_cost_aed": {"min": cost_min, "max": cost_max},
+        "budget_assessment": {
+            "below_indicative_minimum": budget_aed < cost_min,
+            "indicative_shortfall_aed": max(0, cost_min - budget_aed),
+            "current_quote_required": True,
+        },
         "estimated_timeline_weeks": timeline_weeks,
         "next_steps": next_steps,
         "inputs": {

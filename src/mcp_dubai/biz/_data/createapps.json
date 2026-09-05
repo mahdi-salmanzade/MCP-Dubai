@@ -1,6 +1,6 @@
 {
   "domain": "createapps",
-  "knowledge_date": "2026-08-14",
+  "knowledge_date": "2026-09-05",
   "full_review_date": "2026-07-25",
   "volatility": "medium",
   "verify_at": "https://createapps.ae",
@@ -20,7 +20,8 @@
     "track_record": {
       "applications_total": 5800,
       "apps_launched": 55,
-      "since": 2023
+      "since": 2023,
+      "scope_note": "Legacy cumulative figures retained from the earlier review; the separately dated accelerator result must not be added to these totals without reconciling overlap."
     }
   },
   "programs": [
@@ -125,6 +126,25 @@
         "No-code guides"
       ],
       "physical_facility": "Referenced but location not detailed."
+    },
+    {
+      "id": "create_apps_accelerator",
+      "name": "Create Apps Accelerator Programme",
+      "type": "tech_sprint",
+      "duration_days": 45,
+      "audience": "High-potential teams within the Create Apps Championship ecosystem, including participants who did not reach its final stages.",
+      "latest_published_outcome": {
+        "announcement_date": "2026-06-16",
+        "apps_launched": 32,
+        "participating_countries": 22,
+        "sectors": 13,
+        "apps_using_ai_pct": 60
+      },
+      "application_status": "Participation follows the Championship programme; no separate open application window was verified.",
+      "source_urls": [
+        "https://www.dubaichamberdigital.com/en/e/dcde_news_detailed_page/29577/5459288"
+      ],
+      "verified_as_of": "2026-09-05"
     }
   ],
   "submission_guide": {
@@ -152,6 +172,6 @@
     "sitemap": "https://createapps.ae/sitemap.xml",
     "notes": "Liferay-style sitemap with 13 per-layout sub-sitemaps. No public REST API or RSS feed."
   },
-  "previous_knowledge_date": "2026-07-25",
-  "last_refresh_scope": "Targeted correctness audit of 2026-08-14: refreshed Cycle 3 registration status, current finalist phase, and the official structured timeline; flagged the page's stale FAQ inconsistency. Not a full re-verification of every field in this pack."
+  "previous_knowledge_date": "2026-08-14",
+  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: rechecked the unchanged closed-registration/7 October 2026 Championship timeline and added the separate 45-day Create Apps Accelerator and its dated 32-app launch result. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

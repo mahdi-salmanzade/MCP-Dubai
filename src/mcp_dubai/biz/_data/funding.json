@@ -1,6 +1,6 @@
 {
   "domain": "funding",
-  "knowledge_date": "2026-08-14",
+  "knowledge_date": "2026-09-05",
   "full_review_date": "2026-08-14",
   "volatility": "high",
   "verify_at": "https://www.hub71.com/program/access-programme/apply",
@@ -89,23 +89,35 @@
       ],
       "application_url": "https://www.hub71.com/program/access-programme/apply",
       "current_cohort": {
-        "number": 20,
-        "application_deadline": "2026-08-21",
+        "number": 21,
+        "application_deadline": "2027-02",
+        "application_deadline_precision": "month",
         "application_deadline_status": "open",
-        "status_as_of": "2026-08-14",
-        "programme_starts": "2027-02",
+        "status_as_of": "2026-09-05",
+        "programme_starts": "2027-09",
+        "application_review_by": "2027-04",
         "programme_duration_months": 12,
         "post_deadline_applications_open": true,
-        "post_deadline_note": "Applications submitted after the Cohort 20 deadline are considered for the next cohort."
+        "post_deadline_note": "Applications after the stated cohort deadline are considered for the following cohort."
       },
       "relocation_requirement": "At least one founder is expected to relocate long-term and build a team in Abu Dhabi.",
       "equity_terms_note": "The official programme pages state that cash is provided through a SAFE in exchange for equity but do not publish a universal valuation cap, discount, or equity percentage.",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-09-05",
       "source_urls": [
         "https://www.hub71.com/program/access-programme/apply",
         "https://www.hub71.com/program/access-programme",
         "https://www.hub71.com/faqs"
-      ]
+      ],
+      "previous_cohort": {
+        "number": 20,
+        "application_deadline": "2026-08-21",
+        "application_deadline_status": "deadline_passed",
+        "status_as_of": "2026-09-05",
+        "programme_starts": "2027-02",
+        "programme_duration_months": 12,
+        "post_deadline_applications_open": true,
+        "post_deadline_note": "Applications submitted after the Cohort 20 deadline are considered for the next cohort."
+      }
     },
     {
       "id": "difc_innovation_hub",
@@ -694,11 +706,12 @@
           "cohort_size": 20,
           "delivery": "Hybrid",
           "application_deadline": "2026-08-31",
-          "application_deadline_status": "open",
-          "status_as_of": "2026-08-14",
+          "application_deadline_status": "deadline_passed",
+          "status_as_of": "2026-09-05",
           "programme_starts": "2026-10",
           "demo_day": "2027-02",
-          "eligibility_summary": "UAE resident aged 18 or older; at least one Emirati co-founder or team member; a technology idea or MVP less than two years old; full programme commitment required."
+          "eligibility_summary": "UAE resident aged 18 or older; at least one Emirati co-founder or team member; a technology idea or MVP less than two years old; full programme commitment required.",
+          "status_note": "The previously verified 31 August 2026 deadline has passed. The official page still describes the programme, but its retrievable text did not confirm a new deadline or extension on 5 September 2026; contact the operator before applying."
         },
         "mohammed_bin_rashid_fund_for_smes": {
           "support_type": "business_loan_route",
@@ -747,5 +760,7 @@
         "https://www.khalifafund.ae/faq/"
       ]
     }
-  ]
+  ],
+  "previous_knowledge_date": "2026-08-14",
+  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: updated Hub71 to its currently advertised Cohort 21 (February 2027 deadline, September 2027 start) and marked the previous Hub71 and Hi2 deadlines as passed. Other funding records retain their 14 August review dates. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

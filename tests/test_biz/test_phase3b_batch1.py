@@ -180,7 +180,10 @@ class TestFunding:
         assert in5["is_free"] is False
         assert "in5 Science" in in5["sub_programs"]
         assert hub71["application_url"].endswith("/access-programme/apply")
-        assert hub71["current_cohort"]["application_deadline"] == "2026-08-21"
+        assert hub71["current_cohort"]["application_deadline"] == "2027-02"
+        assert hub71["current_cohort"]["application_deadline_precision"] == "month"
+        assert hub71["current_cohort"]["programme_starts"] == "2027-09"
+        assert hub71["previous_cohort"]["application_deadline_status"] == "deadline_passed"
         assert hub71["current_cohort"]["application_deadline_status"] == "open"
         assert hub71["current_cohort"]["post_deadline_applications_open"] is True
 
@@ -219,9 +222,9 @@ class TestFunding:
         vcs = {v["id"]: v for v in data["vcs"]}  # type: ignore[union-attr]
         assert vcs["wamda_capital"]["url"] == "https://wamdacapital.com/"
         assert vcs["shorooq"]["url"] == "https://www.shorooq.com/"
-        assert funding_tools.KNOWLEDGE.knowledge_date == "2026-08-14"
+        assert funding_tools.KNOWLEDGE.knowledge_date == "2026-09-05"
         assert funding_tools.KNOWLEDGE.full_review_date == "2026-08-14"
-        assert funding_tools.KNOWLEDGE.last_refresh_scope is None
+        assert "Cohort 21" in str(funding_tools.KNOWLEDGE.last_refresh_scope)
 
 
 class TestGovPortals:

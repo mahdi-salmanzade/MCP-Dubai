@@ -1,6 +1,6 @@
 {
   "domain": "compliance",
-  "knowledge_date": "2026-07-25",
+  "knowledge_date": "2026-09-05",
   "full_review_date": "2026-07-02",
   "volatility": "medium",
   "verify_at": "https://uaefiu.gov.ae/en",
@@ -45,7 +45,7 @@
       "Proliferation financing added as a standalone offence category"
     ],
     "dfsa_alignment": "DFSA (DIFC) AML rulebook aligned with Federal Decree-Law 10 of 2025 effective 2026-03-02.",
-    "regulator": "UAE Financial Intelligence Unit (FIU)",
+    "regulator": "Supervision depends on activity and jurisdiction: MOET, Ministry of Justice, DFSA or FSRA for the DNFBP categories described here.",
     "portal": "goAML",
     "portal_url": "https://services.uaefiu.gov.ae/goaml/",
     "applies_to": "DNFBPs (Designated Non-Financial Businesses and Professions)",
@@ -58,12 +58,12 @@
       {
         "category": "Dealers in precious metals and stones",
         "registration_required": true,
-        "notes": "Cash transactions above AED 55,000 require reporting."
+        "notes": "DPMSR reporting applies at AED 55,000 or more: cash transactions with individuals and cash or wire-transfer transactions with entities, subject to FIU rules. Suspicious transactions require reporting regardless of amount."
       },
       {
         "category": "Auditors",
         "registration_required": true,
-        "notes": "Must register on goAML and conduct EDD on clients."
+        "notes": "Register on goAML, conduct customer due diligence, and apply enhanced due diligence where the risk or applicable rule requires it."
       },
       {
         "category": "Corporate service providers",
@@ -92,8 +92,11 @@
       "https://www.whitecase.com/insight-alert/uae-enacts-new-aml-law-what-are-key-changes-and-what-does-mean-your-business",
       "https://www.hsfkramer.com/notes/middle-east/2026-posts/the-uae-introduces-landmark-new-aml-and-cft-law",
       "https://uaefiu.gov.ae/en/compliance-guidance/how-to-submit-a-report/",
-      "https://www.vara.ae"
-    ]
+      "https://www.vara.ae",
+      "https://www.moet.gov.ae/documents/20121/465917/DNFBP%2BGuidelines%2B-%2BMarch%2B2026.pdf",
+      "https://uaefiu.gov.ae/media/zdpe2ihn/goaml-web-dealers-in-precious-metals-and-stones-report-submission-guide-v1-2-29-07-2021.pdf"
+    ],
+    "reporting_authority": "UAE Financial Intelligence Unit (FIU), through goAML"
   },
   "emiratisation": {
     "name": "Emiratisation (Nafis programme targets)",
@@ -202,7 +205,11 @@
       "applies_to": "Entities established in or operating from DIFC",
       "regulator": "DIFC Commissioner of Data Protection",
       "regulator_url": "https://www.difc.com/business/laws-and-regulations/data-protection",
-      "notes": "GDPR-aligned. Adequacy with EU recognized."
+      "notes": "DIFC has its own data-protection law and outbound-transfer adequacy decisions. The European Commission does not list the UAE or DIFC as an adequate destination under GDPR Article 45 as of 2026-09-05; EU-to-DIFC transfers need another applicable Chapter V transfer mechanism.",
+      "source_urls": [
+        "https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/adequacy-decisions_en",
+        "https://www.difc.com/business/registrars-and-commissioners/commissioner-of-data-protection/data-export-and-sharing"
+      ]
     },
     "adgm_dpr": {
       "name": "ADGM Data Protection Regulations",
@@ -213,6 +220,6 @@
       "notes": "GDPR-aligned."
     }
   },
-  "previous_knowledge_date": "2026-07-02",
-  "last_refresh_scope": "Targeted correctness audit of 2026-07-25: verified against the primary source and corrected. Not a full re-verification of every field in this pack."
+  "previous_knowledge_date": "2026-07-25",
+  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: removed the incorrect EU adequacy claim for DIFC, distinguished DNFBP supervisors from the FIU reporting authority, and corrected the inclusive DPMS reporting threshold and risk-based due diligence wording using European Commission, DIFC, MOET and FIU sources. Not a full re-verification of every field in this pack."
 }

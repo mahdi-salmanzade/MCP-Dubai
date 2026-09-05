@@ -16,6 +16,9 @@ class TestAttestationGuide:
         chain = data["legalization_chain"]
         assert isinstance(chain, list)
         assert len(chain) == 5
+        assert "Notarisation" in data["legalization_chain_note"]
+        assert "UAE" in data["digital_attestation"]["scope"]
+        assert "walk-in" not in data["tip"]
 
     @pytest.mark.asyncio
     async def test_uae_apostille_correction(self) -> None:
@@ -23,7 +26,7 @@ class TestAttestationGuide:
         data = result["data"]
         assert isinstance(data, dict)
         assert data["uae_apostille_member"] is False
-        assert "FALSE" in data["apostille_correction_note"]
+        assert "official HCCH" in data["apostille_correction_note"]
 
     @pytest.mark.asyncio
     async def test_personal_vs_commercial_fee(self) -> None:
@@ -182,9 +185,9 @@ class TestKnowledge:
         result = await tools.attestation_guide()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-08-14"
-        assert knowledge["previous_knowledge_date"] == "2026-04-13"
-        assert "co-shareholder" in knowledge["last_refresh_scope"]
+        assert knowledge["knowledge_date"] == "2026-09-05"
+        assert knowledge["previous_knowledge_date"] == "2026-08-14"
+        assert "MoFA digital/courier" in knowledge["last_refresh_scope"]
 
     def test_registers_with_knowledge_registry(self) -> None:
         import importlib

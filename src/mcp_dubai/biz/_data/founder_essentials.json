@@ -1,15 +1,15 @@
 {
   "domain": "founder_essentials",
-  "knowledge_date": "2026-08-14",
+  "knowledge_date": "2026-09-05",
   "full_review_date": "2026-04-13",
   "volatility": "medium",
   "verify_at": "https://www.mofa.gov.ae/en/services/attestation",
   "source_brief_section": "6.10b",
-  "disclaimer": "Document attestation, PRO, translation, and Chamber fees change. Verify before quoting. CRITICAL: the UAE is NOT a Hague Apostille member as of April 2026. Foreign documents still require the full 5-step legalization chain.",
+  "disclaimer": "Document attestation, PRO, translation, and Chamber fees vary by document and route. Verify the current service quote. The UAE is not listed in the HCCH Apostille Convention status table checked on 5 September 2026; foreign-document requirements must be confirmed with the relevant UAE mission and receiving authority.",
   "currency": "AED",
   "attestation": {
     "uae_apostille_member": false,
-    "apostille_correction_note": "The claim that the UAE acceded to the Hague Apostille Convention on 7 June 2024 is FALSE. Verified against the HCCH official status table for Convention #12 and multiple legal firms. MOFAIC continues to require the full legalization chain for foreign documents.",
+    "apostille_correction_note": "The UAE is absent from the official HCCH Apostille Convention status table checked on 5 September 2026. An apostille alone must not be assumed to replace applicable UAE attestation requirements.",
     "legalization_chain": [
       {
         "step": 1,
@@ -34,7 +34,8 @@
     ],
     "fees": {
       "personal_document_aed": 150,
-      "commercial_document_aed": 2000
+      "commercial_document_aed": 2000,
+      "scope_note": "Legacy document-class fees retained from the earlier review. The current service page routes by document and destination; confirm the application quote and any mission or courier charge."
     },
     "documents_typically_attested": [
       "Degree certificate",
@@ -51,8 +52,20 @@
       "https://mofaic.gov.ae"
     ],
     "source_urls": [
-      "https://www.hcch.net/en/instruments/conventions/status-table/?cid=41"
-    ]
+      "https://www.hcch.net/en/instruments/conventions/status-table/?cid=41",
+      "https://www.mofa.gov.ae/en/services/attestation"
+    ],
+    "legalization_chain_note": "Illustrative foreign-document sequence. Notarisation, prior authentication, embassy steps and Arabic translation depend on the document, issuing country, electronic mission service and receiving authority; not every case requires five physical steps.",
+    "digital_attestation": {
+      "scope": "Eligible original digital documents issued in the UAE for use outside the UAE.",
+      "route_selection": "The MoFA application selects digital or approved-courier processing based on issuing authority and document type.",
+      "input_note": "Use the original verifiable digital PDF; a scan or photograph is not an original digital document.",
+      "foreign_documents": "Use the UAE Missions Abroad service and check the mission website for electronic availability or in-person requirements.",
+      "verified_as_of": "2026-09-05",
+      "source_urls": [
+        "https://www.mofa.gov.ae/en/services/attestation"
+      ]
+    }
   },
   "pro_services": {
     "what_a_pro_does": [
@@ -177,8 +190,8 @@
     {
       "id": "cheapest_fz_no_bank_check",
       "title": "Picking the cheapest free zone without checking bank acceptance",
-      "impact": "Meydan and IFZA are cheap to set up but have documented bank account difficulties. You may save AED 5,000 on the license and lose 8 weeks on banking.",
-      "fix": "Cross-reference the free zone choice with the bank you intend to use. Use Meydan's in-house bank assistance desk if you must use Meydan."
+      "impact": "Bank onboarding depends on the bank, account product, activity and applicant documentation; a low licence price does not determine account acceptance.",
+      "fix": "Check the current account criteria and onboarding assistance before choosing a jurisdiction."
     },
     {
       "id": "free_zone_mainland_invoice",
@@ -216,7 +229,7 @@
     {
       "id": "license_lapse",
       "title": "Letting the license lapse",
-      "impact": "AED 5,000 one-time reactivation fine, AED 250 per month ongoing penalty, plus immigration consequences for sponsored visas.",
+      "impact": "Late-renewal penalties and reactivation requirements vary by licensing authority and licence status; the earlier universal AED 5,000 plus AED 250/month figure was not supported.",
       "fix": "Set a calendar reminder 60 days before renewal."
     },
     {
@@ -232,6 +245,6 @@
       "fix": "Mainland commercial license holders join Dubai Chamber of Commerce by default. International trade focus joins Dubai International Chamber. Tech/digital startups engage with DCDE through programs (no standalone membership)."
     }
   ],
-  "previous_knowledge_date": "2026-04-13",
-  "last_refresh_scope": "Targeted correctness audit of 2026-08-14: replaced the absolute free-zone B2C invoicing claim with the conditional DET licence or permit route under Dubai Executive Council Resolution 11 of 2025; removed unsupported co-shareholder banking advice; refreshed Dubai Chamber membership categories against official law and the current fee page; and added official PRO and legal-translator links while labelling private-market price ranges. Not a full re-verification of every field in this pack."
+  "previous_knowledge_date": "2026-08-14",
+  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: added current MoFA digital/courier attestation routes, reconfirmed UAE absence from the HCCH Apostille table, qualified the illustrative foreign-document chain, and removed unsupported universal licence-lapse penalties and named-free-zone banking allegations. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

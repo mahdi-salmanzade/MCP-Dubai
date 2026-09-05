@@ -20,27 +20,31 @@ async def corporate_tax_estimate(
     is_free_zone: bool = False,
     qfzp_qualifying_pct: int = 0,
     industry: str = "general",
+    is_qfzp: bool | None = None,
 ) -> dict[str, object]:
     """
     Estimate UAE corporate tax liability under Federal Decree-Law 47 of 2022.
 
-    Tax-free band on the first AED 375,000, then 9% above. QFZP free zone
-    entities can apply 0% to Qualifying Activity income (per Ministerial
-    Decision 229 of 2025).
+    Ordinary taxable persons receive the AED 375,000 band, then 9% above.
+    QFZPs receive 0% on Qualifying Income and 9% on other taxable income
+    without the ordinary band. Confirm QFZP status and income classification.
 
     Args:
         annual_taxable_income_aed: Annual taxable income in AED.
         is_free_zone: True if the entity is in a free zone.
         qfzp_qualifying_pct: Percentage of income that is Qualifying
             Activity income (0 to 100). Only relevant if is_free_zone.
-        industry: Industry category. SaaS triggers a critical warning
-            since it is NOT a Qualifying Activity under MD 229/2025.
+        industry: Industry category. SaaS triggers an income-classification
+            warning because qualification depends on the specific transaction.
+        is_qfzp: Explicit QFZP status, including when qualifying income is zero.
+            Omission retains inference from a positive qualifying percentage.
     """
     return await tools.corporate_tax_estimate(
         annual_taxable_income_aed=annual_taxable_income_aed,
         is_free_zone=is_free_zone,
         qfzp_qualifying_pct=qfzp_qualifying_pct,
         industry=industry,
+        is_qfzp=is_qfzp,
     )
 
 
@@ -49,9 +53,10 @@ async def vat_filing_calendar(annual_revenue_aed: int) -> dict[str, object]:
     """
     Determine the UAE VAT registration requirement and filing frequency.
 
-    Mandatory at AED 375,000 revenue, voluntary at AED 187,500. Filing is
-    quarterly under AED 150 million revenue, monthly above. Standard rate
-    is 5%. Includes the Federal Decree-Law 16 of 2025 amendments effective
+    Treats the input as taxable supplies and imports in the past 12 months:
+    mandatory above AED 375,000, voluntary above AED 187,500. Filing frequency
+    is indicative; the FTA assigns the actual period. Standard rate is 5%.
+    Includes the Federal Decree-Law 16 of 2025 amendments effective
     1 January 2026 (reverse-charge invoicing, 5-year VAT credit
     carry-forward cap, evasion-linked input VAT denial).
     """
@@ -66,9 +71,9 @@ async def qfzp_check(
     """
     Check QFZP eligibility for a free zone business.
 
-    Returns one of: not_eligible, not_qualifying, potentially_qualifying,
-    verify, with the reason. SaaS is explicitly NOT a Qualifying Activity
-    under Ministerial Decision 229 of 2025.
+    Returns one of: not_eligible, potentially_qualifying, verify, with the
+    reason. SaaS requires assessment of the counterparty, exclusions and
+    any qualifying intellectual-property income.
     """
     return await tools.qfzp_check(industry=industry, is_free_zone=is_free_zone)
 

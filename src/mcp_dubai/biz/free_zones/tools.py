@@ -23,12 +23,12 @@ def _all_offshore() -> list[dict[str, Any]]:
     return list(items) if isinstance(items, list) else []
 
 
-def _initial_aed(fz: dict[str, Any]) -> int:
+def _initial_aed(fz: dict[str, Any]) -> int | None:
     license_block = fz.get("license", {})
     if not isinstance(license_block, dict):
-        return 0
-    val = license_block.get("initial_aed", 0)
-    return int(val) if isinstance(val, (int, float)) else 0
+        return None
+    val = license_block.get("initial_aed")
+    return int(val) if isinstance(val, (int, float)) and val > 0 else None
 
 
 async def list_free_zones() -> dict[str, object]:
@@ -51,6 +51,7 @@ async def list_free_zones() -> dict[str, object]:
                         "sector": fz.get("sector"),
                         "location": fz.get("location"),
                         "initial_license_aed": _initial_aed(fz),
+                        "license_price_as_of": fz.get("license", {}).get("as_of"),
                         "source_urls": fz.get("source_urls", []),
                     }
                     for fz in free_zones
@@ -96,12 +97,20 @@ async def compare_free_zones(
 ) -> dict[str, object]:
     """
     Compare Dubai free zones for a specific use case. Filters by budget,
-    visa quota, office requirements, and sector, then ranks by cost.
+    visa quota, office requirements, and sector. Activity is informational.
+    Unknown prices are excluded when a budget is supplied; known prices
+    are historical licence estimates, excluding visa and premises charges.
     """
     if visa_count < 0:
         return (
             ToolResponse[dict[str, object]]
             .fail(error=f"visa_count must be >= 0, got {visa_count}")
+            .model_dump()
+        )
+    if budget_aed is not None and budget_aed < 0:
+        return (
+            ToolResponse[dict[str, object]]
+            .fail(error=f"budget_aed must be >= 0, got {budget_aed}")
             .model_dump()
         )
     if limit < 1 or limit > 50:
@@ -115,7 +124,7 @@ async def compare_free_zones(
     for fz in _all_free_zones():
         # Budget filter
         cost = _initial_aed(fz)
-        if budget_aed is not None and cost > 0 and cost > budget_aed:
+        if budget_aed is not None and (cost is None or cost > budget_aed):
             continue
 
         # Visa quota filter
@@ -134,7 +143,8 @@ async def compare_free_zones(
         if needs_physical_office and isinstance(office_block, dict):
             options = office_block.get("options", [])
             if isinstance(options, list) and not any(
-                o in {"flexi", "private", "warehouse", "studio", "clinic"} for o in options
+                o in {"flexi", "coworking", "private", "warehouse", "studio", "clinic"}
+                for o in options
             ):
                 continue
 
@@ -155,7 +165,7 @@ async def compare_free_zones(
         if isinstance(banking_block, dict):
             bank_acceptance = str(banking_block.get("acceptance", "moderate"))
         bank_penalty = {"easy": 0, "moderate": 2500, "difficult": 8000}.get(bank_acceptance, 2500)
-        cost_for_ranking = cost if cost > 0 else 50000
+        cost_for_ranking = cost if cost is not None else 50000
         score = cost_for_ranking + bank_penalty
 
         candidates.append(
@@ -164,6 +174,8 @@ async def compare_free_zones(
                 "name": fz.get("name"),
                 "sector": fz.get("sector"),
                 "initial_license_aed": cost,
+                "license_price_as_of": fz.get("license", {}).get("as_of"),
+                "price_requires_quote": cost is None,
                 "visa_quota_max": visa_max,
                 "bank_acceptance": bank_acceptance,
                 "best_for": fz.get("best_for", []),
@@ -187,6 +199,11 @@ async def compare_free_zones(
                     "sector": sector,
                 },
                 "free_zones": top,
+                "budget_scope": (
+                    "Historical indicative licence cost only; visa, premises, external "
+                    "approvals and service fees may be additional. Unknown prices are "
+                    "excluded when budget_aed is supplied. Obtain a current quotation."
+                ),
             },
             knowledge=KNOWLEDGE,
         )

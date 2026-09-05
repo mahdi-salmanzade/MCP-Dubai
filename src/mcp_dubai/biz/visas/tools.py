@@ -108,6 +108,18 @@ async def visa_recommend(
             .fail(error=f"monthly_salary_aed must be >= 0, got {monthly_salary_aed}")
             .model_dump()
         )
+    if annual_income_aed is not None and annual_income_aed < 0:
+        return (
+            ToolResponse[dict[str, object]]
+            .fail(error=f"annual_income_aed must be >= 0, got {annual_income_aed}")
+            .model_dump()
+        )
+    if duration_years_min is not None and duration_years_min < 0:
+        return (
+            ToolResponse[dict[str, object]]
+            .fail(error=f"duration_years_min must be >= 0, got {duration_years_min}")
+            .model_dump()
+        )
     if age is not None and age < 0:
         return (
             ToolResponse[dict[str, object]].fail(error=f"age must be >= 0, got {age}").model_dump()
@@ -123,6 +135,10 @@ async def visa_recommend(
     def _add(visa_id: str, why: str) -> None:
         v = by_id.get(visa_id)
         if v is not None:
+            if duration_years_min is not None:
+                duration = v.get("duration_years")
+                if not isinstance(duration, (int, float)) or duration < duration_years_min:
+                    return
             candidates.append(
                 {
                     "id": v.get("id"),
@@ -142,7 +158,7 @@ async def visa_recommend(
         if monthly_salary_aed and monthly_salary_aed >= 30000:
             _add(
                 "golden_specialized_talent",
-                "AED 30,000+ monthly salary qualifies for Golden Visa specialized talent track (10-year). Note: salary must be BASIC (not total comp), verified for 24 months.",
+                "AED 30,000+ monthly salary meets the skilled-professional salary screening threshold; UAE employment, qualifications and other conditions still apply.",
             )
         _add(
             "golden_entrepreneur",
@@ -155,7 +171,7 @@ async def visa_recommend(
         if monthly_salary_aed and monthly_salary_aed >= 15000:
             _add(
                 "green_skilled_employee",
-                "AED 15,000+ monthly salary qualifies for the Green Visa skilled employee track (5-year, self-sponsored).",
+                "AED 15,000+ monthly salary meets the Green Visa skilled-employee salary threshold (5-year, self-sponsored), subject to employment and qualification requirements.",
             )
             warnings.append(
                 "Green Visa requires MOHRE skill level 1, 2, or 3 plus a bachelor's degree."
@@ -163,7 +179,7 @@ async def visa_recommend(
         if monthly_salary_aed and monthly_salary_aed >= 30000:
             _add(
                 "golden_specialized_talent",
-                "AED 30,000+ monthly basic salary may qualify for Golden Visa specialized talent.",
+                "AED 30,000+ monthly salary may support the Golden Visa skilled-professional route, subject to all other conditions.",
             )
 
     elif profile == "freelancer":
@@ -215,7 +231,7 @@ async def visa_recommend(
     elif profile == "specialized_talent":
         _add(
             "golden_specialized_talent",
-            "Specialised talent Golden Visa requires AED 30,000+ basic monthly salary verified over 24 months and a recognised qualification.",
+            "Exceptional-talent categories have specific nomination or qualification rules. The skilled-professional route requires AED 30,000+ monthly salary; GDRFA lists 6 months of bank salary transfers.",
         )
 
     elif profile == "spouse_or_dependent":
@@ -224,8 +240,8 @@ async def visa_recommend(
         )
         warnings.append(
             "Sponsor minimum salary: AED 4,000, or AED 3,000 plus employer-provided "
-            "accommodation. Assessed on basic salary in the attested labour contract, "
-            "not total package. Marriage and birth certificates must be attested."
+            "accommodation. Confirm acceptable income evidence with the issuing "
+            "authority. Marriage and birth certificates must be attested."
         )
 
     elif profile == "retiree":
@@ -272,6 +288,7 @@ async def visa_recommend(
                     "has_uae_employer": has_uae_employer,
                     "has_uae_trade_license": has_uae_trade_license,
                     "age": age,
+                    "duration_years_min": duration_years_min,
                 },
             },
             knowledge=KNOWLEDGE,
@@ -285,7 +302,18 @@ async def golden_visa_check(
     real_estate_value_aed: int | None = None,
     project_value_aed: int | None = None,
 ) -> dict[str, object]:
-    """Check eligibility for the main Golden Visa categories."""
+    """Screen supplied financial thresholds; this does not determine visa eligibility."""
+    for name, value in (
+        ("monthly_salary_aed", monthly_salary_aed),
+        ("real_estate_value_aed", real_estate_value_aed),
+        ("project_value_aed", project_value_aed),
+    ):
+        if value is not None and value < 0:
+            return (
+                ToolResponse[dict[str, object]]
+                .fail(error=f"{name} must be >= 0, got {value}")
+                .model_dump()
+            )
     eligible: list[dict[str, str]] = []
     not_eligible: list[dict[str, str]] = []
 
@@ -295,8 +323,9 @@ async def golden_visa_check(
                 {
                     "category": "specialized_talent",
                     "criterion": (
-                        "AED 30,000+ basic monthly salary (verified over the "
-                        "prior 24 months). Tightened in early 2026."
+                        "AED 30,000+ monthly salary meets the skilled-professional "
+                        "salary threshold. GDRFA lists 6 months of salary transfers; "
+                        "UAE employment, qualifications and other conditions still apply."
                     ),
                 }
             )
@@ -305,8 +334,9 @@ async def golden_visa_check(
                 {
                     "category": "specialized_talent",
                     "criterion": (
-                        f"Need AED 30,000+ basic monthly. Have AED {monthly_salary_aed}. "
-                        "Note: must be BASIC salary, not total compensation."
+                        f"The skilled-professional salary threshold is AED 30,000+ "
+                        f"monthly. Have AED {monthly_salary_aed}. Other exceptional-"
+                        "talent categories may use nomination-based criteria."
                     ),
                 }
             )
@@ -346,8 +376,10 @@ async def golden_visa_check(
                 {
                     "category": "entrepreneur",
                     "criterion": (
-                        "Project worth AED 500,000+ in technical / future fields. "
-                        "Requires Ministry of Economy or accredited incubator approval."
+                        "Project worth AED 500,000+ meets the ICP entrepreneur "
+                        "valuation threshold for its published 5-year route, subject "
+                        "to auditor and authority/incubator evidence. Dubai's 10-year "
+                        "route has different nomination and business criteria."
                     ),
                 }
             )
@@ -366,6 +398,8 @@ async def golden_visa_check(
         .ok(
             {
                 "any_eligible": len(eligible) > 0,
+                "assessment_scope": "Financial threshold screening only; not final visa eligibility.",
+                "requires_authority_approval": True,
                 "eligible": eligible,
                 "not_eligible": not_eligible,
                 "inputs": {

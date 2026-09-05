@@ -783,11 +783,11 @@ class TestRtaGtfsStaticUrl:
         assert data["archive_format"] == "7z"
         assert "py7zr" in str(data["extraction_hint"])
         assert "GTFS_20250823" in str(data["feed_version_note"])
-        assert "2026-08-14" in str(data["feed_version_note"])
+        assert "2026-09-05" in str(data["feed_version_note"])
         assert "fresher" in str(data["staleness_note"])
         assert data["query_api_auth_required"] is True
         assert data["gtfs_realtime_available"] is False
-        assert result["retrieved_at"] == "2026-08-14"
+        assert result["retrieved_at"] == "2026-09-05"
 
     @pytest.mark.asyncio
     async def test_transitland_mirror_marked_dead(self) -> None:

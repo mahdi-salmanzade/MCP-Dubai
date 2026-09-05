@@ -31,7 +31,7 @@ PACKAGE_VERSION: str = _read_package_version()
 # ----------------------------------------------------------------------------
 # Bumped when at least one curated knowledge source is materially re-verified.
 # Consumers must inspect per-domain dates through get_knowledge_status().
-KNOWLEDGE_DATE: str = "2026-08-14"
+KNOWLEDGE_DATE: str = "2026-09-05"
 
 
 # ----------------------------------------------------------------------------
@@ -87,7 +87,8 @@ AVIATION_WEATHER_BASE: str = "https://aviationweather.gov/api/data"
 OVERPASS_BASE: str = "https://overpass-api.de/api/interpreter"
 # RTA GTFS static feed: the old transit.land mirror started returning 401 in
 # 2026 (Transitland now requires an API token). The Dubai Pulse direct
-# download below still serves anonymously (rechecked 2026-08-14): a ~10 MB
+# download below served anonymously via its apex-host redirect on 2026-09-05,
+# but direct requests intermittently returned HTTP 400. It is a ~10 MB
 # 7-zip archive (not a plain zip) containing the GTFS text files.
 RTA_GTFS_DOWNLOAD_URL: str = (
     "https://www.dubaipulse.gov.ae/dataset/73765e8f-e8c4-443c-9687-288072ed9d12/"
@@ -96,7 +97,7 @@ RTA_GTFS_DOWNLOAD_URL: str = (
 # Open-Meteo: keyless human-friendly weather and forecast (no token, no signup).
 OPEN_METEO_BASE: str = "https://api.open-meteo.com/v1"
 # Dubai Financial Market: anonymous JSON market-data endpoints behind the
-# dfm.ae website (undocumented, best-effort). Rechecked 2026-08-14.
+# dfm.ae website (undocumented, best-effort). Rechecked 2026-09-05.
 DFM_API_BASE: str = "https://api2.dfm.ae"
 # Makani (Dubai Municipality geo-addressing): anonymous public SOAP service.
 # Attribution to Dubai Municipality is required by the service licence.

@@ -1,6 +1,6 @@
 {
   "domain": "dcde",
-  "knowledge_date": "2026-08-14",
+  "knowledge_date": "2026-09-05",
   "full_review_date": "2026-04-13",
   "volatility": "medium",
   "verify_at": "https://www.dubaichamberdigital.com",
@@ -44,7 +44,10 @@
       "launched": "October 2025",
       "type": "phygital_platform",
       "description": "Phygital (physical + digital) platform connecting Dubai founders to ecosystem resources, mentorship, and government services.",
-      "url": "https://www.dubaichamberdigital.com"
+      "url": "https://dubaifoundershq.com/en",
+      "source_urls": [
+        "https://dubaifoundershq.com/en"
+      ]
     },
     {
       "id": "antler_residency",
@@ -60,9 +63,16 @@
       "id": "frwrdx",
       "name": "FRWRDx",
       "operator": "DCDE",
-      "type": "accelerator",
+      "type": "founder_development_programme",
       "duration_weeks": 14,
-      "description": "14-week accelerator program for selected digital economy startups."
+      "description": "14-week hybrid experience for aspiring and early-stage founders, with practical business-building, mentorship and AI tools. The official FAQ explicitly says it is neither a course nor an accelerator.",
+      "url": "https://www.dubaichamberdigital.com/en/frwrdx",
+      "source_urls": [
+        "https://www.dubaichamberdigital.com/en/frwrdx"
+      ],
+      "current_status": "Register-interest form available. The published cohort schedule remains September to December 2025; no new dated cohort was verified.",
+      "cost_note": "Dubai Chambers describes sponsoring committed participants; confirm the offered seat and current terms.",
+      "verified_as_of": "2026-09-05"
     },
     {
       "id": "unicorn_30",
@@ -97,7 +107,14 @@
         "finals": "2026-10-07"
       },
       "url": "https://createapps.ae/en/create-apps-championship",
-      "notes": "The official structured timeline schedules the finals for 7 October 2026, while a stale FAQ answer says April 2026. See the createapps feature for the full timeline and consistency warning."
+      "notes": "The official structured timeline schedules the finals for 7 October 2026, while a stale FAQ answer says April 2026. See the createapps feature for the full timeline and consistency warning.",
+      "accelerator_outcome_2026": {
+        "announcement_date": "2026-06-16",
+        "apps_launched": 32,
+        "source_urls": [
+          "https://www.dubaichamberdigital.com/en/e/dcde_news_detailed_page/29577/5459288"
+        ]
+      }
     },
     {
       "id": "canva_partnership",
@@ -106,6 +123,18 @@
       "type": "sme_enablement",
       "target": "250,000 SMEs over 5 years",
       "description": "Free or discounted Canva access for Dubai SMEs as part of the DCDE digital enablement initiative."
+    },
+    {
+      "id": "business_matching",
+      "name": "Business Matching",
+      "operator": "DCDE",
+      "type": "market_entry_and_business_support",
+      "description": "Support with Dubai market entry, business connections, service providers, and ecosystem introductions.",
+      "url": "https://www.dubaichamberdigital.com/en/business-matching-",
+      "source_urls": [
+        "https://www.dubaichamberdigital.com/en/business-matching-"
+      ],
+      "verified_as_of": "2026-09-05"
     }
   ],
   "knowledge_hub": {
@@ -146,6 +175,6 @@
     "international_roadshows": 17,
     "source": "DCDE January 2026 press release"
   },
-  "previous_knowledge_date": "2026-04-13",
-  "last_refresh_scope": "Targeted correctness audit of 2026-08-14: refreshed the duplicate Create Apps Championship record against the official structured timeline and corrected the separate Dubai Chamber of Commerce membership scope and fee floor against official sources. Not a full re-verification of every field in this pack."
+  "previous_knowledge_date": "2026-08-14",
+  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: corrected FRWRDx classification and dated-cohort status, linked the dedicated Dubai Founders HQ portal, added Business Matching, and recorded the dated Create Apps Accelerator outcome. Championship dates remain unchanged after checking. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

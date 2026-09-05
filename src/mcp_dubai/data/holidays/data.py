@@ -16,11 +16,12 @@ u.ae public holidays list. Do not re-add it as a holiday entry.
 published as of 2026-08-14. All 2027 lunar dates are astronomical
 expectations subject to moon sighting and MOHRE/FAHR confirmation.
 
-Knowledge date: 2026-08-14.
+Knowledge date: 2026-09-05 (targeted Prophet's Birthday observance correction).
 Sources:
 - https://u.ae/en/information-and-services/public-holidays-and-religious-affairs/public-holidays
 - https://uaelegislation.gov.ae/en/legislations/2595 (Cabinet Resolution 27/2024)
 - https://www.mohre.gov.ae/ and https://www.fahr.gov.ae/ holiday circulars
+- https://www.fahr.gov.ae/wp-content/uploads/2026/08/Circular-No.-11-of-2026-Regarding-The-Holiday-of-the-Prophet-Mohammads-Birthday-1448-AH.pdf
 """
 
 from __future__ import annotations
@@ -38,13 +39,14 @@ class Holiday(TypedDict):
     # Present on every lunar record: True after the relevant MOHRE/FAHR
     # observance circulars, False while the Gregorian date remains provisional.
     official_observance_announced: NotRequired[bool]
+    source_url: NotRequired[str]
 
 
-HOLIDAY_DATA_DATE: Final[str] = "2026-08-14"
+HOLIDAY_DATA_DATE: Final[str] = "2026-09-05"
 
 
 # 2026 UAE federal public holidays. Observed dates confirmed through the
-# Hijri New Year (June); the Prophet's Birthday remains provisional.
+# Prophet's Birthday (August), including the transferred day off.
 HOLIDAYS_2026: Final[list[Holiday]] = [
     {
         "name": "New Year's Day",
@@ -144,14 +146,19 @@ HOLIDAYS_2026: Final[list[Holiday]] = [
     {
         "name": "Prophet Muhammad's Birthday",
         "name_ar": "المولد النبوي الشريف",
-        "date": "2026-08-25",
-        "provisional": True,
+        "date": "2026-08-28",
+        "provisional": False,
         "category": "lunar",
-        "official_observance_announced": False,
+        "official_observance_announced": True,
         "note": (
-            "Provisional religious date for 12 Rabi Al Awwal 1448. An "
-            "official MOHRE/FAHR observance circular has not been announced "
-            "as of 2026-08-14, so no transferred day is assumed."
+            "Observed Friday 2026-08-28 under FAHR Circular 11 of 2026, "
+            "issued 2026-08-07. The day off was transferred from the "
+            "religious date, Tuesday 2026-08-25. Corrected on 2026-09-05."
+        ),
+        "source_url": (
+            "https://www.fahr.gov.ae/wp-content/uploads/2026/08/"
+            "Circular-No.-11-of-2026-Regarding-The-Holiday-of-the-"
+            "Prophet-Mohammads-Birthday-1448-AH.pdf"
         ),
     },
     {

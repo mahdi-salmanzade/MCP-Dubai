@@ -20,12 +20,12 @@ async def attestation_guide(
     home_country: str | None = None,
 ) -> dict[str, object]:
     """
-    Walk through the UAE attestation chain for a foreign document.
+    Explain UAE document attestation routes and an illustrative foreign-document chain.
 
-    The UAE is NOT a Hague Apostille member as of April 2026. Foreign
-    documents still require the full 5-step legalization chain (home
-    country notary, home country MOFA, UAE embassy, UAE MOFAIC, MOJ
-    legal translation if needed).
+    The UAE is not a Hague Apostille member as of September 2026. Steps
+    depend on the document, issuing country and receiving authority.
+    Eligible UAE-issued digital documents may use MoFA's digital route;
+    foreign documents follow the relevant UAE mission's requirements.
 
     Args:
         document_type: One of: personal, commercial, degree, marriage,

@@ -98,14 +98,15 @@ class TestUaeHolidays:
         assert "transferable-holiday" in hijri["note"]
 
     @pytest.mark.asyncio
-    async def test_prophets_birthday_2026_still_provisional(self) -> None:
+    async def test_prophets_birthday_2026_observed_august_28(self) -> None:
         result = await tools.uae_holidays(year=2026)
         data = result["data"]
         assert isinstance(data, dict)
-        mawlid = next(h for h in data["holidays"] if h["date"] == "2026-08-25")
-        assert mawlid["provisional"] is True
-        assert mawlid["official_observance_announced"] is False
-        assert "no transferred day is assumed" in mawlid["note"]
+        mawlid = next(h for h in data["holidays"] if h["date"] == "2026-08-28")
+        assert mawlid["provisional"] is False
+        assert mawlid["official_observance_announced"] is True
+        assert "2026-08-25" in mawlid["note"]
+        assert "fahr.gov.ae" in mawlid["source_url"]
 
     @pytest.mark.asyncio
     async def test_commemoration_day_not_listed(self) -> None:
@@ -125,9 +126,6 @@ class TestUaeHolidays:
         for holiday in data["holidays"]:
             if holiday["category"] == "fixed":
                 assert holiday["provisional"] is False
-            elif holiday["date"] == "2026-08-25":
-                assert holiday["provisional"] is True
-                assert holiday["official_observance_announced"] is False
             else:
                 assert holiday["provisional"] is False
                 assert holiday["official_observance_announced"] is True
@@ -216,16 +214,24 @@ class TestUaeNextHoliday:
         assert "warning" in data
 
     @pytest.mark.asyncio
-    async def test_unannounced_mawlid_is_candidate_not_next_confirmed_holiday(self) -> None:
+    async def test_next_confirmed_holiday_uses_transferred_mawlid_date(self) -> None:
         result = await tools.uae_next_holiday(from_date_str="2026-08-14")
         data = result["data"]
         assert isinstance(data, dict)
         next_holiday = data["next_holiday"]
         candidate = data["next_provisional_candidate"]
         assert isinstance(next_holiday, dict)
-        assert isinstance(candidate, dict)
-        assert next_holiday["date"] == "2026-12-02"
-        assert candidate["date"] == "2026-08-25"
+        assert candidate is None
+        assert next_holiday["date"] == "2026-08-28"
+        assert data["days_away"] == 14
+
+    @pytest.mark.asyncio
+    async def test_2027_unannounced_lunar_date_remains_only_a_candidate(self) -> None:
+        result = await tools.uae_next_holiday(from_date_str="2027-02-01")
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["next_holiday"]["date"] == "2027-12-02"
+        assert data["next_provisional_candidate"]["date"] == "2027-03-09"
         assert "not" in str(data["warning"]).lower()
 
     @pytest.mark.asyncio
@@ -267,8 +273,24 @@ class TestIsUaeHoliday:
         assert data["holiday"] is None
 
     @pytest.mark.asyncio
-    async def test_unannounced_mawlid_is_indeterminate(self) -> None:
+    async def test_mawlid_religious_date_is_not_observed_holiday(self) -> None:
         result = await tools.is_uae_holiday(date_str="2026-08-25")
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["is_holiday"] is False
+        assert data["holiday"] is None
+
+    @pytest.mark.asyncio
+    async def test_mawlid_transferred_date_is_confirmed_holiday(self) -> None:
+        result = await tools.is_uae_holiday(date_str="2026-08-28")
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert data["is_holiday"] is True
+        assert data["determination"] == "confirmed"
+
+    @pytest.mark.asyncio
+    async def test_unannounced_2027_eid_is_indeterminate(self) -> None:
+        result = await tools.is_uae_holiday(date_str="2027-03-09")
         data = result["data"]
         assert isinstance(data, dict)
         assert data["is_holiday"] is None

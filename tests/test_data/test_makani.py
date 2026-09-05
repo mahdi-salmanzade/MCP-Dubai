@@ -12,7 +12,7 @@ from mcp_dubai._shared.constants import MAKANI_SOAP_ENDPOINT
 from mcp_dubai.data.makani import tools
 
 
-def _soap_envelope(operation: str, result: dict[str, object]) -> str:
+def _soap_envelope(operation: str, result: object) -> str:
     """Wrap a JSON result dict in a canned Makani SOAP 1.1 response envelope."""
     text = json.dumps(result, ensure_ascii=False)
     escaped = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
@@ -24,7 +24,7 @@ def _soap_envelope(operation: str, result: dict[str, object]) -> str:
     )
 
 
-def _soap_response(operation: str, result: dict[str, object]) -> Response:
+def _soap_response(operation: str, result: object) -> Response:
     return Response(
         200,
         text=_soap_envelope(operation, result),
@@ -96,6 +96,19 @@ _INVALID_RESULT: dict[str, object] = {
 
 
 class TestMakaniReverseGeocode:
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize("payload", [None, [], {}, {"MAKANI_INFO": ["invalid"]}])
+    async def test_invalid_reverse_payload_returns_upstream_error(self, payload: object) -> None:
+        respx.post(MAKANI_SOAP_ENDPOINT).mock(
+            return_value=_soap_response("GetMakaniInfoFromCoord", payload)
+        )
+
+        result = await tools.makani_reverse_geocode(25.2, 55.3)
+
+        assert result["success"] is False
+        assert result["error"]["status"] == "upstream_error"
+
     @pytest.mark.asyncio
     @respx.mock
     async def test_returns_building_and_makani_numbers(self) -> None:
@@ -244,6 +257,17 @@ class TestMakaniDetails:
 
 
 class TestMakaniValidate:
+    @pytest.mark.asyncio
+    @respx.mock
+    @pytest.mark.parametrize("payload", [None, [], {}, {"IS_VALID": "unknown"}])
+    async def test_invalid_payload_does_not_claim_number_is_invalid(self, payload: object) -> None:
+        respx.post(MAKANI_SOAP_ENDPOINT).mock(return_value=_soap_response("IsValidMakani", payload))
+
+        result = await tools.makani_validate("30032 95320")
+
+        assert result["success"] is False
+        assert result["error"]["status"] == "upstream_error"
+
     @pytest.mark.asyncio
     @respx.mock
     async def test_valid_number_returns_emirate(self) -> None:

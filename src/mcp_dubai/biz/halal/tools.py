@@ -51,6 +51,7 @@ async def halal_certification(
                 "governing_law": _DATA.get("governing_law"),
                 "halal_mark": _block("halal_mark"),
                 "products_requiring_certification": products,
+                "certification_scope_note": _DATA.get("certification_scope_note"),
                 "certification_bodies": _block("certification_bodies"),
                 "recommended_approach": _DATA.get("recommended_approach"),
             },

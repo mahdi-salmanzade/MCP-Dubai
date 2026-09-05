@@ -1,11 +1,11 @@
 {
   "domain": "visas",
-  "knowledge_date": "2026-07-25",
+  "knowledge_date": "2026-09-05",
   "full_review_date": "2026-07-02",
   "volatility": "high",
   "verify_at": "https://u.ae/en/information-and-services/visa-and-emirates-id",
   "source_brief_section": "6.3",
-  "disclaimer": "Visa thresholds change frequently in the UAE. Verify the current ICP rules before applying. Recent changes captured (as of July 2026): Dubai removed the AED 750,000 minimum for the 2-year property investor visa for sole owners (April 2026, reported via the DLD Cube Centre with no formal decree); GDRFA Dubai took over Golden, Retiree and Property residency intake from DLD (MoU of 11 April 2026); MoHRE relaunched work permits around 13 types with AI screening of all new applications from May 2026; visa-on-arrival expanded to 6 new nationalities holding residence permits from 9 listed countries (25 June 2026); the virtual work visa now requires 6 months of bank statements. Golden Visa specialized-talent salary remains AED 30,000 basic monthly verified over 24 months. Federal health insurance mandate kicked in January 2025. Visa stickers discontinued since 2022 (residency is digitally tied to Emirates ID).",
+  "disclaimer": "Visa requirements depend on the category and issuing authority. The 2026-09-05 targeted refresh corrects specialized-talent salary-history assumptions, distinguishes ICP and Dubai entrepreneur routes, and clarifies family-sponsorship evidence and virtual-work entry-visa costs. Other dated visa and property-threshold snapshots retain their original review scope; verify current ICP/GDRFA eligibility before applying. Residence is digitally linked to Emirates ID.",
   "currency": "AED",
   "visas": [
     {
@@ -179,7 +179,7 @@
         "attested degree",
         "employer offer letter"
       ],
-      "work_permit_system_note": "MoHRE relaunched the work-permit system on 7 June 2026 around 13 permit types (recruitment from outside the UAE, transfer, family-sponsored, temporary, mission, part-time, juvenile 15-18, student training, UAE/GCC national, Golden Residency holder, trainee UAE national, freelance, private tutoring; several with 2-year validity). Supporting-document requirements were eliminated and mandatory data fields cut roughly 75-97% for certain permits, with unified digital channels and roughly 2-working-day processing. A public e-consultation on further simplified hiring rules runs until 30 July 2026, so more changes are likely in H2 2026.",
+      "work_permit_system_note": "MoHRE relaunched the work-permit system on 7 June 2026 around 13 permit types (recruitment from outside the UAE, transfer, family-sponsored, temporary, mission, part-time, juvenile 15-18, student training, UAE/GCC national, Golden Residency holder, trainee UAE national, freelance, private tutoring; several with 2-year validity). Supporting-document requirements were eliminated and mandatory data fields cut roughly 75-97% for certain permits, with unified digital channels and roughly 2-working-day processing. The referenced e-consultation was scheduled to close on 30 July 2026; its expiry does not establish that any proposed rule took effect.",
       "ai_screening_note": "From May 2026 all new work-permit applications are screened by a joint ICP-MoHRE AI and robotics platform that scores skills, education, experience and knowledge against ICP identity records and labour-market data, with automatic approval for strong matches and human adjudication for borderline files.",
       "source_urls": [
         "https://www.mohre.gov.ae",
@@ -202,19 +202,21 @@
         "specialists in priority fields"
       ],
       "eligibility": [
-        "AED 30,000 minimum BASIC monthly salary, verified for the prior 24 months (tightened in early 2026)",
-        "Recognised qualification in the relevant field",
-        "Specialised in a priority field (medicine, engineering, scientific research, AI, etc.)"
+        "Requirements depend on the talent category; scientists and other exceptional talents may need competent-authority nominations rather than a salary test.",
+        "For the skilled-professional route: UAE employment, MOHRE professional level 1 or 2, a recognised bachelor degree or equivalent, and any required professional licence.",
+        "The GDRFA Dubai skilled-professional page specifies at least AED 30,000 monthly salary and 6 months of bank salary transfers; confirm salary components and any additional case-specific evidence with the authority."
       ],
       "cost_aed_min": 2800,
       "cost_aed_max": 9500,
       "cost_notes": "Plus dependent visa fees.",
-      "process": "Apply via ICP portal or Amer / GDRFA Dubai. Self-sponsored, no employer needed.",
+      "process": "Apply through ICP or GDRFA Dubai/Amer under the applicable subcategory. Residence is self-sponsored; the skilled-professional route still requires qualifying UAE employment.",
       "process_note": "In Dubai, the GDRFA-DLD MoU of 11 April 2026 merged Golden, Retiree and Property residency services into a single GDRFA Dubai channel (service integration only; eligibility thresholds unchanged).",
       "source_urls": [
-        "https://icp.gov.ae/en/golden-residency",
-        "https://mediaoffice.ae/en/news/2026/april/11-04/gdrfa"
-      ]
+        "https://gdrfad.gov.ae/en/services/8ea80daa-f43e-11eb-0320-0050569629e8",
+        "https://www.added.gov.ae/en/live/long-term-residency/abu-dhabi-golden-visa/for-specialists/for-skilled-professionals",
+        "https://icp.gov.ae/en/services/uae-golden-residency/"
+      ],
+      "eligibility_note": "A blanket 24-month salary-history requirement across all specialized talents is not supported by the official pages reviewed on 2026-09-05. Salary alone does not establish eligibility."
     },
     {
       "id": "golden_investor_real_estate",
@@ -239,29 +241,32 @@
         "https://icp.gov.ae/en/golden-residency",
         "https://gulfnews.com/living-in-uae/visa-immigration/dubai-residency-by-investment-guide-1.500523250",
         "https://www.fragomen.com/insights/united-arab-emirates-dubai-relaxes-eligibility-criteria-for-two-year-property-investor-residence-visa.html",
-        "https://mediaoffice.ae/en/news/2026/april/11-04/gdrfa"
-      ]
+        "https://mediaoffice.ae/en/news/2026/april/11-04/gdrfa",
+        "https://icp.gov.ae/en/services/uae-golden-residency/"
+      ],
+      "jurisdiction_note": "Dubai service guidance commonly specifies 10 years; the current ICP Golden Residency overview describes 5 years for real-estate investment. Confirm duration and mortgage/off-plan conditions for the issuing authority."
     },
     {
       "id": "golden_entrepreneur",
       "name": "Golden Visa (Entrepreneur)",
-      "duration_label": "10 years",
-      "duration_years": 10,
+      "duration_label": "5 years (ICP route); 10 years (Dubai route)",
+      "duration_years": 5,
       "track": "golden",
       "category": "entrepreneur",
       "best_for": [
         "founders with technical or future fields project"
       ],
       "eligibility": [
-        "Project worth at least AED 500,000",
-        "Technical or future-fields project (approved by relevant authority)",
-        "Approval from accredited business incubator OR Ministry of Economy"
+        "ICP published route: an innovative, technical or future-oriented project valued at AED 500,000 or more, supported by an auditor and the relevant authority or accredited incubator.",
+        "Dubai GDRFA publishes a separate 10-year route requiring Dubai Future Foundation nomination and applicable business/project evidence. The AED 500,000 valuation test alone does not establish eligibility for the Dubai route."
       ],
       "cost_aed_min": 2800,
       "cost_aed_max": 5000,
       "source_urls": [
-        "https://icp.gov.ae/en/golden-residency"
-      ]
+        "https://icp.gov.ae/en/services/uae-golden-residency/",
+        "https://www.gdrfad.gov.ae/en/services/8ea80da7-f43e-11eb-0320-0050569629e8"
+      ],
+      "jurisdiction_note": "Official ICP and GDRFA pages describe different durations and criteria. Confirm the applicable route before applying; do not combine the ICP project-value test with an unconditional promise of 10-year Dubai residence."
     },
     {
       "id": "green_skilled_employee",
@@ -344,18 +349,18 @@
       ],
       "eligibility": [
         "Employment contract with a foreign (non-UAE) employer",
-        "USD 3,500 minimum monthly salary (per the official GDRFA Dubai service page as of July 2026)",
-        "Six consecutive months of bank statements to prove the income requirement (raised from three months in late January 2026)",
+        "USD 3,500 minimum monthly salary (per the GDRFA Dubai service page checked 2026-09-05)",
         "Health insurance valid in the UAE"
       ],
-      "cost_aed_min": 230,
+      "cost_aed_min": 210,
       "cost_aed_max": 730,
-      "cost_notes": "AED 200 visa fee plus 5% VAT, plus AED 10 knowledge and AED 10 innovation dirhams (AED 230 total); AED 500 extra for inside-country applications, bringing the maximum to AED 730 (per the GDRFA Dubai service page).",
+      "cost_notes": "The cited GDRFA page is for the entry visa to complete residence formalities: AED 200 plus 5% VAT (AED 210). For inside-country applications it lists AED 10 knowledge, AED 10 innovation and AED 500 in-country fees (AED 730 total on those components). Medical, Emirates ID, residence-permit and insurance costs are separate.",
       "unverified_note": "UNCONFIRMED: some aggregators claim the income floor rose to USD 5,000 per month for employed applicants and that required health-insurance cover rose to AED 500,000. Neither figure is reflected on the official GDRFA service page as of July 2026, so treat them as unconfirmed.",
       "source_urls": [
         "https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/virtual-working-programme",
         "https://www.gdrfad.gov.ae/en/services/64154a31-ec6d-11ec-140b-0050569629e8"
-      ]
+      ],
+      "income_evidence_note": "The cited GDRFA entry-visa service page requests proof of monthly income but does not specify a universal bank-statement period. Confirm the statement period and residence-permit documents for the actual application channel."
     },
     {
       "id": "retirement",
@@ -391,7 +396,6 @@
       "eligibility": [
         "Sponsor (the UAE resident) holds a valid residence visa",
         "Sponsor minimum salary AED 4,000, or AED 3,000 plus employer-provided accommodation (per u.ae)",
-        "The threshold is assessed on the basic salary in the attested labour contract, not on total package",
         "Attested marriage and birth certificates"
       ],
       "cost_aed_min": 5000,
@@ -401,7 +405,8 @@
       "timeline_weeks_max": 4,
       "source_urls": [
         "https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/residence-visa-for-family-members"
-      ]
+      ],
+      "eligibility_note": "The official federal page states the salary/accommodation thresholds without an additional universal basic-salary-only rule. Confirm acceptable evidence for the sponsor with ICP or GDRFA."
     }
   ],
   "myth_busters": [
@@ -427,6 +432,6 @@
       ]
     }
   ],
-  "previous_knowledge_date": "2026-07-02",
-  "last_refresh_scope": "Targeted correctness audit of 2026-07-25: verified against the primary source and corrected. Not a full re-verification of every field in this pack."
+  "previous_knowledge_date": "2026-07-25",
+  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: corrected the universal 24-month Golden Visa salary test, separated professional and exceptional-talent routes, distinguished ICP/Dubai entrepreneur criteria and durations, removed unsupported basic-salary-only family sponsorship and bank-history claims, clarified virtual-work entry-visa fees, and marked an expired consultation historically. Not a full re-verification of every visa, price, nationality or property threshold."
 }

@@ -1,6 +1,6 @@
 {
   "domain": "gov_portals",
-  "knowledge_date": "2026-04-13",
+  "knowledge_date": "2026-09-05",
   "full_review_date": "2026-04-13",
   "volatility": "stable",
   "verify_at": "https://u.ae",
@@ -14,10 +14,11 @@
       "type": "national_digital_identity",
       "operator": "Federal",
       "what_it_does": "National digital identity for all UAE residents and visitors. Used to log into 6,000+ government services, sign documents digitally, and access UAE Pass-integrated private apps.",
-      "registration": "Free. Download the UAE Pass app, scan Emirates ID, take selfie. Verify in person at a kiosk or via UAE Pass agent for full verification level.",
+      "registration": "Download UAE Pass, register your identity details and verify using facial biometrics in the app; a kiosk is an alternative. Visitors can use passport or GCC ID under the applicable onboarding flow.",
       "verification_levels": [
-        "Basic (mobile only)",
-        "Verified (in-person verification, full access)"
+        "SOP1: Basic, unverified",
+        "SOP2: Advanced, verified",
+        "SOP3: Qualified, verified using face or finger biometrics"
       ],
       "developer_api": true,
       "developer_docs": "https://docs.uaepass.ae",
@@ -35,8 +36,11 @@
       ],
       "founder_relevance": "Required for almost every government service. Register on day one. Verify to the highest level immediately.",
       "source_urls": [
-        "https://docs.uaepass.ae"
-      ]
+        "https://u.ae/en/about-the-uae/digital-uae/digital-transformation/platforms-and-apps/the-uae-pass-app",
+        "https://docs.uaepass.ae/guidelines/use-case-guidelines/user-account-types",
+        "https://docs.uaepass.ae/faq"
+      ],
+      "verified_as_of": "2026-09-05"
     },
     {
       "id": "basher",
@@ -102,13 +106,12 @@
       "operator": "Ministry of Human Resources and Emiratisation",
       "what_it_does": "Work permits, labour disputes, employment contracts, WPS (Wages Protection System), Tas'heel work permit processing.",
       "developer_api": false,
-      "founder_relevance": "Required for any UAE-registered employer. WPS is mandatory for all salaried employees.",
+      "founder_relevance": "Use for employers and work permits within MOHRE jurisdiction. WPS obligations and exceptions depend on the applicable employer regime.",
       "key_services": [
         "Work permit application and renewal",
         "Tas'heel processing",
         "Employment contract registration",
         "Labour dispute filing",
-        "Sahel mobile app for workers (Note: Sahel here is UAE app, NOT Kuwait)",
         "Nafis Emiratisation portal integration"
       ]
     },
@@ -148,9 +151,12 @@
       "url": "https://dubainow.dubai.gov.ae",
       "type": "mobile_aggregator",
       "operator": "Dubai Government / Digital Dubai",
-      "what_it_does": "Mobile app aggregating 130+ Dubai government services. DEWA bills, RTA fines, Salik recharge, visa renewal, court cases.",
+      "what_it_does": "Dubai government services app for bills, transport, residency and other resident services. Its Madinati feature accepts image-based reports of issues in streets and public spaces.",
       "developer_api": false,
-      "founder_relevance": "Useful day-to-day app for residents. Not a B2B integration target."
+      "founder_relevance": "Useful day-to-day app for residents. Not a B2B integration target.",
+      "source_urls": [
+        "https://www.digitaldubai.ae/newsroom/news/roads-and-transport-authority-and-digital-dubai-enhance-ai-powered-madinati-service-to-empower-community-engagement-and-preserve-dubai-s-urban-aesthetic"
+      ]
     },
     {
       "id": "dubai_rest",
@@ -160,7 +166,7 @@
       "operator": "DLD",
       "what_it_does": "Real estate transactions, broker info, Ejari status check, RERA-approved sales agreements.",
       "developer_api": false,
-      "developer_api_notes": "DLD operates a separate paid API Gateway (~AED 31,500/yr per product). Dubai REST app is consumer-only."
+      "developer_api_notes": "DLD operates a separate API Gateway. Product prices, access and onboarding require confirmation with DLD; no universal annual product fee is established here."
     },
     {
       "id": "developer_dubai",
@@ -179,6 +185,24 @@
       "type": "federal_api_marketplace",
       "operator": "Federal",
       "developer_api_notes": "Existence confirmed but catalog loads dynamically. Hosts MOHAP drug registry and other federal APIs."
+    },
+    {
+      "id": "dubai_pay",
+      "name": "DubaiPay",
+      "url": "https://www.digitaldubai.ae/en/apps-services/dubaipay",
+      "type": "government_payment_gateway",
+      "operator": "Digital Dubai / Dubai Finance",
+      "what_it_does": "Shared government payment gateway for digital service channels. Jaywan card payments were activated on 1 September 2026.",
+      "developer_api_notes": "Shared integration service for government entities and service providers. Confirm onboarding and technical access with Digital Dubai; no unrestricted public API is asserted.",
+      "latest_update": {
+        "date": "2026-09-01",
+        "change": "UAE national card scheme Jaywan enabled after operational testing."
+      },
+      "source_urls": [
+        "https://www.digitaldubai.ae/en/apps-services/dubaipay",
+        "https://www.digitaldubai.ae/newsroom/news/dubai-finance-and-digital-dubai-enable-jaywan-on-dubaipay"
+      ],
+      "verified_as_of": "2026-09-05"
     }
   ],
   "disambiguation": [
@@ -190,5 +214,7 @@
       "name": "SmartPass",
       "issue": "SmartPass is the legacy federal predecessor to UAE Pass. It is no longer the active federal authentication product. Steer all developers and founders to UAE Pass instead."
     }
-  ]
+  ],
+  "previous_knowledge_date": "2026-04-13",
+  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: corrected UAE Pass biometric registration and three documented account levels, removed the contradictory UAE Sahel claim and unsupported universal DLD API pricing, qualified MOHRE scope, refreshed DubaiNow with the official Madinati feature, and added DubaiPay with its 1 September 2026 Jaywan activation. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

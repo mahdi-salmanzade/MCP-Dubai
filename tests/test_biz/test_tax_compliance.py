@@ -75,7 +75,8 @@ class TestCorporateTaxEstimate:
         assert isinstance(data, dict)
         warnings = data["warnings"]
         assert isinstance(warnings, list)
-        assert any("SaaS" in w and "229" in w for w in warnings)
+        assert any("SaaS" in w and "counterparty" in w for w in warnings)
+        assert any("do not assume all SaaS revenue is non-qualifying" in w for w in warnings)
 
     @pytest.mark.asyncio
     async def test_small_business_relief_warning(self) -> None:
@@ -148,12 +149,13 @@ class TestVatFilingCalendar:
 
 class TestQfzpCheck:
     @pytest.mark.asyncio
-    async def test_saas_not_qualifying(self) -> None:
+    async def test_saas_requires_income_specific_assessment(self) -> None:
         result = await tools.qfzp_check(industry="saas", is_free_zone=True)
         data = result["data"]
         assert isinstance(data, dict)
-        assert data["verdict"] == "not_qualifying"
-        assert "229" in data["reason"]
+        assert data["verdict"] == "verify"
+        assert "counterparty" in data["reason"]
+        assert "do not assume all SaaS revenue is non-qualifying" in data["reason"]
 
     @pytest.mark.asyncio
     async def test_mainland_not_eligible(self) -> None:
@@ -266,10 +268,10 @@ class TestEInvoicing:
         assert isinstance(data, dict)
         register = data["asp_register"]
         assert isinstance(register, dict)
-        assert register["pre_approved_provider_count"] == 42
-        assert register["accredited_provider_count"] == 38
-        assert register["under_final_assessment_count"] == 9
-        assert register["as_of"] == "2026-08-14"
+        assert register["pre_approved_provider_count"] is None
+        assert register["accredited_provider_count"] == 50
+        assert register["under_final_assessment_count"] == 7
+        assert register["as_of"] == "2026-09-05"
         assert register["register_url"] == (
             "https://mof.gov.ae/en/about-us/initiatives/einvoicing/"
             "einvoicing-accredited-service-providers-asps/"
@@ -341,9 +343,9 @@ class TestKnowledge:
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
         assert knowledge["volatility"] == "high"
-        assert knowledge["knowledge_date"] == "2026-08-14"
-        assert knowledge["previous_knowledge_date"] == "2026-07-25"
-        assert "Small Business Relief" in knowledge["last_refresh_scope"]
+        assert knowledge["knowledge_date"] == "2026-09-05"
+        assert knowledge["previous_knowledge_date"] == "2026-08-14"
+        assert "Pillar Two Information Return" in knowledge["last_refresh_scope"]
 
     def test_registers_with_knowledge_registry(self) -> None:
         import importlib
@@ -366,7 +368,7 @@ class TestCuratedPackAugust2026:
 
     def test_knowledge_date_bumped(self) -> None:
         data = self._data()
-        assert data["knowledge_date"] == "2026-08-14"
+        assert data["knowledge_date"] == "2026-09-05"
 
     def test_tax_procedures_fdl_17_2025(self) -> None:
         data = self._data()
@@ -444,7 +446,7 @@ class TestCuratedPackAugust2026:
         registration = dmtt["registration_status"]
         assert isinstance(registration, dict)
         assert registration["first_return_expected_due"] == "2027-06-30"
-        assert "verify" in str(registration["status"]).lower()
+        assert "confirm" in str(registration["status"]).lower()
         sports = ct["sports_entities_exemption"]
         assert isinstance(sports, dict)
         assert sports["law"] == "Cabinet Decision 1 of 2026"
@@ -455,3 +457,51 @@ class TestCuratedPackAugust2026:
         guides = ct["guides_2026"]
         assert isinstance(guides, dict)
         assert "Family Foundations" in guides["note"]
+
+
+class TestSeptemberCorrectness:
+    @pytest.mark.asyncio
+    async def test_qfzp_with_zero_qualifying_income_has_no_ordinary_band(self) -> None:
+        result = await tools.corporate_tax_estimate(
+            annual_taxable_income_aed=300000,
+            is_free_zone=True,
+            is_qfzp=True,
+            qfzp_qualifying_pct=0,
+        )
+        data = result["data"]
+        assert data["tax_free_band_applied_aed"] == 0
+        assert data["total_corporate_tax_aed"] == 27000
+        assert (
+            data["pillar_two_dmtt"]["information_return"]["law"]
+            == "Ministerial Decision 133 of 2026"
+        )
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize(
+        "is_free_zone,is_qfzp,qualifying", [(False, True, 0), (True, False, 50)]
+    )
+    async def test_inconsistent_qfzp_status_is_rejected(
+        self, is_free_zone: bool, is_qfzp: bool, qualifying: int
+    ) -> None:
+        result = await tools.corporate_tax_estimate(
+            300000, is_free_zone=is_free_zone, is_qfzp=is_qfzp, qfzp_qualifying_pct=qualifying
+        )
+        assert result["success"] is False
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize(
+        "amount,expected",
+        [
+            (187500, "not_required"),
+            (187501, "voluntary_eligible"),
+            (375000, "voluntary_eligible"),
+            (375001, "mandatory"),
+        ],
+    )
+    async def test_vat_registration_requires_exceeding_the_threshold(
+        self, amount: int, expected: str
+    ) -> None:
+        result = await tools.vat_filing_calendar(amount)
+        assert result["data"]["registration"] == expected
+        assert "next-30-days" in result["data"]["assessment_scope"]
+        assert len(result["data"]["directives_2026"]["directives"]) == 5
