@@ -222,7 +222,7 @@ class TestFunding:
         vcs = {v["id"]: v for v in data["vcs"]}  # type: ignore[union-attr]
         assert vcs["wamda_capital"]["url"] == "https://wamdacapital.com/"
         assert vcs["shorooq"]["url"] == "https://www.shorooq.com/"
-        assert funding_tools.KNOWLEDGE.knowledge_date == "2026-09-05"
+        assert funding_tools.KNOWLEDGE.knowledge_date == "2026-09-28"
         assert funding_tools.KNOWLEDGE.full_review_date == "2026-08-14"
         assert "Cohort 21" in str(funding_tools.KNOWLEDGE.last_refresh_scope)
 

@@ -285,7 +285,7 @@ class TestKnowledge:
         result = await tools.cost_of_living_overview()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-09-05"
+        assert knowledge["knowledge_date"] == "2026-09-28"
         assert knowledge["volatility"] == "high"
 
     def test_registers_with_knowledge_registry(self) -> None:

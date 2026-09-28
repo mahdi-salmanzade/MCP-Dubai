@@ -112,8 +112,8 @@ def test_freshness_script_covers_all_domains_and_preserves_full_review_age() -> 
     tax = rows["tax_compliance.json"]
     assert tax["targeted_refresh"] is True
     assert tax["full_review_date"] == "2026-07-25"
-    assert tax["previous_knowledge_date"] == "2026-08-14"
-    assert "QFZP" in str(tax["last_refresh_scope"])
+    assert tax["previous_knowledge_date"] == "2026-09-05"
+    assert "DMTT" in str(tax["last_refresh_scope"])
 
     # A targeted update does not mask an old full-pack review.
     targeted = freshness._row(

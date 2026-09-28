@@ -269,9 +269,9 @@ class TestEInvoicing:
         register = data["asp_register"]
         assert isinstance(register, dict)
         assert register["pre_approved_provider_count"] is None
-        assert register["accredited_provider_count"] == 50
-        assert register["under_final_assessment_count"] == 7
-        assert register["as_of"] == "2026-09-05"
+        assert register["accredited_provider_count"] == 60
+        assert register["under_final_assessment_count"] == 3
+        assert register["as_of"] == "2026-09-28"
         assert register["register_url"] == (
             "https://mof.gov.ae/en/about-us/initiatives/einvoicing/"
             "einvoicing-accredited-service-providers-asps/"
@@ -343,9 +343,9 @@ class TestKnowledge:
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
         assert knowledge["volatility"] == "high"
-        assert knowledge["knowledge_date"] == "2026-09-05"
-        assert knowledge["previous_knowledge_date"] == "2026-08-14"
-        assert "Pillar Two Information Return" in knowledge["last_refresh_scope"]
+        assert knowledge["knowledge_date"] == "2026-09-28"
+        assert knowledge["previous_knowledge_date"] == "2026-09-05"
+        assert "VAT Executive Regulation" in knowledge["last_refresh_scope"]
 
     def test_registers_with_knowledge_registry(self) -> None:
         import importlib
@@ -368,7 +368,7 @@ class TestCuratedPackAugust2026:
 
     def test_knowledge_date_bumped(self) -> None:
         data = self._data()
-        assert data["knowledge_date"] == "2026-09-05"
+        assert data["knowledge_date"] == "2026-09-28"
 
     def test_tax_procedures_fdl_17_2025(self) -> None:
         data = self._data()

@@ -1,6 +1,6 @@
 {
   "domain": "gov_portals",
-  "knowledge_date": "2026-09-05",
+  "knowledge_date": "2026-09-28",
   "full_review_date": "2026-04-13",
   "volatility": "stable",
   "verify_at": "https://u.ae",
@@ -13,7 +13,7 @@
       "url": "https://uaepass.ae",
       "type": "national_digital_identity",
       "operator": "Federal",
-      "what_it_does": "National digital identity for all UAE residents and visitors. Used to log into 6,000+ government services, sign documents digitally, and access UAE Pass-integrated private apps.",
+      "what_it_does": "National digital identity for all UAE residents and visitors. Used to log into 15,000+ services from 363 service providers (TDRA DGOV figures, checked 2026-09-28), sign documents digitally, and access UAE Pass-integrated private apps.",
       "registration": "Download UAE Pass, register your identity details and verify using facial biometrics in the app; a kiosk is an alternative. Visitors can use passport or GCC ID under the applicable onboarding flow.",
       "verification_levels": [
         "SOP1: Basic, unverified",
@@ -30,29 +30,43 @@
       ],
       "key_features": [
         "Digital signing of government and private documents",
-        "Single sign-on across 6,000+ services",
+        "Single sign-on across 15,000+ services",
         "eSeal API for legal entities",
         "Biometric verification"
       ],
       "founder_relevance": "Required for almost every government service. Register on day one. Verify to the highest level immediately.",
       "source_urls": [
+        "https://dgov.tdra.gov.ae/en/services/uae-pass",
         "https://u.ae/en/about-the-uae/digital-uae/digital-transformation/platforms-and-apps/the-uae-pass-app",
         "https://docs.uaepass.ae/guidelines/use-case-guidelines/user-account-types",
         "https://docs.uaepass.ae/faq"
       ],
-      "verified_as_of": "2026-09-05"
+      "verified_as_of": "2026-09-28",
+      "usage_stats": {
+        "registered_users": "11 million+",
+        "services": "15,000+",
+        "service_providers": 363,
+        "digital_channels": 1028,
+        "source": "TDRA Digital Government UAE PASS page (undated figures)",
+        "checked_on": "2026-09-28"
+      },
+      "stats_note": "The earlier 6,000+ services figure was stale. A September 2026 industry announcement that the Digital Vault blockchain layer is moving to Avalanche was not confirmed on a TDRA or UAE Pass official channel as of 2026-09-28 and is not recorded as fact."
     },
     {
       "id": "basher",
       "name": "Basher",
-      "url": "https://basher.ae",
+      "url": "https://basher.gov.ae/invest/",
       "type": "unified_business_setup",
-      "operator": "Federal (Ministry of Economy)",
-      "what_it_does": "UAE-wide unified business setup portal. Promises 15-minute company registration. Integrates with multiple emirates and free zones.",
+      "operator": "Federal (Ministry of Economy and Tourism, MOET)",
+      "what_it_does": "Federal unified business setup platform. MOET advertises starting a business within 15 minutes, without submitting physical documents or visiting government offices, and bundles 14 key services from 18 federal and local entities.",
       "developer_api": false,
       "developer_api_notes": "No public developer API. Web portal only.",
       "founder_relevance": "Useful for fast mainland setup in some emirates, but Dubai mainland is better served by Invest in Dubai.",
-      "source_urls": []
+      "source_urls": [
+        "https://www.moet.gov.ae/en/set-up-companies-via-basher"
+      ],
+      "url_note": "The former basher.ae address did not resolve on 2026-09-28; MOET links the platform at basher.gov.ae/invest/.",
+      "verified_as_of": "2026-09-28"
     },
     {
       "id": "invest_in_dubai",
@@ -215,6 +229,6 @@
       "issue": "SmartPass is the legacy federal predecessor to UAE Pass. It is no longer the active federal authentication product. Steer all developers and founders to UAE Pass instead."
     }
   ],
-  "previous_knowledge_date": "2026-04-13",
-  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: corrected UAE Pass biometric registration and three documented account levels, removed the contradictory UAE Sahel claim and unsupported universal DLD API pricing, qualified MOHRE scope, refreshed DubaiNow with the official Madinati feature, and added DubaiPay with its 1 September 2026 Jaywan activation. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-09-05",
+  "last_refresh_scope": "Targeted refresh of 2026-09-28: updated UAE Pass service, provider and user counts from the TDRA DGOV UAE PASS page (replacing the stale 6,000+ services figure), corrected the Basher URL to MOET's basher.gov.ae/invest/ link and the operator to the Ministry of Economy and Tourism. An unconfirmed UAE Pass Digital Vault blockchain migration and a Gulf News-only Dubai Investor Register report were not recorded as fact. Other portals were not re-verified; full_review_date is preserved."
 }

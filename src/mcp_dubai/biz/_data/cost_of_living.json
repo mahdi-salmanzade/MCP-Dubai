@@ -1,6 +1,6 @@
 {
   "domain": "cost_of_living",
-  "knowledge_date": "2026-09-05",
+  "knowledge_date": "2026-09-28",
   "full_review_date": "2026-07-02",
   "volatility": "high",
   "verify_at": "https://dubailand.gov.ae",
@@ -169,6 +169,13 @@
         "all_zones": 350
       },
       "red_paper_ticket_aed": "2 + fare",
+      "red_ticket_fares_aed": {
+        "one_zone": 4,
+        "two_zones": 6,
+        "three_plus_zones": 8.5
+      },
+      "red_ticket_note": "The red paper ticket costs AED 2 and carries its own higher per-trip fares (AED 4 / 6 / 8.50), not the silver-card fares.",
+      "verified_against_rta_on": "2026-09-28",
       "blue_concession_card_aed": 70,
       "daily_cap_note": "No automatic AED 14 daily cap is substantiated by the current RTA fare table. E-purse journeys and purchased travel passes are distinct products.",
       "source_urls": [
@@ -225,7 +232,8 @@
       "e_plus_91": 3.21,
       "diesel": 3.6
     },
-    "trend_note": "September 2026 petrol prices rose AED 0.20 per litre and diesel rose AED 0.50 per litre compared with August. Earlier snapshots are historical; verify again for October.",
+    "trend_note": "September 2026 petrol prices rose AED 0.20 per litre and diesel rose AED 0.50 per litre compared with August. Earlier snapshots are historical. October 2026 prices had not been published as of 2026-09-28; verify again once the committee announces them.",
+    "october_2026_status": "Not yet announced as of 2026-09-28. The Fuel Price Committee normally announces on the last day of the month (expected 2026-09-30, effective 2026-10-01). September 2026 rates remain the latest published figures; do not assume October values.",
     "verify_at": "https://u.ae/en/information-and-services/environment-and-energy/water-and-energy/energy-and-fuel-prices",
     "source_urls": [
       "https://u.ae/en/information-and-services/environment-and-energy/water-and-energy/energy-and-fuel-prices",
@@ -241,7 +249,7 @@
     },
     "latest_snapshot_key": "september_2026_snapshot",
     "latest_month": "2026-09",
-    "verified_as_of": "2026-09-05"
+    "verified_as_of": "2026-09-28"
   },
   "schooling": {
     "volatility": "medium",
@@ -290,6 +298,6 @@
       "https://insurancehub.ae/blog/health-insurance-cost-uae-2026-by-age-emirate"
     ]
   },
-  "previous_knowledge_date": "2026-08-14",
-  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: added the September 2026 Fuel Price Committee rates from WAM, retained earlier months as history, and removed the unsupported automatic Nol daily-cap claim after checking the RTA fare table. Rent, grocery, utility and insurance estimates were inspected but not re-verified. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-09-05",
+  "last_refresh_scope": "Targeted refresh of 2026-09-28: confirmed that October 2026 fuel prices had not yet been published (the Fuel Price Committee announces on the last day of the month), so the September 2026 WAM rates remain the latest snapshot; re-checked the RTA nol fare table (silver fares, 30-day passes unchanged) and added the separate red-ticket fares; KHDA 2026-27 fee freeze confirmed still in effect. DEWA tariffs (dewa.gov.ae blocked automated access), Salik rates, Dubai CPI after May 2026, rents, groceries and insurance were not re-verified against primary sources. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

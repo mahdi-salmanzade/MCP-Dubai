@@ -187,7 +187,14 @@ async def data_dubai_search(
     try:
         payload = await client.search_datasets(query=query, page=page, page_size=page_size)
         items = _items_of(payload)
-        if not query.strip() and not items:
+        # An empty unfiltered page is only suspicious within the catalog's
+        # page range. A page past `lastPage` is legitimately empty.
+        if (
+            not query.strip()
+            and not items
+            and _to_int(payload.get("page"), field="page")
+            <= _to_int(payload.get("lastPage"), field="lastPage")
+        ):
             raise HttpClientError("data.dubai returned an empty unfiltered catalog page")
         response = _ok(
             {

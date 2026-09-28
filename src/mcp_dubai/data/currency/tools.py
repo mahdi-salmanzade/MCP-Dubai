@@ -39,6 +39,11 @@ def _ok(data: dict[str, object]) -> dict[str, object]:
     )
 
 
+def _is_currency_code(code: str) -> bool:
+    """Accept only three ASCII letters, since the code becomes a URL path segment."""
+    return len(code) == 3 and code.isascii() and code.isalpha()
+
+
 def _error_type(payload: dict[str, Any]) -> str:
     return str(payload.get("error-type") or "unknown-error")
 
@@ -55,6 +60,8 @@ async def currency_rates(base: str = "AED") -> dict[str, object]:
         Dict with `base`, `rates` (code -> multiplier), and `last_update_utc`.
     """
     code = base.strip().upper()
+    if not _is_currency_code(code):
+        return _fail(f"base must be a 3-letter ISO 4217 code, got {base!r}")
 
     client = CurrencyClient()
     try:
@@ -102,6 +109,12 @@ async def currency_convert(
 
     src = from_currency.strip().upper()
     dst = to_currency.strip().upper()
+    for label, raw, code in (
+        ("from_currency", from_currency, src),
+        ("to_currency", to_currency, dst),
+    ):
+        if not _is_currency_code(code):
+            return _fail(f"{label} must be a 3-letter ISO 4217 code, got {raw!r}")
 
     client = CurrencyClient()
     try:

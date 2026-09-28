@@ -1,6 +1,6 @@
 {
   "domain": "funding",
-  "knowledge_date": "2026-09-05",
+  "knowledge_date": "2026-09-28",
   "full_review_date": "2026-08-14",
   "volatility": "high",
   "verify_at": "https://www.hub71.com/program/access-programme/apply",
@@ -93,7 +93,7 @@
         "application_deadline": "2027-02",
         "application_deadline_precision": "month",
         "application_deadline_status": "open",
-        "status_as_of": "2026-09-05",
+        "status_as_of": "2026-09-28",
         "programme_starts": "2027-09",
         "application_review_by": "2027-04",
         "programme_duration_months": 12,
@@ -102,7 +102,7 @@
       },
       "relocation_requirement": "At least one founder is expected to relocate long-term and build a team in Abu Dhabi.",
       "equity_terms_note": "The official programme pages state that cash is provided through a SAFE in exchange for equity but do not publish a universal valuation cap, discount, or equity percentage.",
-      "verified_as_of": "2026-09-05",
+      "verified_as_of": "2026-09-28",
       "source_urls": [
         "https://www.hub71.com/program/access-programme/apply",
         "https://www.hub71.com/program/access-programme",
@@ -234,17 +234,17 @@
         "advanced manufacturing",
         "creative industries"
       ],
-      "application_url": "https://www.startups.sheraa.ae/s3-program",
+      "application_url": "https://www.asc.sheraa.ae/s3-program",
       "current_status": {
         "status": "closed_or_next_cycle_unannounced",
-        "status_as_of": "2026-08-14",
+        "status_as_of": "2026-09-28",
         "latest_verified_application_deadline": "2025-09-07",
         "latest_verified_programme_period": "2025-10 to 2026-02",
-        "note": "The official page explicitly describes S3 as neither an incubator nor an accelerator. No later public application cycle was verified."
+        "note": "The official page explicitly describes S3 as neither an incubator nor an accelerator. The programme page moved from startups.sheraa.ae (now 404) to asc.sheraa.ae and on 28 September 2026 still showed only the 2025 cycle (applications 7 July to 7 September 2025, programme October 2025 to February 2026). No later public application cycle was verified."
       },
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-09-28",
       "source_urls": [
-        "https://www.startups.sheraa.ae/s3-program"
+        "https://www.asc.sheraa.ae/s3-program"
       ]
     },
     {
@@ -268,13 +268,13 @@
         "environmental impact",
         "early-stage"
       ],
-      "application_url": "https://www.seeinstitute.ae/start-up-application/",
-      "application_status": "An official application form is available; no fixed public cohort deadline was verified.",
+      "application_url": "https://www.seeinstitute.ae/build-experiment/",
+      "application_status": "The former Bedayat programme and start-up application pages on seeinstitute.ae return 404 after a site redesign. The current SEE Institute site lists Bedayat as its founder learning and incubation business and describes an incubator and an accelerator track; enquiries go through the site's contact form (interest: Accelerators and incubators). No fixed public cohort deadline was verified.",
       "eligibility_note": "Applicants should address The Sustainable City's social, environmental, or economic sustainability pillars and cannot simultaneously participate in another incubator or accelerator.",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-09-28",
       "source_urls": [
-        "https://www.seeinstitute.ae/bedayat-incubator-accelerator/",
-        "https://www.seeinstitute.ae/start-up-application/",
+        "https://www.seeinstitute.ae/build-experiment/",
+        "https://www.seeinstitute.ae/",
         "https://www.dubai.ae/investing/starting-a-business/business-incubators-in-dubai"
       ]
     }
@@ -761,6 +761,6 @@
       ]
     }
   ],
-  "previous_knowledge_date": "2026-08-14",
-  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: updated Hub71 to its currently advertised Cohort 21 (February 2027 deadline, September 2027 start) and marked the previous Hub71 and Hi2 deadlines as passed. Other funding records retain their 14 August review dates. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-09-05",
+  "last_refresh_scope": "Targeted refresh of 2026-09-28: rechecked Hub71 Cohort 21 (February 2027 deadline, September 2027 start) as unchanged; moved the Sheraa S3 URL to its new asc.sheraa.ae page, which still shows only the 2025 cycle; replaced the Bedayat application URL after the SEE Institute redesign removed the old programme and application pages. Rechecked in5, DIFC Innovation Hub and Dubai Future Accelerators pages with no dated cohort or deadline found. The Hi2 page and Dubai Future Foundation AREA 2071 page block automated retrieval, so the Hi2 October 2026 start and AREA 2071 terms were not re-verified. Other funding records retain their 14 August review dates. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

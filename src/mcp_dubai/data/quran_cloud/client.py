@@ -5,8 +5,10 @@ from __future__ import annotations
 from typing import Any
 from urllib.parse import quote
 
-from mcp_dubai._shared.http_client import HttpClient
+from mcp_dubai._shared.http_client import HttpClient, HttpClientError
 from mcp_dubai.data.quran_cloud import constants
+
+_NO_MATCH_MARKER = "nothing matching your search"
 
 
 class QuranCloudClient:
@@ -66,9 +68,19 @@ class QuranCloudClient:
             f"{constants.SEARCH}/{self._segment(query)}/"
             f"{self._segment(surah_filter)}/{self._segment(edition)}"
         )
-        async with HttpClient() as client:
-            response = await client.get(url)
-        result = self._unwrap(response.json())
+        try:
+            async with HttpClient() as client:
+                response = await client.get(url)
+        except HttpClientError as exc:
+            # The upstream reports a search without results as HTTP 404 with
+            # "Nothing matching your search was found". That is a valid empty
+            # result, not an upstream failure.
+            if exc.status_code == 404 and _NO_MATCH_MARKER in str(exc).casefold():
+                result: dict[str, Any] = {"count": 0, "matches": []}
+            else:
+                raise
+        else:
+            result = self._unwrap(response.json())
         matches = result.get("matches", [])
         if not isinstance(matches, list):
             raise RuntimeError("Quran Cloud API error: search matches is not a list")

@@ -23,6 +23,21 @@ class TestUaeHolidays:
         assert result["retrieved_at"] == HOLIDAY_DATA_DATE
 
     @pytest.mark.asyncio
+    async def test_default_year_follows_uae_today(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        # Regression: the default used to be a hard-coded 2026, which would
+        # keep returning the 2026 calendar after that year ended.
+        from datetime import date
+
+        monkeypatch.setattr(tools, "uae_today", lambda: date(2027, 1, 2))
+        result = await tools.uae_holidays()
+        assert result["success"] is True
+        assert result["data"]["year"] == 2027
+
+        monkeypatch.setattr(tools, "uae_today", lambda: date(2026, 9, 28))
+        result = await tools.uae_holidays()
+        assert result["data"]["year"] == 2026
+
+    @pytest.mark.asyncio
     async def test_returns_2027_holidays(self) -> None:
         result = await tools.uae_holidays(year=2027)
         assert result["success"] is True
@@ -33,7 +48,7 @@ class TestUaeHolidays:
         assert len(data["holidays"]) == len(HOLIDAYS_2027)
         assert len(data["holidays"]) == 12
         assert "dataset_note" in data
-        assert "2026-08-14" in str(data["dataset_note"])
+        assert "2026-09-28" in str(data["dataset_note"])
 
     @pytest.mark.asyncio
     async def test_includes_new_year(self) -> None:

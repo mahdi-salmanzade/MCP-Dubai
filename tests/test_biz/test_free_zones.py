@@ -193,9 +193,9 @@ class TestKnowledgeMetadata:
         result = await tools.list_free_zones()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-09-05"
-        assert knowledge["previous_knowledge_date"] == "2026-08-14"
-        assert "quote-only licence prices" in knowledge["last_refresh_scope"]
+        assert knowledge["knowledge_date"] == "2026-09-28"
+        assert knowledge["previous_knowledge_date"] == "2026-09-05"
+        assert "Targeted refresh of 2026-09-28" in knowledge["last_refresh_scope"]
         assert knowledge["volatility"] == "high"
 
 

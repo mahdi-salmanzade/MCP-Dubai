@@ -243,7 +243,7 @@ These environment variables tune MCP-Dubai's behavior but don't require any exte
 | `MCP_DUBAI_DATA_PORTAL_BASE` | `https://data.dubai` | Override portal URL |
 | `MCP_DUBAI_LOG_LEVEL` | `INFO` | Log verbosity (`DEBUG`, `INFO`, `WARNING`, `ERROR`) |
 | `MCP_DUBAI_HTTP_TIMEOUT` | `30.0` | HTTP timeout in seconds |
-| `MCP_DUBAI_HTTP_MAX_RETRIES` | `3` | Retry budget for failed HTTP requests |
+| `MCP_DUBAI_HTTP_MAX_RETRIES` | `3` | Total attempts per request, including the first; only timeouts and network errors are retried, not HTTP error statuses |
 
 ---
 

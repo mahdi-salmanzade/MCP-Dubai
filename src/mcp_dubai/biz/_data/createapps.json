@@ -1,6 +1,6 @@
 {
   "domain": "createapps",
-  "knowledge_date": "2026-09-05",
+  "knowledge_date": "2026-09-28",
   "full_review_date": "2026-07-25",
   "volatility": "medium",
   "verify_at": "https://createapps.ae",
@@ -75,7 +75,7 @@
           }
         ]
       },
-      "cycle_status": "Cycle 3 is ongoing in its finalist phase. Registration closed on 28 December 2025, 12 finalists were announced on 14 April 2026, and the official structured timeline schedules the finals for 7 October 2026.",
+      "cycle_status": "Cycle 3 is ongoing in its finalist phase. Registration closed on 28 December 2025, 12 finalists were announced on 14 April 2026, and the official structured timeline still schedules the finals for 7 October 2026 (rechecked 28 September 2026). No Cycle 4 has been announced.",
       "current_cycle": {
         "number": 3,
         "starts": "2025-10-12",
@@ -97,7 +97,8 @@
         "finals": "2026-10-07"
       },
       "official_page_consistency_note": "The page's structured Competition Timeline schedules the finals for 7 October 2026, while a stale FAQ answer says the competition concludes in April 2026. This pack treats the detailed structured timeline as current, flags the inconsistency, and recommends reconfirming the final date before travel.",
-      "source_url": "https://createapps.ae/en/create-apps-championship"
+      "source_url": "https://createapps.ae/en/create-apps-championship",
+      "verified_as_of": "2026-09-28"
     },
     {
       "id": "emirati_training_academy",
@@ -172,6 +173,6 @@
     "sitemap": "https://createapps.ae/sitemap.xml",
     "notes": "Liferay-style sitemap with 13 per-layout sub-sitemaps. No public REST API or RSS feed."
   },
-  "previous_knowledge_date": "2026-08-14",
-  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: rechecked the unchanged closed-registration/7 October 2026 Championship timeline and added the separate 45-day Create Apps Accelerator and its dated 32-app launch result. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-09-05",
+  "last_refresh_scope": "Targeted refresh of 2026-09-28: rechecked the official Championship page ahead of the finals; the 7 October 2026 final, closed registration, USD 720,000 pool and four categories are unchanged, and no Cycle 4 announcement or winners exist yet. The stale April 2026 FAQ answer is still flagged. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

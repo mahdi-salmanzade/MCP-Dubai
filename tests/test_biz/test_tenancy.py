@@ -198,7 +198,7 @@ class TestJuly2026PackAdditions:
         assert len(shared["source_urls"]) >= 3
         assert shared["published"] == "2026-03-12"
         assert shared["effective_from"] == "2026-09-08"
-        assert "Upcoming" in shared["in_force"]
+        assert "In force since 2026-09-08" in shared["in_force"]
 
     def test_dld_initiatives_2026_block(self) -> None:
         from mcp_dubai.biz._data.loader import load_data_file
@@ -216,7 +216,7 @@ class TestKnowledge:
         result = await tools.ejari_guide()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-09-05"
+        assert knowledge["knowledge_date"] == "2026-09-28"
         assert knowledge["volatility"] == "medium"
 
     def test_registers_with_knowledge_registry(self) -> None:

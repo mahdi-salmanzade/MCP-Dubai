@@ -1,6 +1,6 @@
 {
   "domain": "parkin",
-  "knowledge_date": "2026-09-05",
+  "knowledge_date": "2026-09-28",
   "full_review_date": "2026-07-02",
   "volatility": "medium",
   "verify_at": "https://parkin.ae",
@@ -140,7 +140,7 @@
     "real_time_availability": "No public real-time availability API. Parkin holds it internally."
   },
   "rta_fares": {
-    "as_of": "2026-09-05",
+    "as_of": "2026-09-28",
     "silver_nol": {
       "1_zone_aed": 3,
       "2_zone_aed": 5,
@@ -206,6 +206,6 @@
     ],
     "dubai_pulse_nol_dataset": "None published"
   },
-  "previous_knowledge_date": "2026-07-02",
-  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: corrected all-zone RTA 90-day and annual pass prices, removed unsupported automatic daily caps and Gold bus seating, and confirmed zones G/H from Parkin subscriptions. Parkin tariff/VAT/cashless/mall claims retain the prior review and require separate live confirmation. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-09-05",
+  "last_refresh_scope": "Targeted refresh of 2026-09-28: re-checked the RTA nol fare table; silver per-zone fares and all 7-, 30-, 90- and 365-day regular all-zone pass prices are unchanged, and no automatic daily cap is listed. No first-party Parkin announcement of tariff, zone or VAT changes since 2026-09-05 was found, but parkin.ae renders client-side and could not be read, so Parkin tariff/zone/cashless/mall claims still retain the prior review and require separate live confirmation. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

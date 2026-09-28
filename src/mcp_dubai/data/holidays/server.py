@@ -15,7 +15,7 @@ mcp: FastMCP = FastMCP("holidays")
 
 
 @mcp.tool
-async def uae_holidays(year: int = 2026) -> dict[str, object]:
+async def uae_holidays(year: int | None = None) -> dict[str, object]:
     """
     List all UAE federal public holidays for a Gregorian year.
 
@@ -26,8 +26,9 @@ async def uae_holidays(year: int = 2026) -> dict[str, object]:
     date candidate rather than a confirmed day off.
 
     Args:
-        year: Gregorian year. Currently 2026 and 2027 are shipped
-            (2027 lunar dates are astronomical expectations).
+        year: Gregorian year. Defaults to the current year in Asia/Dubai.
+            Currently 2026 and 2027 are shipped (2027 lunar dates are
+            astronomical expectations).
 
     Returns:
         Dict with `year`, `holidays` list, and `note` (plus `dataset_note`

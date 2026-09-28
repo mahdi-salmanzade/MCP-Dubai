@@ -111,6 +111,9 @@ class ToolDiscovery:
         # `جميرا` picks up the English tag `jumeirah` on the matching
         # tools. The expansion is symmetric with `_build_index`, which
         # runs every tool's tags through the same function.
+        if top_k <= 0:
+            # A negative slice bound would return all but the last matches.
+            return []
         expanded_query = expand_text(query)
         tokenized_query = expanded_query.lower().split()
         if not tokenized_query:

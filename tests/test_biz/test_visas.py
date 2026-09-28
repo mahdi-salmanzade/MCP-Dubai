@@ -308,7 +308,7 @@ class TestKnowledgeRegistration:
         result = await tools.list_visa_types()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-09-05"
+        assert knowledge["knowledge_date"] == "2026-09-28"
 
     def test_registers_with_knowledge_registry(self) -> None:
         import importlib
@@ -319,7 +319,7 @@ class TestKnowledgeRegistration:
         importlib.reload(visas_tools)
         meta = get_knowledge_registry().get("visas")
         assert meta is not None
-        assert meta.knowledge_date == "2026-09-05"
+        assert meta.knowledge_date == "2026-09-28"
 
 
 class TestCuratedPackSections:

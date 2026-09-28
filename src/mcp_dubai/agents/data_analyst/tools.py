@@ -15,6 +15,8 @@ from mcp_dubai._shared.knowledge import (
     register_domain_knowledge,
 )
 from mcp_dubai._shared.schemas import KnowledgeMetadata, ToolResponse
+from mcp_dubai.biz.banking.tools import VALID_INDUSTRIES as BANK_INDUSTRIES
+from mcp_dubai.biz.tax_compliance.tools import VALID_INDUSTRIES as TAX_INDUSTRIES
 
 KNOWLEDGE: KnowledgeMetadata = KnowledgeMetadata(
     knowledge_date="2026-09-05",
@@ -340,6 +342,27 @@ async def synthesize_report(
     )
 
 
+# setup_advisor accepts a wider industry vocabulary than the tax and banking
+# tools. Map the extra values onto the closest accepted category so the plan
+# never contains a step that is certain to be rejected.
+_INDUSTRY_FALLBACKS: dict[str, str] = {
+    "ai": "tech",
+    "blockchain": "tech",
+    "crypto": "fintech",
+    "education": "general",
+    "fb": "general",
+    "retail": "ecommerce",
+    "import_export": "trading",
+}
+
+
+def _industry_for(industry: str, accepted: set[str]) -> str:
+    if industry in accepted:
+        return industry
+    fallback = _INDUSTRY_FALLBACKS.get(industry, "general")
+    return fallback if fallback in accepted else "general"
+
+
 async def analyze_setup_decision(
     activity: str,
     budget_aed: int,
@@ -383,13 +406,13 @@ async def analyze_setup_decision(
         {
             "step": 3,
             "tool": "qfzp_check",
-            "args": {"industry": industry, "is_free_zone": True},
+            "args": {"industry": _industry_for(industry, TAX_INDUSTRIES), "is_free_zone": True},
             "purpose": "Check QFZP rules for the free-zone option; apply only if that option is selected",
         },
         {
             "step": 4,
             "tool": "bank_recommendation",
-            "args": {"industry": industry, "limit": 3},
+            "args": {"industry": _industry_for(industry, BANK_INDUSTRIES), "limit": 3},
             "purpose": "Get 3 bank candidates for this industry",
         },
         {

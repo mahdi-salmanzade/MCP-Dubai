@@ -1,6 +1,6 @@
 {
   "domain": "compliance",
-  "knowledge_date": "2026-09-05",
+  "knowledge_date": "2026-09-28",
   "full_review_date": "2026-07-02",
   "volatility": "medium",
   "verify_at": "https://uaefiu.gov.ae/en",
@@ -117,7 +117,7 @@
       "h2_2026_deadline": "2026-12-31",
       "h2_2026_deadline_status": "UPCOMING. The second-half 1% increment is due by 31 December 2026, bringing total growth for the year to 2%.",
       "next_deadline": "2026-12-31",
-      "post_2026_note": "No Emiratisation targets beyond end-2026 have been announced as of 2026-07-25. The current programme runs to a 10% skilled-role rate at end-2026; treat any 2027 target as unannounced rather than zero.",
+      "post_2026_note": "No Emiratisation targets beyond end-2026 have been announced as of 2026-09-28 on the MOHRE Emiratisation targets page. The current programme runs to a 10% skilled-role rate at end-2026; treat any 2027 target as unannounced rather than zero.",
       "source_urls_h2": [
         "https://gulfnews.com/uae/meet-emiratisation-targets-by-december-31-or-face-fines-warns-mohre-1.500322794",
         "https://mohre.gov.ae/en/guidance-and-awareness-portal-new/emiratisation-targets"
@@ -205,7 +205,7 @@
       "applies_to": "Entities established in or operating from DIFC",
       "regulator": "DIFC Commissioner of Data Protection",
       "regulator_url": "https://www.difc.com/business/laws-and-regulations/data-protection",
-      "notes": "DIFC has its own data-protection law and outbound-transfer adequacy decisions. The European Commission does not list the UAE or DIFC as an adequate destination under GDPR Article 45 as of 2026-09-05; EU-to-DIFC transfers need another applicable Chapter V transfer mechanism.",
+      "notes": "DIFC has its own data-protection law and outbound-transfer adequacy decisions. The European Commission does not list the UAE or DIFC as an adequate destination under GDPR Article 45 as of 2026-09-28; EU-to-DIFC transfers need another applicable Chapter V transfer mechanism.",
       "source_urls": [
         "https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/adequacy-decisions_en",
         "https://www.difc.com/business/registrars-and-commissioners/commissioner-of-data-protection/data-export-and-sharing"
@@ -220,6 +220,6 @@
       "notes": "GDPR-aligned."
     }
   },
-  "previous_knowledge_date": "2026-07-25",
-  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: removed the incorrect EU adequacy claim for DIFC, distinguished DNFBP supervisors from the FIU reporting authority, and corrected the inclusive DPMS reporting threshold and risk-based due diligence wording using European Commission, DIFC, MOET and FIU sources. Not a full re-verification of every field in this pack."
+  "previous_knowledge_date": "2026-09-05",
+  "last_refresh_scope": "Targeted refresh of 2026-09-28: re-checked the European Commission adequacy list (UAE, DIFC and ADGM still not listed) and updated the as-of date. Searched for new AML, goAML, UBO and PDPL executive-regulation instruments since 2026-09-05 and found none on primary sources; Emiratisation H2 2026 deadline remains 31 December 2026 with no 2027 target published by MOHRE. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

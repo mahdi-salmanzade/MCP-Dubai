@@ -170,6 +170,20 @@ class TestAnalyzeSetupDecision:
         result = await tools.analyze_setup_decision(activity="x", budget_aed=-1)
         assert result["success"] is False
 
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize("industry", ["ai", "blockchain", "crypto", "education", "fb"])
+    async def test_plan_steps_accept_setup_only_industries(self, industry: str) -> None:
+        from mcp_dubai.biz.banking.tools import bank_recommendation
+        from mcp_dubai.biz.tax_compliance.tools import qfzp_check
+
+        result = await tools.analyze_setup_decision(
+            activity="x", budget_aed=30000, industry=industry
+        )
+        plan = result["data"]["plan"]
+        assert plan[0]["args"]["industry"] == industry
+        assert (await qfzp_check(**plan[2]["args"]))["success"] is True
+        assert (await bank_recommendation(**plan[3]["args"]))["success"] is True
+
 
 class TestKnowledgeRegistration:
     def test_registers_with_registry(self) -> None:

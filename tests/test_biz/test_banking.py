@@ -195,9 +195,9 @@ class TestKnowledge:
         result = await tools.list_banks()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-09-05"
-        assert knowledge["previous_knowledge_date"] == "2026-08-14"
-        assert "Wio Business paid plan fees" in knowledge["last_refresh_scope"]
+        assert knowledge["knowledge_date"] == "2026-09-28"
+        assert knowledge["previous_knowledge_date"] == "2026-09-05"
+        assert "Mashreq NEOBiz" in knowledge["last_refresh_scope"]
         assert knowledge["volatility"] == "medium"
 
     def test_registers_with_knowledge_registry(self) -> None:

@@ -1,6 +1,6 @@
 {
   "domain": "banking",
-  "knowledge_date": "2026-09-05",
+  "knowledge_date": "2026-09-28",
   "full_review_date": "2026-07-02",
   "volatility": "medium",
   "verify_at": "https://www.centralbank.ae",
@@ -28,7 +28,7 @@
       "Source of funds documentation",
       "Tax residency certificate (sometimes)"
     ],
-    "pricing_and_timeline_note": "Except where a dated official source is attached to an individual field or record, onboarding estimates and minimum balances below are legacy founder reports and have not been re-verified on 5 September 2026. Obtain the current product tariff before budgeting."
+    "pricing_and_timeline_note": "Except where a dated official source is attached to an individual field or record, onboarding estimates and minimum balances below are legacy founder reports and have not been re-verified on 28 September 2026. Where an official schedule is attached, min_balance_aed and monthly_fee_aed describe the entry-level published plan; other plans are listed in pricing_plans. Obtain the current product tariff before budgeting."
   },
   "dul": {
     "name": "Dubai Unified Licence",
@@ -83,7 +83,8 @@
       "law": "Federal Decree-Law No. 6 of 2025",
       "in_force": "2025-09-16",
       "compliance_deadline": "2026-09-16",
-      "scope": "New Central Bank law replacing the 2018 law. Expands the CBUAE perimeter to open finance, stablecoin issuance, payment services using virtual assets, DeFi and enabling technology providers. In-scope entities must be licensed, partner with a licensed entity, or exit by the one-year transition deadline of 2026-09-16."
+      "scope": "New Central Bank law replacing the 2018 law. Expands the CBUAE perimeter to open finance, stablecoin issuance, payment services using virtual assets, DeFi and enabling technology providers. In-scope entities must be licensed, partner with a licensed entity, or exit by the one-year transition deadline of 2026-09-16.",
+      "compliance_deadline_status": "PASSED. The one-year transition ended on 2026-09-16; no CBUAE extension was identified in the sources checked on 2026-09-28."
     },
     "source_urls": [
       "https://www.centralbank.ae/en/our-operations/fintech-digital-transformation/open-finance/",
@@ -191,15 +192,49 @@
       "onboarding_speed_label": "1 to 2 weeks",
       "onboarding_days_min": 7,
       "onboarding_days_max": 14,
-      "min_balance_aed": 25000,
-      "monthly_fee_aed": null,
+      "min_balance_aed": 0,
+      "monthly_fee_aed": 99,
       "crypto_friendly": null,
       "free_zones_supported": "Wide coverage; integrated with mainland setup",
       "tier": "digital",
       "tag": "founder_report",
       "notes": "Digital arm of Mashreq. Often integrated with mainland setup flows. Mashreq was named in the official 12 November 2025 DUL integration announcement.",
       "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
-      "pricing_status": "legacy_founder_report_unverified"
+      "pricing_status": "official_published_schedule",
+      "monthly_fee_scope": "NEO BIZ Pro plan; AED 99 plus VAT per month, no minimum balance and no fall-below fee. Eligibility: businesses 100% owned by individuals (no layered structures), turnover up to AED 100 million, and at least one UAE-resident partner or POA.",
+      "pricing_plans": [
+        {
+          "name": "NEO BIZ Pro",
+          "monthly_fee_aed": 99,
+          "min_balance_aed": 0,
+          "vat": "plus VAT"
+        },
+        {
+          "name": "NEO BIZ Pro Plus",
+          "monthly_fee_aed": 199,
+          "min_balance_aed": 0,
+          "vat": "plus VAT"
+        },
+        {
+          "name": "Lite",
+          "monthly_fee_aed": 200,
+          "min_balance_aed": 0,
+          "vat": "plus VAT"
+        },
+        {
+          "name": "Prime",
+          "monthly_fee_aed": 0,
+          "min_balance_aed": 50000,
+          "fall_below_fee_aed": 200,
+          "vat": "fall-below fee plus VAT"
+        }
+      ],
+      "pricing_verified_as_of": "2026-09-28",
+      "onboarding_note": "Mashreq advertises account opening in 1 day or AED 1,000 (promotional claim, conditions apply); the 7 to 14 day range is a legacy founder estimate.",
+      "source_urls": [
+        "https://www.mashreq.com/en/uae/neobiz/banking-solution/daily-banking-solutions/business-account/neo-biz/",
+        "https://www.mashreq.com/-/jssmedia/pdfs/neobiz/NEOBiz_KFS.ashx"
+      ]
     },
     {
       "id": "zand",
@@ -208,19 +243,24 @@
       "onboarding_speed_label": "1 to 2 weeks",
       "onboarding_days_min": 7,
       "onboarding_days_max": 14,
-      "min_balance_aed": 0,
+      "min_balance_aed": 250000,
       "monthly_fee_aed": null,
       "crypto_friendly": true,
       "tier": "digital",
       "tag": "founder_report",
       "notes": "Digital bank offering corporate banking and institutional digital-asset custody. Confirm product eligibility, charges, and onboarding requirements with Zand.",
       "crypto_status_note": "Zand publicly offers VARA-regulated institutional digital-asset custody and has announced partnerships with regulated virtual-asset businesses. This does not guarantee a business account for every crypto applicant.",
-      "pricing_status": "legacy_founder_report_unverified",
+      "pricing_status": "official_published_schedule",
       "source_urls": [
         "https://www.zand.ae/en/products/digital-asset-custody",
-        "https://www.zand.ae/en/news/tokinvest-and-zand-bank-partner-to-unlock-the-future-of-tokenised-investing-in-dubai"
+        "https://www.zand.ae/en/news/tokinvest-and-zand-bank-partner-to-unlock-the-future-of-tokenised-investing-in-dubai",
+        "https://www.zand.ae/en/help-centre/corporate-banking-fees-and-charges",
+        "https://www.zand.ae/files/Zand-Fees-&-Charges.pdf"
       ],
-      "digital_asset_services_verified_as_of": "2026-09-05"
+      "digital_asset_services_verified_as_of": "2026-09-05",
+      "min_balance_note": "Zand's Corporate Banking Fees & Charges schedule sets a minimum monthly average balance of AED 250,000, with a fall-below fee of AED 500 plus VAT; no interest is paid below AED 250,000. Account opening is free.",
+      "fall_below_fee_aed": 500,
+      "pricing_verified_as_of": "2026-09-28"
     },
     {
       "id": "ruya",
@@ -245,14 +285,64 @@
       "onboarding_speed_label": "3 to 6 weeks",
       "onboarding_days_min": 21,
       "onboarding_days_max": 42,
-      "min_balance_aed": 100000,
-      "monthly_fee_aed": null,
+      "min_balance_aed": 0,
+      "monthly_fee_aed": 261.45,
       "crypto_friendly": null,
       "tier": "traditional",
       "tag": "founder_report",
       "notes": "Largest UAE bank by branch network. Comfortable with most setups but slower onboarding than digital. Named in the official 12 November 2025 DUL integration announcement.",
       "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
-      "pricing_status": "legacy_founder_report_unverified"
+      "pricing_status": "official_published_schedule",
+      "monthly_fee_scope": "Business Banking Connect package (online-only, aimed at startups and professional licences): no minimum balance, first 30 days free, then AED 261.45 per month inclusive of VAT. Balance-based packages start at AED 50,000.",
+      "pricing_plans": [
+        {
+          "name": "Connect",
+          "monthly_fee_aed": 261.45,
+          "min_balance_aed": 0
+        },
+        {
+          "name": "Proprietor",
+          "monthly_fee_aed": 0,
+          "min_balance_aed": 50000,
+          "fall_below_fee_aed": 262.5
+        },
+        {
+          "name": "Prime",
+          "monthly_fee_aed": 103.95,
+          "min_balance_aed": 50000,
+          "fall_below_fee_aed": 157.5
+        },
+        {
+          "name": "Emirati Business",
+          "monthly_fee_aed": 0,
+          "min_balance_aed": 25000,
+          "fall_below_fee_aed": 157.5
+        },
+        {
+          "name": "Preferred",
+          "monthly_fee_aed": 0,
+          "min_balance_aed": 200000,
+          "fall_below_fee_aed": 315
+        },
+        {
+          "name": "Prestige",
+          "monthly_fee_aed": 0,
+          "min_balance_aed": 500000,
+          "fall_below_fee_aed": 787.5
+        },
+        {
+          "name": "Platinum",
+          "monthly_fee_aed": 0,
+          "min_balance_aed": 3500000,
+          "fall_below_fee_aed": 1575
+        }
+      ],
+      "pricing_note": "Figures are inclusive of VAT per the Business Banking Schedule of Charges (version 06/2025).",
+      "pricing_verified_as_of": "2026-09-28",
+      "source_urls": [
+        "https://www.emiratesnbd.com/en/business-banking/business-packages",
+        "https://www.emiratesnbd.com/-/media/enbd/files/bub/2023/emiratesnbd_bb_schedule_of_charges.pdf"
+      ]
     },
     {
       "id": "rakbank",
@@ -261,14 +351,39 @@
       "onboarding_speed_label": "2 to 4 weeks",
       "onboarding_days_min": 14,
       "onboarding_days_max": 28,
-      "min_balance_aed": 50000,
-      "monthly_fee_aed": null,
+      "min_balance_aed": 0,
+      "monthly_fee_aed": 103.95,
       "crypto_friendly": null,
       "tier": "traditional",
       "tag": "founder_report",
       "notes": "Most SME-friendly traditional bank by reputation.",
       "crypto_status_note": "No universal acceptance or rejection policy is established by this dataset; confirm the activity and licence directly with the bank.",
-      "pricing_status": "legacy_founder_report_unverified"
+      "pricing_status": "official_published_schedule",
+      "monthly_fee_scope": "RAKstarter account: nil minimum balance, AED 103.95 monthly maintenance fee inclusive of VAT (first month free). Business Current Account and RAKfinance require an AED 25,000 monthly average balance.",
+      "pricing_plans": [
+        {
+          "name": "RAKstarter",
+          "monthly_fee_aed": 103.95,
+          "min_balance_aed": 0
+        },
+        {
+          "name": "Business Current Account / RAKfinance",
+          "monthly_fee_aed": 103.95,
+          "min_balance_aed": 25000,
+          "fall_below_fee_aed": 52.5
+        },
+        {
+          "name": "Business Elite",
+          "min_balance_aed": 500000,
+          "fall_below_fee_aed": 262.5
+        }
+      ],
+      "pricing_note": "RAKBANK Business Banking Accounts Service and Price Guide, inclusive of VAT, effective 18 April 2026. Maintenance fee is waived at AED 250,000 average balance, when a AED 52.50 monthly digital banking login fee applies instead.",
+      "pricing_verified_as_of": "2026-09-28",
+      "source_urls": [
+        "https://www.rakbank.ae/en/business/everyday-banking/accounts/rakstarter-account",
+        "https://www.rakbank.ae/globalassets/rakbank/all-pdfs/001---service-and-price-guides/bilingual/010-j00183-sp-vat-businessaccountservices-rakstarter3.pdf"
+      ]
     },
     {
       "id": "cbd",
@@ -434,6 +549,6 @@
       "name": "2Checkout"
     }
   ],
-  "previous_knowledge_date": "2026-08-14",
-  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: corrected Wio Business paid plan fees against its official schedule, replaced unsupported zero monthly fees elsewhere with unknown, removed the blanket crypto exclusion in light of Zand institutional custody, labelled legacy pricing/onboarding limits explicitly, and corrected Stripe launch year and Checkout.com headquarters from their primary sources. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-09-05",
+  "last_refresh_scope": "Targeted refresh of 2026-09-28: reconfirmed Wio Business Essential and Grow fees on wio.io; replaced legacy founder-report minimum balances with official published schedules for Mashreq NEOBiz (September 2026 Key Facts Statement: Pro AED 99 plus VAT, no minimum balance), Emirates NBD (Connect package, schedule 06/2025), RAKBANK (RAKstarter, guide effective 18 April 2026) and Zand (AED 250,000 minimum average balance per its corporate fees schedule); marked the CBUAE Law transition deadline of 16 September 2026 as passed. Not verified: ADCB (official pages blocked automated access), CBD, FAB, ADIB, international banks, onboarding times and Al Tareq live-bank list. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

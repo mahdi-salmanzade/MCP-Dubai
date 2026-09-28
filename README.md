@@ -210,7 +210,7 @@ No environment variables are required to start the server. Set credentials in th
 | `MCP_DUBAI_DATA_PORTAL_BASE` | `https://data.dubai` | Public metadata portal base URL |
 | `MCP_DUBAI_LOG_LEVEL` | `INFO` | Log verbosity |
 | `MCP_DUBAI_HTTP_TIMEOUT` | `30.0` | HTTP timeout in seconds |
-| `MCP_DUBAI_HTTP_MAX_RETRIES` | `3` | HTTP retry budget |
+| `MCP_DUBAI_HTTP_MAX_RETRIES` | `3` | Total attempts per request; only timeouts and network errors are retried |
 
 Request dataset access at [data.dubai](https://data.dubai) and a free WAQI token at [AQICN](https://aqicn.org/data-platform/token/). Keep credentials out of committed configuration files. The [credential guide](CREDENTIALS.md) covers setup and troubleshooting. `MCP_DUBAI_CALENDARIFIC_KEY` is reserved for a future holiday refresh integration and currently enables no additional tool.
 

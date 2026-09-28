@@ -235,6 +235,26 @@ _PEAK_RANGES = [(360, 600), (960, 1200)]  # 06:00-10:00, 16:00-20:00
 _OFF_PEAK_RANGES = [(600, 960), (1200, 1440), (0, 60)]  # 10:00-16:00, 20:00-01:00
 
 
+_SALIK_SUNDAY_ALIASES = frozenset({"sunday", "sun"})
+_SALIK_WEEKDAY_ALIASES = frozenset(
+    {
+        "weekday",
+        "monday",
+        "mon",
+        "tuesday",
+        "tue",
+        "wednesday",
+        "wed",
+        "thursday",
+        "thu",
+        "friday",
+        "fri",
+        "saturday",
+        "sat",
+    }
+)
+
+
 def _in_ranges(minute: int, ranges: list[tuple[int, int]]) -> bool:
     return any(start <= minute < end for start, end in ranges)
 
@@ -253,6 +273,18 @@ async def salik_toll_estimate(
     if minute is None:
         return _fail(f"Invalid time_of_day {time_of_day!r}. Use 24-hour HH:MM, e.g. '08:00'.")
 
+    # Case-insensitive, and Monday to Saturday all use the weekday windows.
+    # An exact-match "sunday" check used to charge "Sunday" at the peak rate.
+    day_key = day.strip().lower()
+    if day_key in _SALIK_SUNDAY_ALIASES:
+        day_key = "sunday"
+    elif day_key in _SALIK_WEEKDAY_ALIASES:
+        day_key = "weekday"
+    else:
+        return _fail(
+            f"Invalid day {day!r}. Use 'weekday' or 'sunday' (or a day name, e.g. 'Monday')."
+        )
+
     salik = _block("transport").get("salik", {})
 
     in_free = _in_ranges(minute, _FREE_RANGES)
@@ -260,7 +292,7 @@ async def salik_toll_estimate(
     if in_free:
         toll = float(salik.get("free_toll_aed", 0))
         window = "free (01:00-06:00)"
-    elif day == "sunday":
+    elif day_key == "sunday":
         toll = float(salik.get("sunday_flat_aed", 4.2))
         window = "sunday flat"
     elif _in_ranges(minute, _PEAK_RANGES):
@@ -273,7 +305,7 @@ async def salik_toll_estimate(
     return _ok(
         {
             "time_of_day": time_of_day,
-            "day": day,
+            "day": day_key,
             "toll_aed": toll,
             "window_applied": window,
             "peak_windows": salik.get("peak_windows", []),

@@ -1,6 +1,6 @@
 {
   "domain": "dcde",
-  "knowledge_date": "2026-09-05",
+  "knowledge_date": "2026-09-28",
   "full_review_date": "2026-04-13",
   "volatility": "medium",
   "verify_at": "https://www.dubaichamberdigital.com",
@@ -72,7 +72,7 @@
       ],
       "current_status": "Register-interest form available. The published cohort schedule remains September to December 2025; no new dated cohort was verified.",
       "cost_note": "Dubai Chambers describes sponsoring committed participants; confirm the offered seat and current terms.",
-      "verified_as_of": "2026-09-05"
+      "verified_as_of": "2026-09-28"
     },
     {
       "id": "unicorn_30",
@@ -121,8 +121,35 @@
       "name": "Canva Partnership",
       "operator": "DCDE + Canva",
       "type": "sme_enablement",
-      "target": "250,000 SMEs over 5 years",
-      "description": "Free or discounted Canva access for Dubai SMEs as part of the DCDE digital enablement initiative."
+      "announced_on": "2026-09-07",
+      "target": "250,000 digital SMEs and individuals over five years",
+      "description": "Free one-year Canva Business subscription (design tools, templates, Brand Kits and AI features) for eligible Dubai SMEs, with up to 50 employees per company.",
+      "eligibility": [
+        "Dubai Chambers member",
+        "No more than 500 employees",
+        "No current or previous paid Canva subscription"
+      ],
+      "eligibility_note": "DCDE says companies holding Dubai-issued trade licences will become eligible soon; the offer is accessed through the Business in Dubai platform.",
+      "source_urls": [
+        "https://www.dubaichamberdigital.com/en/e/dcde_news_detailed_page/29577/6062306"
+      ],
+      "verified_as_of": "2026-09-28"
+    },
+    {
+      "id": "oraseya_sandbox_pitching",
+      "name": "Investor pitching with Oraseya Capital (SANDBOX Investment Program)",
+      "operator": "DCDE + Oraseya Capital (DIEZ)",
+      "type": "investor_access",
+      "latest_session": {
+        "announcement_date": "2026-09-20",
+        "startups": 7
+      },
+      "description": "DCDE-arranged pitching session connecting digital startups with Oraseya Capital, the DIEZ investment arm. Its SANDBOX Investment Program cites potential investments of AED 550,000 to about AED 11 million plus mentorship; the fund manages AED 500 million for pre-seed to Series B technology startups.",
+      "application_status": "Participation was by DCDE selection; no open application window was published.",
+      "source_urls": [
+        "https://www.dubaichamberdigital.com/en/e/dcde_news_detailed_page/29577/6180217"
+      ],
+      "verified_as_of": "2026-09-28"
     },
     {
       "id": "business_matching",
@@ -175,6 +202,6 @@
     "international_roadshows": 17,
     "source": "DCDE January 2026 press release"
   },
-  "previous_knowledge_date": "2026-08-14",
-  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: corrected FRWRDx classification and dated-cohort status, linked the dedicated Dubai Founders HQ portal, added Business Matching, and recorded the dated Create Apps Accelerator outcome. Championship dates remain unchanged after checking. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-09-05",
+  "last_refresh_scope": "Targeted refresh of 2026-09-28: updated the Canva partnership from the 7 September 2026 DCDE announcement (free one-year Canva Business, eligibility rules, 250,000 SMEs and individuals over five years) and added the 20 September 2026 Oraseya Capital SANDBOX pitching session for 7 startups. Rechecked FRWRDx (still only the September to December 2025 cohort published) and the Create Apps Championship (finals still 7 October 2026) as unchanged. Unicorn 30, Antler residency and impact_2025 figures were not re-verified. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

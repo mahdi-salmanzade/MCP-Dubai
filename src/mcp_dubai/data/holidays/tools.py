@@ -27,15 +27,20 @@ def _is_provisional(holiday: Holiday) -> bool:
     )
 
 
-async def uae_holidays(year: int = 2026) -> dict[str, object]:
+async def uae_holidays(year: int | None = None) -> dict[str, object]:
     """
     List all UAE federal public holidays for a given Gregorian year.
+
+    `year` defaults to the current year in Asia/Dubai. A hard-coded default
+    would silently keep returning an old calendar once that year ends.
 
     Lunar holidays are flagged as `provisional` until the relevant MOHRE and
     FAHR observance circulars are published. Individual entries may carry an
     optional `note` with observance details (transferred days, sector
     differences, pending circulars).
     """
+    if year is None:
+        year = uae_today().year
     holidays = HOLIDAYS_BY_YEAR.get(year)
     if holidays is None:
         covered = ", ".join(str(y) for y in sorted(HOLIDAYS_BY_YEAR))

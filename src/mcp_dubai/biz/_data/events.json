@@ -1,6 +1,6 @@
 {
   "domain": "events",
-  "knowledge_date": "2026-09-05",
+  "knowledge_date": "2026-09-28",
   "full_review_date": "2026-07-02",
   "volatility": "high",
   "verify_at": "https://expandnorthstar.com",
@@ -76,7 +76,7 @@
         "open": "2026-05-01",
         "close": "2026-11-02",
         "status": "open",
-        "status_as_of": "2026-09-05",
+        "status_as_of": "2026-09-28",
         "scope": "Supernova 0X pitch competition; not a general visitor-registration deadline."
       },
       "brand_history": [
@@ -100,7 +100,7 @@
         "https://expandnorthstar.com",
         "https://expandnorthstar.com/supernova-0X"
       ],
-      "schedule_verified_as_of": "2026-09-05"
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "gitex_global_2026",
@@ -126,7 +126,7 @@
           "end": "2026-12-11"
         }
       },
-      "schedule_verified_as_of": "2026-09-05"
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "step_conference",
@@ -141,12 +141,12 @@
         "venue": "Dubai Internet City",
         "confidence": "confirmed"
       },
-      "url": "https://dubai.stepconference.com",
-      "notes": "The current organiser page explicitly advertises 3 to 4 February 2027 at Dubai Internet City; some page titles and body copy still describe 2026.",
+      "url": "https://stepconference.com/dubai/2027/",
+      "notes": "The organiser page (dubai.stepconference.com now redirects to stepconference.com/dubai/2027/) advertises 3 to 4 February 2027 at Dubai Internet City.",
       "source_urls": [
-        "https://dubai.stepconference.com"
+        "https://stepconference.com/dubai/2027/"
       ],
-      "schedule_verified_as_of": "2026-09-05"
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "dubai_ai_week",
@@ -155,20 +155,26 @@
       "location": "Dubai",
       "operator": "Dubai Future Foundation",
       "edition_2026": {
-        "status": "dates_to_be_confirmed",
+        "status": "consolidated_into_dubai_future_week",
+        "consolidated_event_id": "dubai_future_week_2026",
+        "consolidated_event_dates": {
+          "start": "2026-11-18",
+          "end": "2026-11-21"
+        },
         "previously_announced_dates": {
           "start": "2026-04-06",
           "end": "2026-04-09"
         },
-        "verification_note": "The current Dubai Future Foundation events directory lists Dubai AI Week 2026 as TBC. The current event site does not publish confirmed 2026 dates. The earlier April dates do not establish that the event was held."
+        "verification_note": "On 1 September 2026 the Dubai Government announced Dubai Future Week (18 to 21 November 2026), which brings the Dubai Future Forum and Dubai AI Week communities together in one connected platform. The earlier 6 to 9 April 2026 dates do not establish that a standalone 2026 edition was held, and no separate AI Week days within the November week are published."
       },
-      "url": "https://week.dub.ai/",
-      "notes": "2026 timing requires organiser confirmation. The separate Dubai AI Festival advertises 26 to 27 October 2026 at DWTC.",
+      "url": "https://dubaifutureweek.com/",
+      "notes": "The former event site week.dub.ai now redirects to dubaifutureweek.com. See the dubai_future_week_2026 record. The separate Dubai AI Festival advertises 26 to 27 October 2026 at DWTC.",
       "source_urls": [
-        "https://week.dub.ai/",
-        "https://www.dubaifuture.ae/events/"
+        "https://www.protocol.dubai.ae/en/media-listing/news-events/under-hamdan-bin-mohammed-s-directives-dubai-future-week-to-be-held-from-18-to-21-november-2026/",
+        "https://dubaifutureweek.com/",
+        "https://mediaoffice.ae/en/news/2026/february/18-02/dubai-ai-week-2026"
       ],
-      "schedule_verified_as_of": "2026-09-05"
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "dubai_ai_festival_2026",
@@ -179,12 +185,12 @@
         "end": "2026-10-27"
       },
       "venue": "Dubai World Trade Centre",
-      "notes": "The event currently advertises 26 to 27 October 2026 at Dubai World Trade Centre. Check the separate Dubai AI Week record for its unconfirmed 2026 timing.",
+      "notes": "The event advertises 26 to 27 October 2026 at Dubai World Trade Centre. It is separate from Dubai AI Week, which is now part of Dubai Future Week (18 to 21 November 2026).",
       "url": "https://dubaiaifestival.com",
       "source_urls": [
         "https://dubaiaifestival.com"
       ],
-      "schedule_verified_as_of": "2026-09-05"
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "dubai_fintech_summit_2026",
@@ -200,24 +206,37 @@
       "url": "https://dubaifintechsummit.com",
       "source_urls": [
         "https://dubaifintechsummit.com"
-      ]
+      ],
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "aim_congress_2026",
       "name": "AIM Congress 2026",
+      "edition": 15,
       "type": "investment_summit",
       "tagline": "Annual Investment Meeting",
       "dates": {
         "start": "2026-09-07",
         "end": "2026-09-09"
       },
+      "status": "dates_passed",
       "url": "https://www.aimcongress.com",
       "venue": "Dubai World Trade Centre",
+      "notes": "The 2026 dates (7 to 9 September) have passed. The organiser site now advertises the next edition and has not published a post-event report for 2026, so attendance outcomes are not recorded here.",
+      "next_edition_2027": {
+        "dates": {
+          "start": "2027-04-12",
+          "end": "2027-04-14"
+        },
+        "venue": "Dubai World Trade Centre (Halls 1 to 4)",
+        "confidence": "confirmed"
+      },
       "source_urls": [
         "https://aimcongress.com/",
-        "https://www.aimcongress.com/event-information"
+        "https://www.aimcongress.com/event-information",
+        "https://www.dwtc.com/en/events/aim-congress-2026/"
       ],
-      "schedule_verified_as_of": "2026-09-05"
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "world_government_summit",
@@ -229,12 +248,15 @@
         "dates": {
           "start": "2027-02-01",
           "end": "2027-02-03"
-        }
+        },
+        "confidence": "confirmed"
       },
-      "url": "https://www.worldgovernmentsummit.org",
+      "url": "https://www.worldgovernmentssummit.org",
       "source_urls": [
-        "https://www.worldgovernmentsummit.org"
-      ]
+        "https://www.worldgovernmentssummit.org/media-hub/news/detail/world-governments-summit-2027-set-from-1-to-3-february",
+        "https://mediaoffice.ae/en/news/2026/february/08-02/guided-by-the-vision-of-uae-president-and-mohammed-bin-rashid-wgs2027-set-from-1-to-3-feb"
+      ],
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "dubai_fitness_challenge_2026",
@@ -250,7 +272,11 @@
         "dubai_run": "2026-11-22"
       },
       "url": "https://www.dubaifitnesschallenge.com",
-      "notes": "10th edition. Dubai Run takes over Sheikh Zayed Road on 22 November 2026."
+      "notes": "10th edition. Dubai Run takes over Sheikh Zayed Road on 22 November 2026.",
+      "source_urls": [
+        "https://www.mediaoffice.ae/en/news/2025/november/25-11/dubai-launches-2026-retail-calendar-marking-10-years-of-festivals-and-experiences"
+      ],
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "dubai_airshow_2027",
@@ -265,7 +291,7 @@
       "source_urls": [
         "https://www.dubaiairshow.aero"
       ],
-      "schedule_verified_as_of": "2026-09-05"
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "un_2026_water_conference",
@@ -284,26 +310,62 @@
       "url": "https://sdgs.un.org/conferences/water2026",
       "source_urls": [
         "https://sdgs.un.org/conferences/water2026"
-      ]
+      ],
+      "schedule_verified_as_of": "2026-09-28"
+    },
+    {
+      "id": "dubai_future_week_2026",
+      "name": "Dubai Future Week 2026",
+      "type": "foresight_and_ai_week",
+      "tagline": "For the Human of the Future",
+      "operator": "Dubai Future Foundation",
+      "dates": {
+        "start": "2026-11-18",
+        "end": "2026-11-21"
+      },
+      "venue": "Emirates Towers and the Museum of the Future",
+      "announced_on": "2026-09-01",
+      "expected_participants_min": 10000,
+      "consolidates": [
+        "dubai_future_forum_2026",
+        "dubai_ai_week"
+      ],
+      "tracks": [
+        "How We'll Live",
+        "How We'll Think",
+        "How We'll Innovate",
+        "How We'll Feel",
+        "How We'll Do Business"
+      ],
+      "url": "https://dubaifutureweek.com/",
+      "notes": "Announced on 1 September 2026 under the directives of Sheikh Hamdan bin Mohammed. Builds on the Dubai Future Forum and Dubai AI Week and also features AI Grandmaster, the Dubai Foresight Awards, the Dubai Future Solutions: Prototypes for Humanity exhibition and TED Talks. The site offers a register-to-attend form.",
+      "source_urls": [
+        "https://www.protocol.dubai.ae/en/media-listing/news-events/under-hamdan-bin-mohammed-s-directives-dubai-future-week-to-be-held-from-18-to-21-november-2026/",
+        "https://dubaifutureweek.com/",
+        "https://www.dubaifuture.ae/events/"
+      ],
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "dubai_future_forum_2026",
       "name": "Dubai Future Forum 2026",
       "type": "foresight_forum",
       "operator": "Dubai Future Foundation",
-      "dates": {
+      "status": "consolidated_into_dubai_future_week",
+      "consolidated_event_id": "dubai_future_week_2026",
+      "previously_announced_dates": {
         "start": "2026-11-17",
         "end": "2026-11-18"
       },
-      "venue": "Museum of the Future",
-      "confidence": "confirmed",
-      "url": "https://www.dubaifuture.ae/dubai-future-forum",
-      "notes": "Dubai Future Foundation announced the 17 to 18 November 2026 dates. Participant registration is still described as forthcoming in the official FAQ.",
+      "previously_announced_venue": "Museum of the Future",
+      "url": "https://dubaifutureweek.com/",
+      "notes": "The standalone 17 to 18 November 2026 forum dates are superseded. The official Dubai Future Forum 2026 page now redirects to Dubai Future Week (18 to 21 November 2026, Emirates Towers and the Museum of the Future), which brings the Dubai Future Forum and Dubai AI Week communities together. No separate forum days within the week are published.",
       "source_urls": [
-        "https://www.dubaifuture.ae/latest-news/dubai-convenes-2500-futurists-from-100-global-organisations-to-tackle-worlds-most-pressing-challenges/",
-        "https://www.dubaifuture.ae/dubai-future-forum-faq/"
+        "https://www.protocol.dubai.ae/en/media-listing/news-events/under-hamdan-bin-mohammed-s-directives-dubai-future-week-to-be-held-from-18-to-21-november-2026/",
+        "https://www.dubaifuture.ae/dubai-future-forum-2026/",
+        "https://www.dubaifuture.ae/events/"
       ],
-      "schedule_verified_as_of": "2026-09-05"
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "wetex_2026",
@@ -318,9 +380,10 @@
       "venue": "Dubai World Trade Centre",
       "url": "https://www.wetex.ae",
       "source_urls": [
-        "https://www.wetex.ae"
+        "https://www.wetex.ae",
+        "https://www.wetex.ae/media/ldih2uqd/wetex2026_booklet_eng.pdf"
       ],
-      "schedule_verified_as_of": "2026-09-05"
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "dubai_esports_games_festival_2026",
@@ -368,9 +431,10 @@
         "end": "2026-11-01"
       },
       "source_urls": [
-        "https://www.visitdubai.com/en/festivals-and-events/dhf"
+        "https://www.visitdubai.com/en/festivals-and-events/dhf",
+        "https://www.mediaoffice.ae/en/news/2025/november/25-11/dubai-launches-2026-retail-calendar-marking-10-years-of-festivals-and-experiences"
       ],
-      "schedule_verified_as_of": "2026-09-05"
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "dubai_festival_of_lights_2026",
@@ -382,8 +446,10 @@
         "end": "2026-11-12"
       },
       "source_urls": [
-        "https://www.visitdubai.com/en/whats-on/dubai-events-calendar"
-      ]
+        "https://www.visitdubai.com/en/whats-on/dubai-events-calendar",
+        "https://www.mediaoffice.ae/en/news/2025/november/25-11/dubai-launches-2026-retail-calendar-marking-10-years-of-festivals-and-experiences"
+      ],
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "dubai_shopping_festival_2026_27",
@@ -393,15 +459,20 @@
       "operator": "Dubai Festivals and Retail Establishment (DFRE)",
       "dates_status": "not yet announced",
       "expected_window": "December 2026 to January 2027",
-      "notes": "32nd edition. Exact dates not announced as of 2 July 2026; DSF traditionally runs from early December to mid January.",
+      "notes": "32nd edition. Exact dates not announced by DFRE or Dubai Media Office as of 28 September 2026; the official 2026 retail calendar lists only the 31st edition (5 December 2025 to 11 January 2026). DSF traditionally runs from early December to mid January.",
       "source_urls": [
-        "https://www.visitdubai.com/en/festivals-and-events/dsf"
-      ]
+        "https://www.visitdubai.com/en/festivals-and-events/dsf",
+        "https://www.mediaoffice.ae/en/news/2025/november/25-11/dubai-launches-2026-retail-calendar-marking-10-years-of-festivals-and-experiences"
+      ],
+      "schedule_verified_as_of": "2026-09-28"
     },
     {
       "id": "world_green_economy_summit_2026",
       "name": "World Green Economy Summit 2026",
+      "edition": 12,
       "type": "sustainability_summit",
+      "operator": "World Green Economy Organization (WGEO) with DEWA",
+      "theme": "From Success to Scale: Showcasing the Green Economy",
       "dates": {
         "start": "2026-10-21",
         "end": "2026-10-22"
@@ -410,11 +481,12 @@
       "co_located_with": "WETEX 2026",
       "url": "https://wges.ae",
       "source_urls": [
-        "https://www.wetex.ae/"
+        "https://www.wetex.ae/",
+        "https://dewa.gov.ae/en/about-us/media-publications/latest-news/2026/6/12th-world-green-economy-summit-dates-announced-in-dubai"
       ],
-      "schedule_verified_as_of": "2026-09-05"
+      "schedule_verified_as_of": "2026-09-28"
     }
   ],
-  "previous_knowledge_date": "2026-07-02",
-  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: refreshed GITEX/Supernova schedule detail, confirmed STEP and Dubai Future Forum dates, corrected Dubai Summer Surprises start and ended status, added World Green Economy Summit, confirmed AIM/DHF/WETEX/Airshow schedules, and removed the unsupported claim that Dubai AI Week 2026 was held. Other event statistics and unverified schedules retain their earlier provenance. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-09-05",
+  "last_refresh_scope": "Targeted refresh of 2026-09-28: recorded the 1 September 2026 announcement of Dubai Future Week (18 to 21 November 2026, Emirates Towers and Museum of the Future), which consolidates the Dubai Future Forum (standalone 17 to 18 November dates superseded) and Dubai AI Week; marked AIM Congress 2026 dates as passed and added the confirmed 12 to 14 April 2027 edition; confirmed WGS 2027 (1 to 3 February) from the organiser and moved its URL to the redirected domain; updated the STEP URL to its 2027 page; added the 12th edition, organiser and theme to WGES; attached Dubai Media Office retail-calendar sources to the Fitness Challenge, Home Festival and Festival of Lights; rechecked GITEX, Expand North Star/Supernova (applications still open to 2 November), Dubai FinTech Summit, Dubai AI Festival, WETEX, UN 2026 Water Conference and Dubai Airshow 2027 as unchanged. DSF 2026-27 dates remain unannounced. AIM Congress 2026 attendance outcomes, Dubai Ride date and 2027 WGS venue were not verified. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

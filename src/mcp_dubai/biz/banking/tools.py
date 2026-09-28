@@ -244,9 +244,18 @@ async def dul_eligibility(
     integrated_banks = [_norm(str(bank)) for bank in dul.get("integrated_banks", [])]
 
     bank_status: str | None = None
-    if bank_id:
+    if bank_id is not None:
         needle = _norm(bank_id)
-        if any(needle == bank or needle in bank or bank in needle for bank in integrated_banks):
+        if not needle:
+            return (
+                ToolResponse[dict[str, object]].fail(error="bank_id must not be empty").model_dump()
+            )
+        # Match whole tokens only: every token of an integrated bank's name
+        # must appear in the query ("mashreq neobiz" matches "Mashreq").
+        # Raw substring matching in both directions let fragments such as
+        # "bank" or "e" report a bank as integrated.
+        needle_tokens = set(needle.split())
+        if any(set(bank.split()) <= needle_tokens for bank in integrated_banks if bank):
             bank_status = "integrated"
         else:
             bank_status = "not_listed_in_official_announcement"

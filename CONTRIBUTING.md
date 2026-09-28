@@ -21,7 +21,7 @@ The most useful contributions right now:
 
 ## Dev setup
 
-You need Python 3.11 or 3.12.
+You need Python 3.11 or newer. CI tests 3.11, 3.12, 3.13 and 3.14.
 
 ```bash
 git clone https://github.com/mahdi-salmanzade/MCP-Dubai.git
@@ -37,7 +37,7 @@ make dev
 pip install -e ".[dev,data]"
 ```
 
-That installs `fastmcp`, `httpx`, `pydantic`, `tenacity`, `lxml`, `rank-bm25`, `pytest`, `pytest-asyncio`, `pytest-cov`, `respx`, `ruff`, `mypy`.
+That installs `fastmcp`, `httpx`, `pydantic`, `tenacity`, `python-dateutil`, `lxml`, `rank-bm25`, the `data` extras (`openpyxl`, `polars`), and the dev tools `pytest`, `pytest-asyncio`, `pytest-cov`, `respx`, `ruff`, `mypy`.
 
 ---
 

@@ -1,6 +1,6 @@
 {
   "domain": "visas",
-  "knowledge_date": "2026-09-05",
+  "knowledge_date": "2026-09-28",
   "full_review_date": "2026-07-02",
   "volatility": "high",
   "verify_at": "https://u.ae/en/information-and-services/visa-and-emirates-id",
@@ -382,8 +382,10 @@
       "process_note": "Since the GDRFA-DLD MoU of 11 April 2026, Retiree Residency services in Dubai run through a single GDRFA Dubai channel together with Golden and Property residency (service integration only; eligibility unchanged).",
       "source_urls": [
         "https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/residence-visa-for-the-retired",
-        "https://mediaoffice.ae/en/news/2026/april/11-04/gdrfa"
-      ]
+        "https://mediaoffice.ae/en/news/2026/april/11-04/gdrfa",
+        "https://www.gdrfad.gov.ae/en/services/8ea80db0-f43e-11eb-0320-0050569629e8"
+      ],
+      "verified_note": "GDRFA Dubai service page re-checked 2026-09-28: 55 years of age, at least 15 years of service, then either property worth AED 1,000,000 plus a AED 1,000,000 deposit in a local financial institution, or fixed annual income of at least AED 240,000 with six months of bank statements."
     },
     {
       "id": "family_dependent",
@@ -428,10 +430,13 @@
       "note": "The unified GCC tourist visa pilot has slipped again and is now expected in Q4 2026, linking Dubai International with Bahrain International first (QR-code validation, ICP data sharing), with Saudi Arabia, Oman, Qatar and Kuwait joining in early 2027 if successful. Indicative pricing floated around USD 100 for single-country and USD 120-130 for a multi-country 60-90 day permit. The Q4 2026 Dubai-Bahrain pilot detail comes from secondary aggregators, so treat this as an expected timeline, not a live product.",
       "source_urls": [
         "https://gulfnews.com/business/tourism/unified-gcc-visa-now-coming-in-2026-whats-behind-the-new-launch-date-1.500339495",
-        "https://www.visahq.com/news/2026-04-14/ae/gcc-unified-tourist-visa-pilot-set-for-q4-2026-with-dubai-bahrain-air-corridor-first-in-line/"
-      ]
+        "https://www.visahq.com/news/2026-04-14/ae/gcc-unified-tourist-visa-pilot-set-for-q4-2026-with-dubai-bahrain-air-corridor-first-in-line/",
+        "https://www.khaleejtimes.com/uae/one-visa-for-6-gulf-countries-gcc-chief-says-scheme-will-launch-soon",
+        "https://www.gcc-sg.org/en/MediaCenter/News/Pages/news-2025-7-2-5.aspx"
+      ],
+      "status_check": "Re-checked 2026-09-28: still not live. No official launch date, application portal, fee or validity has been published by ICP or the GCC General Secretariat. The GCC Secretary General said on 6 September 2026 (as reported by Khaleej Times) that the visa would launch soon, without giving a date; the Q4 2026 Dubai-Bahrain pilot therefore remains an expectation, not a confirmed start."
     }
   ],
-  "previous_knowledge_date": "2026-07-25",
-  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: corrected the universal 24-month Golden Visa salary test, separated professional and exceptional-talent routes, distinguished ICP/Dubai entrepreneur criteria and durations, removed unsupported basic-salary-only family sponsorship and bank-history claims, clarified virtual-work entry-visa fees, and marked an expired consultation historically. Not a full re-verification of every visa, price, nationality or property threshold."
+  "previous_knowledge_date": "2026-09-05",
+  "last_refresh_scope": "Targeted refresh of 2026-09-28: re-checked GDRFA Dubai pages for the skilled-professional Golden Visa (AED 30,000 salary, 6 months of transfers), the Virtual Working entry visa (USD 3,500 income, AED 200 plus VAT) and the retiree residence permit (conditions unchanged, verification note added), and recorded that the GCC unified tourist visa is still not live with no official launch date. No new ICP or GDRFA residency, fee, overstay-fine or amnesty decision dated 2026-09-05 to 2026-09-28 was found on primary channels. Not a full re-verification of every visa, price, nationality or property threshold; full_review_date is preserved."
 }

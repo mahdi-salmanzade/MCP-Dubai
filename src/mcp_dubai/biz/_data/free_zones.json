@@ -1,6 +1,6 @@
 {
   "domain": "free_zones",
-  "knowledge_date": "2026-09-05",
+  "knowledge_date": "2026-09-28",
   "full_review_date": "2026-07-02",
   "volatility": "high",
   "verify_at": "https://www.dubai.ae/investing/starting-a-business/free-zones-in-dubai",
@@ -121,7 +121,8 @@
         "renewal_aed": 12500,
         "currency": "AED",
         "as_of": "2025-Q4",
-        "price_status": "dated_indicative_snapshot"
+        "price_status": "dated_indicative_snapshot",
+        "price_note": "On 2026-09-28 the previously cited IFZA cost page returned HTTP 404 and the official IFZA setup pages checked publish no licence price (enquiry or partner quote only). The AED 12,900 / 12,500 figures are a historical 2025-Q4 snapshot, not a current IFZA quote."
       },
       "office": {
         "options": [
@@ -150,7 +151,8 @@
       ],
       "website": "https://ifza.com",
       "source_urls": [
-        "https://ifza.com/business-setup-cost-in-dubai/"
+        "https://ifza.com/en/set-up-your-business/",
+        "https://ifza.com/en/benefits-of-renewing-ifza-license/"
       ]
     },
     {
@@ -170,7 +172,9 @@
         "renewal_aed": 12500,
         "currency": "AED",
         "as_of": "2025-Q4",
-        "price_status": "dated_indicative_snapshot"
+        "price_status": "dated_indicative_snapshot",
+        "verified_note": "Meydan's official launch page still advertised the AED 12,500 per year base licence package on 2026-09-28 (licence, registration, digital application and portal access; visas, medical, Emirates ID and office upgrades extra), a Fawri instant licence at AED 15,000, and up to 15% off multi-year licences.",
+        "verified_as_of": "2026-09-28"
       },
       "office": {
         "options": [
@@ -411,7 +415,13 @@
         "currency": "AED",
         "as_of": "2025-Q4",
         "notes": "Basic license approximately AED 35,484 in year one. Per-visa fees are charged on top, so a 3-visa setup is materially higher than the headline figure.",
-        "price_status": "dated_indicative_snapshot"
+        "price_status": "dated_indicative_snapshot",
+        "official_range_note": "DMCC's official set-up page, checked 2026-09-28, states initial setup costs typically range from AED 10,345 to AED 84,515 depending on business type, licence duration and office space; registration takes about 10 working days. The AED 35,484 figure remains a dated 2025-Q4 package snapshot.",
+        "official_range_aed": {
+          "min": 10345,
+          "max": 84515,
+          "as_of": "2026-09-28"
+        }
       },
       "office": {
         "options": [
@@ -743,6 +753,6 @@
       ]
     }
   ],
-  "previous_knowledge_date": "2026-08-14",
-  "last_refresh_scope": "Targeted correctness audit of 2026-09-05: represented quote-only licence prices as null instead of zero, labelled historical price snapshots, removed unsupported official bank-acceptance labels, and corrected blanket renewal and mainland-tax claims. Pricing and visa quotas were not fully re-quoted. Not a full re-verification of every field in this pack."
+  "previous_knowledge_date": "2026-09-05",
+  "last_refresh_scope": "Targeted refresh of 2026-09-28: re-checked official pricing pages for IFZA (old cost page now 404; no published price, snapshot relabelled and source links replaced), Meydan (AED 12,500 base package and AED 15,000 Fawri licence confirmed) and DMCC (official AED 10,345 to 84,515 setup range added). No zone-level promotion with a dated expiry was found in this pack. Other zones, visa quotas, renewal pricing and the mainland-permit regularisation status were not re-quoted. Not a full re-verification; full_review_date is preserved."
 }
