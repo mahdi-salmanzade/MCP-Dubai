@@ -5,10 +5,11 @@ This log separates an acknowledged submission from an approved or published list
 
 ## Outcome
 
-- **11 confirmed submissions:** one automatically approved listing, ten acknowledged submissions or pending reviews.
+- **14 confirmed submissions:** one automatically approved live listing, thirteen acknowledged submissions or pending reviews/scans.
+- **1 completed claim/update:** MCP Vault ownership verified; its existing live listing is not counted as a new submission.
 - **4 existing listings:** verified separately; not counted as new submissions.
 - **3 unconfirmed attempts:** no explicit receipt captured; not counted as successful submissions.
-- **6 blocked or unfinished forms:** recorded below with the observed reason.
+- **2 blocked forms:** recorded below with the observed reason.
 - No payments were made. No paid listing was purchased.
 
 ## Public submission facts
@@ -37,15 +38,26 @@ This log separates an acknowledged submission from an approved or published list
 | [Dubai Startups Daily](https://dubaistartupsdaily.com/submit-story) | “Thanks! We’ll review your story and be in touch soon.” | Editorial submission acknowledged; no publication date promised. |
 | [artificial.ae](https://artificial.ae/news/) | Tip modal: “Sent. We read every tip and email you if it lands.” | News tip acknowledged; publication not confirmed. |
 | [DXBStart](https://www.dxbstart.com/submit/tip) | “RECEIVED — Your submission is with the desk.” | News tip acknowledged; user explicitly approved the mandatory weekly newsletter subscription before submission. |
+| [mcpservers.com](https://mcpservers.com/submit/success?id=5a5648df-ae13-404c-8a09-4407f2240480) | “Submission Successful.” | Review shortly; publication not confirmed. Submission ID `5a5648df-ae13-404c-8a09-4407f2240480`. Distinct from mcpservers.org. |
+| [Cursor Directory](https://cursor.directory/plugins/mcp-dubai) | Manual listing created; a security-agent scan is running. | **Unpublished/hidden** until scanning finishes; public availability not confirmed. |
+| [10015 Product Finder](https://10015.io/product-finder/submit) | Thank-you receipt confirmed MCP Dubai was submitted successfully. | Free standard queue: **3–4 months**. The USD 9.99 priority option was not purchased. Category: Development; secondary: AI; tags: API, Data, OpenSource, Python, LLM. |
 
 The review windows above are the portals' stated expectations, not guarantees.
-Only LibHunt displayed an approval confirmation during this session.
+Among new submissions, only LibHunt displayed an approval confirmation during this session.
 
-LibHunt imported a stale GitHub About description containing unsupported DHA/health language. A correction to describe the current 120-tool source release and local stdio transport, with the GitHub homepage, was submitted successfully. Its receipt confirmed that the suggested changes will be applied after approval. This is a pending edit to the same listing, not a twelfth destination. Updating GitHub About would also prevent the stale description from propagating elsewhere.
+LibHunt imported a stale GitHub About description containing unsupported DHA/health language. A correction to describe the current 120-tool source release and local stdio transport, with the GitHub homepage, was submitted successfully. Its receipt confirmed that the suggested changes will be applied after approval. This is a pending edit to the same listing, not an additional destination. Updating GitHub About would also prevent the stale description from propagating elsewhere.
+
+## Completed claim/update
+
+| Directory | Result observed | Remaining state |
+| --- | --- | --- |
+| [MCP Vault](https://mcpvault.io/servers/mcp-dubai) | Submission flow redirected to a claim. GitHub ownership was verified as `mahdi-salmanzade`; the live listing was claimed. Corrected description, homepage, installation information, and the verification/launch command `uvx mcp-dubai` were saved. | Dashboard showed **1 claimed server**, category **Developer Tools**, and **VERIFICATION QUEUED** for a nightly run. Site indicated a handshake within 24 hours with email notification. Prior indexing time is unclear, so this is not counted as a new submission. |
+
+MCP Vault's public page was verified showing the corrected description, the 120-tool source versus 91-tool PyPI distinction, the `mahdi-salmanzade` ownership claim, and the correct `uvx mcp-dubai` configuration. The 10015 submission also corrected imported names/descriptions and used the canonical GitHub link and the project's `ae.svg` URLs. Cursor Directory remained scanning and unpublished at the final check.
 
 ## Existing listings
 
-These were already present and are not included in the 11 new submissions.
+These were already present and are not included in the 14 new submissions. MCP Vault's completed ownership claim is tracked separately above.
 
 | Directory | Existing URL |
 | --- | --- |
@@ -64,15 +76,11 @@ These were already present and are not included in the 11 new submissions.
 
 Avoid immediate duplicate submissions to these three portals; first check for a receipt or listing.
 
-## Blocked or unfinished forms
+## Blocked forms
 
 | Portal | Observed blocker / stopping point |
 | --- | --- |
 | [FindMCP](https://findmcp.app/submit) | Submission to `/api/submit` returned Chrome `ERR_BLOCKED_BY_CLIENT`. No bypass was attempted. |
-| [MCP Vault](https://mcpvault.io/submit) | GitHub sign-in was required after page hydration. |
-| [mcpservers.com](https://mcpservers.com/submit) | Required Google sign-in; distinct from the confirmed mcpservers.org submission. |
-| [Cursor Directory](https://cursor.directory/plugins/new?type=mcp_server) | Redirected to login. |
-| [10015 Product Finder](https://10015.io/product-finder/submit) | Required sign-in or registration. |
 | [SaaSHub](https://www.saashub.com/services/submit) | User approved the Terms and Continue was clicked. The site rejected the submission: “No more submissions from github.com are allowed. Please contact us if you think this is a mistake.” No submission was completed. |
 
 ## Researched; not submitted
@@ -99,10 +107,12 @@ This is suggested reusable copy, not a claim that every portal received identica
 ## Follow-up checkpoints
 
 - **September 29:** check MCP.Directory against its stated 24-hour review window.
+- **September 29:** check MCP Vault's verification handshake and email; also check Cursor Directory's security scan and publication status.
 - **September 30:** check AgentNDX against its stated 48-hour review window.
-- **Early October:** check ProMCP, AgenticSkills, MCP Harbor, and the three editorial desks for responses.
+- **Early October:** check ProMCP, AgenticSkills, MCP Harbor, mcpservers.com, and the three editorial desks for responses.
 - **October 12:** check mcpservers.org against its stated two-week review window.
 - **October 26:** check MCPizy against its stated four-week review window, using its reference above.
+- **December 2026–January 2027:** check 10015 Product Finder against its free queue's stated three-to-four-month window.
 - Check receipts and existing listings before repeating any unconfirmed attempt.
 - Reconcile the source/PyPI release mismatch before pursuing the official registry or advertising a 120-tool PyPI install.
 
