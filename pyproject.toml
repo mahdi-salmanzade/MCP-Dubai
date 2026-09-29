@@ -42,7 +42,7 @@ dependencies = [
     # FastMCP 2.x. The <4 cap is also required, since `mount(prefix=)` is slated
     # removed in v4, which became stable on 2026-08-31. Stay on the tested
     # 3.x line and include its current OAuth/SSRF hardening fixes.
-    "fastmcp>=3.4.7,<4",
+    "fastmcp>=3.4.7,<5",
     # Upper bounds on the majors that would break us. Without them a fresh
     # install silently picks up the next major the day it lands.
     "httpx>=0.28.1,<1",
