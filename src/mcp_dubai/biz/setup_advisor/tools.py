@@ -26,21 +26,21 @@ _BASE_KNOWLEDGE: KnowledgeMetadata = extract_knowledge(_FREE_ZONES_DATA)
 # Override with a setup_advisor specific verify_at since this tool spans
 # multiple domains.
 KNOWLEDGE = KnowledgeMetadata(
-    knowledge_date="2026-10-13",
+    knowledge_date="2026-10-20",
     full_review_date="2026-10-13",
-    previous_knowledge_date="2026-09-05",
+    previous_knowledge_date="2026-10-13",
     last_refresh_scope=(
-        "Full review of 2026-10-13: re-verified the Resolution 11 of 2025 DET route and "
-        "fees (AED 10,000 branch licence per year, AED 5,000 six-month temporary permit), "
-        "MD 229/2025 as the current Qualifying Activities decision, the QFZP 9% rate on "
-        "non-qualifying income without the AED 375,000 band, and VARA's sole jurisdiction "
-        "over Dubai mainland and free zones other than DIFC. Fixed: crypto and blockchain "
-        "requests no longer lose the virtual-asset licensing warning on the local-trade or "
-        "low-budget routes; the offshore minimum now matches the RAK ICC price in "
-        "free_zones.json; offshore next steps no longer mention Ejari or visa quota; "
-        "visa_count is checked against candidate zone quotas; IFZA pricing is labelled a "
-        "historical snapshot; Wio onboarding wording follows the banks pack. Free-zone "
-        "prices, PRO budget range and timelines remain indicative and were not re-quoted."
+        "Targeted refresh of 2026-10-20: the DIFC Innovation Licence route now states the "
+        "official fee schedule from DIFC's Private Company, Non-Financial and Retail "
+        "Handbook (Rev.06, approved 29 September 2026) and Innovation Licence setup guide: "
+        "USD 1,500 for 2 years, the discount continuing to year 7 only for companies with "
+        "10 or fewer employees, and USD 12,000 otherwise and from year 8 (it previously "
+        "said USD 12,000 from year 3 for everyone); the visa warning follows the guide's "
+        "up-to-4-visas-on-the-first-desk wording. The Resolution 11 of 2025 route and fees "
+        "(AED 10,000 branch licence per year, AED 5,000 six-month temporary permit) were "
+        "rechecked for news with no change. Free-zone prices, PRO budget range and "
+        "timelines remain indicative and were not re-quoted. Not a full re-verification; "
+        "full_review_date is preserved."
     ),
     volatility="high",
     verify_at="https://invest.dubai.ae",
@@ -209,13 +209,16 @@ def _decide(
         jurisdiction = "free_zone"
         reasoning.append(
             "DIFC Innovation Licence offers premium fintech/AI positioning "
-            "with common-law jurisdiction. Subsidised at approximately USD "
-            "1,500/yr for years 1 to 2, then approximately USD 12,000/yr standard."
+            "with common-law jurisdiction. Licence fee USD 1,500/yr for years 1 "
+            "to 2; from year 3 the discount continues only while the company has "
+            "10 or fewer employees (USD 1,500 to year 5, USD 4,000 in year 6, "
+            "USD 8,000 in year 7), otherwise the USD 12,000/yr normal fee applies, "
+            "and it applies to all companies from year 8 (DIFC handbook, 2026)."
         )
         warnings.append(
             "DIFC Innovation Licence excludes regulated financial services "
             "(needs DFSA), crypto exchanges, and physical goods trading. "
-            "Maximum 4 visas on a flexi-desk; more requires private office. "
+            "Up to 4 visas on the first flexi-desk; more needs more DIFC space. "
             "DIFC physical presence is mandatory."
         )
         candidates = ["DIFC Innovation Licence"]

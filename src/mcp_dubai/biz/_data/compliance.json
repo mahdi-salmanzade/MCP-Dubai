@@ -1,6 +1,6 @@
 {
   "domain": "compliance",
-  "knowledge_date": "2026-09-28",
+  "knowledge_date": "2026-10-20",
   "full_review_date": "2026-07-02",
   "volatility": "medium",
   "verify_at": "https://uaefiu.gov.ae/en",
@@ -58,7 +58,8 @@
       {
         "category": "Dealers in precious metals and stones",
         "registration_required": true,
-        "notes": "DPMSR reporting applies at AED 55,000 or more: cash transactions with individuals and cash or wire-transfer transactions with entities, subject to FIU rules. Suspicious transactions require reporting regardless of amount."
+        "notes": "DPMSR reporting applies at AED 55,000 or more: cash transactions with individuals and cash or wire-transfer transactions with entities, subject to FIU rules. Suspicious transactions require reporting regardless of amount.",
+        "source_note": "The FIU DPMS goAML report-submission guide previously cited for the individual and entity transaction split returned HTTP 404 on 2026-10-20 and was removed. MOET's DNFBP Guidelines (March 2026) still require CDD for occasional transactions of AED 55,000 or more and list DPMSRs among goAML reports; the cash and wire split was not re-verified on a current FIU page."
       },
       {
         "category": "Auditors",
@@ -93,8 +94,7 @@
       "https://www.hsfkramer.com/notes/middle-east/2026-posts/the-uae-introduces-landmark-new-aml-and-cft-law",
       "https://uaefiu.gov.ae/en/compliance-guidance/how-to-submit-a-report/",
       "https://www.vara.ae",
-      "https://www.moet.gov.ae/documents/20121/465917/DNFBP%2BGuidelines%2B-%2BMarch%2B2026.pdf",
-      "https://uaefiu.gov.ae/media/zdpe2ihn/goaml-web-dealers-in-precious-metals-and-stones-report-submission-guide-v1-2-29-07-2021.pdf"
+      "https://www.moet.gov.ae/documents/20121/465917/DNFBP%2BGuidelines%2B-%2BMarch%2B2026.pdf"
     ],
     "reporting_authority": "UAE Financial Intelligence Unit (FIU), through goAML"
   },
@@ -117,7 +117,7 @@
       "h2_2026_deadline": "2026-12-31",
       "h2_2026_deadline_status": "UPCOMING. The second-half 1% increment is due by 31 December 2026, bringing total growth for the year to 2%.",
       "next_deadline": "2026-12-31",
-      "post_2026_note": "No Emiratisation targets beyond end-2026 have been announced as of 2026-09-28 on the MOHRE Emiratisation targets page. The current programme runs to a 10% skilled-role rate at end-2026; treat any 2027 target as unannounced rather than zero.",
+      "post_2026_note": "No Emiratisation targets beyond end-2026 have been announced as of 2026-10-20 on the MOHRE Emiratisation targets page. The current programme runs to a 10% skilled-role rate at end-2026; treat any 2027 target as unannounced rather than zero.",
       "source_urls_h2": [
         "https://gulfnews.com/uae/meet-emiratisation-targets-by-december-31-or-face-fines-warns-mohre-1.500322794",
         "https://mohre.gov.ae/en/guidance-and-awareness-portal-new/emiratisation-targets"
@@ -194,9 +194,16 @@
         "Right to data portability",
         "Right to object"
       ],
-      "regulator": "UAE Data Office",
-      "regulator_url": "https://www.dataoffice.gov.ae",
-      "exemptions": "Personal data processed by individuals for personal use, security/intelligence agencies, judicial data, certain health data."
+      "regulator": "UAE Data Office (functions moving to the Artificial Intelligence and Data Authority)",
+      "regulator_note": "On 14 June 2026 the Dubai Media Office announced the approval of the Artificial Intelligence and Data Authority, reporting to the Cabinet and chaired by Omar Sultan Al Olama, which brings together the functions of the UAE Data Office, the Office of Artificial Intelligence, Digital Economy and Remote Work Applications, and TDRA's Digital Government Sector. The announcement does not mention the PDPL or name a website, and u.ae (page updated 4 December 2025) still describes the UAE Data Office as the federal data regulator. Confirm which body handles PDPL matters before filing.",
+      "regulator_url": "https://u.ae/en/about-the-uae/digital-uae/data/data-protection-laws",
+      "regulator_url_note": "The former regulator URL https://www.dataoffice.gov.ae did not resolve (DNS failure) on 2026-10-20, so the official u.ae data protection page is given instead.",
+      "executive_regulations_status": "Not issued as far as primary sources show on 2026-10-20. No Cabinet resolution issuing PDPL executive regulations was found; secondary claims that they were issued in 2026 cite no resolution number.",
+      "exemptions": "Personal data processed by individuals for personal use, security/intelligence agencies, judicial data, certain health data.",
+      "source_urls": [
+        "https://u.ae/en/about-the-uae/digital-uae/data/data-protection-laws",
+        "https://mediaoffice.ae/en/news/2026/june/14-06/mohammed-bin-rashid-approves-establishing-artificial-intelligence-and-data-authority"
+      ]
     },
     "difc_dpl": {
       "name": "DIFC Data Protection Law",
@@ -205,7 +212,7 @@
       "applies_to": "Entities established in or operating from DIFC",
       "regulator": "DIFC Commissioner of Data Protection",
       "regulator_url": "https://www.difc.com/business/laws-and-regulations/data-protection",
-      "notes": "DIFC has its own data-protection law and outbound-transfer adequacy decisions. The European Commission does not list the UAE or DIFC as an adequate destination under GDPR Article 45 as of 2026-09-28; EU-to-DIFC transfers need another applicable Chapter V transfer mechanism.",
+      "notes": "DIFC has its own data-protection law and outbound-transfer adequacy decisions. The European Commission does not list the UAE or DIFC as an adequate destination under GDPR Article 45 as of 2026-10-20; EU-to-DIFC transfers need another applicable Chapter V transfer mechanism.",
       "source_urls": [
         "https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/adequacy-decisions_en",
         "https://www.difc.com/business/registrars-and-commissioners/commissioner-of-data-protection/data-export-and-sharing"
@@ -220,6 +227,6 @@
       "notes": "GDPR-aligned."
     }
   },
-  "previous_knowledge_date": "2026-09-05",
-  "last_refresh_scope": "Targeted refresh of 2026-09-28: re-checked the European Commission adequacy list (UAE, DIFC and ADGM still not listed) and updated the as-of date. Searched for new AML, goAML, UBO and PDPL executive-regulation instruments since 2026-09-05 and found none on primary sources; Emiratisation H2 2026 deadline remains 31 December 2026 with no 2027 target published by MOHRE. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-09-28",
+  "last_refresh_scope": "Targeted refresh of 2026-10-20: searched for AML/CFT, goAML, UBO, ESR, PDPL and Emiratisation instruments dated 28 September to 20 October 2026. Changed: the federal PDPL regulator now records that the 14 June 2026 Artificial Intelligence and Data Authority takes over the UAE Data Office's functions (Dubai Media Office), the dead dataoffice.gov.ae regulator URL (DNS failure) is replaced with the u.ae data protection page, and an executive_regulations_status field records that no PDPL executive regulations were found on primary sources; the dead FIU DPMS goAML guide (HTTP 404) was removed from the AML sources with a note on the DPMS entry (MOET's March 2026 DNFBP Guidelines still give the AED 55,000 CDD threshold). Checked with no change: European Commission adequacy list (UAE, DIFC and ADGM still not listed, latest item 23 July 2026), MOHRE Emiratisation targets page (no 2027 target), no amendment to Federal Decree-Law 10 of 2025 or Cabinet Resolution 134 of 2025 found, no new UBO or ESR instrument. The 5 October 2026 UAE FIU and VARA MoU was noted (no new obligation). uaelegislation.gov.ae, whitecase.com and hsfkramer.com returned HTTP 403 and the goAML portal HTTP 401 to automated checks (blocked, not dead). Still unverified: PDPL executive regulations and which body enforces the PDPL after the June 2026 restructuring. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

@@ -200,6 +200,7 @@ class TestFunding:
         dfdf = grants["dfdf"]
         assert mbrif["programs"]["innovation_accelerator"]["direct_funding"] is False
         assert mbrif["programs"]["guarantee_scheme"]["direct_lender"] is False
+        assert mbrif["latest_cohort_snapshot"]["cohort"] == 12
         assert dfdf["fund_size_aed"] == 1_000_000_000
         assert dfdf["latest_dated_report_snapshot"]["total_investments"] == 30
         assert dfdf["latest_dated_report_snapshot"]["publication_date"] == "2026-07-20"
@@ -222,7 +223,7 @@ class TestFunding:
         vcs = {v["id"]: v for v in data["vcs"]}  # type: ignore[union-attr]
         assert vcs["wamda_capital"]["url"] == "https://wamdacapital.com/"
         assert vcs["shorooq"]["url"] == "https://www.shorooq.com/"
-        assert funding_tools.KNOWLEDGE.knowledge_date == "2026-09-28"
+        assert funding_tools.KNOWLEDGE.knowledge_date == "2026-10-20"
         assert funding_tools.KNOWLEDGE.full_review_date == "2026-08-14"
         assert "Cohort 21" in str(funding_tools.KNOWLEDGE.last_refresh_scope)
 

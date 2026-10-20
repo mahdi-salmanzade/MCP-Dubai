@@ -1,6 +1,6 @@
 {
   "domain": "cost_of_living",
-  "knowledge_date": "2026-10-13",
+  "knowledge_date": "2026-10-20",
   "full_review_date": "2026-10-13",
   "volatility": "high",
   "verify_at": "https://dubailand.gov.ae",
@@ -8,21 +8,23 @@
   "disclaimer": "Rents and groceries are ballpark ranges that drift with the market (the DLD Smart Rental Index is the canonical rent source), and 2026 has been unusually volatile (see inflation_context: Dubai CPI ran at about 5.5% year on year through mid-2026 and fuel prices rose again for October 2026). The deterministic parts are the DEWA tariff slabs and housing fee, the VAT-inclusive Salik toll windows, and the monthly Fuel Price Committee announcements. The usual KHDA fee-increase cap is suspended for 2026-27 (full fee freeze). Always verify current figures with the official source before budgeting.",
   "inflation_context": {
     "volatility": "high",
-    "note": "Dubai CPI inflation hit 5.5% year on year in May 2026 and peaked at about 5.7% in June, driven by the regional Strait of Hormuz disruption: transport and food led the spike. It eased to 5.3% in July, then rose back to about 5.54% in August 2026 as transport (fuel up about 31% year on year) pushed prices up again. Treat the rent and grocery ranges in this pack as extra-volatile for 2026.",
+    "note": "Dubai CPI inflation hit 5.5% year on year in May 2026 and peaked at about 5.7% in June, driven by the regional Strait of Hormuz disruption: transport and food led the spike. It eased to 5.3% in July, rose back to about 5.54% in August 2026 as transport (fuel up about 31% year on year) pushed prices up again, then eased to 5.03% in September (prices down 0.05% month on month on cheaper airfares and holiday packages, while transport was still up 14.7% year on year and food and drinks 8.05%). Treat the rent and grocery ranges in this pack as extra-volatile for 2026.",
     "dubai_cpi_yoy_pct": {
       "2026-03": 3.8,
       "2026-04": 4.8,
       "2026-05": 5.5,
       "2026-06": 5.7,
       "2026-07": 5.3,
-      "2026-08": 5.54
+      "2026-08": 5.54,
+      "2026-09": 5.03
     },
-    "cpi_source_note": "June to August 2026 figures are EnterpriseAM calculations from Dubai Data and Statistics Establishment (formerly Dubai Statistics Center) releases; the official dsc.gov.ae release page could not be fetched directly. September 2026 CPI had not been found as of 2026-10-13.",
+    "cpi_source_note": "June to August 2026 figures are EnterpriseAM calculations from Dubai Data and Statistics Establishment (formerly Dubai Statistics Center) releases; the official dsc.gov.ae release page could not be fetched directly (dsc.gov.ae now redirects to data.dubai). The September 2026 figure (5.03% year on year, down 0.05% month on month) is as reported by The National on 2026-10-13 citing the Dubai Data and Statistics Establishment; the official September release file was not located.",
     "outlook_note": "In September 2026 Emirates NBD raised its Dubai year-end 2026 inflation forecast to 5.6% (from 2.9% earlier in the summer), citing elevated oil prices.",
     "source_urls": [
       "https://www.thenationalnews.com/business/economy/2026/05/26/dubai-inflation-may-ease-but-not-because-life-is-becoming-cheaper/",
       "https://enterpriseam.com/uae/2026/08/21/dubai-inflation-slips-from-june-high-as-transport-costs-retreat/",
-      "https://enterpriseam.com/uae/2026/09/18/dubai-inflation-rises-to-5-5-as-transport-costs-force-emirates-nbd-to-lift-year-end-forecast/"
+      "https://enterpriseam.com/uae/2026/09/18/dubai-inflation-rises-to-5-5-as-transport-costs-force-emirates-nbd-to-lift-year-end-forecast/",
+      "https://www.thenationalnews.com/business/economy/2026/10/13/dubai-inflation-climbs-in-september-as-iran-war-pushes-up-fuel-cost/"
     ]
   },
   "rents": {
@@ -30,7 +32,7 @@
     "unit": "annual_aed",
     "citywide_1br_average_aed": 97000,
     "yoy_growth_note": "Asking-rent growth decelerated sharply in H1 2026: annual residential rental growth eased from about 6.2% in December 2025 to roughly 1.5% by April 2026, and prime new-let asking rents fell 10-20% year on year while renewals stayed anchored to the RERA index.",
-    "h1_2026_trend_note": "Ranges below are retained but flagged: rents softened through Q2 2026 as new supply handed over (about 13,200 homes completed in Q2, roughly 32,000 more due in H2 2026). Cushman & Wakefield reported average rents down 6% quarter on quarter in Q2 2026, with apartment rents down 14% in Downtown Dubai and 10% in Dubai Marina and Dubai Hills Estate. Property Finder June 2026 listing data put the average 1BR at about AED 60,000 in Deira. Treat the top ends as soft for new lets; no Q3 2026 citywide figure was found as of 2026-10-13.",
+    "h1_2026_trend_note": "Ranges below are retained but flagged: rents softened through Q2 2026 as new supply handed over (about 13,200 homes completed in Q2, roughly 32,000 more due in H2 2026). Cushman & Wakefield reported average rents down 6% quarter on quarter in Q2 2026, with apartment rents down 14% in Downtown Dubai and 10% in Dubai Marina and Dubai Hills Estate. Property Finder June 2026 listing data put the average 1BR at about AED 60,000 in Deira. Treat the top ends as soft for new lets. Q3 2026 (Savills report as covered by Khaleej Times on 2026-10-13, secondary): apartment rents fell year on year by 12.8% in Dubai Marina, 12.2% in Business Bay, 10.4% in JVC, 7.5% in Al Furjan and 7.3% in DIFC, and villa and townhouse rents by 15% in Arabian Ranches 3 and 13.4% in Damac Lagoons; Savills described the quarter-on-quarter moves as early signs of stabilisation without giving figures, and rental transactions rose 16% quarter on quarter to 181,900 (44% new leases). No Q3 2026 citywide average rent figure was found as of 2026-10-20.",
     "areas": {
       "Dubai Marina": {
         "studio": [55000, 75000],
@@ -67,7 +69,8 @@
       "https://dmcc.ae/blog/cost-of-living-in-dubai-for-expats",
       "https://dubailand.gov.ae",
       "https://www.khaleejtimes.com/business/dubai-home-prices-rents-decline-as-supply-rises-32000-more-units-due-this-year",
-      "https://gulfbusiness.com/en/2026/real-estate/dubai-rent-guide-15-areas-where-a-one-bedroom-still-costs-under-dhs80000/"
+      "https://gulfbusiness.com/en/2026/real-estate/dubai-rent-guide-15-areas-where-a-one-bedroom-still-costs-under-dhs80000/",
+      "https://www.khaleejtimes.com/business/rents-in-dubai-fall-over-12-dubai-marina-business-bay-and-jvc-lead"
     ]
   },
   "utilities": {
@@ -183,7 +186,7 @@
         "three_plus_zones": 8.5
       },
       "red_ticket_note": "The red paper ticket costs AED 2 and carries its own higher per-trip fares (AED 4 / 6 / 8.50), not the silver-card fares.",
-      "verified_against_rta_on": "2026-10-13",
+      "verified_against_rta_on": "2026-10-20",
       "blue_concession_card_aed": 70,
       "daily_cap_note": "No automatic AED 14 daily cap is substantiated by the current RTA fare table. E-purse journeys and purchased travel passes are distinct products.",
       "source_urls": [
@@ -242,7 +245,7 @@
       "diesel": 3.6
     },
     "trend_note": "October 2026 prices rose sharply from September: petrol up AED 0.59 to 0.60 per litre (Super 98 AED 3.80 to 4.40, Special 95 AED 3.69 to 4.28, E-Plus 91 AED 3.61 to 4.21) and diesel up AED 0.50 (AED 4.30 to 4.80). September had risen AED 0.20 (petrol) and AED 0.50 (diesel) over August. Earlier snapshots are historical.",
-    "november_2026_status": "Not yet announced as of 2026-10-13. The Fuel Price Committee normally announces on the last day of the month (expected 2026-10-31, effective 2026-11-01). October 2026 rates remain the latest published figures; do not assume November values.",
+    "november_2026_status": "Not yet announced as of 2026-10-20. The Fuel Price Committee normally announces on the last day of the month (expected 2026-10-31, effective 2026-11-01). October 2026 rates remain the latest published figures; do not assume November values.",
     "verify_at": "https://u.ae/en/information-and-services/environment-and-energy/water-and-energy/energy-and-fuel-prices",
     "source_urls": [
       "https://u.ae/en/information-and-services/environment-and-energy/water-and-energy/energy-and-fuel-prices",
@@ -319,6 +322,6 @@
       "https://insurancehub.ae/blog/health-insurance-cost-uae-2026-by-age-emirate"
     ]
   },
-  "previous_knowledge_date": "2026-09-28",
-  "last_refresh_scope": "Full review of 2026-10-13: added the October 2026 fuel snapshot (Super 98 AED 4.40, Special 95 AED 4.28, E-Plus 91 AED 4.21, diesel AED 4.80, announced 2026-09-30, cross-checked in Gulf News and Khaleej Times; WAM release not located) and made it the latest snapshot; November 2026 prices are not yet announced. Added Dubai CPI for June (5.7%), July (5.3%) and August 2026 (5.54%) and replaced the stale Emirates NBD 2.9% outlook with its September revision to 5.6%. Rewrote the rent trend note with Cushman & Wakefield Q2 2026 data (rents down 6% QoQ; Downtown down 14%, Marina down 10%), correcting the earlier 'Downtown flat, Marina resilient' claim; area ranges retained (spot-check: Deira 1BR average AED 60,000 sits inside the range). RTA nol fare table re-verified on rta.ae (silver 3/5/7.5, red ticket 4/6/8.50, 30-day passes 140/230/350, unchanged). KHDA 2026-27 fee freeze confirmed still in force. Salik rates and windows confirmed unchanged via 2026 press (salik.ae returned HTTP 403). Not re-verified against primary sources: DEWA slabs, water rate and housing fee (dewa.gov.ae returned HTTP 403; secondary sources consistent), DLD rental index figures (interactive page, not machine-readable), the official DSC CPI release (EnterpriseAM figures used), grocery ranges and staples prices, health insurance premiums and the 2026 premium-trend estimate, nol card issue prices (not shown on the RTA fare page), and British-curriculum fee bands."
+  "previous_knowledge_date": "2026-10-13",
+  "last_refresh_scope": "Targeted refresh of 2026-10-20: added Dubai CPI for September 2026 (5.03% year on year, down 0.05% month on month; transport up 14.7% and food and drinks up 8.05% year on year), as reported by The National on 2026-10-13 citing the Dubai Data and Statistics Establishment (official release file not located; dsc.gov.ae now redirects to data.dubai). Added Q3 2026 community rent data from the Savills report as covered by Khaleej Times on 2026-10-13 (secondary; apartment rents down 12.8% year on year in Dubai Marina, 12.2% in Business Bay, 10.4% in JVC; rental transactions up 16% quarter on quarter to 181,900); area ranges retained. Checked with no change: RTA nol fare table on rta.ae (silver 3/5/7.5, red ticket 4/6/8.50, 30-day passes 140/230/350); Salik rates and windows (no new gate or tariff change reported since the 1 June 2026 VAT; salik.ae still returns HTTP 403 to automated checks); no DEWA tariff announcement found. November 2026 fuel prices are not yet announced (expected 2026-10-31) and October rates remain the latest. Unverified: DEWA slabs, water rate, sewerage and housing fee (dewa.gov.ae returns HTTP 403; secondary sources describe a per-gallon Dubai Municipality sewerage fee rising in 2026, which this pack's '100% of the water charge' rule does not reflect and needs a primary-source check), DLD rental index figures, grocery and health insurance figures. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

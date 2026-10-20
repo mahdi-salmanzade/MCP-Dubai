@@ -26,8 +26,9 @@ async def gitex_info() -> dict[str, object]:
     """
     Return GITEX Global 2026 details and venue.
 
-    Confirmed 7 to 11 December 2026 at Expo City Dubai (split-venue format,
-    anchored at the Dubai Exhibition Centre).
+    Confirmed 7 to 11 December 2026 in a split-venue format: GITEX Summit on
+    7 December at Dubai World Trade Centre, expo 8 to 11 December at the
+    Dubai Exhibition Centre, Expo City Dubai.
     """
     return await tools.gitex_info()
 
@@ -38,8 +39,9 @@ async def ens_calendar() -> dict[str, object]:
     Return Expand North Star 2026 calendar.
 
     Edition 11, 8 to 10 December 2026 at Dubai Exhibition Centre.
-    Supernova 0X format with 3 venture tracks and USD 200K prize pool.
-    Applications open 1 May 2026, close 2 November 2026.
+    Supernova 0X format with 3 venture tracks and in-kind prizes per stage
+    (no cash prize pool is advertised). Applications open 1 May 2026, close
+    1 November 2026; only exhibiting startups can apply.
     """
     return await tools.ens_calendar()
 

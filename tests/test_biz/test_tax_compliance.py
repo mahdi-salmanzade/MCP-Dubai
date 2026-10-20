@@ -260,6 +260,7 @@ class TestEInvoicing:
         government = deadlines["government_entities"]
         assert isinstance(government, dict)
         assert government["go_live"] == "2027-10-01"
+        assert government["appoint_asp_by"] == "2027-03-31"
 
     @pytest.mark.asyncio
     async def test_surfaces_asp_register_and_technical_docs(self) -> None:
@@ -269,9 +270,9 @@ class TestEInvoicing:
         register = data["asp_register"]
         assert isinstance(register, dict)
         assert register["pre_approved_provider_count"] is None
-        assert register["accredited_provider_count"] == 65
-        assert register["under_final_assessment_count"] == 5
-        assert register["as_of"] == "2026-10-13"
+        assert register["accredited_provider_count"] == 69
+        assert register["under_final_assessment_count"] == 3
+        assert register["as_of"] == "2026-10-20"
         assert register["register_url"] == (
             "https://mof.gov.ae/en/about-us/initiatives/einvoicing/"
             "einvoicing-accredited-service-providers-asps/"
@@ -282,6 +283,18 @@ class TestEInvoicing:
         assert "V-1.1" in docs["guidelines"]
         assert "V-1.0" in docs["mandatory_fields"]
         assert "PINT AE" in docs["format"]
+
+    @pytest.mark.asyncio
+    async def test_surfaces_md_197_amendments_and_penalty_caveat(self) -> None:
+        result = await tools.einvoicing_timeline()
+        data = result["data"]
+        assert isinstance(data, dict)
+        assert "Ministerial Decision 197 of 2026" in data["legislation"]
+        amendments = data["amendments_2026"]
+        assert isinstance(amendments, dict)
+        assert amendments["effective_from"] == "2026-10-01"
+        assert any("tax group" in c for c in amendments["changes"])
+        assert "173 of 2026" in str(data["penalties_law_note"])
 
 
 class TestLatePaymentPenalty:
@@ -343,9 +356,9 @@ class TestKnowledge:
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
         assert knowledge["volatility"] == "high"
-        assert knowledge["knowledge_date"] == "2026-10-13"
-        assert knowledge["previous_knowledge_date"] == "2026-09-28"
-        assert "Ministerial Decision 168 of 2026" in knowledge["last_refresh_scope"]
+        assert knowledge["knowledge_date"] == "2026-10-20"
+        assert knowledge["previous_knowledge_date"] == "2026-10-13"
+        assert "Ministerial Decision 197 of 2026" in knowledge["last_refresh_scope"]
 
     def test_registers_with_knowledge_registry(self) -> None:
         import importlib
@@ -368,7 +381,7 @@ class TestCuratedPackAugust2026:
 
     def test_knowledge_date_bumped(self) -> None:
         data = self._data()
-        assert data["knowledge_date"] == "2026-10-13"
+        assert data["knowledge_date"] == "2026-10-20"
 
     def test_tax_procedures_fdl_17_2025(self) -> None:
         data = self._data()
@@ -436,6 +449,19 @@ class TestCuratedPackAugust2026:
         prices = minimums["minimum_excise_prices"]
         assert isinstance(prices, list)
         assert [p["minimum_excise_price_aed"] for p in prices] == [0.4, 0.1, 1]
+
+    def test_excise_goods_match_cabinet_decision_197_of_2025(self) -> None:
+        data = self._data()
+        excise = data["excise"]
+        assert isinstance(excise, dict)
+        assert excise["categories"] == [
+            "Tobacco and tobacco products",
+            "Liquids used in electronic smoking devices and tools",
+            "Electronic smoking devices and tools",
+            "Energy drinks",
+            "Sweetened drinks",
+        ]
+        assert "197 of 2025" in excise["categories_law"]
 
     def test_corporate_tax_2026_additions(self) -> None:
         data = self._data()

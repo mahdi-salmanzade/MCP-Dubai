@@ -1,6 +1,6 @@
 {
   "domain": "dcde",
-  "knowledge_date": "2026-10-13",
+  "knowledge_date": "2026-10-20",
   "full_review_date": "2026-10-13",
   "volatility": "medium",
   "verify_at": "https://www.dubaichamberdigital.com",
@@ -191,25 +191,61 @@
       "prize_per_category_aed": 550000,
       "prize_per_category_usd": 150000,
       "ai_agent_of_the_year_aed": 1000000,
-      "prize_pool_note": "Dubai Media Office cites a pool exceeding AED 2.5 million: AED 550,000 for each of four category winners, plus AED 1 million and the Dubai AI Agent of the Year title for one of them. The official FAQ states USD 750,000 in total grants, USD 150,000 per category winner, and additional funding for the AI Agent of the Year.",
+      "prize_pool_note": "Unresolved as of 2026-10-20. Dubai Media Office and the DCDE launch release cite a pool exceeding AED 2.5 million: AED 550,000 for each of four category winners, plus AED 1 million and the Dubai AI Agent of the Year title for one of them. The official championship FAQ states USD 750,000 in total grants, USD 150,000 per category winner, and unspecified additional funding for the AI Agent of the Year. No official source reconciles the two.",
       "eligibility_summary": "Open worldwide to individuals and teams (up to 6 members), technical or non-technical, no minimum age; free to enter; ideas, prototypes and early MVPs accepted; submissions in English. Entrants submit an AI-agent prototype, pitch deck and demo video.",
       "registration_status": "open",
       "registration_opened": "2026-10-07",
-      "registration_close_note": "Dubai Media Office and the official FAQ say registration closes in December 2026; the official page timeline says January 2027. Confirm the deadline on the official page before relying on either.",
+      "registration_close_note": "The official championship page (timeline and FAQ, rechecked 2026-10-20) now consistently says registration closes in January 2027; on 2026-10-13 its FAQ still said December 2026. The 7 October launch releases from Dubai Media Office and DCDE still say December 2026. Treat January 2027 as the organiser's current position, but register early because no exact day is published.",
       "indicative_timeline": {
         "submission": "2027-01",
         "semi_final_pitch_day": "2027-03",
         "finalists_announced": "2027-03",
         "grand_final": "first week of May 2027",
-        "semi_finalists_announced": "2027-01 per the official timeline (24 teams); the FAQ says February 2027"
+        "semi_finalists_announced": "2027-01 (24 teams), per both the official timeline and FAQ",
+        "registration_close": "2027-01"
       },
       "url": "https://www.dubaichamberdigital.com/en/create-ai-agents",
       "source_urls": [
         "https://mediaoffice.ae/en/news/2026/october/07-10/hamdan-bin-mohammed-launches-create-ai-agents-championship",
-        "https://www.dubaichamberdigital.com/en/create-ai-agents"
+        "https://www.dubaichamberdigital.com/en/create-ai-agents",
+        "https://www.dubaichamberdigital.com/en/e/dcde_news_detailed_page/29577/6375737",
+        "https://www.dubaichamberdigital.com/en/e/dcde_news_detailed_page/29577/6652658"
       ],
-      "verified_as_of": "2026-10-13",
-      "prize_pool_usd_total": 750000
+      "verified_as_of": "2026-10-20",
+      "prize_pool_usd_total": 750000,
+      "registration_close_official_page": "2027-01",
+      "submission_status": "Registration is open; the official page says registrants will be notified when submissions open.",
+      "participant_perks": {
+        "lovable_platform_credits": "Under a DCDE MoU signed on 19 October 2026, Lovable will provide platform credits, funded by Dubai Chambers, to Create AI Agents Championship participants. Amounts and how to claim them were not published.",
+        "source_urls": [
+          "https://www.dubaichamberdigital.com/en/e/dcde_news_detailed_page/29577/6652658"
+        ]
+      }
+    },
+    {
+      "id": "agentic_ai_private_sector_programme",
+      "name": "Agentic AI training for the private sector (Dubai Chambers Academy)",
+      "operator": "Dubai Chambers (overseeing implementation) with DCDE",
+      "type": "skills_and_adoption",
+      "launched_on": "2026-09-01",
+      "description": "Specialised Agentic AI training tracks on the new Dubai Chambers Academy e-learning platform for more than 14,000 member companies of the Business Groups and Business Councils under Dubai Chamber of Commerce. Part of the programme to transition Dubai's private sector towards Agentic AI, launched under the directives of Sheikh Hamdan bin Mohammed.",
+      "partners_2026_10_19": [
+        {
+          "name": "Nebius Academy",
+          "scope": "AI leadership and Agentic AI training programmes through Dubai Chambers Academy, including training content, certifications, technical workshops and expert-led sessions for executives, technical teams and employees of Dubai Chamber of Commerce member companies."
+        },
+        {
+          "name": "Lovable",
+          "scope": "Entrepreneurship and skills programmes, platform access and educational resources for Dubai-based companies and founders, joint events and workshops, and platform credits funded by Dubai Chambers for Create AI Agents Championship participants."
+        }
+      ],
+      "eligibility_note": "Aimed at Dubai Chamber of Commerce member companies in its Business Groups and Business Councils; no cost or formal eligibility rules were published.",
+      "source_urls": [
+        "https://www.dubaichamberdigital.com/en/e/dcde_news_detailed_page/29577/6652658",
+        "https://mediaoffice.ae/en/news/2026/september/01-09/dubai-chambers-launches-agentic-ai-training-for-14000-member-companies",
+        "https://www.wam.ae/en/article/c210gjb-dubai-chambers-trains-over-14000-companies"
+      ],
+      "verified_as_of": "2026-10-20"
     },
     {
       "id": "canva_partnership",
@@ -313,6 +349,6 @@
       "https://mediaoffice.ae/en/news/2026/january/22-01/dubai-chamber-of-digital-economy-digital-startups"
     ]
   },
-  "previous_knowledge_date": "2026-09-28",
-  "last_refresh_scope": "Full review of 2026-10-13: every programme, URL and figure rechecked against dubaichamberdigital.com, dubaichambers.com, createapps.ae and Dubai Media Office. Changed today: Create Apps Championship Cycle 3 marked concluded (finals 7 October 2026, winners added) and successor Create AI Agents Championship added (official FAQ total USD 750,000 now recorded; registration close still conflicting, December 2026 vs January 2027); Antler residency re-sourced to the 10 February 2026 Dubai Media Office release (operator DET + DCDE via Dubai Founders HQ, apply URL added); Unicorn 30 sourced to the 19 October 2025 approval; Dubai Founders HQ launch date 6 October 2025 added; Saeed Al Gergawi's title per official releases is Vice President; chamber phone numbers rechecked; Knowledge Hub now lists 25 items (was recorded as 8); impact_2025 figures confirmed; Chamber of Commerce fee endpoints AED 50 to AED 2,200 confirmed. Unchanged and confirmed: FRWRDx (2025 cohort only), Canva offer, Oraseya session, Business Matching. Not verified: DCDE contact email (obfuscated), 'established 2021' wording, the 52-page AI Playbook length, the USD 150,000 per-category prize for Cycle 3 specifically, and dubaifoundershq.com content (HTTP 403 to automated checks)."
+  "previous_knowledge_date": "2026-10-13",
+  "last_refresh_scope": "Targeted refresh of 2026-10-20: added the agentic_ai_private_sector_programme record (Dubai Chambers Academy Agentic AI training for 14,000+ member companies, launched 1 September 2026 per Dubai Media Office and WAM, plus the 19 October 2026 DCDE MoUs with Nebius Academy and Lovable from the DCDE newsroom). Create AI Agents Championship: the official FAQ now agrees with the timeline that registration closes and semi-finalists are announced in January 2027 (it said December 2026 and February 2027 respectively at the last review); the 7 October launch releases still say December 2026, so both are kept. The prize total remains unresolved (official FAQ USD 750,000 versus over AED 2.5 million in the releases). Lovable platform credits for participants added. Checked with no change: no DCDE newsroom item since 7 October other than the 19 October MoUs; Create Apps Cycle 3 record; programme URLs respond, except dubaifoundershq.com (HTTP 403 to automated checks, labelled, not removed). Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

@@ -44,6 +44,11 @@ class TestFreeZoneDetails:
         assert isinstance(restrictions, list)
         assert any("DFSA" in r for r in restrictions)
         assert any("crypto" in r.lower() for r in restrictions)
+        license_ = data["license"]
+        assert isinstance(license_, dict)
+        assert license_["renewal_usd"] == 12000
+        assert "DIFC-CS-GL-12 Rev.06" in str(license_["subsidy_notes"])
+        assert data["visas"]["max"] == 4  # type: ignore[index]
 
     @pytest.mark.asyncio
     async def test_unknown_id_returns_error(self) -> None:
@@ -196,10 +201,10 @@ class TestKnowledgeMetadata:
         result = await tools.list_free_zones()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-10-13"
+        assert knowledge["knowledge_date"] == "2026-10-20"
         assert knowledge["full_review_date"] == "2026-10-13"
-        assert knowledge["previous_knowledge_date"] == "2026-09-28"
-        assert "Full review of 2026-10-13" in knowledge["last_refresh_scope"]
+        assert knowledge["previous_knowledge_date"] == "2026-10-13"
+        assert "Targeted refresh of 2026-10-20" in knowledge["last_refresh_scope"]
         assert knowledge["volatility"] == "high"
 
 

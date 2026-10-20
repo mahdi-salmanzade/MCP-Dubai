@@ -1,6 +1,6 @@
 {
   "domain": "funding",
-  "knowledge_date": "2026-09-28",
+  "knowledge_date": "2026-10-20",
   "full_review_date": "2026-08-14",
   "volatility": "high",
   "verify_at": "https://www.hub71.com/program/access-programme/apply",
@@ -93,7 +93,7 @@
         "application_deadline": "2027-02",
         "application_deadline_precision": "month",
         "application_deadline_status": "open",
-        "status_as_of": "2026-09-28",
+        "status_as_of": "2026-10-20",
         "programme_starts": "2027-09",
         "application_review_by": "2027-04",
         "programme_duration_months": 12,
@@ -102,7 +102,7 @@
       },
       "relocation_requirement": "At least one founder is expected to relocate long-term and build a team in Abu Dhabi.",
       "equity_terms_note": "The official programme pages state that cash is provided through a SAFE in exchange for equity but do not publish a universal valuation cap, discount, or equity percentage.",
-      "verified_as_of": "2026-09-28",
+      "verified_as_of": "2026-10-20",
       "source_urls": [
         "https://www.hub71.com/program/access-programme/apply",
         "https://www.hub71.com/program/access-programme",
@@ -145,14 +145,16 @@
         "licence_period_years": "2 to 5",
         "registration_fee_usd": 100,
         "flexi_desk_usd_per_month_excluding_vat": 500,
-        "note": "An Innovation Licence does not authorize regulated financial services; separate DFSA authorization is required where applicable."
+        "note": "An Innovation Licence does not authorize regulated financial services; separate DFSA authorization is required where applicable.",
+        "subsidy_schedule_note": "Added 2026-10-20 from DIFC's Private Company, Non-Financial and Retail Handbook (DIFC-CS-GL-12 Rev.06, approved 29 September 2026) and setup guide: the USD 1,500 fee is discounted for the first 2 years for all entities and in years 3 to 7 only for entities with 10 or fewer employees (USD 1,500 to year 5, USD 4,000 in year 6, USD 8,000 in year 7); the normal USD 12,000 fee applies from year 3 above 10 employees and to all entities from year 8. The web page's '2 to 5 years' matches the full USD 1,500 rate."
       },
       "programme_status_note": "The current Innovation Hub page lists partner-specific programmes. No current general DIFC FinTech Hive cohort was verified.",
       "verified_as_of": "2026-08-14",
       "source_urls": [
         "https://www.difc.com/ecosystem/innovation-hub",
         "https://www.difc.com/business/establish-a-business/innovation-licence",
-        "https://assets.difc.com/v1/media/edge/images/dubaiintern0078-difcexperie96c5-production-3253/media/project/difcexperiences/difc/difcwebsite/documents/business-section-documents/documents-for-spaces-and-offices/difc-innovation-licence-setup-guide.pdf"
+        "https://assets.difc.com/v1/media/edge/images/dubaiintern0078-difcexperie96c5-production-3253/media/project/difcexperiences/difc/difcwebsite/documents/business-section-documents/documents-for-spaces-and-offices/difc-innovation-licence-setup-guide.pdf",
+        "https://assets.difc.com/v1/media/edge/images/dubaiintern0078-difcexperie96c5-production-3253/media/project/difcexperiences/difc/difcwebsite/documents/business-section-documents/starting-a-business/starting-a-business---hanbook-fees/non-financial-and-retail-checklist/private-company-non-financial-and-retail-handbook.pdf"
       ]
     },
     {
@@ -237,12 +239,12 @@
       "application_url": "https://www.asc.sheraa.ae/s3-program",
       "current_status": {
         "status": "closed_or_next_cycle_unannounced",
-        "status_as_of": "2026-09-28",
+        "status_as_of": "2026-10-20",
         "latest_verified_application_deadline": "2025-09-07",
         "latest_verified_programme_period": "2025-10 to 2026-02",
-        "note": "The official page explicitly describes S3 as neither an incubator nor an accelerator. The programme page moved from startups.sheraa.ae (now 404) to asc.sheraa.ae and on 28 September 2026 still showed only the 2025 cycle (applications 7 July to 7 September 2025, programme October 2025 to February 2026). No later public application cycle was verified."
+        "note": "The official page explicitly describes S3 as neither an incubator nor an accelerator. The programme page moved from startups.sheraa.ae (now 404) to asc.sheraa.ae and on 20 October 2026 still showed only the 2025 cycle (applications 7 July to 7 September 2025, programme October 2025 to February 2026). No later public application cycle was verified."
       },
-      "verified_as_of": "2026-09-28",
+      "verified_as_of": "2026-10-20",
       "source_urls": [
         "https://www.asc.sheraa.ae/s3-program"
       ]
@@ -617,7 +619,7 @@
           "participation_fee": false,
           "takes_equity": false,
           "eligibility_summary": "Market-stage or later innovators with a UAE presence or an intention to establish one; programme selection criteria apply.",
-          "application_status": "The official site has a live Apply call to action but publishes no dated cohort deadline.",
+          "application_status": "The official site's Apply link (checked 2026-10-20) points to a Cohort 13 application form on MBRIF's accelerator platform, but no dated cohort deadline is published.",
           "summary": "Members receive coaching, expertise, partner and investor connections; neither the Accelerator nor MBRIF provides members direct funding."
         },
         "guarantee_scheme": {
@@ -638,17 +640,19 @@
         "space"
       ],
       "latest_cohort_snapshot": {
-        "cohort": 11,
-        "members": 21,
-        "announcement_date": "2026-01-22"
+        "cohort": 12,
+        "members": 17,
+        "announcement_date": "2026-07-31",
+        "note": "MBRIF press release distributed via Zawya (published 31 July 2026) and reported by WAM: 17 UAE and international companies in AI, healthtech, sustainability, water, education, advanced manufacturing, accessibility and digital infrastructure, following 11 completed cohorts. The previous snapshot was Cohort 11 (21 members, announced 22 January 2026)."
       },
       "url": "https://mbrif.ae/",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-10-20",
       "source_urls": [
         "https://mbrif.ae/faq-2/",
         "https://mbrif.ae/program-selection-2/",
         "https://mbrif.ae/accelerator-2/",
-        "https://mbrif.ae/mbrif-welcomes-11th-cohort-of-innovators-into-the-innovation-accelerator-program/"
+        "https://mbrif.ae/mbrif-welcomes-11th-cohort-of-innovators-into-the-innovation-accelerator-program/",
+        "https://www.zawya.com/en/press-release/government-news/mohammed-bin-rashid-innovation-fund-welcomes-cohort-12-into-the-innovation-accelerator-program-416556"
       ]
     },
     {
@@ -734,7 +738,18 @@
       "type": "interest_free_business_loans_and_nonfinancial_support",
       "location": "Abu Dhabi emirate",
       "funding_type": "Medium-term interest-free business loans",
-      "funding_eligibility_summary": "Emirati entrepreneurs aged 21 to 60 with an operational business in Abu Dhabi emirate; product-specific criteria and final approval apply.",
+      "funding_eligibility_summary": "Businesses 100% owned by UAE nationals, legally established and operating in Abu Dhabi emirate, within the applicable micro, small or medium size classification, with an owner or partner aged 18 to 65 and no open court cases; business-age, sector, credit and compliance criteria vary by programme (redesigned funding page, checked 2026-10-20). The FAQ page still states an owner age of 21 to 60, so confirm with Khalifa Fund.",
+      "current_programmes": [
+        "First-time Founders Loan",
+        "AI & Robotics Loan",
+        "Revolving Loan",
+        "Small Loan",
+        "Working Capital Loan",
+        "Fixed Assets Loan",
+        "Expansion Loan"
+      ],
+      "current_programmes_as_of": "2026-10-20",
+      "interest_terms_note": "Neither the redesigned funding page nor the FAQ checked on 2026-10-20 states interest or profit terms; the interest-free description is kept from the 2026-08-14 review and should be confirmed before applying.",
       "priority_sectors": [
         "healthcare",
         "education",
@@ -751,16 +766,16 @@
         "small_loan_other_sectors_aed_max": 1000000,
         "expansion_loan_manufacturing_aed_max": 3000000,
         "expansion_loan_other_sectors_aed_max": 2000000,
-        "note": "Agriculture and scale-up facilities are also listed. Limits, cost-coverage ratios, repayment periods, and eligibility vary by product."
+        "note": "Agriculture and scale-up facilities are also listed. Limits, cost-coverage ratios, repayment periods, and eligibility vary by product. On 2026-10-20 these limits appeared only on the FAQ page, which still lists this earlier product set; the redesigned funding-scheme page lists seven programmes (see current_programmes) without published limits."
       },
       "url": "https://www.khalifafund.ae/services/funding-scheme/",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-10-20",
       "source_urls": [
         "https://www.khalifafund.ae/services/funding-scheme/",
         "https://www.khalifafund.ae/faq/"
       ]
     }
   ],
-  "previous_knowledge_date": "2026-09-05",
-  "last_refresh_scope": "Targeted refresh of 2026-09-28: rechecked Hub71 Cohort 21 (February 2027 deadline, September 2027 start) as unchanged; moved the Sheraa S3 URL to its new asc.sheraa.ae page, which still shows only the 2025 cycle; replaced the Bedayat application URL after the SEE Institute redesign removed the old programme and application pages. Rechecked in5, DIFC Innovation Hub and Dubai Future Accelerators pages with no dated cohort or deadline found. The Hi2 page and Dubai Future Foundation AREA 2071 page block automated retrieval, so the Hi2 October 2026 start and AREA 2071 terms were not re-verified. Other funding records retain their 14 August review dates. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-09-28",
+  "last_refresh_scope": "Targeted refresh of 2026-10-20: checked every programme and fund for closures, renames and new rounds since 2026-09-28 and rechecked all URLs. Changed: MBRIF latest cohort moved from Cohort 11 to Cohort 12 (17 members, MBRIF release on Zawya dated 31 July 2026, missed by earlier refreshes) and its Apply link now opens a Cohort 13 form with no published deadline; Khalifa Fund's funding page was redesigned into seven programmes (First-time Founders, AI & Robotics, Revolving, Small, Working Capital, Fixed Assets and Expansion loans) with owner age 18 to 65 and no published limits, while its FAQ still shows the earlier product limits and age 21 to 60, so both are recorded; DIFC Innovation Hub gains the official subsidy schedule from DIFC's handbook Rev.06 (approved 29 September 2026). Rechecked with no change: Hub71 Cohort 21 (February 2027 deadline, review by April 2027, September 2027 start, AED 250,000 incentives plus AED 250,000 SAFE), Sheraa S3 (still only the 2025 cycle), in5 subsidised prices, Dtec year-one desk and office prices, Dubai Future Accelerators (no dated challenge), Bedayat (SEE Institute page still has no cohort or deadline), and the VC records (no new fund close, closure or rename found for BECO, Wamda, MEVP, Shorooq, Global Ventures, COTU, 500 Global, Mubadala Capital Ventures, VentureSouq, Nuwa or RAED). The DFDF portfolio page renders client-side and its count was not re-taken; no DFDF commitment after August 2026 was found. Dubai Founders HQ, the Hi2 page, dubaidet.gov.ae and dubai.ae return HTTP 403 to automated checks (blocked, not dead), so the Hi2 October 2026 start was not re-verified. Other records retain their 14 August review dates. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

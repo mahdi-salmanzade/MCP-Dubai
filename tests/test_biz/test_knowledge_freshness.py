@@ -110,12 +110,13 @@ def test_freshness_script_covers_all_domains_and_preserves_full_review_age() -> 
 
     rows = {str(row["pack"]): row for row in audit_rows}
     tax = rows["tax_compliance.json"]
-    assert tax["targeted_refresh"] is True
+    assert tax["targeted_refresh"] is False
     # A scope written by a same-day full review is not reported as targeted.
-    assert rows["visas.json"]["full_review_date"] == rows["visas.json"]["knowledge_date"]
-    assert rows["visas.json"]["targeted_refresh"] is False
-    assert tax["full_review_date"] == "2026-07-25"
-    assert tax["previous_knowledge_date"] == "2026-09-28"
+    same_day = rows["ip_trademark.json"]
+    assert same_day["full_review_date"] == same_day["knowledge_date"]
+    assert same_day["targeted_refresh"] is False
+    assert tax["full_review_date"] == "2026-10-20"
+    assert tax["previous_knowledge_date"] == "2026-10-13"
     assert "DMTT" in str(tax["last_refresh_scope"])
 
     # A targeted update does not mask an old full-pack review.

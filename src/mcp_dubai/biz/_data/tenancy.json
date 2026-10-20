@@ -1,6 +1,6 @@
 {
   "domain": "tenancy",
-  "knowledge_date": "2026-10-13",
+  "knowledge_date": "2026-10-20",
   "full_review_date": "2026-07-02",
   "volatility": "medium",
   "verify_at": "https://dubailand.gov.ae/en/eservices/register-renew-ejari-contract/",
@@ -191,12 +191,12 @@
     "tokenization": "Real estate tokenization Phase 2 live since 2026-02-20, with a regulated (VARA-supervised) secondary market on PRYPCO Mint.",
     "smart_rental_index": "Smart Rental Index benchmarks refreshed for 2026; building star ratings and the 90-day notice rule continue to apply.",
     "source_urls": [
-      "https://mediaoffice.ae/en/news/2026/jun/08-06/dubai-first-time-home-buyer-program",
+      "https://mediaoffice.ae/en/news/2026/june/08-06/dubai-first-time-home-buyer-program",
       "https://dubailand.gov.ae/en/eservices/first-time-home-buyer-overview/",
       "https://dubailand.gov.ae/en/eservices/real-estate-tokenization/",
       "https://dubailand.gov.ae/en/eservices/rental-index/rental-index/"
     ]
   },
-  "previous_knowledge_date": "2026-09-28",
-  "last_refresh_scope": "Targeted refresh of 2026-10-13: recorded Dubai Municipality's 7 October 2026 Planning and Building Requirements Guide implementing shared-housing Law 4 of 2026 (5 sqm per person, individual or family categories, 44+ permitted areas, Build in Dubai permits, compliance by 8 September 2027) and replaced the outdated note that no implementing rules existed; confirmed the reported Rent Now, Pay Later service still has no official DLD launch. No October 2026 Ejari fee or Rental Index change was found. RERA rent-increase bands, RDC fees and DLD initiative counts were not re-verified. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-10-13",
+  "last_refresh_scope": "Targeted refresh of 2026-10-20: fixed the Dubai Media Office First-Time Home Buyer source link (the '/2026/jun/' path redirected to the site's 404 page; the '/2026/june/' path serves the 8 June 2026 release, which confirms 22 participating developers). Checked with no change: Ejari fees on the DLD service page (AED 177.75 via Dubai REST, AED 220 at trustee centres, 25-minute centre target); the DLD FlexiRent page (updated 14 October 2026; same terms and 12 partner logos, still no official 'Rent Now, Pay Later' launch); no new Smart Rental Index, RERA band or Ejari fee announcement and no further shared-housing Law 4 of 2026 implementing rules or permit fees since the 7 October Dubai Municipality guide; the dlp.dubai.gov.ae Law 4 HTML and PDF links respond. Not re-verified: RERA rent-increase bands, RDC fees and the press-reported shared-housing rental index (no DLD launch date or methodology found). Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

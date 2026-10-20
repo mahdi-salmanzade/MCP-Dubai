@@ -1,6 +1,6 @@
 {
   "domain": "createapps",
-  "knowledge_date": "2026-10-13",
+  "knowledge_date": "2026-10-20",
   "full_review_date": "2026-07-25",
   "volatility": "medium",
   "verify_at": "https://createapps.ae",
@@ -162,23 +162,36 @@
       "prize_per_category_aed": 550000,
       "prize_per_category_usd": 150000,
       "ai_agent_of_the_year_aed": 1000000,
-      "prize_pool_note": "Dubai Media Office cites a pool exceeding AED 2.5 million: AED 550,000 for each of four category winners, plus AED 1 million and the AI Agent of the Year title for one of them. The official page states USD 150,000 per category and does not state the extra amount.",
+      "prize_pool_note": "Unresolved as of 2026-10-20. Dubai Media Office and the DCDE launch release cite a pool exceeding AED 2.5 million: AED 550,000 for each of four category winners, plus AED 1 million and the Dubai AI Agent of the Year title for one of them. The official championship FAQ states USD 750,000 in total grants, USD 150,000 per category winner, and unspecified additional funding for the AI Agent of the Year. No official source reconciles the two.",
       "eligibility_summary": "Open worldwide to individuals and teams (up to 6 members), technical or non-technical, no minimum age; free to enter; ideas, prototypes and early MVPs accepted; submissions in English. Entrants submit an AI-agent prototype, pitch deck and demo video.",
       "registration_status": "open",
       "registration_opened": "2026-10-07",
-      "registration_close_note": "Dubai Media Office and the official FAQ say registration closes in December 2026; the official page timeline says January 2027. Confirm the deadline on the official page before relying on either.",
+      "registration_close_note": "The official championship page (timeline and FAQ, rechecked 2026-10-20) now consistently says registration closes in January 2027; on 2026-10-13 its FAQ still said December 2026. The 7 October launch releases from Dubai Media Office and DCDE still say December 2026. Treat January 2027 as the organiser's current position, but register early because no exact day is published.",
       "indicative_timeline": {
         "submission": "2027-01",
         "semi_final_pitch_day": "2027-03",
         "finalists_announced": "2027-03",
-        "grand_final": "first week of May 2027"
+        "grand_final": "first week of May 2027",
+        "registration_close": "2027-01",
+        "semi_finalists_announced": "2027-01 (24 teams), per both the official timeline and FAQ"
       },
       "url": "https://www.dubaichamberdigital.com/en/create-ai-agents",
       "source_urls": [
         "https://mediaoffice.ae/en/news/2026/october/07-10/hamdan-bin-mohammed-launches-create-ai-agents-championship",
-        "https://www.dubaichamberdigital.com/en/create-ai-agents"
+        "https://www.dubaichamberdigital.com/en/create-ai-agents",
+        "https://www.dubaichamberdigital.com/en/e/dcde_news_detailed_page/29577/6375737",
+        "https://www.dubaichamberdigital.com/en/e/dcde_news_detailed_page/29577/6652658"
       ],
-      "verified_as_of": "2026-10-13"
+      "verified_as_of": "2026-10-20",
+      "registration_close_official_page": "2027-01",
+      "submission_status": "Registration is open; the official page says registrants will be notified when submissions open.",
+      "participant_perks": {
+        "lovable_platform_credits": "Under a DCDE MoU signed on 19 October 2026, Lovable will provide platform credits, funded by Dubai Chambers, to Create AI Agents Championship participants. Amounts and how to claim them were not published.",
+        "source_urls": [
+          "https://www.dubaichamberdigital.com/en/e/dcde_news_detailed_page/29577/6652658"
+        ]
+      },
+      "prize_pool_usd_total": 750000
     },
     {
       "id": "emirati_training_academy",
@@ -253,6 +266,6 @@
     "sitemap": "https://createapps.ae/sitemap.xml",
     "notes": "Liferay-style sitemap with 13 per-layout sub-sitemaps. No public REST API or RSS feed."
   },
-  "previous_knowledge_date": "2026-09-28",
-  "last_refresh_scope": "Targeted refresh of 2026-10-13: recorded that Create Apps Championship Cycle 3 concluded with the 7 October 2026 finals and added the four category winners, Dubai App of the Year and entry totals from the Dubai Media Office release; added the successor Create AI Agents Championship launched the same day (categories, prizes, eligibility, registration window with the December 2026 versus January 2027 inconsistency flagged); rewrote the submission tip accordingly. Emirati Training Academy and Learning Lab were not re-verified. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-10-13",
+  "last_refresh_scope": "Targeted refresh of 2026-10-20: Create AI Agents Championship rechecked against the official DCDE page and DCDE news. The official page is now internally consistent on dates: its FAQ, which said December 2026 on 2026-10-13, now matches the timeline (registration closes and semi-finalists are announced in January 2027); the 7 October Dubai Media Office and DCDE launch releases still say December 2026, so the note keeps both and treats January 2027 as the organiser's current position. The prize disagreement is not resolved (official FAQ: USD 750,000 total, now recorded as prize_pool_usd_total; releases: over AED 2.5 million with AED 1 million for AI Agent of the Year). Added the 19 October 2026 DCDE MoU under which Lovable provides Dubai Chambers-funded platform credits to championship participants. Checked with no change: Cycle 3 results and categories, createapps.ae and registration URLs (live). Emirati Training Academy, Learning Lab and the accelerator were not re-verified. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

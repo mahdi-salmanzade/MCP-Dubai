@@ -1,6 +1,6 @@
 {
   "domain": "banking",
-  "knowledge_date": "2026-09-28",
+  "knowledge_date": "2026-10-20",
   "full_review_date": "2026-07-02",
   "volatility": "medium",
   "verify_at": "https://www.centralbank.ae",
@@ -144,7 +144,20 @@
     "note": "The UAE Capital Market Authority (CMA) replaces the Securities and Commodities Authority (SCA) effective 2026-01-01 under Federal Decree-Law No. 32 of 2025 (CMA Law) and Federal Decree-Law No. 33 of 2025 (Capital Market Law). The CMA succeeds to all SCA rights, obligations and contracts; regulated entities have until 2027-01-01 to regularise (extendable by the CMA Board). Banking supervision remains with the CBUAE; DIFC/ADGM-only activities remain out of CMA scope.",
     "source_urls": [
       "https://www.clearygottlieb.com/news-and-insights/publication-listing/uae-capital-markets-overhaul-2026-new-regulatory-framework-for-the-capital-market-authority"
-    ]
+    ],
+    "sme_customer_protection": {
+      "name": "CBUAE Small to Medium Sized Enterprises (SME) Customer Protection Regulation",
+      "reference": "C 2/2026",
+      "effective_from": "2026-09-13",
+      "replaces": "SME Market Conduct Regulation (Circular No. 1/2021)",
+      "applies_to": "Banks and finance companies licensed by the CBUAE, conventional and Islamic, when serving SME customers.",
+      "account_opening_rule": "Where the bank assesses the applicant as low money-laundering and terrorist-financing risk and is satisfied with standard due diligence documents, the account must be opened within 3 business days, counted from the day the request and all required documents are submitted. The deadline is waived where financial-crime compliance requires it. If an accepted application is delayed for other valid reasons, the bank must explain and document the delay, may open the account with transaction limits, and the delay must not exceed 2 weeks. Rejection reasons must be given in writing unless they relate to financial-crime risk or disclosure is prohibited. Funds received during onboarding stay blocked until account-opening requirements are met.",
+      "founder_note": "The 3-business-day rule is an obligation on the bank for low-risk, fully documented applicants, not a guarantee for every founder; it does not override AML, sanctions or risk-appetite decisions.",
+      "verified_as_of": "2026-10-20",
+      "source_urls": [
+        "https://rulebook.centralbank.ae/en/rulebook/small-medium-sized-enterprises-sme-customer-protection-regulation"
+      ]
+    }
   },
   "banks": [
     {
@@ -177,7 +190,7 @@
           "min_balance_aed": 0
         }
       ],
-      "pricing_verified_as_of": "2026-09-05",
+      "pricing_verified_as_of": "2026-10-20",
       "source_urls": [
         "https://wio.io/business",
         "https://www.wio.io/business-fees.pdf"
@@ -229,7 +242,7 @@
           "vat": "fall-below fee plus VAT"
         }
       ],
-      "pricing_verified_as_of": "2026-09-28",
+      "pricing_verified_as_of": "2026-10-20",
       "onboarding_note": "Mashreq advertises account opening in 1 day or AED 1,000 (promotional claim, conditions apply); the 7 to 14 day range is a legacy founder estimate.",
       "source_urls": [
         "https://www.mashreq.com/en/uae/neobiz/banking-solution/daily-banking-solutions/business-account/neo-biz/",
@@ -254,13 +267,13 @@
       "source_urls": [
         "https://www.zand.ae/en/products/digital-asset-custody",
         "https://www.zand.ae/en/news/tokinvest-and-zand-bank-partner-to-unlock-the-future-of-tokenised-investing-in-dubai",
-        "https://www.zand.ae/en/help-centre/corporate-banking-fees-and-charges",
         "https://www.zand.ae/files/Zand-Fees-&-Charges.pdf"
       ],
       "digital_asset_services_verified_as_of": "2026-09-05",
       "min_balance_note": "Zand's Corporate Banking Fees & Charges schedule sets a minimum monthly average balance of AED 250,000, with a fall-below fee of AED 500 plus VAT; no interest is paid below AED 250,000. Account opening is free.",
       "fall_below_fee_aed": 500,
-      "pricing_verified_as_of": "2026-09-28"
+      "pricing_verified_as_of": "2026-10-20",
+      "source_note": "Zand's help-centre fees page returned HTTP 404 on 2026-10-20 after a site restructure and was removed; the Fees & Charges PDF (also linked from the corporate banking FAQ) still shows the AED 250,000 minimum average balance and AED 500 plus VAT fall-below fee."
     },
     {
       "id": "ruya",
@@ -549,6 +562,6 @@
       "name": "2Checkout"
     }
   ],
-  "previous_knowledge_date": "2026-09-05",
-  "last_refresh_scope": "Targeted refresh of 2026-09-28: reconfirmed Wio Business Essential and Grow fees on wio.io; replaced legacy founder-report minimum balances with official published schedules for Mashreq NEOBiz (September 2026 Key Facts Statement: Pro AED 99 plus VAT, no minimum balance), Emirates NBD (Connect package, schedule 06/2025), RAKBANK (RAKstarter, guide effective 18 April 2026) and Zand (AED 250,000 minimum average balance per its corporate fees schedule); marked the CBUAE Law transition deadline of 16 September 2026 as passed. Not verified: ADCB (official pages blocked automated access), CBD, FAB, ADIB, international banks, onboarding times and Al Tareq live-bank list. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-09-28",
+  "last_refresh_scope": "Targeted refresh of 2026-10-20: added the CBUAE SME Customer Protection Regulation (C 2/2026, effective 13 September 2026, replacing the 2021 SME Market Conduct Regulation) to the regulators block from the CBUAE Rulebook: low-risk, fully documented SME accounts must be opened within 3 business days, other delays capped at 2 weeks, written rejection reasons except for financial-crime grounds. Removed Zand's dead help-centre fees URL (HTTP 404); the Zand Fees & Charges PDF still shows the AED 250,000 minimum average balance, AED 500 plus VAT fall-below fee and free account opening. Reconfirmed with no change: Wio Business Essential AED 99 and Grow AED 249 (3 working days advertised) and the Mashreq NEOBiz Key Facts Statement (version September 2026: Pro AED 99, Pro Plus AED 199, Lite AED 200 plus VAT, Prime AED 50,000 minimum). The CBUAE base rate is not recorded in this pack; no CBUAE rate decision after 13 October 2026 was found (the Fed meets 27 to 28 October). No Revolut UAE launch or new bank product for SMEs was found. centralbank.ae and agbi.com (Revolut source) returned HTTP 403 or 405 to automated checks (blocked, not dead). Not verified: ADCB, CBD, FAB, ADIB, international banks, Emirates NBD and RAKBANK schedules, onboarding times and the Al Tareq live-bank list. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

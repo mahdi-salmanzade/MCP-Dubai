@@ -1,11 +1,11 @@
 {
   "domain": "tax_compliance",
-  "knowledge_date": "2026-10-13",
-  "full_review_date": "2026-07-25",
+  "knowledge_date": "2026-10-20",
+  "full_review_date": "2026-10-20",
   "volatility": "high",
   "verify_at": "https://tax.gov.ae",
   "source_brief_section": "6.4",
-  "disclaimer": "UAE tax rules changed materially through 2025/2026. From 1 January 2026 the VAT Law amendments (FDL 16/2025), the Tax Procedures Law amendments (FDL 17/2025), and the sweetened drinks tiered excise all apply, and a new AML law (FDL 10/2025) has been in force since 14 October 2025. Small Business Relief now covers eligible tax periods ending through 31 December 2029 under Ministerial Decision 131 of 2026. The e-invoicing pilot went live on 1 July 2026; businesses with revenue at or above AED 50M must appoint an Accredited Service Provider by 30 October 2026 (Ministerial Resolution 66 of 2026). Ministerial Decision 168 of 2026 replaced the ASP accreditation framework from 1 October 2026. Minimum excise prices for specified tobacco and vaping products apply from 1 September 2026 under Cabinet Decision 137 of 2026. The unified late-payment penalty (Cabinet Decision 129 of 2025) took effect 14 April 2026. Always verify against the FTA and MoF portals before quoting figures. From 1 October 2026 the amended VAT Executive Regulation (Cabinet Decision 149 of 2026), FTA Decision 13 of 2026 on supplier and supply verification before input tax deduction, and FTA Decision 17 of 2026 on input tax for employee expenses all apply. FTA Decision 12 of 2026 sets Pillar Two (DMTT) registration timelines, with a 30 November 2026 deadline for fiscal years ending before 30 April 2026. The 30 September 2026 deadline for Corporate Tax returns and payment for calendar-year 2025 periods has passed; any return or payment made after it is late.",
+  "disclaimer": "UAE tax rules changed materially through 2025/2026. From 1 January 2026 the VAT Law amendments (FDL 16/2025), the Tax Procedures Law amendments (FDL 17/2025), and the sweetened drinks tiered excise (Cabinet Decision 197 of 2025) all apply, and a new AML law (FDL 10/2025) has been in force since 14 October 2025. Small Business Relief now covers eligible tax periods ending through 31 December 2029 under Ministerial Decision 131 of 2026. The unified late-payment penalty (Cabinet Decision 129 of 2025) took effect 14 April 2026. Minimum excise prices for specified tobacco and vaping products apply from 1 September 2026 under Cabinet Decision 137 of 2026. From 1 October 2026 the amended VAT Executive Regulation (Cabinet Decision 149 of 2026), FTA Decision 13 of 2026 on supply verification before input tax deduction, FTA Decision 17 of 2026 on input tax for employee expenses, Ministerial Decision 168 of 2026 on ASP accreditation and Ministerial Decision 197 of 2026 amending the e-invoicing rules all apply. The e-invoicing pilot went live on 1 July 2026; businesses with revenue at or above AED 50M must appoint an Accredited Service Provider by 30 October 2026 (Ministerial Resolution 66 of 2026; no extension had been announced as of 20 October 2026) and go live on 1 January 2027. FTA Decision 12 of 2026 sets a 30 November 2026 DMTT registration deadline for fiscal years ending before 30 April 2026, and the first Top-up Tax return for a calendar-2025 first Transition Year is due 30 June 2027 under Cabinet Decision 142 of 2024. Other upcoming dates: 31 October 2026 for retrospective exemption applications by wholly owned government subsidiaries (FTA Decision 15 of 2026) and 31 December 2026 for refund claims on credit balances older than 5 years (FDL 17/2025 transition). The 30 September 2026 deadline for Corporate Tax returns and payment for calendar-year 2025 periods has passed; any return or payment made after it is late. Always verify against the FTA and MoF portals before quoting figures.",
   "currency": "AED",
   "corporate_tax": {
     "law": "Federal Decree-Law 47 of 2022",
@@ -26,12 +26,24 @@
       "source_urls": [
         "https://mof.gov.ae/wp-content/uploads/2025/09/EN-Ministerial-Decision-No.-229-of-2025-Regarding-Qualifying-Activities-and-Excluded-Activities.pdf",
         "https://tax.gov.ae/Datafolder/Files/Guides/CT/Free%20Zone%20Persons%20-%2020%2005%202024%20final%20for%20GCD.pdf"
-      ]
+      ],
+      "compliance_procedures_2026": {
+        "law": "FTA Decision 6 of 2026",
+        "issued_on": "2026-06-02",
+        "published_on": "2026-07-14",
+        "applies_to_tax_periods_starting_on_or_after": "2026-01-01",
+        "summary": "A QFZP relying on the Qualifying Activity of distributing goods or materials in or from a Designated Zone must obtain an agreed-upon procedures report (ISRS 4400) from its external auditor or another UAE-licensed independent auditor. The report must show that customers resell or process the goods for sale, and that any goods the QFZP imports into the State enter through a Designated Zone, backed by customer licences or declarations, sales records and customs or shipping documents.",
+        "source_urls": [
+          "https://tax.gov.ae/Datafolder/Files/Legislation/2026/FTA%20Decision%20No.%206%20of%202026%20on%20Determining%20the%20Additional%20Procedures%20for%20the%20Compliance%20of%20QFZP%20-%20for%20publishing%20-%2007%202026.pdf",
+          "https://tax.gov.ae/en/legislation/corporate.tax.aspx"
+        ]
+      }
     },
     "small_business_relief": {
       "name": "Small Business Relief",
       "law": "Ministerial Decision 73 of 2023, as amended by Ministerial Decision 131 of 2026",
       "amendment": "Ministerial Decision 131 of 2026",
+      "amendment_issued_on": "2026-07-29",
       "revenue_threshold_aed": 3000000,
       "applies_to_tax_periods_commencing_on_or_after": "2023-06-01",
       "available_through_periods_ending": "2029-12-31",
@@ -43,7 +55,11 @@
     "registration": {
       "deadline_law": "FTA Decision 3 of 2024",
       "late_registration_penalty_aed": 10000,
-      "waiver_announcement": "April 2025: penalty waived if first return is filed within 7 months of the end of the tax period."
+      "waiver_announcement": "A Cabinet decision in effect from April 2025 (FTA implementation announced 7 May 2025) waives the AED 10,000 late-registration penalty, or credits it back if already paid, where the first Tax Return or annual declaration is filed within 7 months of the end of the first Tax Period or financial year instead of 9. It applies only to the first Tax Period and covers late-registration penalties from 1 June 2023. The FTA reported more than 68,600 beneficiaries by May 2026.",
+      "waiver_source_urls": [
+        "https://tax.gov.ae/en/media.centre/news/federal.tax.authority.to.waive.penalty.for.late.corporate.tax.registration.aspx",
+        "https://tax.gov.ae/en/media.centre/news/fta.expects.number.of.beneficiaries.from.corporate.tax.late.registration.penalty.waiver.initiative.to.rise.to.91000.aspx"
+      ]
     },
     "filing": {
       "deadline_months_after_period_end": 9,
@@ -66,22 +82,29 @@
         500000
       ],
       "local_master_file_threshold_aed": 200000000,
-      "mne_group_threshold_aed": 3150000000
+      "mne_group_threshold_aed": 3150000000,
+      "tp_disclosure_note": "Corporate Tax return disclosure form: the Related Parties schedule applies where the aggregate value of Related Party transactions exceeds AED 40 million, and only transaction categories above AED 4 million must be disclosed; the Connected Persons schedule applies where payments or benefits to a Connected Person exceed AED 500,000. Source: FTA Corporate Tax Returns Guide (CTGTXR1, 11 November 2024).",
+      "local_master_file_note": "Ministerial Decision 97 of 2023 requires a master file and local file where the taxable person's revenue in the tax period is AED 200 million or more, or where it is a constituent entity of an MNE group with total consolidated group revenue of AED 3.15 billion or more.",
+      "source_urls": [
+        "https://tax.gov.ae/Datafolder/Files/Guides/CT/CT-Returns-EN-11-11-2024.pdf",
+        "https://mof.gov.ae/wp-content/uploads/2023/05/Ministerial-Decision-No.-97-of-2023-for-the-Purposes-of-Federal-Decree-Law-No.-47-of-2022.pdf"
+      ]
     },
     "pillar_two_dmtt": {
       "name": "Domestic Minimum Top-up Tax",
       "rate_pct": 15,
-      "applies_to": "MNE groups with consolidated revenue at or above EUR 750 million",
+      "applies_to": "MNE groups with consolidated revenue of EUR 750 million or more in at least two of the four fiscal years immediately preceding the tested fiscal year",
       "effective_from": "2025-01-01",
       "registration_status": {
         "status": "FTA Decision 12 of 2026 (issued 16 July 2026, published 4 August 2026) sets DMTT registration timelines: register within 7 months of the end of the first in-scope fiscal year, but an entity with a fiscal year ending before 30 April 2026 must register on or before 30 November 2026. A Domestic Designated Filing Entity registers on behalf of the domestic group. Ministerial Decision 133 of 2026 separately identifies Pillar Two Information Return filers. Confirm operational filing requirements with the FTA.",
         "first_return_expected_due": "2027-06-30",
-        "first_return_note": "First top-up tax return (for FY ending 31 December 2025) is expected due 30 June 2027 under an 18-month transitional window. Not confirmed by an FTA or MoF primary source as of 2026-10-13 (the TTGREG1 guide does not state a return due date); verify with the FTA.",
+        "first_return_note": "Confirmed by primary law: Article 8.1 of the Annexure to Cabinet Decision 142 of 2024 requires the Top-up Tax Return no later than 15 months after the end of the Reporting Fiscal Year, or 18 months for the first Transition Year of any Constituent Entity of the MNE Group, and Article 11 requires payment by the return due date. For a group whose first Transition Year is calendar 2025, the return and payment are due 30 June 2027; other year ends follow the same rule.",
+        "first_return_basis": "Cabinet Decision 142 of 2024, Annexure Article 8.1 (filing) and Article 11 (payment)",
         "source_urls": [
           "https://tax.gov.ae/Datafolder/Files/Pdf/2026/legislation/FTA%20Decision%20No.%2012%20of%202026%20on%20Registration%20and%20Deregistration%20Timelines%20-%2008%202026.pdf",
           "https://tax.gov.ae/en/legislation/corporate.tax.aspx",
-          "https://mof.gov.ae/uae-domestic-minimum-top-up-tax/",
-          "https://www.deloitte.com/middle-east/en/services/tax/perspectives/uae-pillar-two-registration-updates.html",
+          "https://mof.gov.ae/en/public-finance/tax/top-up-tax/",
+          "https://mof.gov.ae/wp-content/uploads/2025/02/English-Cabinet-Decision-142-of-2024-on-Top-up-Tax-on-MNEs-1.pdf",
           "https://tax.gov.ae/en/media.centre/News/federal.tax.authority.issues.new.guide.on.scope.and.registration.for.topup.tax.on.multinational.enterprises.aspx",
           "https://tax.gov.ae/Datafolder/Files/Guides/Top-Up-Taxes/TTGREG1%20-%20Scope%20and%20Registration%20guide%20-%2008%202026.pdf"
         ],
@@ -90,7 +113,7 @@
         "registration_deadline_transitional": "2026-11-30",
         "registration_deadline_transitional_applies_to": "Entities with a fiscal year ending before 2026-04-30 (for example, calendar-year 2025)",
         "deregistration": "Apply within 6 months of ceasing to exist or of the end of the fiscal year in which the entity leaves the MNE group; entities ceasing before 30 June 2026 must apply by 31 December 2026. Out-of-scope notifications are due within 6 months of the tested fiscal year end.",
-        "guide": "FTA Top-up Tax Guide on Scope and Registration (TTGREG1), dated August 2026 on the FTA guides page and announced by the FTA on 7 October 2026. It restates the 30 November 2026 registration deadline for entities whose first in-scope fiscal year ends before 30 April 2026 and the 7-month rule for all other cases, and covers DDFE registration and the choice of Pillar Two Information Return filer. It does not state a Top-up Tax return due date."
+        "guide": "FTA Top-up Tax Guide on Scope and Registration (TTGREG1), issue date 26 August 2026 on the FTA guides page and announced by the FTA on 7 October 2026. It restates the 30 November 2026 registration deadline for entities whose first in-scope fiscal year ends before 30 April 2026 and the 7-month rule for all other cases, and covers DDFE registration and the choice of Pillar Two Information Return filer. A companion guide on Excluded Entities and Investment Entities (TTGEIE1) carries the same issue date."
       },
       "information_return": {
         "law": "Ministerial Decision 133 of 2026",
@@ -99,7 +122,19 @@
         "summary": "Requires Pillar Two Information Returns for in-scope UAE constituent entities (excluding investment entities), UAE joint ventures and JV subsidiaries, and UAE-created stateless reverse hybrids. A designated local entity may file on behalf of covered entities.",
         "foreign_filing_relief": "Local filing is relieved where a qualifying return is filed by an ultimate parent or designated filing entity in a jurisdiction with a qualifying competent authority agreement effective for the reporting year; the FTA must still be notified of the filing entity identity and location.",
         "source_urls": [
-          "https://mof.gov.ae/wp-content/uploads/2026/08/Ministerial-Decision-No133-of-2026-on-Pillar-Two-Information-Return-EN.pdf"
+          "https://mof.gov.ae/wp-content/uploads/2026/08/Ministerial-Decision-No133-of-2026-on-Pillar-Two-Information-Return-EN.pdf",
+          "https://mof.gov.ae/wp-content/uploads/2025/02/English-Cabinet-Decision-142-of-2024-on-Top-up-Tax-on-MNEs-1.pdf"
+        ],
+        "filing_deadline_note": "Article 15 of the Annexure to Cabinet Decision 142 of 2024 requires the Pillar Two Information Return and related notifications no later than 15 months after the end of the Reporting Fiscal Year. Article 15 as published does not state the 18-month first-year rule that Article 8.1 gives the Top-up Tax Return; confirm the first-year filing date with the FTA."
+      },
+      "commentary_and_guidance": {
+        "law": "Ministerial Decision 96 of 2026",
+        "issued_on": "2026-06-22",
+        "repeals": "Ministerial Decision 88 of 2025",
+        "applies_to_fiscal_years_starting_on_or_after": "2025-01-01",
+        "summary": "Adopts the OECD 2026 Consolidated Commentary to the GloBE Model Rules, the OECD Central Record of Pillar Two Administrative Guidance and the January 2025 GloBE Information Return for the purposes of Cabinet Decision 142 of 2024.",
+        "source_urls": [
+          "https://mof.gov.ae/wp-content/uploads/2026/06/Ministerial-Decision-No.-96-of-2026-on-the-Commentary-and-Agreed-Administrative-Guidance-for-the-Purposes-of-Cabinet-Decision-No.-142-of-2024-on-the-Imposition-of-Top-Up-Tax-on-Multinational-Enterprises-en.pdf"
         ]
       }
     },
@@ -138,9 +173,10 @@
       ]
     },
     "guides_2026": {
-      "note": "June 2026 FTA publications: updated Corporate Tax Guide on Taxation of Family Foundations (CTGFF1, 10 June 2026), Education Sector VAT Guide (29 June 2026), and a Basic Tax Information Bulletin on Corporate Tax Losses (25 June 2026). Per secondary legal reporting; verify titles and dates on the FTA guides page. October 2026: the FTA published the Free Zones and Designated Zones for Tax Purposes guide (TAXP010, 2 October 2026) covering Corporate Tax, VAT and Excise, and announced the Top-up Tax Guide on Scope and Registration (TTGREG1) on 7 October 2026.",
+      "note": "Confirmed on the FTA guides pages (checked 2026-10-20): Corporate Tax Guide on Taxation of Family Foundations (CTGFF1, 10 June 2026), Basic Tax Information Bulletin on Corporate Tax Losses (25 June 2026), Education Sector VAT Guide (VATGED1, 29 June 2026), Top-up Tax guides TTGREG1 (Scope and Registration) and TTGEIE1 (Excluded Entities and Investment Entities) (both 26 August 2026), VAT Public Clarification VATP046 on the VAT Decree-Law amendments (4 September 2026), and the Free Zones and Designated Zones for Tax Purposes guide (TAXP010, 2 October 2026) covering Corporate Tax, VAT and Excise. No FTA guide was published between 2 and 20 October 2026.",
       "source_urls": [
-        "https://tax.gov.ae/en/taxes/corporate.tax/corporate.tax.guides.references.aspx"
+        "https://tax.gov.ae/en/taxes/corporate.tax/corporate.tax.guides.references.aspx",
+        "https://tax.gov.ae/en/taxes/vat/guides.references.aspx"
       ]
     }
   },
@@ -154,18 +190,22 @@
       "monthly_at_or_above_aed_revenue": 150000000
     },
     "filing_deadline_day_of_month": 28,
+    "source_urls": [
+      "https://www.tax.gov.ae/en/taxes/Vat/vat.topics/registration.for.vat.aspx",
+      "https://u.ae/en/information-and-services/finance-and-investment/taxation/vat/filing-a-tax-return-for-vat"
+    ],
     "amendments_2026": {
       "law": "Federal Decree-Law 16 of 2025",
       "effective_from": "2026-01-01",
       "changes": [
-        "Reverse-charge imports no longer require self-issued tax invoices.",
-        "Carry-forward of excess recoverable VAT is capped at 5 years from the end of the tax period in which it arose; 2021 credits start expiring during 2026.",
-        "The FTA may deny input VAT recovery on supply chains connected to tax evasion where the recipient knew.",
-        "The VAT Law statute-of-limitations article moved into the Tax Procedures Law."
+        "Reverse-charge supplies no longer require self-issued tax invoices; the supporting documents set by the Executive Regulation must be kept instead.",
+        "Excess recoverable VAT must be refunded or used within 5 years from the end of the tax period in which it arose, or the right lapses (FTA example: a credit from the period ending 31 January 2026 lapses on 31 January 2031). Older balances fall under the Tax Procedures Law transition, which allows refund claims until 31 December 2026.",
+        "New Article 54 bis: the FTA rejects input VAT deduction where the supply or supply chain is linked to tax evasion and the recipient knew, and may reject it where the recipient should have known. A recipient that did not verify the supply before deducting is treated as one that should have known (FTA Decision 13 of 2026 sets the verification steps).",
+        "The VAT Law statute-of-limitations article (Article 79 bis) was repealed; limitation periods now sit in the Tax Procedures Law."
       ],
       "source_urls": [
         "https://mof.gov.ae/en/news/ministry-of-finance-to-implement-vat-law-amendments-starting-january-2026/",
-        "https://www.dlapiper.com/en/insights/publications/gulf-tax-insights/2025/gulf-tax-insights-december-2025/uae-announces-amendments-to-vat-law-effective-1-january-2026"
+        "https://tax.gov.ae/Datafolder/Files/Guides/VAT/PublicClarifications/VATP046%20-%20Amendments%20to%20VAT%20Decree-Law%20-%2009%202026.pdf"
       ]
     },
     "directives_2026": {
@@ -230,7 +270,7 @@
         "New provisions on single composite supplies based on economic substance.",
         "Input tax is not recoverable where consideration above a threshold set by a Minister of Finance decision is paid in cash."
       ],
-      "cash_threshold_note": "The cash-payment threshold is to be prescribed by a separate Ministerial decision; it is not asserted here.",
+      "cash_threshold_note": "The cash-payment threshold is to be prescribed by a separate Minister of Finance decision. No such decision appeared on the MoF or FTA legislation registers as of 2026-10-20, so no figure is asserted here.",
       "source_urls": [
         "https://mof.gov.ae/en/news/ministry-of-finance-announces-amendments-to-the-vat-executive-regulation/",
         "https://tax.gov.ae/Datafolder/Files/Legislation/2026/Law-No-8-of-2017-and-its-amendments--09-2026.pdf"
@@ -260,12 +300,12 @@
     "refunds_and_credit_balances": {
       "claim_window_years": 5,
       "basis": "Refunds and credit balances are claimable for a maximum of 5 years from the end of the relevant tax period.",
-      "transition": "Balances older than 5 years are claimable only until 31 December 2026 under a 1-year transition."
+      "transition": "Credit balances whose 5-year period expired before 1 January 2026, or expires within one year of that date, can still be claimed until 31 December 2026 under a 1-year transition; a related voluntary disclosure may follow within 2 years of the claim if the FTA has not yet decided it."
     },
     "excise_statute_of_limitations": "Consolidated into the Tax Procedures Law; the Excise Tax Law's standalone limitation article was repealed by FDL 17/2025.",
     "source_urls": [
       "https://mof.gov.ae/en/news/ministry-of-finance-to-implement-amendments-to-the-tax-procedures-law-starting-early-2026/",
-      "https://www.dlapiper.com/en/insights/publications/gulf-tax-insights/2025/gulf-tax-insights-december-2025/uae-tax-procedures-law-changes-as-per-1-january-2026"
+      "https://tax.gov.ae/Datafolder/Files/Legislation/2025/Federal%20Decree-Law%20No.%2028%20of%202022%20-%20publishing%2003%2012%202025.pdf"
     ]
   },
   "esr": {
@@ -273,8 +313,8 @@
     "status": "DEAD for financial years ending after 2022-12-31",
     "repeal_law": "Cabinet Decision 98 of 2024",
     "applies_to_periods": "Financial years commencing on or after 2019-01-01 and ENDING on or before 2022-12-31. Scope is set by the financial year END date, so a year running into 2023 is already out of scope.",
-    "historical_obligations": "NOT waived. Cabinet Decision 98 of 2024 cancelled only the requirement to file notifications and reports for financial years ending after 2022-12-31. For in-scope years (2019 to 2022) companies remain liable to file, to answer information and amendment requests from the FTA or the regulatory authority, and to pay any penalties already imposed. Penalties for in-scope years are not refundable.",
-    "warning": "Do NOT promise ESR filing tools for current periods. The 9 Relevant Activities only matter for historical filings. Do not tell a user that historical ESR penalties are refundable, because they are not.",
+    "historical_obligations": "NOT waived. Cabinet Decision 98 of 2024 cancelled only the requirement to file notifications and reports for financial years ending after 2022-12-31. For in-scope years (2019 to 2022) companies remain liable to file, to answer information and amendment requests from the FTA or the regulatory authority, and to pay any penalties already imposed. The cancellation does not refund penalties for in-scope years.",
+    "warning": "Do NOT promise ESR filing tools for current periods. The 9 Relevant Activities only matter for historical filings. Do not tell a user that historical ESR penalties are refundable, because the cancellation does not refund them.",
     "source_urls": [
       "https://mof.gov.ae/en/news/ministry-of-finance-announces-amendment-to-cabinet-decision-on-economic-substance-requirements/"
     ],
@@ -295,8 +335,8 @@
     "in_force_since": "2025-10-14",
     "executive_regulations": "Cabinet Resolution 134 of 2025",
     "key_changes": [
-      "Fines for legal persons raised to AED 5,000,000 to AED 100,000,000.",
-      "Tax evasion added as a predicate offence.",
+      "Fines for legal persons raised to AED 5,000,000 to AED 100,000,000, or the value of the criminal property if greater (Article 27).",
+      "Evasion of direct and indirect taxes is a predicate offence.",
       "Virtual assets explicitly covered."
     ],
     "fines_legal_persons_aed": {
@@ -313,7 +353,9 @@
       "Corporate service providers"
     ],
     "source_urls": [
+      "https://uaefiu.gov.ae/media/n5mflqwo/federal-decree-10-2025.pdf",
       "https://uaelegislation.gov.ae/en/legislations/3314",
+      "https://www.moj.gov.ae/assets/6b3e3bf7/cabinet-resolution-no-134-of-2025-regarding-the-executive-regulations-of-federal-decree-law-no-639053857268671601.aspx",
       "https://www.moet.gov.ae/documents/20121/465917/DNFBP%2BGuidelines%2B-%2BMarch%2B2026.pdf"
     ],
     "vara": {
@@ -323,9 +365,10 @@
       "monero_zcash_status": "banned",
       "applies_to": "Virtual asset service providers operating in Dubai (excluding DIFC)",
       "issuance_rulebook_2026": {
-        "note": "April 2026: VARA published its first dedicated Virtual Asset Issuance Rulebook guidance, covering fiat-referenced and asset-referenced tokens and banning anonymity-enhanced cryptocurrencies (AECs), alongside a formal virtual asset derivatives regime.",
+        "note": "The current VARA Virtual Asset Issuance Rulebook (effective 19 June 2025) sets Category 1 and Category 2 issuance rules, with Annex 1 for fiat-referenced and Annex 2 for asset-referenced virtual assets, and prohibits issuing anonymity-enhanced cryptocurrencies and all related activity. The Exchange Services Rulebook version effective 31 March 2026 adds Exchange Traded Derivative Services Rules (Part V), creating a formal derivatives regime for licensed exchanges. April 2026 issuance guidance interpreting the Issuance Rulebook is reported by secondary press only.",
         "source_urls": [
-          "https://rulebooks.vara.ae/rulebook/virtual-asset-issuance-rulebook"
+          "https://rulebooks.vara.ae/rulebook/virtual-asset-issuance-rulebook",
+          "https://rulebooks.vara.ae/rulebook/exchange-services-rulebook"
         ]
       }
     },
@@ -340,16 +383,25 @@
     "update_window_days": 15,
     "penalties": {
       "instrument": "Cabinet Decision 132 of 2023 (issued 2023-12-15, superseded Cabinet Decision 53 of 2021)",
-      "structure": "Graduated per violation: written warning for a first breach, up to AED 50,000 for a second, up to AED 100,000 for a third, plus possible licence suspension.",
+      "structure": "Graduated per violation: for most violations a written warning for a first breach, up to AED 50,000 for a second and up to AED 100,000 for a third, plus possible licence suspension and closure after a third breach. A liquidator's failure to keep the registers for 5 years is a single AED 100,000 fine.",
       "max_aed": 100000
     },
-    "summary": "In-scope UAE legal persons must maintain and file beneficial-owner information with their registrar. The 25% ownership/voting test is supplemented by control tests; government-owned and financial-free-zone exceptions require separate treatment."
+    "summary": "In-scope UAE legal persons must maintain and file beneficial-owner information with their registrar. The 25% ownership/voting test is supplemented by control tests; government-owned and financial-free-zone exceptions require separate treatment.",
+    "law_in_force_note": "Cabinet Decision 109 of 2023 was issued on 6 November 2023, published in Official Gazette issue 763 and took effect the day after publication. The gazette publication date was not confirmed from a primary source, so the 16 November 2023 in-force date is unverified.",
+    "source_urls": [
+      "https://www.moet.gov.ae/documents/20121/0/Cabinet+Decision+109-2023+English+Version+06062024.pdf/f7138fc2-fe12-cef3-077b-b4c49c12eabd?t=1718181974877",
+      "https://www.moet.gov.ae/documents/20121/0/Cabinet+Decree+No.+(132)+of+2023+Concerning+the+Administrative+Penalties+for+Violations+of+the+Provisions+of+Cabinet+Decree+No.+.pdf/11de14ca-69a7-1d68-7b82-fa482023ea48"
+    ]
   },
   "data_protection": {
     "uae_pdpl": {
       "name": "UAE Personal Data Protection Law",
       "law": "Federal Decree-Law 45 of 2021",
-      "in_force_since": "2022-01-02"
+      "in_force_since": "2022-01-02",
+      "executive_regulations_status": "No PDPL Executive Regulations found on the UAE Legislation portal or u.ae as of 2026-10-20. Secondary reports conflict on whether they have been issued, so treat their status as unverified.",
+      "source_urls": [
+        "https://u.ae/en/about-the-uae/digital-uae/data/data-protection-laws"
+      ]
     },
     "difc_dpl": {
       "name": "DIFC Data Protection Law",
@@ -358,20 +410,52 @@
     "adgm_dpr": {
       "name": "ADGM Data Protection Regulations",
       "year": 2021,
-      "max_fine_usd": 28000000
+      "max_fine_usd": 28000000,
+      "source_urls": [
+        "https://en.adgm.thomsonreuters.com/rulebook/data-protection-regulations-2021"
+      ]
     }
   },
   "excise": {
-    "law": "Federal Decree-Law 7 of 2017 (as amended by Federal Decree-Law 17 of 2025)",
+    "law": "Federal Decree-Law 7 of 2017 (as amended by Federal Decree-Laws 19 of 2022, 7 of 2025 and 17 of 2025)",
     "categories": [
-      "Tobacco",
-      "Sugary drinks",
+      "Tobacco and tobacco products",
+      "Liquids used in electronic smoking devices and tools",
+      "Electronic smoking devices and tools",
       "Energy drinks",
       "Sweetened drinks"
+    ],
+    "categories_law": "Cabinet Decision 197 of 2025 (in force 2026-01-01, replacing Cabinet Decision 52 of 2019)",
+    "rates": [
+      {
+        "goods": "Tobacco and tobacco products",
+        "rate": "100%"
+      },
+      {
+        "goods": "Liquids used in electronic smoking devices and tools",
+        "rate": "100%"
+      },
+      {
+        "goods": "Electronic smoking devices and tools",
+        "rate": "100%"
+      },
+      {
+        "goods": "Energy drinks",
+        "rate": "100%"
+      },
+      {
+        "goods": "Sweetened drinks",
+        "rate": "AED 0, 0.79 or 1.09 per litre by sugar content (see sweetened_drinks_volumetric)"
+      }
+    ],
+    "source_urls": [
+      "https://tax.gov.ae/Datafolder/Files/Legislation/2025/Cabinet-Decision-No-197-of-2025.pdf",
+      "https://tax.gov.ae/Datafolder/Files/Legislation/2025/Federal%20Decree-Law%20No.%207%20of%202017%20and%20amendments%20-%20publishing%2003%2012%202025.pdf"
     ],
     "sweetened_drinks_volumetric": {
       "effective_from": "2026-01-01",
       "law": "Cabinet Decision 197 of 2025",
+      "issued_on": "2025-11-27",
       "model": "Tiered volumetric excise by sugar content, replacing the flat 50% ad valorem rate on sweetened beverages.",
       "tiers": [
         {
@@ -395,7 +479,8 @@
       "certification": "A MoIAT Emirates Conformity Certificate is required to evidence sugar content; uncertified drinks default to the high-sugar band (AED 1.09 per litre).",
       "source_urls": [
         "https://mof.gov.ae/en/news/ministry-of-finance-announces-new-amendments-to-the-excise-tax-for-the-tiered-volumetric-model-on-sweetened-beverages/",
-        "https://tax.gov.ae/en/media.centre/news/federal.tax.authority.clarifies.new.aspx"
+        "https://tax.gov.ae/en/media.centre/news/federal.tax.authority.clarifies.new.aspx",
+        "https://tax.gov.ae/Datafolder/Files/Legislation/2025/Cabinet-Decision-No-197-of-2025.pdf"
       ]
     },
     "tobacco_and_vaping_minimum_excise_prices": {
@@ -421,7 +506,8 @@
         }
       ],
       "source_urls": [
-        "https://mof.gov.ae/wp-content/uploads/2026/08/Cabinet-Decision-No.137-of-2026-on-Excise-Price-for-Tobacco-Products-and-Liquids-used-in-Electronic-Smoking-Devices-and-Tools-EN.pdf"
+        "https://mof.gov.ae/wp-content/uploads/2026/08/Cabinet-Decision-No.137-of-2026-on-Excise-Price-for-Tobacco-Products-and-Liquids-used-in-Electronic-Smoking-Devices-and-Tools_17082026.pdf",
+        "https://tax.gov.ae/Datafolder/Files/Legislation/2026/Cabinet%20Decision%20No.%20137%20of%202026%20on%20Excise%20Price%20for%20Tobacco%20Products%20and%20Liquids%20used%20in%20Electronic%20Smoking%20Devices%20and%20Tools%20-%2018%2008%202026.pdf"
       ]
     }
   },
@@ -431,11 +517,30 @@
       "Ministerial Decision 243 of 2025",
       "Ministerial Decision 244 of 2025",
       "Ministerial Resolution 66 of 2026",
-      "Ministerial Decision 168 of 2026"
+      "Ministerial Decision 168 of 2026",
+      "Ministerial Decision 197 of 2026"
     ],
     "model": "PINT AE on a Decentralized Continuous Transaction Control and Exchange (DCTCE) 5-corner model; e-invoices exchanged via accredited service providers (ASPs) and reported to the FTA through EmaraTax",
     "penalties_law": "Cabinet Decision 106 of 2025",
-    "status": "pilot phase live: the 5-corner model has been operational since July 2026 (pilot launched 2026-07-01 with a selected Taxpayer Working Group; voluntary adoption open to any business). The MoF (27 September 2026, Ras Al Khaimah) and the FTA (29 September 2026 joint awareness meeting in Dubai with ASPs and in-scope businesses) reconfirmed the 30 October 2026 ASP appointment deadline and 1 January 2027 go-live for businesses with revenue at or above AED 50M, and 31 March 2027 and 1 July 2027 for businesses below AED 50M. Businesses must select and contract an ASP, integrate, and then complete the EmaraTax procedures.",
+    "penalties_law_note": "The MoF eInvoicing programme presentation (October 2026) lists Cabinet Decision 173 of 2026 as the e-invoicing penalties decision and marks Cabinet Decision 106 of 2025 as repealed. The MoF eInvoicing and legislation pages still list Cabinet Decision 106 of 2025, and no text of Cabinet Decision 173 of 2026 had been published as of 2026-10-20. Unverified: confirm with the MoF before quoting penalty amounts.",
+    "status": "pilot phase live: the 5-corner model has been operational since July 2026 (pilot launched 2026-07-01 with a selected Taxpayer Working Group; voluntary adoption open to any business). The MoF (27 September 2026, Ras Al Khaimah), the FTA (29 September 2026 joint awareness meeting) and the MoF eInvoicing programme presentation (October 2026) all keep the 30 October 2026 ASP appointment deadline and 1 January 2027 go-live for businesses with revenue at or above AED 50M, and 31 March 2027 and 1 July 2027 for businesses below AED 50M; no extension had been announced as of 20 October 2026. Ministerial Decision 197 of 2026 (in force 1 October 2026, announced 19 October 2026) excludes transactions within a VAT tax group for 24 months from 1 January 2027, removes the UAE data-storage and System Failure notification rules, and sets 14 Business Days to issue and transmit an e-invoice. Businesses must select and contract an ASP, integrate, and then complete the EmaraTax procedures.",
+    "amendments_2026": {
+      "law": "Ministerial Decision 197 of 2026",
+      "amends": "Ministerial Decision 243 of 2025",
+      "effective_from": "2026-10-01",
+      "announced_on": "2026-10-19",
+      "changes": [
+        "Transactions between members of the same VAT tax group are Excluded Transactions for 24 months from 1 January 2027.",
+        "E-invoices and e-credit notes must be issued and transmitted within 14 Business Days of the transaction date (previously 14 days).",
+        "E-invoice data must be kept for the Tax Procedures Law retention period and produced to the FTA on request; the requirement to store it inside the UAE is removed.",
+        "The System Failure definition and the duty to notify the FTA of a System Failure within 2 Business Days (Article 12) are repealed.",
+        "Other exclusions are restated: sovereign government transactions, international airline passenger services and ancillary services, airline cargo for 24 months from the system's effective date, and VAT-exempt or zero-rated financial services."
+      ],
+      "source_urls": [
+        "https://mof.gov.ae/wp-content/uploads/2026/10/Ministerial-Decision-No.-197-of-2026-%E2%80%93-Amending-Certain-Provisions-of-Ministerial-Decision-No.-243-of-2025-on-the-Electronic-Invoicing-System_En.pdf",
+        "https://mof.gov.ae/en/news/ministry-of-finance-amends-electronic-invoicing-regulations-to-ease-the-burden-on-businesses/"
+      ]
+    },
     "rollout": {
       "voluntary_pilot_from": "2026-07-01",
       "mandatory_revenue_at_or_above_aed_50m_from": "2027-01-01",
@@ -448,22 +553,24 @@
         "extended_from": "2026-07-31",
         "extension_law": "Ministerial Resolution 66 of 2026 (dated 14 May 2026)",
         "go_live": "2027-01-01",
-        "note": "The go-live date is unchanged despite the appointment extension."
+        "note": "The go-live date is unchanged despite the appointment extension.",
+        "deadline_status": "UPCOMING as of 2026-10-20: no extension announced by the MoF or FTA; the MoF eInvoicing programme presentation (October 2026) still shows 30 October 2026."
       },
       "revenue_below_aed_50m": {
         "appoint_asp_by": "2027-03-31",
         "go_live": "2027-07-01"
       },
       "government_entities": {
+        "appoint_asp_by": "2027-03-31",
         "go_live": "2027-10-01"
       }
     },
     "asp_register": {
       "pre_approved_provider_count": null,
-      "accredited_provider_count": 65,
-      "under_final_assessment_count": 5,
-      "as_of": "2026-10-13",
-      "status": "The official MoF page (last updated 13 October 2026) lists 65 accredited providers and 5 pre-approved providers under final accreditation assessment (up from 60 and 3 on 28 September 2026). It does not publish a separate overall pre-approved count; that count is unknown, not zero. Final assessment is not full accreditation.",
+      "accredited_provider_count": 69,
+      "under_final_assessment_count": 3,
+      "as_of": "2026-10-20",
+      "status": "The official MoF page (last updated 20 October 2026) lists 69 accredited providers and 3 pre-approved providers under final accreditation assessment (up from 65 and 5 on 13 October 2026). It does not publish a separate overall pre-approved count; that count is unknown, not zero. Final assessment is not full accreditation. The MoF programme presentation (October 2026) reported 10 more providers in the pipeline and about 20 at application review.",
       "register_url": "https://mof.gov.ae/en/about-us/initiatives/einvoicing/einvoicing-accredited-service-providers-asps/",
       "criteria_note": "Ministerial Decision 168 of 2026 (in force 1 October 2026, announced 9 October 2026) repeals Ministerial Decision 64 of 2025 and its amendments, including Ministerial Decision 56 of 2026, and removes the pre-approval stage: providers must complete the accreditation assessment and testing before accreditation. Providers holding preliminary approval under the old framework have up to 30 days from 1 October 2026 to complete the requirements, or the approval is terminated. Providers may still use third-party Peppol Service Provider Products and outsource parts of their service while remaining responsible for compliance. The framework also covers renewal, ongoing evaluation, termination and objections."
     },
@@ -472,16 +579,22 @@
       "mandatory_fields": "Mandatory Field Requirements V-1.0 (published 2026-02-23)",
       "format": "PINT AE XML (UBL-based) on the 5-corner DCTCE model",
       "source_urls": [
-        "https://mof.gov.ae/en/about-us/initiatives/einvoicing/"
-      ]
+        "https://mof.gov.ae/en/about-us/initiatives/einvoicing/",
+        "https://mof.gov.ae/wp-content/uploads/2026/10/UAE-eInvoicing-Programme-Oct2026.pdf"
+      ],
+      "programme_overview": "UAE eInvoicing Programme presentation (MoF, October 2026)"
     },
-    "scope_note": "applies to B2B and B2G transactions; phased by revenue band",
+    "scope_note": "applies to B2B and B2G transactions; B2C transactions stay outside the system until a Ministerial decision (Ministerial Decision 244 of 2025, Article 5(2)); phased by revenue band",
     "source_urls": [
       "https://mof.gov.ae/en/about-us/initiatives/einvoicing/",
       "https://mof.gov.ae/en/about-us/initiatives/einvoicing/einvoicing-accredited-service-providers-asps/",
+      "https://mof.gov.ae/wp-content/uploads/2025/09/Ministerial-Decision-No.-244-of-2025-on-the-Implementation-of-the-Electronic-Invoicing-System.pdf",
+      "https://mof.gov.ae/wp-content/uploads/2026/05/Ministerial-Resolution-No.-66-of-2026-Amending-Certain-Provisions-of-Ministerial-Resolution-No.-244-of-2025-Regarding-the-Implementation-of-the-Electronic-Invoicing-System-En-20260514.pdf",
+      "https://mof.gov.ae/wp-content/uploads/2026/10/Ministerial-Decision-No-168-of-2026-on-Eligibility-criteria-and-Accreditation-Procedure-EN-FINAL.pdf",
+      "https://mof.gov.ae/wp-content/uploads/2026/10/Ministerial-Decision-No.-197-of-2026-%E2%80%93-Amending-Certain-Provisions-of-Ministerial-Decision-No.-243-of-2025-on-the-Electronic-Invoicing-System_En.pdf",
+      "https://mof.gov.ae/en/news/ministry-of-finance-amends-electronic-invoicing-regulations-to-ease-the-burden-on-businesses/",
+      "https://mof.gov.ae/wp-content/uploads/2026/10/UAE-eInvoicing-Programme-Oct2026.pdf",
       "https://mof.gov.ae/en/news/ministry-of-finance-hosts-awareness-event-in-ras-al-khaimah-on-latest-einvoicing-updates/",
-      "https://tax.gov.ae",
-      "https://www.deloitte.com/middle-east/en/services/tax/perspectives/uae-e-invoicing-asp-appointment-deadline-extended-but-go-live-remains-01012027.html",
       "https://mof.gov.ae/en/news/ministry-of-finance-issues-decision-on-accreditation-of-einvoicing-service-providers-under-updated-regulatory-framework/",
       "https://tax.gov.ae/en/media.centre/News/federal.tax.authority.organises.joint.awareness.meeting.for.accredited.service.providers.and.persons.subject.to.the.einvoicing.system.aspx"
     ]
@@ -489,15 +602,15 @@
   "late_payment_penalty": {
     "name": "Unified late-payment penalty",
     "law": "Cabinet Decision 129 of 2025",
+    "issued_on": "2025-10-09",
     "effective_from": "2026-04-14",
     "annual_rate_pct": 14,
     "basis": "14% per annum on unpaid tax, charged monthly at 14% divided by 12 for every month or part of a month, unifying the late-payment penalty across VAT, Excise and Corporate Tax (replacing the previous escalating monthly model)",
     "note": "The calculator rounds any part month up to a whole charged month; confirm the exact calendar-month count with the FTA.",
     "source_urls": [
-      "https://tax.gov.ae",
-      "https://habibalmulla.com/articles/administrative-penalties-in-the-uae-the-2025-reform-and-the-shift-toward-a-unified-tax-penalty-regime/"
+      "https://tax.gov.ae/Datafolder/Files/Legislation/2025/Cabinet%20Decision%20No.%2040%20of%202017%20and%20its%20amendments%20-%20publishing%2011%202025.pdf"
     ]
   },
-  "previous_knowledge_date": "2026-09-28",
-  "last_refresh_scope": "Targeted refresh of 2026-10-13: refreshed the MoF ASP register to 65 accredited and 5 in final assessment; added Ministerial Decision 168 of 2026 replacing the ASP accreditation framework from 1 October 2026; recorded the 29 September 2026 FTA reconfirmation of the e-invoicing deadlines; marked the 30 September 2026 Corporate Tax filing deadline for calendar-year 2025 as passed; added the FTA Top-up Tax Guide on Scope and Registration (TTGREG1) and the TAXP010 designated zones guide, all from MoF and FTA primary sources. Checked with no change: the 30 November 2026 DMTT registration deadline, the 30 October 2026 ASP appointment deadline and 1 January 2027 go-live, and the FTA VAT and Corporate Tax legislation registers (no new decisions since 28 September 2026). Still unverified: the expected 30 June 2027 first DMTT return date, the VAT cash-payment threshold (no Ministerial decision published), and PDPL executive regulations. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-10-13",
+  "last_refresh_scope": "Full review of 2026-10-20: re-verified every field against FTA and MoF primary texts (legislation registers, guides pages and decision PDFs), the Annexure to Cabinet Decision 142 of 2024, the FIU and MoJ AML texts, MOET UBO decisions, VARA rulebooks and u.ae. Changes: Ministerial Decision 197 of 2026 added (e-invoicing tax-group exclusion for 24 months from 1 January 2027, 14 Business Days to issue, UAE storage and System Failure rules removed); MoF ASP register 65 to 69 accredited and 5 to 3 in final assessment; government entities' 31 March 2027 ASP deadline added (MD 244 of 2025); first DMTT Top-up Tax return date of 30 June 2027 confirmed by Article 8.1 of the Cabinet Decision 142 Annexure; DMTT revenue test, Ministerial Decision 96 of 2026 and FTA Decision 6 of 2026 (QFZP distribution AUP report) added; excise goods list corrected to the five categories of Cabinet Decision 197 of 2025 with rates; Article 54 bis input-tax denial corrected to knew or should have known; VAT credit 5-year lapse and the 31 December 2026 refund transition clarified; transfer pricing thresholds sourced to the FTA returns guide and Ministerial Decision 97 of 2023; registration waiver sourced; VARA note corrected (Issuance Rulebook effective 19 June 2025, derivatives in the Exchange Services Rulebook from 31 March 2026); UBO penalty detail and AML fine wording refined; dead Cabinet Decision 137 PDF and non-loading DLA Piper and Deloitte links replaced with MoF and FTA texts. Checked with no change: Corporate Tax rate and band, QFZP de minimis, Small Business Relief to 2029, the 30 November 2026 DMTT registration deadline, FTA Decisions 12, 13, 15 and 17 of 2026, Cabinet Decisions 1, 137 and 149 of 2026, VAT thresholds and directives, Tax Procedures limitation periods, the 14% late-payment penalty, ESR, sweetened-drinks tiers and the 30 October 2026 ASP deadline (no extension); no FTA legislation after 28 September or FTA news after 8 October 2026. Still unverified: Cabinet Decision 173 of 2026 on e-invoicing penalties (named only in an MoF presentation), the VAT cash-payment threshold (no Ministerial decision published), PDPL executive regulations, and the first-year Pillar Two Information Return date."
 }

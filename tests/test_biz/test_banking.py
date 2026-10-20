@@ -152,6 +152,11 @@ class TestOpenFinance:
         note = str(regulators["note"])
         assert "Capital Market Authority" in note
         assert "2026-01-01" in note
+        sme = regulators["sme_customer_protection"]
+        assert isinstance(sme, dict)
+        assert sme["reference"] == "C 2/2026"
+        assert sme["effective_from"] == "2026-09-13"
+        assert "3 business days" in str(sme["account_opening_rule"])
 
 
 class TestDulEligibility:
@@ -195,8 +200,8 @@ class TestKnowledge:
         result = await tools.list_banks()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-09-28"
-        assert knowledge["previous_knowledge_date"] == "2026-09-05"
+        assert knowledge["knowledge_date"] == "2026-10-20"
+        assert knowledge["previous_knowledge_date"] == "2026-09-28"
         assert "Mashreq NEOBiz" in knowledge["last_refresh_scope"]
         assert knowledge["volatility"] == "medium"
 

@@ -1,6 +1,6 @@
 {
   "domain": "events",
-  "knowledge_date": "2026-10-13",
+  "knowledge_date": "2026-10-20",
   "full_review_date": "2026-10-13",
   "volatility": "high",
   "verify_at": "https://expandnorthstar.com",
@@ -60,8 +60,30 @@
           "Seed",
           "Series A"
         ],
-        "prize_pool_usd": 200000,
-        "equity_free": true,
+        "prize_pool_usd": null,
+        "prize_pool_note": "The official Supernova 0X page checked on 2026-10-20 no longer advertises the USD 200,000 equity-free cash prize pool recorded earlier (search-engine copies of the same page still showed it). It now lists in-kind prizes per stage winner, so treat any cash prize as unconfirmed.",
+        "prizes_by_stage": {
+          "pre_seed": [
+            "Mentorship",
+            "Business set-up package"
+          ],
+          "seed": [
+            "Mentorship",
+            "Business set-up package",
+            "Software and cloud credits package",
+            "1 sponsored startup pod at ENS27",
+            "3 UAE market-access partner introductions"
+          ],
+          "series_a": [
+            "Mentorship",
+            "Business set-up package",
+            "Software and cloud credits package",
+            "3 UAE market-access partner introductions",
+            "1 sponsored startup pod at an international GITEX of choice",
+            "3 buyer introductions",
+            "Post-event marketing and PR exposure (blog article)"
+          ]
+        },
         "selection_note": "Winners are chosen from the semi-finals; there is no separate final pitch round.",
         "timeline": {
           "semifinalists_announced": "2026-12-01",
@@ -70,14 +92,16 @@
             "end": "2026-12-09"
           },
           "award_ceremony": "2026-12-10"
-        }
+        },
+        "entry_requirement": "Only exhibiting startups at Expand North Star 2026 can apply: register as an exhibitor, then submit the application form, pitch deck and elevator pitch video through the Exhibitor Portal (Ezone)."
       },
       "applications": {
         "open": "2026-05-01",
-        "close": "2026-11-02",
+        "close": "2026-11-01",
         "status": "open",
-        "status_as_of": "2026-10-13",
-        "scope": "Supernova 0X pitch competition; not a general visitor-registration deadline."
+        "status_as_of": "2026-10-20",
+        "scope": "Supernova 0X pitch competition; not a general visitor-registration deadline.",
+        "close_note": "The official timeline lists the final deadline as 1 November; it was previously recorded here as 2 November."
       },
       "brand_history": [
         "GITEX Future Stars (2016)",
@@ -101,7 +125,7 @@
         "https://expandnorthstar.com/supernova-0X",
         "https://mediaoffice.ae/en/news/2025/october/08-10/gitex-global-to-begin-a-new-chapter-at-expo-city-dubai-in-2026"
       ],
-      "schedule_verified_as_of": "2026-10-13"
+      "schedule_verified_as_of": "2026-10-20"
     },
     {
       "id": "gitex_global_2026",
@@ -113,9 +137,9 @@
         "start": "2026-12-07",
         "end": "2026-12-11"
       },
-      "venue": "Expo City Dubai (anchored at the Dubai Exhibition Centre)",
+      "venue": "Expo City Dubai (expo days at the Dubai Exhibition Centre); the one-day GITEX Summit on 7 December is at Dubai World Trade Centre",
       "co_located_with": "Expand North Star 2026",
-      "notes": "Confirmed 7 to 11 December 2026 at Expo City Dubai in a split-venue format. Moved from Dubai World Trade Centre for the 2026 edition; Expand North Star (8 to 10 December) runs inside the same week.",
+      "notes": "Confirmed 7 to 11 December 2026 in a split-venue format: the GITEX Summit runs on 7 December at Dubai World Trade Centre and the GITEX Global Expo runs 8 to 11 December at the Dubai Exhibition Centre, Expo City Dubai. The expo moved from Dubai World Trade Centre for the 2026 edition; Expand North Star (8 to 10 December) runs inside the same week.",
       "url": "https://www.gitex.com",
       "source_urls": [
         "https://www.gitex.com",
@@ -126,9 +150,11 @@
         "expo": {
           "start": "2026-12-08",
           "end": "2026-12-11"
-        }
+        },
+        "summit_venue": "Dubai World Trade Centre (DWTC)",
+        "expo_venue": "Dubai Exhibition Centre (DEC), Expo City Dubai"
       },
-      "schedule_verified_as_of": "2026-10-13"
+      "schedule_verified_as_of": "2026-10-20"
     },
     {
       "id": "step_conference",
@@ -148,7 +174,7 @@
       "source_urls": [
         "https://stepconference.com/dubai/2027/"
       ],
-      "schedule_verified_as_of": "2026-10-13"
+      "schedule_verified_as_of": "2026-10-20"
     },
     {
       "id": "dubai_ai_week",
@@ -192,7 +218,7 @@
       "source_urls": [
         "https://dubaiaifestival.com"
       ],
-      "schedule_verified_as_of": "2026-10-13"
+      "schedule_verified_as_of": "2026-10-20"
     },
     {
       "id": "dubai_fintech_summit_2026",
@@ -209,7 +235,7 @@
       "source_urls": [
         "https://dubaifintechsummit.com"
       ],
-      "schedule_verified_as_of": "2026-10-13"
+      "schedule_verified_as_of": "2026-10-20"
     },
     {
       "id": "aim_congress_2026",
@@ -238,7 +264,7 @@
         "https://www.aimcongress.com/event-information",
         "https://www.dwtc.com/en/events/aim-congress-2026/"
       ],
-      "schedule_verified_as_of": "2026-10-13"
+      "schedule_verified_as_of": "2026-10-20"
     },
     {
       "id": "world_government_summit",
@@ -272,16 +298,24 @@
       },
       "highlights": {
         "dubai_ride": "2026-11-01",
-        "dubai_run": "2026-11-22"
+        "dubai_sup": {
+          "start": "2026-11-07",
+          "end": "2026-11-08",
+          "venue": "Hatta Dam"
+        },
+        "dubai_run": "2026-11-22",
+        "dubai_yoga": "2026-11-29"
       },
       "url": "https://www.dubaifitnesschallenge.com",
-      "notes": "10th edition. Dubai Ride (4 km family and 12 km routes) opens the challenge on Sheikh Zayed Road on 1 November 2026 and Dubai Run (5 km and 10 km) takes over Sheikh Zayed Road on 22 November 2026. The challenge window comes from the Dubai Media Office retail calendar; the Ride and Run dates come from press coverage of the organiser announcement because dubaifitnesschallenge.com blocks automated fetches. Free, pre-registration required.",
+      "notes": "10th edition. Dubai Ride (4 km family and 12 km routes) opens the challenge on Sheikh Zayed Road on 1 November 2026, Dubai Stand-Up Paddle runs at Hatta Dam on 7 and 8 November, Dubai Run (5 km and 10 km) takes over Sheikh Zayed Road on 22 November and Dubai Yoga (second edition) closes the programme on 29 November. Dates come from the 1 October 2026 Dubai Media Office release announcing registration; route distances come from press coverage because dubaifitnesschallenge.com blocks automated fetches. Free, pre-registration required.",
       "source_urls": [
+        "https://mediaoffice.ae/en/news/2026/october/01-10/registration-opens-for-10th-dubai-fitness-challenge-to-be-held-from-31-october-to-29-november",
         "https://www.mediaoffice.ae/en/news/2025/november/25-11/dubai-launches-2026-retail-calendar-marking-10-years-of-festivals-and-experiences",
         "https://www.khaleejtimes.com/uae/dubai-fitness-challenge-2026-registration-opens",
         "https://www.thenationalnews.com/lifestyle/things-to-do/2026/08/14/dubai-run-2026-date-dubai-ride-fitness-challenge/"
       ],
-      "schedule_verified_as_of": "2026-10-13"
+      "schedule_verified_as_of": "2026-10-20",
+      "organisers": "Dubai Department of Economy and Tourism (DET) and Dubai Sports Council (DSC)"
     },
     {
       "id": "dubai_airshow_2027",
@@ -296,7 +330,7 @@
       "source_urls": [
         "https://www.dubaiairshow.aero"
       ],
-      "schedule_verified_as_of": "2026-10-13"
+      "schedule_verified_as_of": "2026-10-20"
     },
     {
       "id": "un_2026_water_conference",
@@ -316,7 +350,7 @@
       "source_urls": [
         "https://sdgs.un.org/conferences/water2026"
       ],
-      "schedule_verified_as_of": "2026-10-13",
+      "schedule_verified_as_of": "2026-10-20",
       "venue": "ADNEC Conference Centre, Abu Dhabi"
     },
     {
@@ -350,7 +384,7 @@
         "https://dubaifutureweek.com/",
         "https://www.dubaifuture.ae/events/"
       ],
-      "schedule_verified_as_of": "2026-10-13"
+      "schedule_verified_as_of": "2026-10-20"
     },
     {
       "id": "dubai_future_forum_2026",
@@ -371,7 +405,7 @@
         "https://www.dubaifuture.ae/dubai-future-forum-2026/",
         "https://www.dubaifuture.ae/events/"
       ],
-      "schedule_verified_as_of": "2026-10-13"
+      "schedule_verified_as_of": "2026-10-20"
     },
     {
       "id": "wetex_2026",
@@ -443,8 +477,8 @@
         "https://www.visitdubai.com/en/festivals-and-events/dhf",
         "https://www.mediaoffice.ae/en/news/2025/november/25-11/dubai-launches-2026-retail-calendar-marking-10-years-of-festivals-and-experiences"
       ],
-      "schedule_verified_as_of": "2026-10-13",
-      "notes": "Citywide across malls and home furnishing stores. The Dubai Media Office 2026 retail calendar lists 16 October to 1 November 2026; the Visit Dubai DHF page headline still shows the 2025 window (3 to 16 October) as of 13 October 2026."
+      "schedule_verified_as_of": "2026-10-20",
+      "notes": "Citywide across malls and home furnishing stores. Runs 16 October to 1 November 2026 (in progress on 2026-10-20). The Visit Dubai DHF page now shows the 2026 window, matching the Dubai Media Office 2026 retail calendar."
     },
     {
       "id": "dubai_festival_of_lights_2026",
@@ -467,15 +501,21 @@
       "edition": 32,
       "type": "retail_festival",
       "operator": "Dubai Festivals and Retail Establishment (DFRE)",
-      "dates_status": "not yet announced",
-      "expected_window": "December 2026 to January 2027",
-      "notes": "32nd edition. Exact dates not announced by DFRE, DET or Dubai Media Office as of 13 October 2026; the official 2026 retail calendar lists only the 31st edition (5 December 2025 to 11 January 2026). Some travel sites quote 4 December 2026 to 17 January 2027 and attribute it to Visit Dubai, but the official DSF page could not be retrieved to confirm, so no dates are recorded. DSF traditionally runs from early December to mid January.",
+      "dates": {
+        "start": "2026-12-04",
+        "end": "2027-01-17"
+      },
+      "dates_status": "announced",
+      "duration_days": 45,
+      "notes": "32nd edition, 4 December 2026 to 17 January 2027 (45 days), starting after the Eid Al Etihad holiday. The Visit Dubai DSF page shows these dates and the DFRE release (distributed via Zawya, press coverage dated 14 October 2026) confirms the edition and length. Returning features named in the release include etisalat DSF Nights, DSF x Hatta Wadi Hub, DSF Auto Season and etisalat MOTB in January; individual sub-event dates and the raffle schedule were not yet published as of 20 October 2026.",
       "source_urls": [
         "https://www.visitdubai.com/en/festivals-and-events/dsf",
+        "https://www.zawya.com/en/press-release/government-news/citywide-dubai-shopping-festival-returns-with-most-action-packed-season-yet-1650724",
         "https://www.mediaoffice.ae/en/news/2025/november/25-11/dubai-launches-2026-retail-calendar-marking-10-years-of-festivals-and-experiences",
         "https://www.dubaidet.gov.ae/en/newsroom/press-releases/31st-edition-of-dubai-shopping-festival"
       ],
-      "schedule_verified_as_of": "2026-10-13"
+      "schedule_verified_as_of": "2026-10-20",
+      "source_url_note": "visitdubai.com and dubaidet.gov.ae return HTTP 403 to plain automated requests (bot blocking, not dead); the Visit Dubai DSF page was read on 2026-10-20 through a browser-like fetch."
     },
     {
       "id": "world_green_economy_summit_2026",
@@ -500,6 +540,6 @@
       "schedule_verified_as_of": "2026-10-13"
     }
   ],
-  "previous_knowledge_date": "2026-09-28",
-  "last_refresh_scope": "Full review of 2026-10-13: re-verified all 20 records against organiser sites and official government media. Confirmed unchanged: GITEX Global 2026 (7 to 11 December, Summit 7 December, Expo 8 to 11 December, Dubai Exhibition Centre at Expo City Dubai, still upcoming), Expand North Star 2026 (8 to 10 December, DEC Expo City) and Supernova 0X (USD 200K, applications open to 2 November), Dubai Future Week (18 to 21 November), Dubai FinTech Summit (2 to 3 November, Madinat Jumeirah, 4th edition), Dubai AI Festival (26 to 27 October, DWTC), WETEX (20 to 22 October, DWTC, now tagged 28th edition), WGES (21 to 22 October), UN 2026 Water Conference (8 to 10 December, venue added: ADNEC Conference Centre), Dubai Airshow 2027 (15 to 19 November 2027), WGS 2027 (1 to 3 February), AIM Congress 2027 (12 to 14 April), STEP Dubai 2027 (3 to 4 February), DSS 2026 (2 July to 30 August, ended), Esports Festival (held), Home Festival and Festival of Lights. Added Dubai Ride (1 November 2026) to the Dubai Fitness Challenge (31 October to 29 November). No event passed between 28 September and 13 October 2026. Unverified: DSF 2026-27 dates (no official announcement found; third-party 4 December to 17 January claim not confirmed), Dubai Ride and Run dates (press only, organiser site blocks fetches), WGS 2027 venue, AIM Congress 2026 outcomes; the wetex.ae and dubaifitnesschallenge.com sites returned 403 so DEWA and Dubai Media Office pages were used instead."
+  "previous_knowledge_date": "2026-10-13",
+  "last_refresh_scope": "Targeted refresh of 2026-10-20: Dubai Shopping Festival 2026-27 (32nd edition) dates are now announced as 4 December 2026 to 17 January 2027 (45 days), per the Visit Dubai DSF page and the DFRE release carried by Zawya (press coverage dated 14 October 2026), confirming the third-party claim flagged at the last review. Supernova 0X: the official page now gives the final application deadline as 1 November 2026 (recorded earlier as 2 November), no longer advertises the USD 200,000 equity-free cash prize pool (prize_pool_usd is now null and equity_free is dropped), lists in-kind prizes per stage, and requires applicants to be exhibiting startups. GITEX Global 2026: gitex.com puts the 7 December GITEX Summit at Dubai World Trade Centre and the 8 to 11 December expo at the Dubai Exhibition Centre, Expo City Dubai; venue, notes and schedule now say so. Dubai Fitness Challenge: Dubai Ride (1 November), Dubai Stand-Up Paddle at Hatta Dam (7 to 8 November), Dubai Run (22 November) and Dubai Yoga (29 November) are now sourced to the 1 October 2026 Dubai Media Office release. Dubai Home Festival: the Visit Dubai page now shows the 2026 window (16 October to 1 November). Checked with no change on organiser or official sites: Expand North Star (8 to 10 December, Expo City Dubai), Dubai AI Festival (26 to 27 October, DWTC), Dubai FinTech Summit (2 to 3 November, Madinat Jumeirah), Dubai Future Week (18 to 21 November; the Dubai Future Forum page still redirects to it), UN 2026 Water Conference (8 to 10 December, ADNEC), STEP Dubai 2027 (3 to 4 February, Dubai Internet City), AIM Congress 2027 (12 to 14 April, DWTC) and Dubai Airshow 2027 (15 to 19 November 2027; the show runs in odd years, so there is no 2026 edition). No event in the pack ended between 13 and 20 October 2026; WETEX (20 to 22 October) and the Dubai Home Festival are in progress, and WGES runs 21 to 22 October. Unverified: WETEX and WGES (wetex.ae and dewa.gov.ae return HTTP 403 to automated checks), WGS 2027 venue, Dubai Festival of Lights 2026 (no new source), DSF sub-event and raffle dates, and Dubai Run and Ride route distances (press only). Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

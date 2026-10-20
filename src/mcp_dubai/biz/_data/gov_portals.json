@@ -1,6 +1,6 @@
 {
   "domain": "gov_portals",
-  "knowledge_date": "2026-09-28",
+  "knowledge_date": "2026-10-20",
   "full_review_date": "2026-04-13",
   "volatility": "stable",
   "verify_at": "https://u.ae",
@@ -82,7 +82,8 @@
         "Trade name search",
         "Activity lookup",
         "License application"
-      ]
+      ],
+      "url_note": "Returned HTTP 403 to automated checks on 2026-10-20 (bot blocking, not confirmed dead); the address is retained."
     },
     {
       "id": "det_eservices",
@@ -92,7 +93,8 @@
       "operator": "DET",
       "what_it_does": "Legacy parallel DET portal. Some services not yet on Invest in Dubai still live here.",
       "developer_api": false,
-      "founder_relevance": "Use Invest in Dubai by default. Fall back to this for specific legacy services."
+      "founder_relevance": "Use Invest in Dubai by default. Fall back to this for specific legacy services.",
+      "url_note": "Returned HTTP 403 to automated checks on 2026-10-20 (bot blocking, not confirmed dead); the address is retained."
     },
     {
       "id": "emaratax",
@@ -162,15 +164,17 @@
     {
       "id": "dubai_now",
       "name": "Dubai Now",
-      "url": "https://dubainow.dubai.gov.ae",
+      "url": "https://dubainow.dubai.ae",
       "type": "mobile_aggregator",
       "operator": "Dubai Government / Digital Dubai",
       "what_it_does": "Dubai government services app for bills, transport, residency and other resident services. Its Madinati feature accepts image-based reports of issues in streets and public spaces.",
       "developer_api": false,
       "founder_relevance": "Useful day-to-day app for residents. Not a B2B integration target.",
       "source_urls": [
-        "https://www.digitaldubai.ae/newsroom/news/roads-and-transport-authority-and-digital-dubai-enhance-ai-powered-madinati-service-to-empower-community-engagement-and-preserve-dubai-s-urban-aesthetic"
-      ]
+        "https://www.digitaldubai.ae/newsroom/news/roads-and-transport-authority-and-digital-dubai-enhance-ai-powered-madinati-service-to-empower-community-engagement-and-preserve-dubai-s-urban-aesthetic",
+        "https://dubainow.dubai.ae"
+      ],
+      "url_note": "The former dubainow.dubai.gov.ae address no longer resolves (DNS NXDOMAIN on 2026-10-20). The live DubaiNow site is dubainow.dubai.ae (Digital Dubai), which describes the app as offering over 280 services from 44 government and private entities."
     },
     {
       "id": "dubai_rest",
@@ -229,6 +233,6 @@
       "issue": "SmartPass is the legacy federal predecessor to UAE Pass. It is no longer the active federal authentication product. Steer all developers and founders to UAE Pass instead."
     }
   ],
-  "previous_knowledge_date": "2026-09-05",
-  "last_refresh_scope": "Targeted refresh of 2026-09-28: updated UAE Pass service, provider and user counts from the TDRA DGOV UAE PASS page (replacing the stale 6,000+ services figure), corrected the Basher URL to MOET's basher.gov.ae/invest/ link and the operator to the Ministry of Economy and Tourism. An unconfirmed UAE Pass Digital Vault blockchain migration and a Gulf News-only Dubai Investor Register report were not recorded as fact. Other portals were not re-verified; full_review_date is preserved."
+  "previous_knowledge_date": "2026-09-28",
+  "last_refresh_scope": "Targeted refresh of 2026-10-20: corrected the DubaiNow URL from dubainow.dubai.gov.ae, which no longer resolves in DNS, to the live Digital Dubai site dubainow.dubai.ae (over 280 services from 44 entities), and labelled invest.dubai.ae and eservices.dubaided.gov.ae, which return HTTP 403 to automated checks, as blocked rather than dead. Checked with no change: UAE Pass, Basher (basher.gov.ae/invest/), EmaraTax, MOHRE, GDRFA Dubai, ICP, u.ae, Dubai REST (dubailand.gov.ae), the Dubai developer portal, api.government.ae and DubaiPay all respond; no portal rename or replacement was announced since 2026-09-28. Portal service counts and API details were not re-verified. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

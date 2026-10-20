@@ -341,8 +341,8 @@ async def einvoicing_timeline() -> dict[str, object]:
     einv = _block("e_invoicing")
     what_to_do_now = [
         "Appoint an accredited service provider (ASP): revenue at or above "
-        "AED 50M must appoint by 30 October 2026, below AED 50M by "
-        "31 March 2027. Pick from the official MoF fully accredited provider list; "
+        "AED 50M must appoint by 30 October 2026, below AED 50M and government "
+        "entities by 31 March 2027. Pick from the official MoF fully accredited provider list; "
         "pre-approval or final assessment alone is not full accreditation.",
         "Make sure your ERP or accounting system can emit PINT AE invoices "
         "and exchange them on the DCTCE 5-corner model.",
@@ -359,7 +359,9 @@ async def einvoicing_timeline() -> dict[str, object]:
                 "legislation": einv.get("legislation", []),
                 "model": einv.get("model"),
                 "penalties_law": einv.get("penalties_law"),
+                "penalties_law_note": einv.get("penalties_law_note"),
                 "status": einv.get("status"),
+                "amendments_2026": einv.get("amendments_2026", {}),
                 "rollout": einv.get("rollout", {}),
                 "asp_appointment_deadlines": einv.get("asp_appointment_deadlines", {}),
                 "asp_register": einv.get("asp_register", {}),

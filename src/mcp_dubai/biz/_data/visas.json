@@ -1,6 +1,6 @@
 {
   "domain": "visas",
-  "knowledge_date": "2026-10-13",
+  "knowledge_date": "2026-10-20",
   "full_review_date": "2026-10-13",
   "volatility": "high",
   "verify_at": "https://u.ae/en/information-and-services/visa-and-emirates-id",
@@ -93,7 +93,7 @@
         "https://www.khaleejtimes.com/uae/uae-expands-entry-visit-visa-eligibility"
       ],
       "verified_note": "MOFA announcement of 25 June 2026 re-checked 2026-10-13: nationalities, qualifying residence-permit countries, AED 100 (14 days, extendable once) and AED 250 (60 days, non-extendable) unchanged.",
-      "overstay_note": "AED 50 per day is the standard overstay fine; no change, new amnesty or grace period dated 28 September to 13 October 2026 was found on ICP or GDRFA channels (the last disruption-related grace period ran 10 June to 9 July 2026)."
+      "overstay_note": "AED 50 per day is the standard overstay fine; no change, new amnesty or grace period dated 28 September to 20 October 2026 was found on ICP or GDRFA channels (the last disruption-related grace period ran 10 June to 9 July 2026)."
     },
     {
       "id": "investor_partner",
@@ -451,13 +451,14 @@
       "note": "The unified GCC tourist visa pilot has slipped again and is now expected in Q4 2026, linking Dubai International with Bahrain International first (QR-code validation, ICP data sharing), with Saudi Arabia, Oman, Qatar and Kuwait joining in early 2027 if successful. Indicative pricing floated around USD 100 for single-country and USD 120-130 for a multi-country 60-90 day permit. The Q4 2026 Dubai-Bahrain pilot detail comes from secondary aggregators, so treat this as an expected timeline, not a live product.",
       "source_urls": [
         "https://gulfnews.com/business/tourism/unified-gcc-visa-now-coming-in-2026-whats-behind-the-new-launch-date-1.500339495",
-        "https://www.visahq.com/news/2026-04-14/ae/gcc-unified-tourist-visa-pilot-set-for-q4-2026-with-dubai-bahrain-air-corridor-first-in-line/",
+        "https://www.travelnews.co.za/article/gcc-moves-pilot-to-end-2026",
         "https://www.khaleejtimes.com/uae/one-visa-for-6-gulf-countries-gcc-chief-says-scheme-will-launch-soon",
         "https://www.gcc-sg.org/en/MediaCenter/News/Pages/news-2025-7-2-5.aspx"
       ],
-      "status_check": "Re-checked 2026-10-13: still not live. No official launch date, application portal, fee or validity has been published by ICP or the GCC General Secretariat. The latest primary-adjacent statement remains the GCC Secretary General's 6 September 2026 remark (Khaleej Times, 8 September 2026) that the visa would 'see the light soon', with no date; nothing new was found for 28 September to 13 October 2026, so the Q4 2026 Dubai-Bahrain pilot remains an expectation, not a confirmed start."
+      "status_check": "Re-checked 2026-10-20: still not live. No official launch date, application portal, fee or validity has been published by ICP or the GCC General Secretariat. The latest primary-adjacent statement remains the GCC Secretary General's 6 September 2026 remark (Khaleej Times, 8 September 2026) that the visa would 'see the light soon', with no date; nothing new was found for 28 September to 20 October 2026, so the Q4 2026 Dubai-Bahrain pilot remains an expectation, not a confirmed start.",
+      "source_note": "The VisaHQ pilot article cited earlier returned HTTP 404 on 2026-10-20 and was replaced with a secondary Travel News report (4 February 2026) that attributes the end-2026 UAE-Bahrain pilot to the UAE Minister of Economy; its fee figures are a draft proposal."
     }
   ],
-  "previous_knowledge_date": "2026-09-28",
-  "last_refresh_scope": "Full review of 2026-10-13: re-verified every visa entry, myth buster and upcoming item against ICP, GDRFA Dubai, u.ae, MOFA and GoFreelance pages. Changes: Golden entrepreneur rewritten to the ICP page updated 10 September 2026 (10 years; AED 1,000,000 SME revenue or AED 7,000,000 prior exit, replacing the AED 500,000 project-value test) and the GDRFA Dubai Future Foundation route; Golden real-estate duration note updated (ICP and GDRFA now say 10 years, u.ae still 5) with ICP approved-bank and approved-developer conditions and GDRFA lien and joint-share rules; tourist visa minimums set to the GDRFA official fee (AED 200 or 300 plus VAT); GDRFA property-owner page conditions (fully owned, AED 10,000 monthly income or solvency) recorded on the 2-year property visa; official fee schedules added for golden, retiree and freelance entries; moved u.ae and ICP Green Residency URLs refreshed. No new ICP or GDRFA residency, fee, overstay-fine or amnesty decision and no GCC unified visa launch dated 2026-09-28 to 2026-10-13 was found. Unverified: the off-plan and mortgaged 50% paid-in removal for the Golden real-estate route, the Cube Centre joint and mortgaged thresholds for the 2-year property visa, the upper bounds of the tourist, investor, family and freelance cost ranges, and the GCC Q4 2026 pilot timing."
+  "previous_knowledge_date": "2026-10-13",
+  "last_refresh_scope": "Targeted refresh of 2026-10-20: searched ICP, GDRFA Dubai, u.ae, WAM and the Dubai Media Office for visa and residency decisions dated 13 to 20 October 2026. Changed: the dead VisaHQ source for the GCC unified visa pilot (HTTP 404) was replaced with a secondary Travel News report, and the GCC and overstay re-check dates were advanced. Checked with no change: the ICP Golden Residency page (still dated 10 September 2026: entrepreneur AED 1,000,000 revenue or AED 7,000,000 prior exit; real estate AED 2,000,000 with approved-bank loans and approved-developer off-plan units, no paid-in percentage stated), the ICP Green Residency page (still dated 12 September 2026: AED 15,000 salary, AED 360,000 freelance income), GDRFA Dubai news (latest item 14 September 2026) and ICP media centre (no rule change). No new ICP or GDRFA residency, fee, overstay-fine or amnesty decision, no new visa category and no GCC unified visa launch was found; the GDRFA and Awqaf Dubai waqf-donor Golden route dates from October 2025 and is outside this pack's founder categories. Still unverified: the off-plan and mortgaged 50% paid-in removal for the Golden real-estate route, the Cube Centre joint and mortgaged thresholds for the 2-year property visa, the upper bounds of the tourist, investor, family and freelance cost ranges, and the GCC Q4 2026 pilot timing. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

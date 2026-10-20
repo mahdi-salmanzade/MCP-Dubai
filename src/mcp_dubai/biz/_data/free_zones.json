@@ -1,6 +1,6 @@
 {
   "domain": "free_zones",
-  "knowledge_date": "2026-10-13",
+  "knowledge_date": "2026-10-20",
   "full_review_date": "2026-10-13",
   "volatility": "high",
   "verify_at": "https://www.dubai.ae/investing/starting-a-business/free-zones-in-dubai",
@@ -504,8 +504,8 @@
         "renewal_aed": 44070,
         "renewal_usd": 12000,
         "currency": "USD",
-        "as_of": "2026-10-13",
-        "subsidy_notes": "DIFC's official page (re-checked 2026-10-13) states the licence is subsidised for 2 to 5 years at USD 1,500 per year. The approximately USD 12,000 standard annual fee is not published on the official page; it comes from 2020 law-firm alerts and is an unverified historical figure.",
+        "as_of": "2026-10-20",
+        "subsidy_notes": "DIFC's official page (re-checked 2026-10-20) states the licence is subsidised for 2 to 5 years at USD 1,500 per year. DIFC's Private Company, Non-Financial and Retail Handbook (DIFC-CS-GL-12 Rev.06, approved 29 September 2026) sets a USD 100 incorporation fee and a USD 1,500 annual Innovation Licence fee: discounted for the first 2 years for all entities, discounted in years 3 to 7 only for entities with 10 or fewer employees, and the normal USD 12,000 fee for entities with more than 10 employees from year 3 and for all entities from year 8. DIFC's Innovation Licence setup guide (January 2025) gives the taper for 10 or fewer full-time employees: USD 1,500 in years 1 to 5, USD 4,000 in year 6, USD 8,000 in year 7 and USD 12,000 from year 8. renewal_usd is that USD 12,000 normal fee, not the year-2 renewal for a small company.",
         "price_status": "official_published_price"
       },
       "office": {
@@ -520,7 +520,7 @@
       "visas": {
         "min": 0,
         "max": 4,
-        "tiers_described": "Up to 4 visas on desk space per 2020 launch coverage; DIFC's official page only says visas are discounted. Unverified as of 2026-10-13. More requires a private office in DIFC."
+        "tiers_described": "Up to 4 visas on the first desk and discounted visa costs, per DIFC's official Innovation Licence setup guide (January 2025, re-checked 2026-10-20); the web page only says visas are discounted. Visas beyond the first desk depend on additional DIFC space; confirm with DIFC."
       },
       "banking": {
         "acceptance": "easy",
@@ -541,9 +541,11 @@
       ],
       "website": "https://www.difc.com/business/establish-a-business/innovation-licence",
       "source_urls": [
-        "https://www.difc.com/business/establish-a-business/innovation-licence"
+        "https://www.difc.com/business/establish-a-business/innovation-licence",
+        "https://assets.difc.com/v1/media/edge/images/dubaiintern0078-difcexperie96c5-production-3253/media/project/difcexperiences/difc/difcwebsite/documents/business-section-documents/starting-a-business/starting-a-business---hanbook-fees/non-financial-and-retail-checklist/private-company-non-financial-and-retail-handbook.pdf",
+        "https://assets.difc.com/v1/media/edge/images/dubaiintern0078-difcexperie96c5-production-3253/media/project/difcexperiences/difc/difcwebsite/documents/business-section-documents/documents-for-spaces-and-offices/difc-innovation-licence-setup-guide.pdf"
       ],
-      "restrictions_note": "The restrictions list is derived from DIFC's regulated-activity framework; DIFC's Innovation Licence page itself does not list exclusions."
+      "restrictions_note": "DIFC's Innovation Licence setup guide (January 2025) excludes financial services (for example financial advisory, payment services and crypto or NFT exchanging) and trading or selling physical products, requires a technology activity, and requires physical presence of at least one flexi desk (USD 500 plus VAT per month). The regulated-insurance line is derived from DIFC's regulated-activity framework, not from the guide."
     },
     {
       "id": "difc_full",
@@ -798,6 +800,6 @@
       "price_note": "Not re-confirmable on an official page on 2026-10-13 (no published tariff); kept as an unverified historical snapshot dated 2025-Q4. The RAK ICC site blocked automated access. Secondary 2026 sources cite a registry incorporation fee of about AED 3,250 for one year excluding registered-agent fees; this is not confirmed on an official RAK ICC page."
     }
   ],
-  "previous_knowledge_date": "2026-09-28",
-  "last_refresh_scope": "Full review of 2026-10-13: re-checked every zone record, the offshore section, freezone_to_mainland and developments_2026 against official zone sites, the Dubai Legislation Portal text of Resolution 11 of 2025, Official Gazette 707 and the Dubai Media Office. Changes: mainland permit fees corrected per Article 12 (AED 10,000 per year applies to the branch operating out of the free zone; the in-Emirate branch licence fee is not set by the Resolution, now null) and DIFC financial-entity exclusion added; Meydan visa cap 3 to 6 (AED 1,850 per allocation) and flexi desk bundled; DIFC Innovation subsidy period updated to 2 to 5 years at USD 1,500; DMCC official AED 10,345 to 84,515 range re-confirmed; DPC sector widened to printing, publishing and packaging; DHCC restriction refined; JAFZA office rule aligned to official lease requirement; dead DAFZA and TECOM website domains replaced; Dubai South incentives upgraded to official; DIEZ April 2026 relief measures added; official Media Office, WAM and DMCC sources added. Unverified (kept as dated snapshots): IFZA, Dubai South, DAFZA and DMCC package prices, all renewal prices except DIFC's subsidised fee, DIFC's USD 12,000 standard fee and 4-visa desk allowance, IFZA and other zone visa caps not published officially, JAFZA Offshore and RAK ICC setup costs, and all banking-acceptance ratings (founder reports). No regularisation-deadline extension or regulated-sector phase was found."
+  "previous_knowledge_date": "2026-10-13",
+  "last_refresh_scope": "Targeted refresh of 2026-10-20: searched for free zone package, fee and rule announcements dated 13 to 20 October 2026 and resolved two open DIFC items from official DIFC documents. Changed: DIFC Innovation Licence subsidy schedule recorded from DIFC's Private Company, Non-Financial and Retail Handbook (DIFC-CS-GL-12 Rev.06, approved 29 September 2026, on assets.difc.com: USD 100 incorporation, USD 1,500 discounted for 2 years for all, years 3 to 7 only for 10 or fewer employees, USD 12,000 normal fee otherwise and from year 8) and the DIFC Innovation Licence setup guide (January 2025: taper to USD 4,000 in year 6 and USD 8,000 in year 7, up to 4 visas on the first desk, USD 500 plus VAT flexi desk), so the USD 12,000 standard fee and 4-visa desk allowance are now official; DIFC restrictions note now cites the guide. Checked with no change: Meydan launch page (AED 12,500 licence and Non-Resident Licence, AED 15,000 Fawri), DMCC set-up page (AED 10,345 to 84,515), IFZA set-up page (still no published price), TECOM Group setup page. No DET or Dubai Media Office update to the Free Zone Mainland Operating Permit, its regulated-sector phase or the Resolution 11 of 2025 regularisation deadline was found; the Dubai CommerCity AED 1.8 billion expansion and the 30 September 2026 Dubai Customs guarantee-free export rule were noted but not added (not founder-setup terms). tecomgroup.ae, dpc.ae and dubai.ae returned HTTP 403 and difc.com HTTP 429 to automated checks but load in a browser fetch (blocked, not dead). Still unverified: IFZA, Dubai South, DAFZA and DMCC package prices, other renewal prices, IFZA and other zone visa caps, JAFZA Offshore and RAK ICC setup costs, and banking-acceptance ratings. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

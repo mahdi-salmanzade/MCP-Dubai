@@ -147,9 +147,9 @@ class TestSetupAdvisorEnvelope:
         assert isinstance(knowledge, dict)
         assert knowledge["volatility"] == "high"
         assert knowledge["verify_at"] == "https://invest.dubai.ae"
-        assert knowledge["knowledge_date"] == "2026-10-13"
+        assert knowledge["knowledge_date"] == "2026-10-20"
         assert knowledge["full_review_date"] == "2026-10-13"
-        assert knowledge["previous_knowledge_date"] == "2026-09-05"
+        assert knowledge["previous_knowledge_date"] == "2026-10-13"
         assert "Resolution 11 of 2025" in knowledge["last_refresh_scope"]
         assert "disclaimer" in knowledge
 
@@ -228,9 +228,9 @@ class TestSetupAdvisorDiscovery:
         registry = get_knowledge_registry()
         meta = registry.get("setup_advisor")
         assert meta is not None
-        assert meta.knowledge_date == "2026-10-13"
+        assert meta.knowledge_date == "2026-10-20"
         assert meta.full_review_date == "2026-10-13"
-        assert meta.previous_knowledge_date == "2026-09-05"
+        assert meta.previous_knowledge_date == "2026-10-13"
         assert meta.last_refresh_scope is not None
         assert meta.volatility == "high"
 

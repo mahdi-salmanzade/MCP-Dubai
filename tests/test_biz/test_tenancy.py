@@ -216,7 +216,7 @@ class TestKnowledge:
         result = await tools.ejari_guide()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-10-13"
+        assert knowledge["knowledge_date"] == "2026-10-20"
         assert knowledge["volatility"] == "medium"
 
     def test_registers_with_knowledge_registry(self) -> None:

@@ -41,7 +41,7 @@ class TestDcde:
         assert cycle["registration_status"] == "closed"
         assert cycle["dubai_app_of_the_year"] == "POP by Kwelio"
         assert dates["finals"] == "2026-10-07"
-        assert dcde_tools.KNOWLEDGE.knowledge_date == "2026-10-13"
+        assert dcde_tools.KNOWLEDGE.knowledge_date == "2026-10-20"
 
     @pytest.mark.asyncio
     async def test_create_ai_agents_successor(self) -> None:
@@ -51,6 +51,7 @@ class TestDcde:
         assert data["launched_on"] == "2026-10-07"
         assert data["registration_status"] == "open"
         assert data["prize_per_category_aed"] == 550000
+        assert data["registration_close_official_page"] == "2027-01"
 
     @pytest.mark.asyncio
     async def test_unknown_program(self) -> None:
@@ -129,7 +130,12 @@ class TestEvents:
         supernova = data["supernova_format"]
         assert isinstance(supernova, dict)
         assert supernova["name"] == "Supernova 0X"
-        assert supernova["prize_pool_usd"] == 200000
+        # The official page no longer advertises a cash pool (checked 2026-10-20).
+        assert supernova["prize_pool_usd"] is None
+        assert "series_a" in supernova["prizes_by_stage"]
+        applications = data["applications"]
+        assert isinstance(applications, dict)
+        assert applications["close"] == "2026-11-01"
 
     @pytest.mark.asyncio
     async def test_ens_dates_sit_inside_gitex_week(self) -> None:
@@ -142,7 +148,7 @@ class TestEvents:
         assert dates["end"] == "2026-12-10"
 
     def test_knowledge_date_refreshed(self) -> None:
-        assert events_tools.KNOWLEDGE.knowledge_date == "2026-10-13"
+        assert events_tools.KNOWLEDGE.knowledge_date == "2026-10-20"
 
 
 class TestParkin:
