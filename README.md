@@ -16,7 +16,7 @@
 [![Status: Alpha](https://img.shields.io/badge/status-alpha-orange.svg)](#project-status)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-[Quick start](#quick-start) · [Tools](#tool-catalogue) · [Configuration](#configuration) · [Data freshness](#knowledge-freshness) · [Development](#development) · [Latest audit](AUDIT-2026-10-13.md)
+[Quick start](#quick-start) · [Tools](#tool-catalogue) · [Configuration](#configuration) · [Data freshness](#knowledge-freshness) · [Development](#development) · [Latest audit](AUDIT-2026-10-20.md)
 
 </div>
 
@@ -234,14 +234,14 @@ The former Dubai Pulse portal redirects to data.dubai. The project retains `PULS
 
 ## Availability and limitations
 
-The [October 13, 2026 audit](AUDIT-2026-10-13.md) records representative service checks, source verification, and remaining limits. These observations are a dated snapshot:
+The [October 20, 2026 audit](AUDIT-2026-10-20.md) records representative service checks, source verification, and remaining limits. These observations are a dated snapshot:
 
 | Integration | Recorded result |
 |---|---|
 | CBUAE exchange rates | Working; 77 currencies returned |
 | CBUAE base rate and four FCSC tools | Blocked by upstream access protection |
-| data.dubai catalogue | Working; 638 datasets, 11 themes, and 75 issuers |
-| DFM | Working; 484 securities, with names missing upstream |
+| data.dubai catalogue | Working; 639 datasets, 11 themes, and 75 issuers |
+| DFM | Working; 468 securities, with names missing upstream |
 | RTA GTFS archive | Intermittent access via the apex host; retrieved archive still identifies the August 23, 2025 build |
 | Other anonymous integrations | Successful representative calls for prayer times, Quran text, aviation and general weather, currencies, gold, Makani, and Overpass (Overpass after one transient HTTP 504) |
 | OAuth datasets and WAQI readings | Not live-tested in the audit without representative credentials |
@@ -264,7 +264,7 @@ Freshness is tracked across **19 domains**: 16 JSON packs, `setup_advisor`, `dat
 | `verify_at` | Domain verification or source URL |
 | `disclaimer` | Domain-specific scope and use limitations |
 
-As of **October 13, 2026**, nine domains received a full review (`cost_of_living`, `events`, `free_zones`, `visas`, `setup_advisor`, `dcde`, `ip_trademark`, `founder_essentials`, `data_analyst`) and four more a targeted refresh; the rest keep their earlier stamps, with `arabic_writer` at `2026-04-13`. Targeted updates leave untouched fields and full-review dates at their earlier verification scope. Detailed corrections and source links are in the [audit report](AUDIT-2026-10-13.md).
+As of **October 20, 2026**, `tax_compliance` received a full review and twelve more domains a targeted refresh. Nine domains keep their October 13 full reviews (`cost_of_living`, `events`, `free_zones`, `visas`, `setup_advisor`, `dcde`, `ip_trademark`, `founder_essentials`, `data_analyst`), and `arabic_writer` stays at `2026-04-13`. Targeted updates leave untouched fields and full-review dates at their earlier verification scope. Detailed corrections and source links are in the [audit report](AUDIT-2026-10-20.md).
 
 The freshness checker uses the last **full review**, with alerting budgets of 100 days for high-volatility domains, 190 for medium, and 365 for stable. Monthly prices, deadlines, and events still need review on their own schedules. Passing the age check does not establish that every fact is current.
 
@@ -302,7 +302,7 @@ make check
 
 `make check` runs Ruff lint and format checks, strict mypy, pytest with coverage, and the informational freshness report. Use the `--strict` freshness command above to fail on overdue domains.
 
-The [October 13 audit](AUDIT-2026-10-13.md#verification) recorded **1004 passing tests** on each supported Python version (3.11 to 3.14), with **93.77% coverage** in the primary run. Packaging, type checks, lint, and security scans also passed; the audit documents their scope.
+The [October 20 audit](AUDIT-2026-10-20.md#verification) recorded **1006 passing tests** with **93.77% coverage** on Python 3.12, and CI runs the same suite on each supported version (3.11 to 3.14). Packaging, type checks, lint, and security scans also passed; the audit documents their scope.
 
 ### Architecture
 
@@ -318,7 +318,7 @@ src/mcp_dubai/
 └── agents/           # Arabic writing and data-analysis tools
 ```
 
-Feature `tools.py` modules implement the logic; `server.py` modules expose FastMCP wrappers and register discovery metadata. Shared response models carry results, errors, and knowledge metadata. The source supports `fastmcp>=3.4.8,<4`; dependencies and supported Python versions are declared in [pyproject.toml](pyproject.toml).
+Feature `tools.py` modules implement the logic; `server.py` modules expose FastMCP wrappers and register discovery metadata. Shared response models carry results, errors, and knowledge metadata. The source supports `fastmcp>=3.4.9,<4` with `mcp>=1.30.0,<2`; dependencies and supported Python versions are declared in [pyproject.toml](pyproject.toml).
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) for feature conventions, tests, and the review checklist. Report reproducible errors or source corrections through [GitHub issues](https://github.com/mahdi-salmanzade/MCP-Dubai/issues).
 
