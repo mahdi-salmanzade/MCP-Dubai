@@ -44,7 +44,7 @@ dependencies = [
     # 3.x line and include its current security fixes (3.4.8, 2026-10-04:
     # SSE Host/Origin protection, Cookie forwarding, bounded caches; 3.4.9,
     # 2026-10-16: OpenAPI dot-segment rejection, bounded regex tool search).
-    "fastmcp>=3.4.9,<4",
+    "fastmcp>=3.4.9,<5",
     # mcp 1.30.0 fixes unbounded session accumulation in stateful Streamable
     # HTTP (CVE-2026-59951). We ship stdio, but `fastmcp run --transport http`
     # would expose it. FastMCP 3.x caps mcp below 2.
