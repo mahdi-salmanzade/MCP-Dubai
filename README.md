@@ -96,7 +96,7 @@ This starts an MCP stdio process that waits for client messages.
 
 ### Use the published package
 
-**Release snapshot, October 13, 2026:** the repository is version **0.4.0 with 120 tools**; the public PyPI release is **0.2.0 with 91 tools**. Use the source installation above for the catalogue documented here.
+**Release snapshot, October 20, 2026:** the public PyPI release is version **0.4.0 with 120 tools**, the same catalogue documented here.
 
 To run the published release with [uv](https://docs.astral.sh/uv/):
 
@@ -324,11 +324,10 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) for feature conventions, tests, and the 
 
 ## Project status
 
-MCP-Dubai is **alpha software**. Version 0.4.0 is available in this repository. As recorded in the October 13 audit, PyPI publication remains at 0.2.0 and the validated [MCP Registry manifest](server.json) has no published registry record.
+MCP-Dubai is **alpha software**. Version 0.4.0 was released on October 20, 2026 to [PyPI](https://pypi.org/project/mcp-dubai/) and to the MCP Registry from the [registry manifest](server.json).
 
 Current priorities:
 
-- Publish the current source release to PyPI and the MCP Registry.
 - Rebuild the KHDA dataset from an authoritative full workbook, including current fees.
 - Add live contract checks for credential-dependent datasets and improve blocked or intermittent integrations.
 - Extend government dataset coverage when access and schemas can be verified.
