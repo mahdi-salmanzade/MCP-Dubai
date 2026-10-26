@@ -48,7 +48,7 @@ dependencies = [
     # mcp 1.30.0 fixes unbounded session accumulation in stateful Streamable
     # HTTP (CVE-2026-59951). We ship stdio, but `fastmcp run --transport http`
     # would expose it. FastMCP 3.x caps mcp below 2.
-    "mcp>=1.30.0,<2",
+    "mcp>=1.30.0,<3",
     # Upper bounds on the majors that would break us. Without them a fresh
     # install silently picks up the next major the day it lands.
     "httpx>=0.28.1,<1",
