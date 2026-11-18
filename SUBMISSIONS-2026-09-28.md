@@ -1,4 +1,4 @@
-# MCP-Dubai submission log — 28 September 2026
+# MCP-Dubai submission log: 28 September 2026
 
 Recorded in Asia/Dubai time. Submissions were made through Chrome.
 This log separates an acknowledged submission from an approved or published listing.
@@ -16,7 +16,7 @@ This log separates an acknowledged submission from an approved or published list
 
 - Project name: **MCP-Dubai** (also presented as MCP Dubai where a form required a display name).
 - Canonical project URL: <https://github.com/mahdi-salmanzade/MCP-Dubai>.
-- Public contact: **Mahdi Salmanzade**, **mahdi@clrtstudio.com**.
+- Public contact: **Mahdi Salmanzade**, **mahdi@mindzone.tech**.
 - Type: open-source Model Context Protocol server; MIT license; Python 3.11 or newer.
 - Transport: a local stdio process, not a public hosted HTTP/SSE endpoint.
 - Repository source: version **0.4.0**, **120 tools across 37 features**.
@@ -37,10 +37,10 @@ This log separates an acknowledged submission from an approved or published list
 | [ProMCP](https://www.promcpservers.com/submit) | “Submission received.” | Site indicated reviewer notification and review in a few days; publication not confirmed. |
 | [Dubai Startups Daily](https://dubaistartupsdaily.com/submit-story) | “Thanks! We’ll review your story and be in touch soon.” | Editorial submission acknowledged; no publication date promised. |
 | [artificial.ae](https://artificial.ae/news/) | Tip modal: “Sent. We read every tip and email you if it lands.” | News tip acknowledged; publication not confirmed. |
-| [DXBStart](https://www.dxbstart.com/submit/tip) | “RECEIVED — Your submission is with the desk.” | News tip acknowledged; user explicitly approved the mandatory weekly newsletter subscription before submission. |
+| [DXBStart](https://www.dxbstart.com/submit/tip) | “RECEIVED - Your submission is with the desk.” | News tip acknowledged; user explicitly approved the mandatory weekly newsletter subscription before submission. |
 | [mcpservers.com](https://mcpservers.com/submit/success?id=5a5648df-ae13-404c-8a09-4407f2240480) | “Submission Successful.” | Review shortly; publication not confirmed. Submission ID `5a5648df-ae13-404c-8a09-4407f2240480`. Distinct from mcpservers.org. |
 | [Cursor Directory](https://cursor.directory/plugins/mcp-dubai) | Manual listing created; a security-agent scan is running. | **Unpublished/hidden** until scanning finishes; public availability not confirmed. |
-| [10015 Product Finder](https://10015.io/product-finder/submit) | Thank-you receipt confirmed MCP Dubai was submitted successfully. | Free standard queue: **3–4 months**. The USD 9.99 priority option was not purchased. Category: Development; secondary: AI; tags: API, Data, OpenSource, Python, LLM. |
+| [10015 Product Finder](https://10015.io/product-finder/submit) | Thank-you receipt confirmed MCP Dubai was submitted successfully. | Free standard queue: **3 to 4 months**. The USD 9.99 priority option was not purchased. Category: Development; secondary: AI; tags: API, Data, OpenSource, Python, LLM. |
 
 The review windows above are the portals' stated expectations, not guarantees.
 Among new submissions, only LibHunt displayed an approval confirmation during this session.
@@ -66,7 +66,7 @@ These were already present and are not included in the 14 new submissions. MCP V
 | MCP Market China | <https://mcpmarket.cn/server/69eb16b89b1bda315b835d39> |
 | SafeMCP | <https://safemcp.info/s/mahdi-salmanzade/MCP-Dubai/> |
 
-## Unconfirmed attempts — check before resubmitting
+## Unconfirmed attempts: check before resubmitting
 
 | Portal | Observed behavior | Status |
 | --- | --- | --- |
@@ -100,7 +100,7 @@ MCP-Dubai is an open-source Model Context Protocol server connecting AI assistan
 
 **Suggested headline:** Open-source MCP-Dubai connects AI assistants with UAE data and business setup resources
 
-MCP-Dubai is an open-source project that makes Dubai and UAE public data, reference datasets, and business setup knowledge accessible to AI assistants through the Model Context Protocol. Its current source includes 120 tools across 37 features, spanning practical information such as weather, currency conversion, free zones, visas, banking, and company setup. The project runs locally, is MIT licensed, and provides source and freshness metadata where available. It offers a concrete example of locally relevant infrastructure for developers building AI workflows around UAE information. Repository and installation instructions: https://github.com/mahdi-salmanzade/MCP-Dubai. Public contact: Mahdi Salmanzade, mahdi@clrtstudio.com.
+MCP-Dubai is an open-source project that makes Dubai and UAE public data, reference datasets, and business setup knowledge accessible to AI assistants through the Model Context Protocol. Its current source includes 120 tools across 37 features, spanning practical information such as weather, currency conversion, free zones, visas, banking, and company setup. The project runs locally, is MIT licensed, and provides source and freshness metadata where available. It offers a concrete example of locally relevant infrastructure for developers building AI workflows around UAE information. Repository and installation instructions: https://github.com/mahdi-salmanzade/MCP-Dubai. Public contact: Mahdi Salmanzade, mahdi@mindzone.tech.
 
 This is suggested reusable copy, not a claim that every portal received identical wording. Do not present dated guidance as current official advice or imply a government affiliation.
 
@@ -112,7 +112,7 @@ This is suggested reusable copy, not a claim that every portal received identica
 - **Early October:** check ProMCP, AgenticSkills, MCP Harbor, mcpservers.com, and the three editorial desks for responses.
 - **October 12:** check mcpservers.org against its stated two-week review window.
 - **October 26:** check MCPizy against its stated four-week review window, using its reference above.
-- **December 2026–January 2027:** check 10015 Product Finder against its free queue's stated three-to-four-month window.
+- **December 2026 to January 2027:** check 10015 Product Finder against its free queue's stated three-to-four-month window.
 - Check receipts and existing listings before repeating any unconfirmed attempt.
 - Reconcile the source/PyPI release mismatch before pursuing the official registry or advertising a 120-tool PyPI install.
 

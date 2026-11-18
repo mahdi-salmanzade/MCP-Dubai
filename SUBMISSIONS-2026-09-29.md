@@ -1,4 +1,4 @@
-# MCP-Dubai submission log — 29 September 2026
+# MCP-Dubai submission log: 29 September 2026
 
 Recorded in Asia/Dubai time. This campaign targets **20 additional submissions** through Chrome, following the [28 September campaign](SUBMISSIONS-2026-09-28.md).
 Acknowledged submissions, existing listings, uncertain attempts, and authentication blockers are counted separately.
@@ -16,7 +16,7 @@ Acknowledged submissions, existing listings, uncertain attempts, and authenticat
 
 - Project: **MCP-Dubai**, displayed as **MCP Dubai** where appropriate.
 - Canonical URL: <https://github.com/mahdi-salmanzade/MCP-Dubai>.
-- Public contact: **Mahdi Salmanzade**, **mahdi@clrtstudio.com**.
+- Public contact: **Mahdi Salmanzade**, **mahdi@mindzone.tech**.
 - Open-source Model Context Protocol server; MIT license; Python 3.11+; runs locally over stdio.
 - Repository source: **0.4.0**, **120 tools across 37 features**.
 - Published PyPI release: **0.2.0**, **91 tools**. The source and package catalogues must remain distinct in submitted descriptions.
@@ -29,14 +29,14 @@ Acknowledged submissions, existing listings, uncertain attempts, and authenticat
 | 1 | [TrackMCP](https://www.trackmcp.com/submit-mcp) | Thank-you receipt confirmed the tool was submitted; review and email follow-up indicated. | Received; publication not confirmed. |
 | 2 | [OpenSourceStartups](https://www.opensourcestartups.com/submit) | Submission receipt confirmed review would follow shortly. | Received; publication not confirmed. |
 | 3 | [FutureTools](https://futuretools.io/submit-a-tool) | Tool-submitted receipt indicated Matt would review it. | Received; publication not confirmed. |
-| 4 | [ListAi](https://listai.cc/submit) | “Submission Received”; review in 24–48 hours indicated. | Received; publication not confirmed. |
+| 4 | [ListAi](https://listai.cc/submit) | “Submission Received”; review in 24 to 48 hours indicated. | Received; publication not confirmed. |
 | 5 | [SpotFreeAI](https://spotfreeai.com/submit) | Thank-you confirmation; weekly review indicated. | Received; publication not confirmed. The SEA accessibility answer was “Not Sure.” |
 | 6 | [Forward Future](https://forwardfuture.com/tools/submit) | Receipt confirmed that the tool was submitted and under review. | Received; publication not confirmed. |
 | 7 | [TipSeason](https://www.tipseason.com/ai-tools/submit-free/success) | Free submission success receipt. | Standard queue: **180+ days**, with a stated approval rate below 5%; publication not confirmed. |
 | 8 | [DevPages](https://devpages.io/submit-a-tool) | Submission received; review and email follow-up indicated. | Received; publication not confirmed. |
 | 9 | [AI SuperHub](https://www.aisuperhub.io/submit/success) | Submission received into the standard queue. | Stated queue: **90+ days**; publication not confirmed. |
-| 10 | [MCPHunter](https://mcp-hunter.com/submissions/20) | Submission saved for **Week 40, September 28–October 4** review. | Saved for review; publication not confirmed. |
-| 11 | [AI-Tool.ai](https://ai-tool.ai/submit-tool) | “Submission received!” | Review in 2–3 business days; publication not confirmed. |
+| 10 | [MCPHunter](https://mcp-hunter.com/submissions/20) | Submission saved for **Week 40, September 28 to October 4** review. | Saved for review; publication not confirmed. |
+| 11 | [AI-Tool.ai](https://ai-tool.ai/submit-tool) | “Submission received!” | Review in 2 to 3 business days; publication not confirmed. |
 | 12 | [The Next AI](https://www.thenextai.com/submit-ai-tool/) | “Tool Submitted!” | Free Basic submission acknowledged. User approved the `6 + 5` CAPTCHA action. Publication not confirmed. |
 | 13 | [MCPServerHub.COM](https://mcpserverhub.com/submit) | Embedded Tally form confirmed submission and indicated the MCP server would be reviewed for display. | Received; publication not confirmed. Distinct from the unconfirmed MCPServerHub.NET attempt. |
 | 14 | [StartupCollections](https://startupcollections.com/submit-product/) | Official Google Form [receipt](https://docs.google.com/forms/d/e/1FAIpQLSfxtP1hx6kN9nkAYXquRq2eTG24_YPEx5-pHov2POonNLeuOw/formResponse): response recorded. | Free submission received; the USD 10 sponsorship was not purchased. Publication not confirmed. |
@@ -46,15 +46,15 @@ Acknowledged submissions, existing listings, uncertain attempts, and authenticat
 | 18 | [TiloBox](https://www.tilobox.com/submit) | “Submission received.” | Team review for quality, fit, and accuracy; publication not confirmed. |
 | 19 | [DevShelf issue #52](https://github.com/RitualDev-Lab/DevShelf/issues/52) | Open Tool Submission issue created. | Official submission issue opened; directory inclusion not confirmed. |
 | 20 | [MCPBridge issue #13](https://github.com/stormlive-ai/mcp-bridge-docs/issues/13) | Open issue created through the official `mcpbridge.org/submit` route. | Official submission issue opened; directory inclusion not confirmed. |
-| 21 | [AI Tools Inc](https://aitools.inc/submit) | Official free [Typeform](https://loxr142exnq.typeform.com/to/RB6ZnEf2) displayed a thank-you receipt and indicated contact over the next few days to proceed with the listing. | Free **30–90-day queue** per the official submission page. Submitted MCP Dubai, the canonical repository, Mahdi Salmanzade, and the public contact email. No paid priority purchased; publication not confirmed. |
+| 21 | [AI Tools Inc](https://aitools.inc/submit) | Official free [Typeform](https://loxr142exnq.typeform.com/to/RB6ZnEf2) displayed a thank-you receipt and indicated contact over the next few days to proceed with the listing. | Free **30 to 90 day queue** per the official submission page. Submitted MCP Dubai, the canonical repository, Mahdi Salmanzade, and the public contact email. No paid priority purchased; publication not confirmed. |
 
-## Existing listing — excluded from the additional count
+## Existing listing: excluded from the additional count
 
 | Portal / route | Browser-observed result |
 | --- | --- |
-| MCPRepository — `/submit` | The site reported that the project was already indexed. No new submission counted. |
+| MCPRepository: `/submit` | The site reported that the project was already indexed. No new submission counted. |
 
-## Unconfirmed or error-returning attempts — do not repeat without checking
+## Unconfirmed or error-returning attempts: do not repeat without checking
 
 | Portal | Browser-observed result | Status |
 | --- | --- | --- |
@@ -80,10 +80,10 @@ Acknowledged submissions, existing listings, uncertain attempts, and authenticat
 - The target of 20 additional submissions is exceeded with 21 confirmed. Keep existing listings, blocked forms, and uncertain outcomes outside that count.
 - Check editorial responses before claiming any received submission is approved or published.
 - Check uncertain outcomes before considering another attempt; avoid duplicate submissions.
-- Check ListAi after its stated 24–48-hour window and MCPHunter after Week 40 review.
+- Check ListAi after its stated 24 to 48 hour window and MCPHunter after Week 40 review.
 - AI SuperHub and TipSeason use lengthy free queues; the stated 90+ and 180+ days are not publication guarantees.
-- Check AI-Tool.ai after its stated 2–3-business-day review window and track the three open submission issues for maintainer responses.
-- Check AI Tools Inc for its stated initial email response over the next few days; its free publication queue is 30–90 days.
+- Check AI-Tool.ai after its stated 2 to 3 business day review window and track the three open submission issues for maintainer responses.
+- Check AI Tools Inc for its stated initial email response over the next few days; its free publication queue is 30 to 90 days.
 - No application code changed and no tests were required for this submission campaign.
 
 This log records outcomes only. It does not schedule reminders or send follow-up messages.
