@@ -1,6 +1,6 @@
 {
   "domain": "visas",
-  "knowledge_date": "2026-10-20",
+  "knowledge_date": "2026-11-26",
   "full_review_date": "2026-10-13",
   "volatility": "high",
   "verify_at": "https://u.ae/en/information-and-services/visa-and-emirates-id",
@@ -32,9 +32,12 @@
       "process": "Online via ICP/GDRFA portal, hotel sponsor, or airline. GDRFA Dubai targets 48-hour processing for 30 and 60 day tourist visas.",
       "source_urls": [
         "https://icp.gov.ae",
-        "https://www.gdrfad.gov.ae/en/services/372ff58d-b68c-11ed-5210-4cd98f768936"
+        "https://www.gdrfad.gov.ae/en/services/372ff58d-b68c-11ed-5210-4cd98f768936",
+        "https://protocol.dubai.ae/en/media-listing/news-events/hamdan-bin-mohammed-announces-new-initiatives-to-further-enhance-competitiveness-of-dubai-s-tourism-sector",
+        "https://www.thenationalnews.com/news/uae/2026/11/02/visit-dubai-uae-tourist-visa-30-day-60-day-multiple-entry/"
       ],
-      "cost_notes": "GDRFA Dubai single-entry tourist visa issuance fee: AED 200 for 30 days plus 5% VAT (AED 210); AED 10 knowledge, AED 10 innovation and AED 500 in-country fees apply if the visitor is already inside the UAE. The AED 700 upper bound is a legacy estimate of airline, hotel or agent packages (service charges, insurance) and is not an official fee."
+      "cost_notes": "GDRFA Dubai single-entry tourist visa issuance fee: AED 200 for 30 days plus 5% VAT (AED 210); AED 10 knowledge, AED 10 innovation and AED 500 in-country fees apply if the visitor is already inside the UAE. The AED 700 upper bound is a legacy estimate of airline, hotel or agent packages (service charges, insurance) and is not an official fee.",
+      "channel_note": "Announced 1 November 2026 (official Government of Dubai release on protocol.dubai.ae): Visit Dubai, the emirate's official tourism site, is adding applications for single-entry and multiple-entry tourist visas, to be implemented during November 2026, with further service details to follow. The initiative was developed by GDRFA Dubai, DET and Digital Dubai under the Shared Digital Channels Initiative. GDRFA Dubai remains responsible for assessing applications and issuing visas, and the release announces no change to fees or eligibility. Secondary: The National (2 November 2026, updated 4 November) reports the service as available and says the site redirects applicants to GDRFA. visitdubai.com blocks automated access (HTTP 403), so the live application page was not opened on 2026-11-26."
     },
     {
       "id": "tourist_60",
@@ -55,9 +58,12 @@
       ],
       "source_urls": [
         "https://icp.gov.ae",
-        "https://www.gdrfad.gov.ae/en/services/372ff58d-b68c-11ed-5210-4cd98f768936"
+        "https://www.gdrfad.gov.ae/en/services/372ff58d-b68c-11ed-5210-4cd98f768936",
+        "https://protocol.dubai.ae/en/media-listing/news-events/hamdan-bin-mohammed-announces-new-initiatives-to-further-enhance-competitiveness-of-dubai-s-tourism-sector",
+        "https://www.thenationalnews.com/news/uae/2026/11/02/visit-dubai-uae-tourist-visa-30-day-60-day-multiple-entry/"
       ],
-      "cost_notes": "GDRFA Dubai single-entry tourist visa issuance fee: AED 300 for 60 days plus 5% VAT (AED 315); in-country fees as for the 30-day visa. The AED 1,200 upper bound is a legacy estimate of agent packages and is not an official fee."
+      "cost_notes": "GDRFA Dubai single-entry tourist visa issuance fee: AED 300 for 60 days plus 5% VAT (AED 315); in-country fees as for the 30-day visa. The AED 1,200 upper bound is a legacy estimate of agent packages and is not an official fee.",
+      "channel_note": "Announced 1 November 2026 (official Government of Dubai release on protocol.dubai.ae): Visit Dubai, the emirate's official tourism site, is adding applications for single-entry and multiple-entry tourist visas, to be implemented during November 2026, with further service details to follow. The initiative was developed by GDRFA Dubai, DET and Digital Dubai under the Shared Digital Channels Initiative. GDRFA Dubai remains responsible for assessing applications and issuing visas, and the release announces no change to fees or eligibility. Secondary: The National (2 November 2026, updated 4 November) reports the service as available and says the site redirects applicants to GDRFA. visitdubai.com blocks automated access (HTTP 403), so the live application page was not opened on 2026-11-26."
     },
     {
       "id": "visa_on_arrival",
@@ -93,7 +99,7 @@
         "https://www.khaleejtimes.com/uae/uae-expands-entry-visit-visa-eligibility"
       ],
       "verified_note": "MOFA announcement of 25 June 2026 re-checked 2026-10-13: nationalities, qualifying residence-permit countries, AED 100 (14 days, extendable once) and AED 250 (60 days, non-extendable) unchanged.",
-      "overstay_note": "AED 50 per day is the standard overstay fine; no change, new amnesty or grace period dated 28 September to 20 October 2026 was found on ICP or GDRFA channels (the last disruption-related grace period ran 10 June to 9 July 2026)."
+      "overstay_note": "AED 50 per day is the standard overstay fine; no change, new amnesty or grace period dated 28 September to 26 November 2026 was found on ICP or GDRFA channels (the last disruption-related grace period ran 10 June to 9 July 2026)."
     },
     {
       "id": "investor_partner",
@@ -246,14 +252,15 @@
       ],
       "cost_aed_min": 3800,
       "cost_aed_max": 9500,
-      "unverified_note": "UNCONFIRMED: industry reports from around February 2026 claim the requirement to have paid 50% (or AED 1 million) of an off-plan or mortgaged property before applying was removed, with the full purchase price recorded on the Oqood counting toward the AED 2 million threshold regardless of the amount paid (developer or bank NOC still required). The ICP Golden Residency page (updated 10 September 2026) and the GDRFA Dubai investor page (checked 2026-10-13) accept mortgaged and off-plan property without stating any minimum paid percentage, but neither explicitly records the removal, and no DLD or ICP decision number has been found. Note the tension with the 2-year property visa rules, which still reference 50% or AED 375,000 paid for mortgaged property.",
+      "unverified_note": "UNCONFIRMED: industry reports from around February 2026 claim the requirement to have paid 50% (or AED 1 million) of an off-plan or mortgaged property before applying was removed, with the full purchase price recorded on the Oqood counting toward the AED 2 million threshold regardless of the amount paid (developer or bank NOC still required). The ICP Golden Residency page (still dated 10 September 2026) and the GDRFA Dubai investor page (both re-checked 2026-11-26) accept mortgaged and off-plan property without stating any minimum paid percentage, but neither explicitly records the removal, and no DLD or ICP decision number has been found. The claim is older than those reports: Khaleej Times reported on 24 January 2024 (secondary, citing real estate agents, not a DLD or GDRFA statement) that Dubai had dropped the AED 1 million minimum down payment, with off-plan property considered case by case. Note the tension with the 2-year property visa rules, which still reference 50% or AED 375,000 paid for mortgaged property.",
       "process_note": "Since the GDRFA-DLD MoU of 11 April 2026, Dubai Golden Residency applications linked to real estate run through a single GDRFA Dubai channel with DLD-fed property valuation and title verification (service integration only; eligibility thresholds unchanged).",
       "source_urls": [
         "https://icp.gov.ae/en/services/uae-golden-residency/",
         "https://gdrfad.gov.ae/en/node/13914",
         "https://gulfnews.com/living-in-uae/visa-immigration/dubai-residency-by-investment-guide-1.500523250",
         "https://mediaoffice.ae/en/news/2026/april/11-04/gdrfa",
-        "https://u.ae/en/information-and-services/visa-and-emirates-id/Types-of-visas/golden-visa"
+        "https://u.ae/en/information-and-services/visa-and-emirates-id/Types-of-visas/golden-visa",
+        "https://www.khaleejtimes.com/business/uae-golden-visa-dubai-drops-minimum-down-payment-required-for-property-owners"
       ],
       "jurisdiction_note": "The ICP Golden Residency page (updated 10 September 2026) and GDRFA Dubai both describe 10 years for real-estate investors; the u.ae Golden visa overview still describes 5 years for real-estate investments. Confirm duration and mortgage/off-plan conditions with the issuing authority.",
       "cost_notes": "GDRFA lists AED 1,100 permit, AED 10 knowledge, AED 10 innovation, AED 500 in-country and AED 20 delivery, plus AED 100 per year beyond two years; DLD certificates, medical, Emirates ID and insurance are extra, so the AED 3,800 to 9,500 range is an all-in estimate."
@@ -306,7 +313,7 @@
       "source_urls": [
         "https://icp.gov.ae/en/services/uae-green-residency/"
       ],
-      "verified_note": "ICP Green Residency page (updated 12 September 2026) re-checked 2026-10-13: thresholds unchanged."
+      "verified_note": "ICP Green Residency page (updated 12 September 2026) re-checked 2026-11-26: thresholds unchanged."
     },
     {
       "id": "green_freelancer",
@@ -329,7 +336,7 @@
       "source_urls": [
         "https://icp.gov.ae/en/services/uae-green-residency/"
       ],
-      "verified_note": "ICP Green Residency page (updated 12 September 2026) re-checked 2026-10-13: thresholds unchanged."
+      "verified_note": "ICP Green Residency page (updated 12 September 2026) re-checked 2026-11-26: thresholds unchanged."
     },
     {
       "id": "freelance_permit",
@@ -368,13 +375,13 @@
       ],
       "eligibility": [
         "Employment contract with a foreign (non-UAE) employer",
-        "USD 3,500 minimum monthly salary (per the GDRFA Dubai service page and u.ae, re-checked 2026-10-13)",
+        "USD 3,500 minimum monthly salary (per the GDRFA Dubai service page and u.ae, re-checked 2026-11-26)",
         "Health insurance valid in the UAE"
       ],
       "cost_aed_min": 210,
       "cost_aed_max": 730,
       "cost_notes": "The cited GDRFA page is for the entry visa to complete residence formalities: AED 200 plus 5% VAT (AED 210). For inside-country applications it lists AED 10 knowledge, AED 10 innovation and AED 500 in-country fees (AED 730 total on those components). Medical, Emirates ID, residence-permit and insurance costs are separate.",
-      "unverified_note": "UNCONFIRMED: some aggregators claim the income floor rose to USD 5,000 per month for employed applicants and that required health-insurance cover rose to AED 500,000. Neither figure appears on the official GDRFA service page or the u.ae page as of 13 October 2026, so treat them as unconfirmed.",
+      "unverified_note": "UNCONFIRMED: some aggregators claim the income floor rose to USD 5,000 per month for employed applicants and that required health-insurance cover rose to AED 500,000. Neither figure appears on the official GDRFA service page or the u.ae page as of 26 November 2026, so treat them as unconfirmed.",
       "source_urls": [
         "https://u.ae/en/information-and-services/visa-and-emirates-id/Types-of-visas/Residence-visa/residence-visa-for-working-outside-the-uae",
         "https://www.gdrfad.gov.ae/en/services/64154a31-ec6d-11ec-140b-0050569629e8"
@@ -455,10 +462,10 @@
         "https://www.khaleejtimes.com/uae/one-visa-for-6-gulf-countries-gcc-chief-says-scheme-will-launch-soon",
         "https://www.gcc-sg.org/en/MediaCenter/News/Pages/news-2025-7-2-5.aspx"
       ],
-      "status_check": "Re-checked 2026-10-20: still not live. No official launch date, application portal, fee or validity has been published by ICP or the GCC General Secretariat. The latest primary-adjacent statement remains the GCC Secretary General's 6 September 2026 remark (Khaleej Times, 8 September 2026) that the visa would 'see the light soon', with no date; nothing new was found for 28 September to 20 October 2026, so the Q4 2026 Dubai-Bahrain pilot remains an expectation, not a confirmed start.",
+      "status_check": "Re-checked 2026-11-26: still not live. No official launch date, application portal, fee or validity has been published by ICP or the GCC General Secretariat. The latest primary-adjacent statement remains the GCC Secretary General's 6 September 2026 remark (Khaleej Times, 8 September 2026) that the visa would 'see the light soon', with no date; nothing new was found for 20 October to 26 November 2026. Five weeks of Q4 2026 remain, so the Q4 2026 Dubai-Bahrain pilot is still an expectation, not a confirmed start, and should be re-checked in January 2027.",
       "source_note": "The VisaHQ pilot article cited earlier returned HTTP 404 on 2026-10-20 and was replaced with a secondary Travel News report (4 February 2026) that attributes the end-2026 UAE-Bahrain pilot to the UAE Minister of Economy; its fee figures are a draft proposal."
     }
   ],
-  "previous_knowledge_date": "2026-10-13",
-  "last_refresh_scope": "Targeted refresh of 2026-10-20: searched ICP, GDRFA Dubai, u.ae, WAM and the Dubai Media Office for visa and residency decisions dated 13 to 20 October 2026. Changed: the dead VisaHQ source for the GCC unified visa pilot (HTTP 404) was replaced with a secondary Travel News report, and the GCC and overstay re-check dates were advanced. Checked with no change: the ICP Golden Residency page (still dated 10 September 2026: entrepreneur AED 1,000,000 revenue or AED 7,000,000 prior exit; real estate AED 2,000,000 with approved-bank loans and approved-developer off-plan units, no paid-in percentage stated), the ICP Green Residency page (still dated 12 September 2026: AED 15,000 salary, AED 360,000 freelance income), GDRFA Dubai news (latest item 14 September 2026) and ICP media centre (no rule change). No new ICP or GDRFA residency, fee, overstay-fine or amnesty decision, no new visa category and no GCC unified visa launch was found; the GDRFA and Awqaf Dubai waqf-donor Golden route dates from October 2025 and is outside this pack's founder categories. Still unverified: the off-plan and mortgaged 50% paid-in removal for the Golden real-estate route, the Cube Centre joint and mortgaged thresholds for the 2-year property visa, the upper bounds of the tourist, investor, family and freelance cost ranges, and the GCC Q4 2026 pilot timing. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-10-20",
+  "last_refresh_scope": "Targeted refresh of 2026-11-26: searched ICP, GDRFA Dubai, u.ae, WAM and the Dubai Media Office for visa and residency decisions dated 20 October to 26 November 2026. Changed: added a channel note to the 30-day and 60-day tourist visas for the 1 November 2026 announcement that Visit Dubai is adding single-entry and multiple-entry tourist visa applications (official Dubai release; GDRFA Dubai still assesses and issues; no fee or eligibility change; live status rests on a secondary report from The National); added to the Golden real-estate unverified note that the dropped down payment claim goes back to a 24 January 2024 Khaleej Times report sourced to agents (secondary, still unconfirmed); advanced the GCC, overstay, Green Residency and virtual-working re-check dates. Checked with no change: the ICP Golden Residency page (still dated 10 September 2026: entrepreneur AED 1,000,000 revenue or AED 7,000,000 prior exit; real estate AED 2,000,000 with approved-bank loans and approved-developer off-plan units, no paid-in percentage stated; AED 30,000 salary for professionals), the ICP Green Residency page (still dated 12 September 2026: AED 15,000 salary, AED 360,000 freelance income), the GDRFA Dubai real-estate Golden page (AED 2,000,000, AED 1,100 permit fee, no paid-in percentage), the GDRFA Dubai virtual work page (USD 3,500, AED 200 plus VAT), the u.ae remote work page (USD 3,500, dated 7 August 2026) and the u.ae Golden visa overview (still 5 years, dated 28 July 2026), ICP news (latest item 1 October 2026) and GDRFA Dubai news (latest item 14 September 2026). No new ICP or GDRFA residency, Emirates ID fee, overstay-fine, amnesty, job seeker or remote work decision, no new visa category and no GCC unified visa launch was found. Still unverified: the off-plan and mortgaged 50% paid-in removal for the Golden real-estate route, the Cube Centre joint and mortgaged thresholds for the 2-year property visa, the upper bounds of the tourist, investor, family and freelance cost ranges, the GCC Q4 2026 pilot timing, and whether the Visit Dubai visa channel is live. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

@@ -17,6 +17,7 @@ from __future__ import annotations
 import math
 import re
 from datetime import date
+from html import unescape
 from typing import Any
 
 from lxml import html
@@ -145,8 +146,21 @@ class CbuaeClient:
         if not html_fragment.strip():
             return {"base_rate_percent": None, "raw": ""}
 
-        text = re.sub(r"<[^>]+>", " ", html_fragment)
+        # Drop CSS and scripts first: since late 2026 the endpoint returns a
+        # whole widget, and a stylesheet value such as "height: 100%" must
+        # never be read as a rate.
+        text = re.sub(r"<(script|style)\b[^>]*>.*?</\1\s*>", " ", html_fragment, flags=re.I | re.S)
+        text = unescape(re.sub(r"<[^>]+>", " ", text))
         text = re.sub(r"\s+", " ", text).strip()
+
+        # Widget layout: "EIBOR Overnight 3.661 Base Rate 3.900 MLF/CMF 4.400".
+        # Take the figure that directly follows the label.
+        match = re.search(r"Base\s+Rate\s*:?\s*(\d+(?:\.\d+)?)(?![\d-])", text, flags=re.I)
+        if match:
+            return {
+                "base_rate_percent": float(match.group(1)),
+                "raw": text[max(0, match.start() - 40) : match.end() + 40],
+            }
 
         match = re.search(r"(\d+(?:\.\d+)?)\s*%", text)
         if match:

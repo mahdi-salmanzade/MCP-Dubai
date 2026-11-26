@@ -26,21 +26,18 @@ _BASE_KNOWLEDGE: KnowledgeMetadata = extract_knowledge(_FREE_ZONES_DATA)
 # Override with a setup_advisor specific verify_at since this tool spans
 # multiple domains.
 KNOWLEDGE = KnowledgeMetadata(
-    knowledge_date="2026-10-20",
+    knowledge_date="2026-11-26",
     full_review_date="2026-10-13",
-    previous_knowledge_date="2026-10-13",
+    previous_knowledge_date="2026-10-20",
     last_refresh_scope=(
-        "Targeted refresh of 2026-10-20: the DIFC Innovation Licence route now states the "
-        "official fee schedule from DIFC's Private Company, Non-Financial and Retail "
-        "Handbook (Rev.06, approved 29 September 2026) and Innovation Licence setup guide: "
-        "USD 1,500 for 2 years, the discount continuing to year 7 only for companies with "
-        "10 or fewer employees, and USD 12,000 otherwise and from year 8 (it previously "
-        "said USD 12,000 from year 3 for everyone); the visa warning follows the guide's "
-        "up-to-4-visas-on-the-first-desk wording. The Resolution 11 of 2025 route and fees "
-        "(AED 10,000 branch licence per year, AED 5,000 six-month temporary permit) were "
-        "rechecked for news with no change. Free-zone prices, PRO budget range and "
-        "timelines remain indicative and were not re-quoted. Not a full re-verification; "
-        "full_review_date is preserved."
+        "Targeted refresh of 2026-11-26: the SaaS route's upper cost bound moves from "
+        "AED 35,000 to AED 35,500 because DMCC now publishes its cheapest general package "
+        "(Basic Biz) at AED 35,484 on its packages page. Rechecked with no change: the "
+        "DIFC Innovation Licence schedule (USD 1,500 a year for the first 2 years), the "
+        "Meydan AED 12,500 entry price, and the Resolution 11 of 2025 route and fees "
+        "(AED 10,000 branch licence per year, AED 5,000 six-month temporary permit). "
+        "Other free-zone prices, the PRO budget range and timelines remain indicative and "
+        "were not re-quoted. Not a full re-verification; full_review_date is preserved."
     ),
     volatility="high",
     verify_at="https://invest.dubai.ae",
@@ -256,7 +253,7 @@ def _decide(
         )
         candidates = ["IFZA", "DSO Dtec", "TECOM (DIC)", "DMCC"]
         cost_min = 12500
-        cost_max = 35000
+        cost_max = 35500
         timeline_weeks = "1 to 3"
 
     # Default: free zone for most founders

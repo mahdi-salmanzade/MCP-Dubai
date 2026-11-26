@@ -72,6 +72,12 @@ class TestUpstreamErrorResponse:
         result = upstream_error_response(ValueError(huge))
         assert len(result["error"]["reason"]) == 400
 
+    def test_httpx_timeout_with_empty_message_still_gets_a_reason(self) -> None:
+        """httpx.ReadTimeout("") stringifies to an empty string."""
+        result = upstream_error_response(httpx.ReadTimeout(""))
+        assert result["error"]["status"] == "upstream_timeout"
+        assert result["error"]["reason"] == "ReadTimeout"
+
 
 class TestCloudflareBlockedResponse:
     def test_basic_envelope(self) -> None:

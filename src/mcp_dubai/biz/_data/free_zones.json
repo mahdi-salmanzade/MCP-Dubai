@@ -1,6 +1,6 @@
 {
   "domain": "free_zones",
-  "knowledge_date": "2026-10-20",
+  "knowledge_date": "2026-11-26",
   "full_review_date": "2026-10-13",
   "volatility": "high",
   "verify_at": "https://www.dubai.ae/investing/starting-a-business/free-zones-in-dubai",
@@ -69,7 +69,7 @@
       "headline": "Meydan launches fully remote non-residency setup with a guaranteed corporate account via MPlus",
       "summary": "Fully remote company formation: founders anywhere can obtain a UAE trade licence online in as little as 60 minutes (24 hours for complex structures) across 2,500+ activities, then open a corporate bank account via Meydan's MPlus banking team (26+ banking partners, up to 17 currencies) without travelling to the UAE. Marketed as a guaranteed bank account with the licence.",
       "tag": "single_source",
-      "caveat": "Originally a single-source Gulf News company-news item. On 2026-10-13 Meydan's official launch page listed a Non-Resident Licence at AED 12,500, confirming the remote-setup product, but the guaranteed-bank-account claim was not confirmed on an official Meydan page; treat it as marketing.",
+      "caveat": "Originally a single-source Gulf News company-news item. Meydan's official launch page lists a Non-Resident Licence at AED 12,500, confirming the remote-setup product. Re-checked 2026-11-26: the same official page now advertises 'a guaranteed business bank account with hands-on support from our MPlus team', but its FAQ states that final approval is subject to the bank's internal policies and compliance requirements. Treat the guarantee as Meydan marketing wording, not an assured account.",
       "source_urls": [
         "https://gulfnews.com/gn-focus/company-news/meydan-free-zone-launches-non-residency-business-setup-with-guaranteed-corporate-bank-account-1.500479010",
         "https://www.meydanfz.ae/launch-your-business"
@@ -197,8 +197,8 @@
         "currency": "AED",
         "as_of": "2025-Q4",
         "price_status": "official_published_price",
-        "verified_note": "Meydan's official launch page, re-checked 2026-10-13, advertises company formation from AED 12,500 per year (licence, registration, digital application, portal access and a flexi desk), a Fawri instant licence at AED 15,000, a Non-Resident Licence at AED 12,500, and up to 15% off multi-year licences. Visas, medical, Emirates ID and office upgrades are extra. Renewal at AED 12,500 is not separately confirmed.",
-        "verified_as_of": "2026-10-13"
+        "verified_note": "Meydan's official launch page, re-checked 2026-11-26, advertises company formation from AED 12,500 per year (licence, registration, digital application, portal access and a flexi desk), a Fawri instant licence at AED 15,000, a Non-Resident Licence at AED 12,500, and up to 15% off multi-year licences. Visas, medical, Emirates ID and office upgrades are extra. Renewal at AED 12,500 is not separately confirmed.",
+        "verified_as_of": "2026-11-26"
       },
       "office": {
         "options": [
@@ -446,13 +446,15 @@
         "renewal_aed": 30000,
         "currency": "AED",
         "as_of": "2025-Q4",
-        "notes": "Basic license approximately AED 35,484 in year one. Per-visa fees are charged on top, so a 3-visa setup is materially higher than the headline figure.",
-        "price_status": "dated_indicative_snapshot",
-        "official_range_note": "DMCC's official set-up page, re-checked 2026-10-13, states initial setup costs typically range from AED 10,345 to AED 84,515 depending on licence duration and office space; registration takes about 10 working days. The AED 35,484 / 30,000 figures remain an unverified dated 2025-Q4 package snapshot.",
+        "notes": "DMCC's entry-level Basic Biz package is AED 35,484 in year one (advance payment in full, listed against an original price of AED 57,481). It is for individual shareholders only, not branches or subsidiaries, and its flexi desk options are eligible for one UAE residency visa; no visa is listed as included, so visa costs are extra and a 3-visa setup needs a larger package.",
+        "price_status": "official_published_price",
+        "verified_note": "DMCC's official Business Setup Packages page, checked 2026-11-26, lists Basic Biz at AED 35,484 (original AED 57,481), Jump Start from AED 43,780 with one residency visa included, Prime Plus at AED 40,145 for one year, a JLT Resident package at AED 29,205, Crypto, Gaming and AI Centre packages at AED 31,000 each, and the Nook co-working package at AED 10,345. All list 0% instalment options through Wio Bank, subject to the bank's terms. No offer end dates are published. Renewal at AED 30,000 is not confirmed on that page.",
+        "verified_as_of": "2026-11-26",
+        "official_range_note": "DMCC's official set-up page, re-checked 2026-11-26, states initial setup costs typically range from AED 10,345 to AED 84,515 depending on licence duration and office space; registration takes about 10 working days. The AED 30,000 renewal figure remains an unverified dated 2025-Q4 snapshot.",
         "official_range_aed": {
           "min": 10345,
           "max": 84515,
-          "as_of": "2026-10-13"
+          "as_of": "2026-11-26"
         }
       },
       "office": {
@@ -482,7 +484,8 @@
       ],
       "website": "https://www.dmcc.ae",
       "source_urls": [
-        "https://dmcc.ae/business/set-up-a-new-business"
+        "https://dmcc.ae/business/set-up-a-new-business",
+        "https://dmcc.ae/business/business-setup-packages"
       ]
     },
     {
@@ -800,6 +803,6 @@
       "price_note": "Not re-confirmable on an official page on 2026-10-13 (no published tariff); kept as an unverified historical snapshot dated 2025-Q4. The RAK ICC site blocked automated access. Secondary 2026 sources cite a registry incorporation fee of about AED 3,250 for one year excluding registered-agent fees; this is not confirmed on an official RAK ICC page."
     }
   ],
-  "previous_knowledge_date": "2026-10-13",
-  "last_refresh_scope": "Targeted refresh of 2026-10-20: searched for free zone package, fee and rule announcements dated 13 to 20 October 2026 and resolved two open DIFC items from official DIFC documents. Changed: DIFC Innovation Licence subsidy schedule recorded from DIFC's Private Company, Non-Financial and Retail Handbook (DIFC-CS-GL-12 Rev.06, approved 29 September 2026, on assets.difc.com: USD 100 incorporation, USD 1,500 discounted for 2 years for all, years 3 to 7 only for 10 or fewer employees, USD 12,000 normal fee otherwise and from year 8) and the DIFC Innovation Licence setup guide (January 2025: taper to USD 4,000 in year 6 and USD 8,000 in year 7, up to 4 visas on the first desk, USD 500 plus VAT flexi desk), so the USD 12,000 standard fee and 4-visa desk allowance are now official; DIFC restrictions note now cites the guide. Checked with no change: Meydan launch page (AED 12,500 licence and Non-Resident Licence, AED 15,000 Fawri), DMCC set-up page (AED 10,345 to 84,515), IFZA set-up page (still no published price), TECOM Group setup page. No DET or Dubai Media Office update to the Free Zone Mainland Operating Permit, its regulated-sector phase or the Resolution 11 of 2025 regularisation deadline was found; the Dubai CommerCity AED 1.8 billion expansion and the 30 September 2026 Dubai Customs guarantee-free export rule were noted but not added (not founder-setup terms). tecomgroup.ae, dpc.ae and dubai.ae returned HTTP 403 and difc.com HTTP 429 to automated checks but load in a browser fetch (blocked, not dead). Still unverified: IFZA, Dubai South, DAFZA and DMCC package prices, other renewal prices, IFZA and other zone visa caps, JAFZA Offshore and RAK ICC setup costs, and banking-acceptance ratings. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-10-20",
+  "last_refresh_scope": "Targeted refresh of 2026-11-26: searched for free zone package, fee and rule announcements dated 20 October to 26 November 2026 and re-opened the official zone pages. Changed: the DMCC initial price is now an official published price, since DMCC's Business Setup Packages page lists the Basic Biz package at AED 35,484 (individual shareholders, flexi desk eligible for one visa) along with other package prices; the Meydan remote-setup caveat now records that Meydan's official page itself advertises a guaranteed bank account while its FAQ makes approval subject to the bank; Meydan and DMCC check dates advanced. Checked with no change: Meydan launch page (AED 12,500 licence and Non-Resident Licence, AED 15,000 Fawri, up to 15% off multi-year), DMCC set-up page (AED 10,345 to 84,515), IFZA set-up page (still no published price), JAFZA company-formation page (no price, lease required), DIFC Innovation Licence page (USD 1,500 for 2 to 5 years), Dubai South and DMCC newsrooms (no licence, fee or incentive item since 20 October). No DET or Dubai Media Office update to the Free Zone Mainland Operating Permit, its regulated-sector phase, the Resolution 11 of 2025 fees or the regularisation deadline was found, and no new Dubai free zone was announced; the developments_2026 entries were not re-opened one by one. tecomgroup.ae, dpc.ae and dubai.ae returned HTTP 403 and difc.com HTTP 429 to automated checks but load in a browser fetch (blocked, not dead). Still unverified: IFZA, Dubai South and DAFZA package prices, the DMCC renewal price and other renewal prices, IFZA and other zone visa caps, JAFZA Offshore and RAK ICC setup costs, and banking-acceptance ratings. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

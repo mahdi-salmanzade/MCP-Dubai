@@ -204,8 +204,8 @@ class TestFunding:
         assert dfdf["fund_size_aed"] == 1_000_000_000
         assert dfdf["latest_dated_report_snapshot"]["total_investments"] == 30
         assert dfdf["latest_dated_report_snapshot"]["publication_date"] == "2026-07-20"
-        assert dfdf["current_portfolio_listing_snapshot"]["listed_entities"] == 36
-        assert dfdf["current_portfolio_listing_snapshot"]["verified_as_of"] == "2026-08-14"
+        assert dfdf["current_portfolio_listing_snapshot"]["listed_entities"] == 40
+        assert dfdf["current_portfolio_listing_snapshot"]["verified_as_of"] == "2026-11-26"
         assert "commitments_aed" not in dfdf
         assert dfdf["url"] == "https://dfdf.vc/"
 
@@ -223,8 +223,8 @@ class TestFunding:
         vcs = {v["id"]: v for v in data["vcs"]}  # type: ignore[union-attr]
         assert vcs["wamda_capital"]["url"] == "https://wamdacapital.com/"
         assert vcs["shorooq"]["url"] == "https://www.shorooq.com/"
-        assert funding_tools.KNOWLEDGE.knowledge_date == "2026-10-20"
-        assert funding_tools.KNOWLEDGE.full_review_date == "2026-08-14"
+        assert funding_tools.KNOWLEDGE.knowledge_date == "2026-11-26"
+        assert funding_tools.KNOWLEDGE.full_review_date == "2026-11-26"
         assert "Cohort 21" in str(funding_tools.KNOWLEDGE.last_refresh_scope)
 
 

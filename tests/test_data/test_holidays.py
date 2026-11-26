@@ -48,7 +48,7 @@ class TestUaeHolidays:
         assert len(data["holidays"]) == len(HOLIDAYS_2027)
         assert len(data["holidays"]) == 12
         assert "dataset_note" in data
-        assert "2026-10-13" in str(data["dataset_note"])
+        assert "2026-11-26" in str(data["dataset_note"])
 
     @pytest.mark.asyncio
     async def test_includes_new_year(self) -> None:

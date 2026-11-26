@@ -42,8 +42,11 @@ dependencies = [
     # removed in v4, which became stable on 2026-08-31. Stay on the tested
     # 3.x line and include its current security fixes (3.4.8, 2026-10-04:
     # SSE Host/Origin protection, Cookie forwarding, bounded caches; 3.4.9,
-    # 2026-10-16: OpenAPI dot-segment rejection, bounded regex tool search).
-    "fastmcp>=3.4.9,<4",
+    # 2026-10-16: OpenAPI dot-segment rejection, bounded regex tool search;
+    # 3.4.10, 2026-10-20: GHSA-7xgj-8392-5q4r, authorization of transformed
+    # components; 3.4.11, 2026-10-20: requires certifi>=2026.10.19 after the
+    # eMudhra CA compromise, which also covers our own httpx calls).
+    "fastmcp>=3.4.11,<4",
     # mcp 1.30.0 fixes unbounded session accumulation in stateful Streamable
     # HTTP (CVE-2026-59951). We ship stdio, but `fastmcp run --transport http`
     # would expose it. FastMCP 3.x caps mcp below 2.
@@ -53,7 +56,6 @@ dependencies = [
     "httpx>=0.28.1,<1",
     "pydantic>=2.6.0,<3",
     "tenacity>=8.2.0,<10",
-    "python-dateutil>=2.8.0,<3",
     "rank-bm25>=0.2.2",
     # 6.1.3 fixes external parameter entity parsing with the default
     # resolve_entities="internal" (LP#2165901, released 2026-09-02), in
@@ -84,7 +86,7 @@ Issues = "https://github.com/mahdi-salmanzade/MCP-Dubai/issues"
 mcp-dubai = "mcp_dubai.__main__:main"
 
 [build-system]
-requires = ["hatchling==1.32.4"]
+requires = ["hatchling==1.33.0"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]

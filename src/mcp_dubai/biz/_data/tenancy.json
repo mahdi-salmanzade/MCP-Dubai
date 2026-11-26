@@ -1,6 +1,6 @@
 {
   "domain": "tenancy",
-  "knowledge_date": "2026-10-20",
+  "knowledge_date": "2026-11-26",
   "full_review_date": "2026-07-02",
   "volatility": "medium",
   "verify_at": "https://dubailand.gov.ae/en/eservices/register-renew-ejari-contract/",
@@ -29,15 +29,18 @@
     "channels": [
       "Dubai REST app",
       "DLD Ejari system",
-      "Real estate service trustee centres"
+      "Real estate service trustee centres",
+      "DubaiNow app (enhanced Ejari service, from 2 November 2026)"
     ],
+    "dubainow_note": "On 2 November 2026 DLD launched an enhanced Ejari service in the DubaiNow app: tenancy contracts are created and registered in one process with the Ejari certificate issued straight after approval, landlords and tenants can renew or cancel contracts digitally through UAE PASS, and the DEWA security deposit can be paid in the same journey. The release states no fee for this channel, and the DLD service page (checked 2026-11-26) still lists fees only for Dubai REST and the DLD website (AED 177.75) and trustee centres (AED 220), so confirm the DubaiNow total at checkout.",
     "common_mistakes": [
       "Not registering Ejari before applying for a mainland visa quota (Ejari is a precondition)",
       "Using the wrong DEWA premise number",
       "Trying to file at the Rental Disputes Centre or activate DEWA without an active Ejari"
     ],
     "source_urls": [
-      "https://dubailand.gov.ae/en/eservices/register-renew-ejari-contract/"
+      "https://dubailand.gov.ae/en/eservices/register-renew-ejari-contract/",
+      "https://dubailand.gov.ae/en/news-media/dubai-land-department-launches-enhanced-ejari-service-through-dubainow-app/"
     ]
   },
   "flexi_rent": {
@@ -70,9 +73,10 @@
     },
     "note": "This changes the standard 'rent in 1-4 cheques' guidance: instalment plans are now an official DLD option through approved partners.",
     "dld_programme_terms": "Per the DLD FlexiRent page (checked 2026-09-28): participation by property management companies is voluntary; payment options (monthly, quarterly or semi-annual), grace periods and any discounts depend on each participating company's offering; eligible units are apartments, villas, offices and retail spaces selected by the company; tenancy must be 12 months or longer; agreed terms are written into the tenancy contract. The page shows 12 partner logos.",
-    "rent_now_pay_later_status": "A separate bank-backed, zero-interest 'Rent Now, Pay Later' service was reported in August 2026 as due in September 2026. As of 2026-10-13 no official DLD launch had been located; treat it as announced, not live.",
+    "rent_now_pay_later_status": "A separate bank-backed, zero-interest 'Rent Now, Pay Later' service was reported in August 2026 as due in September 2026. As of 2026-11-26 no official DLD launch had been located; treat it as announced, not live.",
+    "source_url_note": "The dedicated DLD FlexiRent page (dubailand.gov.ae/en/flexi-rent-initiative/), last read on 2026-10-20, returned HTTP 404 on 2026-11-26 and no replacement page was found on the DLD site. The first source below is now the DLD launch release of 23 June 2026, which names 11 partner companies; the programme terms recorded above come from the earlier reading of the removed page and could not be rechecked.",
     "source_urls": [
-      "https://dubailand.gov.ae/en/flexi-rent-initiative/",
+      "https://dubailand.gov.ae/en/news-media/dubai-land-department-launches-flexi-rent-initiative-and-strengthens-strategic-partnerships-to-advance-rental-market-accessibility/",
       "https://www.thenationalnews.com/business/property/2026/06/23/dubai-launches-flexi-rent-scheme-to-support-tenants/",
       "https://gulfnews.com/business/property/dubai-launches-flexi-rents-initiative-to-ease-tenant-payment-burden-1.500583691",
       "https://www.gdnonline.com/Details/1398888/Dubai-Land-Department-launches-%E2%80%98Flexi-Rent%E2%80%99-initiative"
@@ -197,6 +201,6 @@
       "https://dubailand.gov.ae/en/eservices/rental-index/rental-index/"
     ]
   },
-  "previous_knowledge_date": "2026-10-13",
-  "last_refresh_scope": "Targeted refresh of 2026-10-20: fixed the Dubai Media Office First-Time Home Buyer source link (the '/2026/jun/' path redirected to the site's 404 page; the '/2026/june/' path serves the 8 June 2026 release, which confirms 22 participating developers). Checked with no change: Ejari fees on the DLD service page (AED 177.75 via Dubai REST, AED 220 at trustee centres, 25-minute centre target); the DLD FlexiRent page (updated 14 October 2026; same terms and 12 partner logos, still no official 'Rent Now, Pay Later' launch); no new Smart Rental Index, RERA band or Ejari fee announcement and no further shared-housing Law 4 of 2026 implementing rules or permit fees since the 7 October Dubai Municipality guide; the dlp.dubai.gov.ae Law 4 HTML and PDF links respond. Not re-verified: RERA rent-increase bands, RDC fees and the press-reported shared-housing rental index (no DLD launch date or methodology found). Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-10-20",
+  "last_refresh_scope": "Targeted refresh of 2026-11-26: news since 2026-10-20 only. Added the enhanced Ejari service in the DubaiNow app, launched by DLD on 2 November 2026 (register, renew and cancel tenancy contracts through UAE PASS and pay the DEWA security deposit in one journey), from the DLD release; DubaiNow added to the Ejari channels, with no fee published for that channel. Replaced the dead DLD FlexiRent page link (HTTP 404 on 2026-11-26, no replacement page found) with the DLD launch release of 23 June 2026; the programme terms read from the removed page could not be rechecked. Checked with no change: Ejari fees on the DLD service page (AED 177.75 via Dubai REST or the DLD website, AED 220 at trustee centres, 25-minute centre target); no new Smart Rental Index update, RERA rent-increase rule, Ejari fee change, Rental Disputes Centre change or new Dubai tenancy law found since 20 October; still no official 'Rent Now, Pay Later' launch; no further shared-housing Law 4 of 2026 implementing rules or permit fees found. All pack URLs were link-checked: every other link responds (the Ejari and rental index service URLs redirect to renamed DLD pages that load). Not re-verified: RERA rent-increase bands, RDC fees, Flexi Rent partner terms and the press-reported shared-housing rental index. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

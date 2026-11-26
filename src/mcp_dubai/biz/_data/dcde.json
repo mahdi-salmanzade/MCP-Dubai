@@ -1,6 +1,6 @@
 {
   "domain": "dcde",
-  "knowledge_date": "2026-10-20",
+  "knowledge_date": "2026-11-26",
   "full_review_date": "2026-10-13",
   "volatility": "medium",
   "verify_at": "https://www.dubaichamberdigital.com",
@@ -239,13 +239,36 @@
           "scope": "Entrepreneurship and skills programmes, platform access and educational resources for Dubai-based companies and founders, joint events and workshops, and platform credits funded by Dubai Chambers for Create AI Agents Championship participants."
         }
       ],
+      "partners_2026_11_03": [
+        {
+          "name": "Alibaba Cloud",
+          "scope": "MoU signed by DCDE on 3 November 2026 at the Dubai Business Forum China in Shenzhen. Three areas: training content, certifications, technical workshops, expert-led sessions and train-the-trainer programmes through Dubai Chambers Academy; technical mentorship, technology credits, compute resources and software licences for startups, with selected startups connected to Alibaba Cloud programmes; and support for enterprise pilots and production deployments, including the Alibaba Cloud Marketplace. No amounts, eligibility rules, deadlines or application process were published."
+        }
+      ],
       "eligibility_note": "Aimed at Dubai Chamber of Commerce member companies in its Business Groups and Business Councils; no cost or formal eligibility rules were published.",
       "source_urls": [
+        "https://www.dubaichamberdigital.com/en/e/dcde_news_detailed_page/29577/6820490",
         "https://www.dubaichamberdigital.com/en/e/dcde_news_detailed_page/29577/6652658",
         "https://mediaoffice.ae/en/news/2026/september/01-09/dubai-chambers-launches-agentic-ai-training-for-14000-member-companies",
         "https://www.wam.ae/en/article/c210gjb-dubai-chambers-trains-over-14000-companies"
       ],
-      "verified_as_of": "2026-10-20"
+      "verified_as_of": "2026-11-26"
+    },
+    {
+      "id": "chamber_ai_hub",
+      "name": "Chamber AI Hub",
+      "operator": "Dubai Chambers",
+      "type": "agentic_ai_marketplace",
+      "launched_on": "2026-10-26",
+      "description": "Marketplace of ready-to-use AI agents for administrative and operational tasks, described by Dubai Chambers as the world's first chamber-led Agentic AI marketplace. At launch it lists 22 specialised agents across seven functional areas (Compliance, Procurement, Operations, Finance, Sales, Human Resources and Logistics), with a plan to reach 100 agents over two years and more than 295,000 private sector companies. Dubai Chambers members choose agents and subscribe to packages; any agent can be tried in a sandbox first and companies receive complimentary credits, after which paid packages are usage based. Data is hosted in the UAE and the platform supports Arabic and English.",
+      "pricing_note": "No package prices or credit amounts were published in the launch release.",
+      "operator_note": "The launch release names Dubai Chambers, not DCDE, as the operator; it is listed here because it sits inside the same Agentic AI programme as the training tracks above.",
+      "url": "https://aihub.dubaichambers.com",
+      "source_urls": [
+        "https://www.dubaichambers.com/en/w/dubai-chambers-launches-world-s-first-chamber-led-agentic-ai-marketplace-1",
+        "https://www.dubaichambers.com/en/chamber-ai-hub"
+      ],
+      "verified_as_of": "2026-11-26"
     },
     {
       "id": "canva_partnership",
@@ -349,6 +372,6 @@
       "https://mediaoffice.ae/en/news/2026/january/22-01/dubai-chamber-of-digital-economy-digital-startups"
     ]
   },
-  "previous_knowledge_date": "2026-10-13",
-  "last_refresh_scope": "Targeted refresh of 2026-10-20: added the agentic_ai_private_sector_programme record (Dubai Chambers Academy Agentic AI training for 14,000+ member companies, launched 1 September 2026 per Dubai Media Office and WAM, plus the 19 October 2026 DCDE MoUs with Nebius Academy and Lovable from the DCDE newsroom). Create AI Agents Championship: the official FAQ now agrees with the timeline that registration closes and semi-finalists are announced in January 2027 (it said December 2026 and February 2027 respectively at the last review); the 7 October launch releases still say December 2026, so both are kept. The prize total remains unresolved (official FAQ USD 750,000 versus over AED 2.5 million in the releases). Lovable platform credits for participants added. Checked with no change: no DCDE newsroom item since 7 October other than the 19 October MoUs; Create Apps Cycle 3 record; programme URLs respond, except dubaifoundershq.com (HTTP 403 to automated checks, labelled, not removed). Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-10-20",
+  "last_refresh_scope": "Targeted refresh of 2026-11-26: news since 2026-10-20 only. Added the 3 November 2026 DCDE MoU with Alibaba Cloud (training through Dubai Chambers Academy, startup credits and mentorship, enterprise pilots) to the agentic_ai_private_sector_programme record, from the DCDE newsroom. Added a chamber_ai_hub record: Dubai Chambers launched the Chamber AI Hub marketplace on 26 October 2026 (22 AI agents across seven functional areas, target of 100 agents over two years, sandbox trial and complimentary credits for members), from the Dubai Chambers release. Checked with no change: the official Create AI Agents Championship page still says registration closes in January 2027 with no exact day, still states USD 750,000 in total grants (USD 150,000 per category winner plus unspecified additional funding for the AI Agent of the Year) and still says registrants will be notified when submissions open; no official source reconciles this with the over AED 2.5 million in the 7 October releases, so the dispute stands and that record is untouched. The DCDE newsroom shows no item since 20 October other than the Alibaba Cloud MoU; no new DCDE cohort or deadline found (FRWRDx not rechecked beyond its URL loading). Unverified: a WAM item of 18 November 2026 headlined as DCDE targeting 100 AI agents within 18 months could not be read (the Dubai Chambers release says two years), so that timeline is not recorded. All pack URLs were link-checked: dubaifoundershq.com still returns HTTP 403 (bot blocking, kept); antler.co/apply redirects to antler.co/pitch and loads; no dead links. Not a full re-verification of every field in this pack; full_review_date is preserved."
 }

@@ -263,7 +263,10 @@ def _bootstrap_known_upstreams(registry: UpstreamRegistry) -> None:
             "endpoint": "www.centralbank.ae/umbraco/Surface/InterestRate",
             "requires_auth": False,
             "initial_status": "blocked",
-            "initial_reason": "Cloudflare bot protection rechecked 2026-10-13 (HTTP 403).",
+            "initial_reason": (
+                "Cloudflare bot protection seen through 2026-10-20 (HTTP 403). The "
+                "endpoint answered on 2026-11-26; status updates on the first call."
+            ),
             "features": ["cbuae"],
         },
         {

@@ -201,10 +201,10 @@ class TestKnowledgeMetadata:
         result = await tools.list_free_zones()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-10-20"
+        assert knowledge["knowledge_date"] == "2026-11-26"
         assert knowledge["full_review_date"] == "2026-10-13"
-        assert knowledge["previous_knowledge_date"] == "2026-10-13"
-        assert "Targeted refresh of 2026-10-20" in knowledge["last_refresh_scope"]
+        assert knowledge["previous_knowledge_date"] == "2026-10-20"
+        assert "Targeted refresh of 2026-11-26" in knowledge["last_refresh_scope"]
         assert knowledge["volatility"] == "high"
 
 

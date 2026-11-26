@@ -13,13 +13,13 @@ silence at 11:30) with NO day off, and it does not appear on the official
 u.ae public holidays list. Do not re-add it as a holiday entry.
 
 2027 note: no official Cabinet-approved 2027 holiday calendar has been
-published as of 2026-10-13 (re-checked against u.ae, last updated
-2026-07-02). Media lists of "2027 holidays" are predictions, not decisions. All 2027 lunar dates are astronomical
+published as of 2026-11-26 (re-checked against u.ae, last updated
+2026-10-29). Media lists of "2027 holidays" are predictions, not decisions. All 2027 lunar dates are astronomical
 expectations subject to moon sighting and MOHRE/FAHR confirmation.
 
-Knowledge date: 2026-10-13 (targeted re-check: still no 2027 calendar and
-no Eid Al Etihad 2026 observance circular; 2026-09-05 corrected the
-Prophet's Birthday observance).
+Knowledge date: 2026-11-26 (targeted re-check: still no 2027 calendar; FAHR
+announced the Eid Al Etihad 2026 federal government holiday on 2026-11-13;
+2026-09-05 corrected the Prophet's Birthday observance).
 Sources:
 - https://u.ae/en/information-and-services/public-holidays-and-religious-affairs/public-holidays
 - https://uaelegislation.gov.ae/en/legislations/2595 (Cabinet Resolution 27/2024)
@@ -45,7 +45,7 @@ class Holiday(TypedDict):
     source_url: NotRequired[str]
 
 
-HOLIDAY_DATA_DATE: Final[str] = "2026-10-13"
+HOLIDAY_DATA_DATE: Final[str] = "2026-11-26"
 
 
 # 2026 UAE federal public holidays. Observed dates confirmed through the
@@ -172,8 +172,16 @@ HOLIDAYS_2026: Final[list[Holiday]] = [
         "category": "fixed",
         "note": (
             "Fixed 2-3 December holiday under Cabinet Resolution 27/2024; in "
-            "2026 these fall on Wednesday and Thursday. As of 2026-10-13 no "
-            "FAHR or MOHRE circular had announced any transfer or extension."
+            "2026 these fall on Wednesday and Thursday. On 2026-11-13 FAHR "
+            "announced that the federal government holiday runs from Wednesday "
+            "2 to Friday 4 December, with work resuming on Monday 7 December. "
+            "The private sector holiday is reported as 2 and 3 December only "
+            "(MOHRE, via press reports); 4 December is not listed here because "
+            "it applies to federal government entities."
+        ),
+        "source_url": (
+            "https://www.fahr.gov.ae/en/news/federal-government-holiday-for-the-"
+            "uaes-55th-eid-al-etihad-to-run-from-2-to-4-december-2026/"
         ),
     },
     {
@@ -187,7 +195,7 @@ HOLIDAYS_2026: Final[list[Holiday]] = [
 
 
 # 2027 UAE federal public holidays. No official Cabinet-approved 2027
-# calendar exists as of 2026-10-13; all lunar dates are astronomical
+# calendar exists as of 2026-11-26; all lunar dates are astronomical
 # expectations and flagged provisional=True.
 HOLIDAYS_2027: Final[list[Holiday]] = [
     {
@@ -290,7 +298,7 @@ HOLIDAYS_2027: Final[list[Holiday]] = [
 DATASET_NOTES: Final[dict[int, str]] = {
     2027: (
         "No official Cabinet-approved 2027 holiday calendar has been "
-        "published as of 2026-10-13. All 2027 lunar dates are astronomical "
+        "published as of 2026-11-26. All 2027 lunar dates are astronomical "
         "expectations subject to moon sighting and MOHRE/FAHR confirmation."
     ),
 }

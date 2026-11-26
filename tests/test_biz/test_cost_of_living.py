@@ -254,10 +254,10 @@ class TestFuelPriceGuide:
         result = await tools.fuel_price_guide()
         data = result["data"]
         assert isinstance(data, dict)
-        assert data["latest_snapshot_key"] == "october_2026_snapshot"
+        assert data["latest_snapshot_key"] == "november_2026_snapshot"
         latest = data[data["latest_snapshot_key"]]
-        assert latest["effective_from"] == "2026-10-01"
-        assert latest["diesel"] == 4.8
+        assert latest["effective_from"] == "2026-11-01"
+        assert latest["diesel"] == 4.75
         snapshot = data["august_2026_snapshot"]
         assert isinstance(snapshot, dict)
         assert snapshot["effective_from"] == "2026-08-01"
@@ -285,7 +285,7 @@ class TestKnowledge:
         result = await tools.cost_of_living_overview()
         knowledge = result["knowledge"]
         assert isinstance(knowledge, dict)
-        assert knowledge["knowledge_date"] == "2026-10-20"
+        assert knowledge["knowledge_date"] == "2026-11-26"
         assert knowledge["volatility"] == "high"
 
     def test_registers_with_knowledge_registry(self) -> None:

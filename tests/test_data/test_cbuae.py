@@ -155,6 +155,25 @@ class TestBaseRateParser:
         result = CbuaeClient._parse_base_rate("<div>3.476</div>")
         assert result["base_rate_percent"] == pytest.approx(3.476)
 
+    def test_parses_labelled_widget_and_ignores_css_percentages(self) -> None:
+        """Layout served from November 2026: a full widget with inline CSS."""
+        widget = """
+        <style>.ki-chart-pane { height: 100%; } @media (max-width: 767.98px) {}</style>
+        <h3>UAE Interest Rates</h3>
+        <li><p>EIBOR Overnight <span class="font-b">3.661</span></p></li>
+        <li><p>Base Rate <span class="font-b">3.900</span></p></li>
+        <li><p>MLF/CMF <span class="font-b">4.400</span></p></li>
+        <button>Base Rate</button><button>DONIA</button>
+        <script>var d = {"labels": ["2026-10-26"], "rate": "55%"};</script>
+        """
+        result = CbuaeClient._parse_base_rate(widget)
+        assert result["base_rate_percent"] == pytest.approx(3.9)
+        assert "Base Rate 3.900" in result["raw"]
+
+    def test_css_only_page_is_not_a_rate(self) -> None:
+        result = CbuaeClient._parse_base_rate("<style>.a { width: 100%; }</style><p>Error</p>")
+        assert result["base_rate_percent"] is None
+
     def test_handles_empty(self) -> None:
         result = CbuaeClient._parse_base_rate("")
         assert result["base_rate_percent"] is None

@@ -52,7 +52,8 @@ def upstream_error_response(
     Cloudflare bot-protection evidence are surfaced as `upstream_blocked`,
     rate limits as `rate_limited`, and everything else as `upstream_error`.
     """
-    reason = str(error)
+    # httpx timeouts stringify to "", which left clients with an empty reason.
+    reason = str(error).strip() or type(error).__name__
     resolved_status = status or _classify(error, reason)
 
     payload: dict[str, str] = {
@@ -100,6 +101,10 @@ def _classify(error: Exception, reason: str) -> str:
         return "upstream_blocked"
     if isinstance(error, HttpClientError):
         return "upstream_error"
-    if "timeout" in reason.lower() or "timed out" in reason.lower():
+    if (
+        isinstance(error, TimeoutError)
+        or "timeout" in reason.lower()
+        or "timed out" in reason.lower()
+    ):
         return "upstream_timeout"
     return "upstream_error"

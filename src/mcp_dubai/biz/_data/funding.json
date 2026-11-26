@@ -1,7 +1,7 @@
 {
   "domain": "funding",
-  "knowledge_date": "2026-10-20",
-  "full_review_date": "2026-08-14",
+  "knowledge_date": "2026-11-26",
+  "full_review_date": "2026-11-26",
   "volatility": "high",
   "verify_at": "https://www.hub71.com/program/access-programme/apply",
   "source_brief_section": "6.7",
@@ -9,7 +9,7 @@
   "amount_convention": "Amounts retain the currency published by the official source. No exchange-rate conversions are inferred.",
   "accelerators_note": "The accelerators array is a legacy finder category that also includes incubators, innovation ecosystems, and challenge programmes. Each record states its actual programme type and cost status.",
   "government_programs_note": "The grants array is a legacy API key. Its records include non-financial support, equity investment, credit guarantees, and loans; they are not necessarily grants.",
-  "full_review_note": "Full record-by-record primary-source review completed 2026-08-14. Every retained field and exclusion was reviewed; unsupported tickets and mandates were removed, live Hub71 and Dubai SME deadlines and DFDF metrics were refreshed, misclassified entries were moved to exclusions, and Bedayat was added.",
+  "full_review_note": "Full record-by-record primary-source review completed 2026-11-26 (previous full review 2026-08-14). Every retained field, exclusion and URL was rechecked against the programme's or fund's own pages. Corrected: MBRIF accelerator duration (FAQ states 6 months), COTU Ventures domain, cheque range, stage and geography, Global Ventures stage, sector and geography wording, Shorooq stage wording, the Dubai Future Accelerators application status, and the DFDF live portfolio count. Bedayat's benefits and eligibility and Khalifa Fund's interest terms and owner age range remain unconfirmed and are labelled as such.",
   "accelerators": [
     {
       "id": "in5",
@@ -40,7 +40,7 @@
       "application_url": "https://infive.ae/",
       "application_process": "Online application followed by steering-committee review; no fixed year-round availability claim is made.",
       "pricing_snapshot": {
-        "as_of": "2026-08-14",
+        "as_of": "2026-11-26",
         "licence_aed_per_year_years_1_to_3": 1000,
         "coworking_desk_aed_by_year": [
           15000,
@@ -60,7 +60,7 @@
         "visa_aed_in_country": 3130,
         "note": "Published subsidized prices are not a free licence, office, or visa package. Third-party charges and terms can change."
       },
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://infive.ae/business-setup/",
         "https://infive.ae/faqs/"
@@ -93,16 +93,17 @@
         "application_deadline": "2027-02",
         "application_deadline_precision": "month",
         "application_deadline_status": "open",
-        "status_as_of": "2026-10-20",
+        "status_as_of": "2026-11-26",
         "programme_starts": "2027-09",
         "application_review_by": "2027-04",
+        "application_review_note": "The application page says applications received before the deadline are reviewed by April 2027; the FAQ page says the team reviews Cohort 21 applications between April and June 2027 (both checked 2026-11-26).",
         "programme_duration_months": 12,
         "post_deadline_applications_open": true,
         "post_deadline_note": "Applications after the stated cohort deadline are considered for the following cohort."
       },
       "relocation_requirement": "At least one founder is expected to relocate long-term and build a team in Abu Dhabi.",
       "equity_terms_note": "The official programme pages state that cash is provided through a SAFE in exchange for equity but do not publish a universal valuation cap, discount, or equity percentage.",
-      "verified_as_of": "2026-10-20",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://www.hub71.com/program/access-programme/apply",
         "https://www.hub71.com/program/access-programme",
@@ -140,7 +141,7 @@
       ],
       "application_url": "https://www.difc.com/business/establish-a-business/innovation-licence",
       "pricing_snapshot": {
-        "as_of": "2026-08-14",
+        "as_of": "2026-11-26",
         "innovation_licence_usd_per_year": 1500,
         "licence_period_years": "2 to 5",
         "registration_fee_usd": 100,
@@ -148,8 +149,8 @@
         "note": "An Innovation Licence does not authorize regulated financial services; separate DFSA authorization is required where applicable.",
         "subsidy_schedule_note": "Added 2026-10-20 from DIFC's Private Company, Non-Financial and Retail Handbook (DIFC-CS-GL-12 Rev.06, approved 29 September 2026) and setup guide: the USD 1,500 fee is discounted for the first 2 years for all entities and in years 3 to 7 only for entities with 10 or fewer employees (USD 1,500 to year 5, USD 4,000 in year 6, USD 8,000 in year 7); the normal USD 12,000 fee applies from year 3 above 10 employees and to all entities from year 8. The web page's '2 to 5 years' matches the full USD 1,500 rate."
       },
-      "programme_status_note": "The current Innovation Hub page lists partner-specific programmes. No current general DIFC FinTech Hive cohort was verified.",
-      "verified_as_of": "2026-08-14",
+      "programme_status_note": "The Innovation Hub page checked 2026-11-26 lists three partner-specific programmes (du Business AI Advantage Series, Transguard Early-Stage Accelerator Programme, XRPL Accelerator Launch Programme) without published dates or commercial terms. No current general DIFC FinTech Hive cohort was verified.",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://www.difc.com/ecosystem/innovation-hub",
         "https://www.difc.com/business/establish-a-business/innovation-licence",
@@ -176,14 +177,14 @@
       ],
       "application_url": "https://dtec.ae/",
       "pricing_snapshot": {
-        "as_of": "2026-08-14",
+        "as_of": "2026-11-26",
         "flexi_desk_aed_year_1": 18000,
         "fixed_desk_aed_year_1": 24200,
         "furnished_private_office_aed_year_1_from": 47820,
         "unfurnished_private_office_aed_year_1_from": 62500,
         "note": "Displayed year-one plans are paid. Funding opportunities, where available, are separate and are not guaranteed by taking a Dtec workspace or licence."
       },
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://dtec.ae/",
         "https://dtec.ae/faqs/",
@@ -208,10 +209,11 @@
         "challenge-specific technology"
       ],
       "application_url": "https://www.dubaifuture.ae/initiatives/future-design-and-acceleration/dubai-future-accelerators/",
-      "application_status": "The official page lists open challenges; eligibility, deliverables, and commercial terms vary by challenge.",
-      "verified_as_of": "2026-08-14",
+      "application_status": "No open challenge was verified on 2026-11-26. The official page still invites applications to 'current challenges', but its Explore Challenges and Apply link and the challenges page both lead to the Dubai Centre for Artificial Intelligence 'Future of AI in Government Services' accelerator (second cycle), which is marked 'Application is closed' with a deadline of 29 August 2025. That cycle stated zero equity taken and sponsored accommodation and travel for 8 weeks; terms of any future challenge may differ.",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
-        "https://www.dubaifuture.ae/initiatives/future-design-and-acceleration/dubai-future-accelerators/"
+        "https://www.dubaifuture.ae/initiatives/future-design-and-acceleration/dubai-future-accelerators/",
+        "https://www.dubaifuture.ae/ai4gov/"
       ]
     },
     {
@@ -239,12 +241,12 @@
       "application_url": "https://www.asc.sheraa.ae/s3-program",
       "current_status": {
         "status": "closed_or_next_cycle_unannounced",
-        "status_as_of": "2026-10-20",
+        "status_as_of": "2026-11-26",
         "latest_verified_application_deadline": "2025-09-07",
         "latest_verified_programme_period": "2025-10 to 2026-02",
-        "note": "The official page explicitly describes S3 as neither an incubator nor an accelerator. The programme page moved from startups.sheraa.ae (now 404) to asc.sheraa.ae and on 20 October 2026 still showed only the 2025 cycle (applications 7 July to 7 September 2025, programme October 2025 to February 2026). No later public application cycle was verified."
+        "note": "The official page explicitly describes S3 as neither an incubator nor an accelerator. The programme page moved from startups.sheraa.ae (now 404) to asc.sheraa.ae and on 26 November 2026 still showed only the 2025 cycle (applications 7 July to 7 September 2025, programme October 2025 to February 2026, demo day 1 February 2026), although that cycle has ended. No later public application cycle was verified on the page or in news searches."
       },
-      "verified_as_of": "2026-10-20",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://www.asc.sheraa.ae/s3-program"
       ]
@@ -271,9 +273,9 @@
         "early-stage"
       ],
       "application_url": "https://www.seeinstitute.ae/build-experiment/",
-      "application_status": "The former Bedayat programme and start-up application pages on seeinstitute.ae return 404 after a site redesign. The current SEE Institute site lists Bedayat as its founder learning and incubation business and describes an incubator and an accelerator track; enquiries go through the site's contact form (interest: Accelerators and incubators). No fixed public cohort deadline was verified.",
-      "eligibility_note": "Applicants should address The Sustainable City's social, environmental, or economic sustainability pillars and cannot simultaneously participate in another incubator or accelerator.",
-      "verified_as_of": "2026-09-28",
+      "application_status": "The former Bedayat programme and start-up application pages on seeinstitute.ae return 404 after a site redesign. On 2026-11-26 the SEE Institute site lists Bedayat among its businesses as 'Founder learning and incubation', with the menu entry still marked 'description to be confirmed', and links it to the Build + Experiment page. That page describes venture programmes with an incubator track (problem, concept or early prototype stage) and an accelerator track (product, users or early traction) and Living Lab testing, without naming fees, equity, funding, cohort dates or a Bedayat-specific application form; enquiries go through the site's contact form (interest: Accelerators and incubators). No fixed public cohort deadline was verified.",
+      "eligibility_note": "Applicants should address The Sustainable City's social, environmental, or economic sustainability pillars and cannot simultaneously participate in another incubator or accelerator. Unconfirmed since the site redesign: this criterion and the grant-facilitation benefit come from the former Bedayat pages reviewed on 2026-08-14 and are not restated on the current site (checked 2026-11-26); confirm with SEE Institute.",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://www.seeinstitute.ae/build-experiment/",
         "https://www.seeinstitute.ae/",
@@ -285,7 +287,7 @@
     {
       "name": "AREA 2071",
       "reason": "The current Dubai Future Foundation page describes a co-creation and innovation space with facilities and startup-licence support, not a discrete accelerator with a fixed cohort or funding offer. It is excluded from the accelerator finder to avoid misclassification.",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://www.dubaifuture.ae/initiatives/future-design-and-acceleration/area-2071/",
         "https://www.dubaifuture.ae/terms-of-service-area-2071/"
@@ -294,7 +296,7 @@
     {
       "name": "AstroLabs",
       "reason": "AstroLabs currently presents paid market-entry, business-setup, growth, and workspace services rather than a general open funding accelerator. It is excluded from the accelerator finder; individual market-entry programmes have their own terms.",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://astrolabs.com/solutions/profile/startups",
         "https://astrolabs.com/market-entry-programs",
@@ -342,7 +344,7 @@
         }
       ],
       "url": "https://www.becocapital.com/",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://www.becocapital.com/beco-capital-raises-370-million-to-back-founders-from-pre-seed-to-ipo-in-the-gulf/",
         "https://www.becocapital.com/becos-investment-manifesto/"
@@ -364,7 +366,7 @@
       ],
       "fund_structure": "Early-stage evergreen investment entity",
       "url": "https://wamdacapital.com/",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://wamdacapital.com/our-story/",
         "https://wamdacapital.com/"
@@ -398,7 +400,7 @@
         "stage_note": "The current Fund IV index does not publish a concise round-stage mandate."
       },
       "url": "https://mevp.com/",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://mevp.com/funds"
       ]
@@ -409,7 +411,7 @@
       "stage_focus": [
         "Pre-seed"
       ],
-      "stage_scope": "The current equity page says Shorooq invests across diverse stages and explicitly says it can invest as early as idea or pre-seed; it does not publish a single firm-wide round range.",
+      "stage_scope": "The current equity page says that regionally Shorooq backs founders from the idea and pre-seed stage through to late-stage growth, and globally invests in AI, deep tech and tactical opportunities; it does not publish a ticket range. Only the explicitly named pre-seed entry point is used as a finder stage.",
       "sectors": [
         "sector-diverse"
       ],
@@ -417,7 +419,7 @@
         "Middle East and North Africa"
       ],
       "url": "https://www.shorooq.com/",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://www.shorooq.com/what-we-do/equity-venture-capital",
         "https://www.shorooq.com/portfolio"
@@ -426,24 +428,27 @@
     {
       "id": "global_ventures",
       "name": "Global Ventures",
-      "stage_focus": [
-        "Series B+"
-      ],
-      "stage_scope": "The current official site describes a growth-stage focus; Series B+ is a finder normalization, not a quoted round boundary.",
+      "stage_scope": "The current official site (checked 2026-11-26) does not state a round-stage mandate or ticket; the earlier growth-stage wording and the Series B+ finder normalization were removed. Its portfolio page labels companies from Seed to Series E and Growth across Funds I to III.",
       "sectors": [
+        "food and agriculture",
+        "supply chain and digital infrastructure",
+        "financial inclusion",
         "fintech",
-        "healthtech",
+        "future of work and education",
         "edtech",
-        "agritech",
-        "enterprise saas"
+        "healthcare access",
+        "healthtech",
+        "agritech"
       ],
       "geo": [
-        "emerging markets",
+        "Europe",
         "Middle East",
         "Africa"
       ],
+      "assets_under_management_usd": 400000000,
+      "profile_note": "The site describes a Dubai-headquartered firm investing in 'future-first' founders across Europe, the Middle East, and Africa, with USD 400 million under management and 71 portfolio companies. The fintech, edtech, healthtech and agritech entries are finder normalizations of the site's own sector names.",
       "url": "https://www.global.vc/",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://www.global.vc/",
         "https://www.global.vc/founders"
@@ -456,24 +461,26 @@
         "Pre-seed",
         "Seed"
       ],
-      "stage_scope": "COTU aims to be the first institutional cheque, investing as early as pre-seed, mostly at seed, sometimes at late seed, and rarely entering at Series A.",
-      "ticket_usd_min": 150000,
-      "ticket_usd_max": 2000000,
-      "ticket_scope": "Initial cheque; additional capital is reserved for follow-ons.",
+      "stage_scope": "The manifesto (checked 2026-11-26) says COTU invests as early as idea (pre-seed) through to post-product launch (seed) and that anything later is not for it; it supports founders from pre-seed to Series A and beyond through follow-ons.",
+      "ticket_usd_min": 250000,
+      "ticket_usd_max": 3000000,
+      "ticket_scope": "Initial cheque ('as small as $250k to as big as $3m initially'); additional capital is reserved for follow-ons.",
       "sectors": [
-        "sector-agnostic technology"
+        "sector-agnostic technology",
+        "AI"
       ],
       "geo": [
-        "GCC",
-        "Egypt",
-        "Lebanon",
-        "Jordan"
+        "MENA",
+        "UAE",
+        "Saudi Arabia",
+        "Arab diaspora"
       ],
-      "url": "https://www.cotu.vc/",
-      "verified_as_of": "2026-08-14",
+      "focus_note": "The manifesto says founders in the UAE and Saudi Arabia predominantly, plus Arab-diaspora founders building outside the region; it no longer names Egypt, Lebanon or Jordan. COTU says it is not thesis-driven but prefers AI-native applications and services, agentic commerce infrastructure and marketplaces, and businesses touching physical assets in traditional industries.",
+      "url": "https://www.cotu.com/",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
-        "https://www.cotu.vc/our-manifesto",
-        "https://www.cotu.vc/copy-of-our-purpose"
+        "https://www.cotu.com/manifesto",
+        "https://www.cotu.com/"
       ]
     },
     {
@@ -488,7 +495,7 @@
         "MENA"
       ],
       "url": "https://500.co/mena",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://500.co/mena",
         "https://500.co/strategy"
@@ -510,7 +517,7 @@
         "Global"
       ],
       "url": "https://www.mubadalacapital.ae/ventures",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://www.mubadalacapital.ae/ventures"
       ]
@@ -528,7 +535,7 @@
       ],
       "manager_location_note": "MENA-based manager with a global portfolio.",
       "url": "https://www.venturesouq.com/",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://www.venturesouq.com/",
         "https://www.venturesouq.com/contact"
@@ -550,7 +557,7 @@
         "Cairo"
       ],
       "url": "https://www.nuwacapital.io/",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://www.nuwacapital.io/who-we-are",
         "https://www.nuwacapital.io/portfolio"
@@ -578,7 +585,7 @@
       ],
       "url": "https://raed.vc/",
       "application_url": "https://raed.vc/apply/",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://raed.vc/apply/",
         "https://raed.vc/about/"
@@ -589,7 +596,7 @@
     {
       "name": "Cypress Growth Capital",
       "reason": "Its current investment criteria require a US-headquartered B2B software or technology-enabled services company. Its royalty-based growth capital is not a MENA-focused VC mandate.",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://www.cypressgrowthcapital.com/growth-capital/investment-focus",
         "https://www.cypressgrowthcapital.com/growth-capital/non-dilutive-growth-capital"
@@ -598,7 +605,7 @@
     {
       "name": "Techstars Dubai",
       "reason": "No Dubai accelerator appears in Techstars' current official accelerator or location directory. A separate Emirates NBD AI and fintech Acceleration-to-Enterprise partnership was announced on 2026-07-07, but no public open Dubai cohort with standard accelerator terms was verified.",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://www.techstars.com/accelerators",
         "https://www.techstars.com/locations",
@@ -614,12 +621,13 @@
       "programs": {
         "innovation_accelerator": {
           "support_type": "non_financial_accelerator",
-          "duration_months": 9,
+          "duration_months": 6,
+          "duration_note": "The official FAQ (checked 2026-11-26) states twice that the Accelerator is a 6-month programme; the 9 months recorded previously is not stated on any MBRIF page opened in this review.",
           "direct_funding": false,
           "participation_fee": false,
           "takes_equity": false,
           "eligibility_summary": "Market-stage or later innovators with a UAE presence or an intention to establish one; programme selection criteria apply.",
-          "application_status": "The official site's Apply link (checked 2026-10-20) points to a Cohort 13 application form on MBRIF's accelerator platform, but no dated cohort deadline is published.",
+          "application_status": "The official site's Apply link (checked 2026-11-26) still points to a Cohort 13 application form on MBRIF's accelerator platform, and no dated cohort deadline is published. Secondary source only: MENA Startup Digest reported on 18 August 2026 that Cohort 13 applications had opened. No Cohort 13 selection announcement was found on MBRIF's media centre or in news searches; the FAQ says selection can take up to 4 months from application.",
           "summary": "Members receive coaching, expertise, partner and investor connections; neither the Accelerator nor MBRIF provides members direct funding."
         },
         "guarantee_scheme": {
@@ -646,13 +654,14 @@
         "note": "MBRIF press release distributed via Zawya (published 31 July 2026) and reported by WAM: 17 UAE and international companies in AI, healthtech, sustainability, water, education, advanced manufacturing, accessibility and digital infrastructure, following 11 completed cohorts. The previous snapshot was Cohort 11 (21 members, announced 22 January 2026)."
       },
       "url": "https://mbrif.ae/",
-      "verified_as_of": "2026-10-20",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://mbrif.ae/faq-2/",
         "https://mbrif.ae/program-selection-2/",
         "https://mbrif.ae/accelerator-2/",
         "https://mbrif.ae/mbrif-welcomes-11th-cohort-of-innovators-into-the-innovation-accelerator-program/",
-        "https://www.zawya.com/en/press-release/government-news/mohammed-bin-rashid-innovation-fund-welcomes-cohort-12-into-the-innovation-accelerator-program-416556"
+        "https://www.zawya.com/en/press-release/government-news/mohammed-bin-rashid-innovation-fund-welcomes-cohort-12-into-the-innovation-accelerator-program-416556",
+        "https://menastartupdigest.com/mbrif-opens-applications-for-innovation-accelerator-cohort-13/"
       ]
     },
     {
@@ -680,19 +689,20 @@
         "new_commitments_during_2025": 8
       },
       "current_portfolio_listing_snapshot": {
-        "verified_as_of": "2026-08-14",
-        "listed_entities": 36,
-        "direct_investments": 20,
-        "fund_of_funds": 16,
-        "method": "Derived count of entries on the official current portfolio listing.",
-        "reconciliation_note": "The live listing is newer and uses a different snapshot than the 2025 annual-report headline; the two totals are intentionally not merged."
+        "verified_as_of": "2026-11-26",
+        "listed_entities": 40,
+        "direct_investments": 22,
+        "fund_of_funds": 18,
+        "method": "Derived count of entries on the official current portfolio listing, grouped by the site's own investment-type tag and read on 2026-11-26 from the site's public WordPress portfolio feed because the page renders client-side. The site tags BECO Capital as a direct investment; that tag is kept as published.",
+        "reconciliation_note": "The live listing is newer and uses a different snapshot than the 2025 annual-report headline; the two totals are intentionally not merged. Entries added since the 14 August 2026 count of 36 (20 direct, 16 fund of funds): Balio and Meal Planet (direct, listed 18 August 2026), Nordstar (fund of funds, listed 16 September 2026; DFDF press release of 17 September 2026, amount undisclosed) and Zacua Ventures (fund of funds, listed 5 November 2026)."
       },
       "url": "https://dfdf.vc/",
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://dfdf.vc/about/",
         "https://dfdf.vc/companies/",
-        "https://dfdf.vc/press-releases/dubai-future-district-fund-unveils-annual-report-begins-to-unlock-d33-verticals-with-proptech-milestones-and-sets-strategic-vision-for-2026-2/"
+        "https://dfdf.vc/press-releases/dubai-future-district-fund-unveils-annual-report-begins-to-unlock-d33-verticals-with-proptech-milestones-and-sets-strategic-vision-for-2026-2/",
+        "https://dfdf.vc/press-releases/dubai-future-district-fund-commits-to-nordstar-managed-global-growth-fund-to-back-regional-founders-scaling-internationally/"
       ]
     },
     {
@@ -711,11 +721,11 @@
           "delivery": "Hybrid",
           "application_deadline": "2026-08-31",
           "application_deadline_status": "deadline_passed",
-          "status_as_of": "2026-09-05",
+          "status_as_of": "2026-11-26",
           "programme_starts": "2026-10",
           "demo_day": "2027-02",
           "eligibility_summary": "UAE resident aged 18 or older; at least one Emirati co-founder or team member; a technology idea or MVP less than two years old; full programme commitment required.",
-          "status_note": "The previously verified 31 August 2026 deadline has passed. The official page still describes the programme, but its retrievable text did not confirm a new deadline or extension on 5 September 2026; contact the operator before applying."
+          "status_note": "The 31 August 2026 deadline has passed. On 2026-11-26 the official Hi2 page still describes the programme (16 weeks, cohort of 20, hybrid, no cost if accepted, same eligibility) but shows no deadline, start date or next intake. The October 2026 start and February 2027 demo day come from the DET release of 13 July 2026 and the earlier page; no announcement that the cohort began, or of a new application window, was found. Dubai Founders HQ and DET pages return HTTP 403 to automated checks and were read through a text-rendering proxy. Contact the operator before applying."
         },
         "mohammed_bin_rashid_fund_for_smes": {
           "support_type": "business_loan_route",
@@ -723,7 +733,7 @@
           "eligibility_summary": "The current registration route states 100% UAE-national ownership and management, a project under five years old, applicant age 21 or older, and credit-scheme conditions."
         }
       },
-      "verified_as_of": "2026-08-14",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://www.dubaifoundershq.com/en/launch-your-business/incubators-in-dubai/hamdan-innovation-incubator/hi2-incubator-programme",
         "https://dubaifoundershq.com/en/about",
@@ -738,7 +748,7 @@
       "type": "interest_free_business_loans_and_nonfinancial_support",
       "location": "Abu Dhabi emirate",
       "funding_type": "Medium-term interest-free business loans",
-      "funding_eligibility_summary": "Businesses 100% owned by UAE nationals, legally established and operating in Abu Dhabi emirate, within the applicable micro, small or medium size classification, with an owner or partner aged 18 to 65 and no open court cases; business-age, sector, credit and compliance criteria vary by programme (redesigned funding page, checked 2026-10-20). The FAQ page still states an owner age of 21 to 60, so confirm with Khalifa Fund.",
+      "funding_eligibility_summary": "Businesses 100% owned by UAE nationals, legally established and operating in Abu Dhabi emirate, within the applicable micro, small or medium size classification, with an owner or partner aged 18 to 65 and no open court cases; business-age, sector, credit and compliance criteria vary by programme (redesigned funding page, rechecked 2026-11-26). The FAQ page still states an owner age of 21 or older with a maximum of 60 (rechecked 2026-11-26), so the conflict is unresolved; confirm with Khalifa Fund.",
       "current_programmes": [
         "First-time Founders Loan",
         "AI & Robotics Loan",
@@ -748,8 +758,8 @@
         "Fixed Assets Loan",
         "Expansion Loan"
       ],
-      "current_programmes_as_of": "2026-10-20",
-      "interest_terms_note": "Neither the redesigned funding page nor the FAQ checked on 2026-10-20 states interest or profit terms; the interest-free description is kept from the 2026-08-14 review and should be confirmed before applying.",
+      "current_programmes_as_of": "2026-11-26",
+      "interest_terms_note": "Neither the redesigned funding page, the FAQ (both rechecked 2026-11-26) nor the Abu Dhabi Media Office release of 20 July 2026 announcing the seven programmes states interest or profit terms; the interest-free description is kept from the 2026-08-14 review, is unconfirmed, and should be confirmed before applying.",
       "priority_sectors": [
         "healthcare",
         "education",
@@ -760,22 +770,23 @@
         "innovative projects"
       ],
       "funding_products_snapshot": {
-        "as_of": "2026-08-14",
+        "as_of": "2026-11-26",
         "microfinance_loan_aed_max": 500000,
         "small_loan_manufacturing_aed_max": 2000000,
         "small_loan_other_sectors_aed_max": 1000000,
         "expansion_loan_manufacturing_aed_max": 3000000,
         "expansion_loan_other_sectors_aed_max": 2000000,
-        "note": "Agriculture and scale-up facilities are also listed. Limits, cost-coverage ratios, repayment periods, and eligibility vary by product. On 2026-10-20 these limits appeared only on the FAQ page, which still lists this earlier product set; the redesigned funding-scheme page lists seven programmes (see current_programmes) without published limits."
+        "note": "Agriculture and scale-up facilities are also listed. Limits, cost-coverage ratios, repayment periods, and eligibility vary by product. On 2026-11-26 these limits still appeared only on the FAQ page, which lists the earlier product set; the redesigned funding-scheme page and the Abu Dhabi Media Office release of 20 July 2026 list seven programmes (see current_programmes) without published limits, so the limits may not apply to the current programmes."
       },
       "url": "https://www.khalifafund.ae/services/funding-scheme/",
-      "verified_as_of": "2026-10-20",
+      "verified_as_of": "2026-11-26",
       "source_urls": [
         "https://www.khalifafund.ae/services/funding-scheme/",
-        "https://www.khalifafund.ae/faq/"
+        "https://www.khalifafund.ae/faq/",
+        "https://www.mediaoffice.abudhabi/en/economy/khalifa-fund-for-enterprise-development-strengthens-financing-ecosystem-with-7-integrated-programmes-to-support-enterprise-growth/"
       ]
     }
   ],
-  "previous_knowledge_date": "2026-09-28",
-  "last_refresh_scope": "Targeted refresh of 2026-10-20: checked every programme and fund for closures, renames and new rounds since 2026-09-28 and rechecked all URLs. Changed: MBRIF latest cohort moved from Cohort 11 to Cohort 12 (17 members, MBRIF release on Zawya dated 31 July 2026, missed by earlier refreshes) and its Apply link now opens a Cohort 13 form with no published deadline; Khalifa Fund's funding page was redesigned into seven programmes (First-time Founders, AI & Robotics, Revolving, Small, Working Capital, Fixed Assets and Expansion loans) with owner age 18 to 65 and no published limits, while its FAQ still shows the earlier product limits and age 21 to 60, so both are recorded; DIFC Innovation Hub gains the official subsidy schedule from DIFC's handbook Rev.06 (approved 29 September 2026). Rechecked with no change: Hub71 Cohort 21 (February 2027 deadline, review by April 2027, September 2027 start, AED 250,000 incentives plus AED 250,000 SAFE), Sheraa S3 (still only the 2025 cycle), in5 subsidised prices, Dtec year-one desk and office prices, Dubai Future Accelerators (no dated challenge), Bedayat (SEE Institute page still has no cohort or deadline), and the VC records (no new fund close, closure or rename found for BECO, Wamda, MEVP, Shorooq, Global Ventures, COTU, 500 Global, Mubadala Capital Ventures, VentureSouq, Nuwa or RAED). The DFDF portfolio page renders client-side and its count was not re-taken; no DFDF commitment after August 2026 was found. Dubai Founders HQ, the Hi2 page, dubaidet.gov.ae and dubai.ae return HTTP 403 to automated checks (blocked, not dead), so the Hi2 October 2026 start was not re-verified. Other records retain their 14 August review dates. Not a full re-verification of every field in this pack; full_review_date is preserved."
+  "previous_knowledge_date": "2026-10-20",
+  "last_refresh_scope": "Full review of 2026-11-26: every record, field and URL was rechecked against the programme's or fund's own pages, with news searches for changes since 2026-10-20. Changed: MBRIF accelerator duration corrected from 9 to 6 months (official FAQ), with the Apply link still on the Cohort 13 form, no deadline and no Cohort 13 selection announcement found (the August 2026 opening rests on a secondary source); COTU Ventures moved from cotu.vc to cotu.com and its manifesto now gives initial cheques of USD 250,000 to 3 million (was 150,000 to 2 million), pre-seed and seed only, and the UAE and Saudi Arabia plus the Arab diaspora; Global Ventures no longer states a growth-stage focus, so the Series B+ finder stage was removed and its sectors, geography (Europe, Middle East, Africa) and USD 400 million under management were taken from the current site; Shorooq stage wording updated (idea and pre-seed through late-stage growth); Dubai Future Accelerators has no verified open challenge because its apply link leads to a cycle that closed on 29 August 2025; the DFDF live portfolio listing grew from 36 to 40 entries (22 direct, 18 fund of funds) with Balio, Meal Planet, Nordstar and Zacua Ventures added, correcting the previous refresh's statement that no commitment after August 2026 was found; the DIFC Innovation Hub note now names its three listed partner programmes; a Hub71 note records that the FAQ gives an April to June 2027 review window. Verified with no change: Hub71 Cohort 21 (February 2027 deadline, review by April 2027, September 2027 start, AED 250,000 incentives plus AED 250,000 SAFE and a possible AED 250,000 top-up), in5 subsidised prices, Dtec year-one prices, DIFC Innovation Licence fees (web page, setup guide and handbook Rev.06), Sheraa S3 (still only the 2025 cycle), AREA 2071 and AstroLabs exclusions, BECO, Wamda, MEVP, 500 Global, Mubadala Capital Ventures, VentureSouq, Nuwa and RAED, the Cypress and Techstars exclusions, MBRIF Cohort 12 and the Guarantee Scheme operated by Emirates Development Bank, the DFDF fund size and 2025 report figures, the Mohammed Bin Rashid Fund for SMEs eligibility, and Khalifa Fund's seven programmes. Not confirmed: the Khalifa Fund conflict persists (funding page 18 to 65, FAQ 21 to 60) and no source states its interest terms or current limits; Bedayat's benefits and eligibility are not restated on the redesigned SEE Institute site; the Hi2 October 2026 start was not confirmed and its page shows no new intake; Hub71 Cohort 20 selection results were not found. Hub71, Dubai Founders HQ, dubaidet.gov.ae and dubai.ae return HTTP 403 and difc.com HTTP 429 to automated checks (blocked, not dead); their content was read through a text-rendering proxy. No dead link remains in the pack."
 }

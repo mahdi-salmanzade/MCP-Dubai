@@ -16,7 +16,7 @@
 [![Status: Alpha](https://img.shields.io/badge/status-alpha-orange.svg)](#project-status)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-[Quick start](#quick-start) · [Tools](#tool-catalogue) · [Configuration](#configuration) · [Data freshness](#knowledge-freshness) · [Development](#development) · [Latest audit](AUDIT-2026-10-20.md)
+[Quick start](#quick-start) · [Tools](#tool-catalogue) · [Configuration](#configuration) · [Data freshness](#knowledge-freshness) · [Development](#development) · [Latest audit](AUDIT-2026-11-26.md)
 
 </div>
 
@@ -116,7 +116,7 @@ Tools are grouped by purpose below. All names are exposed without a feature pref
 |---|---|---|
 | `al_adhan` | `prayer_times_for`, `prayer_times_calendar`, `qibla_direction`, `hijri_to_gregorian`, `gregorian_to_hijri` | Prayer times, Qibla bearings, and Hijri/Gregorian conversion. |
 | `quran_cloud` | `quran_surah`, `quran_ayah`, `quran_juz`, `quran_search` | Quran text and translations with bounded, paginated search. |
-| `cbuae` | `cbuae_exchange_rates`, `cbuae_base_rate` | CBUAE exchange rates with English/Arabic labels and currency codes. The base-rate endpoint is recorded as blocked. |
+| `cbuae` | `cbuae_exchange_rates`, `cbuae_base_rate` | CBUAE exchange rates with English/Arabic labels and currency codes. The base-rate endpoint was blocked upstream until October 2026 and answered again on November 26. |
 | `fcsc_ckan` | `fcsc_search_dataset`, `fcsc_get_dataset`, `fcsc_list_organizations`, `fca_trade_stats` | Federal dataset discovery and trade-data search. The CKAN endpoint is recorded as blocked. |
 | `khda` | `khda_search_school`, `khda_list_curricula`, `khda_list_areas` | Search a bundled 16-school sample by area, curriculum, rating, or indicative fee ceiling. This is not a complete school directory. |
 | `aviation_weather` | `weather_uae_icao`, `weather_uae_all` | METAR observations and TAF forecasts for six UAE airports. |
@@ -234,16 +234,17 @@ The former Dubai Pulse portal redirects to data.dubai. The project retains `PULS
 
 ## Availability and limitations
 
-The [October 20, 2026 audit](AUDIT-2026-10-20.md) records representative service checks, source verification, and remaining limits. These observations are a dated snapshot:
+The [November 26, 2026 audit](AUDIT-2026-11-26.md) records representative service checks, source verification, and remaining limits. These observations are a dated snapshot:
 
 | Integration | Recorded result |
 |---|---|
 | CBUAE exchange rates | Working; 77 currencies returned |
-| CBUAE base rate and four FCSC tools | Blocked by upstream access protection |
-| data.dubai catalogue | Working; 639 datasets, 11 themes, and 75 issuers |
-| DFM | Working; 468 securities, with names missing upstream |
-| RTA GTFS archive | Intermittent access via the apex host; retrieved archive still identifies the August 23, 2025 build |
-| Other anonymous integrations | Successful representative calls for prayer times, Quran text, aviation and general weather, currencies, gold, Makani, and Overpass (Overpass after one transient HTTP 504) |
+| CBUAE base rate | Working again (3.9%) after a parser fix for the new upstream layout; it was blocked at earlier audits |
+| Four FCSC tools | Blocked by upstream access protection |
+| data.dubai catalogue | Working; 646 datasets, 11 themes, and 75 issuers |
+| DFM | Working; 480 securities, with names missing upstream |
+| RTA GTFS archive | Downloaded on 2 of 2 tries (10.4 MB) through the redirect to the www host; intermittent at earlier audits |
+| Other anonymous integrations | Successful representative calls for prayer times, Quran text, aviation and general weather, currencies, gold, and Makani. Overpass was at capacity (HTTP 502 and a timeout) |
 | OAuth datasets and WAQI readings | Not live-tested in the audit without representative credentials |
 
 The school dataset contains 16 selected records from an April 2026 snapshot. Nine records received targeted attribute corrections on September 5; school fees were not refreshed. Business costs and onboarding timelines can also be dated estimates, as indicated in the underlying records.
@@ -264,7 +265,7 @@ Freshness is tracked across **19 domains**: 16 JSON packs, `setup_advisor`, `dat
 | `verify_at` | Domain verification or source URL |
 | `disclaimer` | Domain-specific scope and use limitations |
 
-As of **October 20, 2026**, `tax_compliance` received a full review and twelve more domains a targeted refresh. Nine domains keep their October 13 full reviews (`cost_of_living`, `events`, `free_zones`, `visas`, `setup_advisor`, `dcde`, `ip_trademark`, `founder_essentials`, `data_analyst`), and `arabic_writer` stays at `2026-04-13`. Targeted updates leave untouched fields and full-review dates at their earlier verification scope. Detailed corrections and source links are in the [audit report](AUDIT-2026-10-20.md).
+As of **November 26, 2026**, `funding` received a full review and eight more domains a targeted refresh (`tax_compliance`, `visas`, `free_zones`, `setup_advisor`, `events`, `cost_of_living`, `tenancy`, `dcde`). The other ten were checked for news and left unchanged. `tax_compliance` keeps its October 20 full review, nine domains keep their October 13 full reviews, and `arabic_writer` stays at `2026-04-13`. Targeted updates leave untouched fields and full-review dates at their earlier verification scope. Detailed corrections and source links are in the [audit report](AUDIT-2026-11-26.md).
 
 The freshness checker uses the last **full review**, with alerting budgets of 100 days for high-volatility domains, 190 for medium, and 365 for stable. Monthly prices, deadlines, and events still need review on their own schedules. Passing the age check does not establish that every fact is current.
 
@@ -302,7 +303,7 @@ make check
 
 `make check` runs Ruff lint and format checks, strict mypy, pytest with coverage, and the informational freshness report. Use the `--strict` freshness command above to fail on overdue domains.
 
-The [October 20 audit](AUDIT-2026-10-20.md#verification) recorded **1006 passing tests** with **93.77% coverage** on Python 3.12, and CI runs the same suite on each supported version (3.11 to 3.14). Packaging, type checks, lint, and security scans also passed; the audit documents their scope.
+The [November 26 audit](AUDIT-2026-11-26.md#verification) recorded **1009 passing tests** with **93.77% coverage** on Python 3.12, and CI runs the same suite on each supported version (3.11 to 3.14). Packaging, type checks, lint, and security scans also passed; the audit documents their scope.
 
 ### Architecture
 
@@ -318,7 +319,7 @@ src/mcp_dubai/
 └── agents/           # Arabic writing and data-analysis tools
 ```
 
-Feature `tools.py` modules implement the logic; `server.py` modules expose FastMCP wrappers and register discovery metadata. Shared response models carry results, errors, and knowledge metadata. The source supports `fastmcp>=3.4.9,<4` with `mcp>=1.30.0,<2`; dependencies and supported Python versions are declared in [pyproject.toml](pyproject.toml).
+Feature `tools.py` modules implement the logic; `server.py` modules expose FastMCP wrappers and register discovery metadata. Shared response models carry results, errors, and knowledge metadata. The source supports `fastmcp>=3.4.11,<4` with `mcp>=1.30.0,<2`; dependencies and supported Python versions are declared in [pyproject.toml](pyproject.toml).
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) for feature conventions, tests, and the review checklist. Report reproducible errors or source corrections through [GitHub issues](https://github.com/mahdi-salmanzade/MCP-Dubai/issues).
 
